@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="论文 Identifying and characterizing Sybils in the Tor network 这里先用《所阅文章笔记》对文章简要介绍，以下是其关注的七个问题。  本文想解决什么问题缺少攻击和方法去暴露在Tor网络这个特殊环境下的Sybil攻击。 ####该问题为何重要 对于Tor网络而言，关键点在于其匿名性，而Sybil攻击可以反匿名化，得到用户个人信息，甚至劫持比特币交">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文Identifying and characterizing Sybils in the Tor network">
+<meta property="og:url" content="http://yoursite.com/2019/09/22/论文Identifying-and-characterizing-Sybils-in-the-Tor-network/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="论文 Identifying and characterizing Sybils in the Tor network 这里先用《所阅文章笔记》对文章简要介绍，以下是其关注的七个问题。  本文想解决什么问题缺少攻击和方法去暴露在Tor网络这个特殊环境下的Sybil攻击。 ####该问题为何重要 对于Tor网络而言，关键点在于其匿名性，而Sybil攻击可以反匿名化，得到用户个人信息，甚至劫持比特币交">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/.com//hezhengjie/hexo/source/_posts/论文Identifying-and-characterizing-Sybils-in-the-Tor-network/屏幕快照%202019-09-22%20上午10.16.58.png">
+<meta property="og:image" content="http://yoursite.com/.com//屏幕快照%202019-09-22%20上午10.16.58.png">
+<meta property="og:image" content="http://yoursite.com/.com//屏幕快照%202019-09-22%20上午10.25.13.png">
+<meta property="og:image" content="http://yoursite.com/.com//论文Identifying-and-characterizing-Sybils-in-the-Tor-network/屏幕快照%202019-09-22%20上午10.30.35.png">
+<meta property="og:image" content="http://yoursite.com/.com//论文Identifying-and-characterizing-Sybils-in-the-Tor-network/屏幕快照%202019-09-22%20上午10.36.18.png">
+<meta property="og:image" content="http://yoursite.com/.com//hezhengjie/hexo/source/_posts/论文Identifying-and-characterizing-Sybils-in-the-Tor-network/屏幕快照%202019-09-22%20上午10.40.43.png">
+<meta property="og:image" content="http://yoursite.com/.com//屏幕快照%202019-09-22%20上午10.48.16.png">
+<meta property="og:image" content="http://yoursite.com/.com//屏幕快照%202019-09-22%20上午11.03.28.png">
+<meta property="og:image" content="http://yoursite.com/.com//屏幕快照%202019-09-22%20上午11.03.18.png">
+<meta property="og:image" content="http://yoursite.com/.com//屏幕快照%202019-09-22%20上午11.04.36.png">
+<meta property="og:image" content="http://yoursite.com/.com//屏幕快照%202019-09-22%20上午11.04.05.png">
+<meta property="og:updated_time" content="2019-09-22T03:42:43.489Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="论文Identifying and characterizing Sybils in the Tor network">
+<meta name="twitter:description" content="论文 Identifying and characterizing Sybils in the Tor network 这里先用《所阅文章笔记》对文章简要介绍，以下是其关注的七个问题。  本文想解决什么问题缺少攻击和方法去暴露在Tor网络这个特殊环境下的Sybil攻击。 ####该问题为何重要 对于Tor网络而言，关键点在于其匿名性，而Sybil攻击可以反匿名化，得到用户个人信息，甚至劫持比特币交">
+<meta name="twitter:image" content="http://yoursite.com/.com//hezhengjie/hexo/source/_posts/论文Identifying-and-characterizing-Sybils-in-the-Tor-network/屏幕快照%202019-09-22%20上午10.16.58.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/22/论文Identifying-and-characterizing-Sybils-in-the-Tor-network/">
+
+
+
+
+
+  <title>论文Identifying and characterizing Sybils in the Tor network | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/22/论文Identifying-and-characterizing-Sybils-in-the-Tor-network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HEATAO">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">论文Identifying and characterizing Sybils in the Tor network</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-22T09:30:13+08:00">
+                2019-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="论文-Identifying-and-characterizing-Sybils-in-the-Tor-network"><a href="#论文-Identifying-and-characterizing-Sybils-in-the-Tor-network" class="headerlink" title="论文 Identifying and characterizing Sybils in the Tor network"></a>论文 Identifying and characterizing Sybils in the Tor network</h2><blockquote>
+<p>这里先用《所阅文章笔记》对文章简要介绍，以下是其关注的七个问题。</p>
+</blockquote>
+<h4 id="本文想解决什么问题"><a href="#本文想解决什么问题" class="headerlink" title="本文想解决什么问题"></a>本文想解决什么问题</h4><p>缺少攻击和方法去暴露在Tor网络这个特殊环境下的Sybil攻击。</p>
+<p>####该问题为何重要</p>
+<p>对于Tor网络而言，关键点在于其匿名性，而Sybil攻击可以反匿名化，得到用户个人信息，甚至劫持比特币交易，获得你访问信息等。</p>
+<h4 id="该问题为何困难"><a href="#该问题为何困难" class="headerlink" title="该问题为何困难"></a>该问题为何困难</h4><p>由于在Tor网络中与一般环境不一样，识别在Tor网络中的Sybil攻击，难点在于：</p>
+<ul>
+<li>需要尽可能的符合Tor网络的设计理念</li>
+<li>符合Tor网络本身节点本身“陌生”的属性</li>
+<li>不额外引入计算约束</li>
+</ul>
+<h4 id="前人的研究成果如何"><a href="#前人的研究成果如何" class="headerlink" title="前人的研究成果如何"></a>前人的研究成果如何</h4><p>本文写于2016年，当时之前关于Tor网络中的sybil攻击主要采用的以下三种方式。</p>
+<p><strong>central authority</strong></p>
+<p>引入这种中心的信任节点，与Tor的设计原则相违背</p>
+<p><strong>Social constraints</strong> </p>
+<p>旨在仅利用类似社交关系，可信任的节点建立连接</p>
+<p>攻击者与用户很难建立信任，但Tor操作员之间本身也不相识，很难相互信任</p>
+<p><strong>computational puzzles</strong>  </p>
+<p>译为计算约束，旨在引入计算方面的限制来约束攻击者</p>
+<p>但Tor不同与其它分布式系统，其本身的特点需要不停消耗带宽和CPU</p>
+<h4 id="本文的新贡献何在"><a href="#本文的新贡献何在" class="headerlink" title="本文的新贡献何在"></a>本文的新贡献何在</h4><ul>
+<li><p>提出一种基于Sybils攻击特点的检测系统，sybilshunter</p>
+<p>这一点主要是通过总结Sybil的特点，用工具去自动化检测</p>
+<p>个人认为这一点是有所缺陷的，后面会展开论述</p>
+</li>
+<li><p>描述了Sybils的特点，并制作了新的数据集</p>
+<p>考虑到主动检测的方法会被一些Sybil躲避，难以探测</p>
+<p>这一点并没有通过特征和他们制作的工具，而是利用类似蜜罐的手段</p>
+<p>即利用一些已知会返回什么的relay，放到Tor环境下，如果返回结果不正确，则认为它们连接的relay为Sybil relay</p>
+</li>
+</ul>
+<h4 id="基本结论"><a href="#基本结论" class="headerlink" title="基本结论"></a>基本结论</h4><p>本文构建了一个可以识别的Sybil relay的系统，利用exitmap作为补充，依靠relay的特征进行识别，准确率可以接近60%。</p>
+<h4 id="本文方法有何假设或者不足"><a href="#本文方法有何假设或者不足" class="headerlink" title="本文方法有何假设或者不足"></a>本文方法有何假设或者不足</h4><ol>
+<li><p>由于采取类似规则的方式，用特征去甄别Sybil，所以召回率很难保</p>
+</li>
+<li><p>同第一点类似，对于新出现的Sybil，Sybilhunter的准确率不高</p>
+<p>这点该文引入了exitmap作为系统的补充</p>
+</li>
+<li><p>邻近排名算法需要修改一些设置，因为该算法将IP地址什么都视为Str类型</p>
+</li>
+<li><p>不同识别出Sybil的意图，这样很难判断该Sybil是否应该被移除</p>
+<p>文中有提到移除需要代价，并且Sybil在该文分类中有良性的</p>
+</li>
+<li><p>Sybilhunter处理之后提供的csv数据等，还需要手动处理</p>
+</li>
+</ol>
+<hr>
+<blockquote>
+<p>下面对一些细节进行介绍</p>
+</blockquote>
+<h4 id="名词说明"><a href="#名词说明" class="headerlink" title="名词说明"></a>名词说明</h4><p>这里先对Tor网络中的一些名词作简要介绍。</p>
+<p><strong>Sybils attack</strong></p>
+<p>攻击是指利用社交网络中的少数节点控制多个虚假身份，从而利用这些身份控制或影响网络的大量正常节点的攻击方式。论文中提及的研究包括botnets，hijack Bitcoin transaction。</p>
+<p>与本论文最相关的是，在tor网络中去匿名化。</p>
+<p><strong>Tor(anonymity network)</strong></p>
+<p>Tor是开源的匿名通信软件。最初名为“The Onion Router”。它用超过7k的中继relays来隐藏用户的位置和使用情况。有一定的限制，比如Wikipedia会阻止Tor用户编辑文字。另外，Tor开发的资金大部分来自美国政府。</p>
+<img src="/.com//hezhengjie/hexo/source/_posts/论文Identifying-and-characterizing-Sybils-in-the-Tor-network/屏幕快照 2019-09-22 上午10.16.58.png" style="zoom:50%;">
+
+<img src="/.com//屏幕快照 2019-09-22 上午10.16.58.png" alt="屏幕快照 2019-09-22 上午10.16.58" style="zoom:50%;">
+
+<p><strong>Sybils in Tor</strong></p>
+<p>We define Sybils in the Tor network as two or more re-lays that are controlled by a single person or group of people.</p>
+<p>这个定义下，又进行了良性和恶意的Sybil区分</p>
+<h3 id="设计和实验"><a href="#设计和实验" class="headerlink" title="设计和实验"></a>设计和实验</h3><p>下面会对论文中利用的Sybil特征进行较为详细的说明。</p>
+<h4 id="Sybilhunter架构"><a href="#Sybilhunter架构" class="headerlink" title="Sybilhunter架构"></a>Sybilhunter架构</h4><img src="/.com//屏幕快照 2019-09-22 上午10.25.13.png" alt="屏幕快照 2019-09-22 上午10.25.13" style="zoom:50%;">
+
+<p><strong>Sybilhunter可以做什么</strong></p>
+<p>1.可追溯到2007年的历史网络数据</p>
+<p>2.在线数据，用于在新的Sybils加入网络时检测它们</p>
+<p>3.找到可能与先前发现的恶意重放相关的中继</p>
+<h4 id="Sybilhunter内部结构"><a href="#Sybilhunter内部结构" class="headerlink" title="Sybilhunter内部结构"></a>Sybilhunter内部结构</h4><img src="/.com//论文Identifying-and-characterizing-Sybils-in-the-Tor-network/屏幕快照 2019-09-22 上午10.30.35.png" alt="屏幕快照 2019-09-22 上午10.30.35" style="zoom:50%;">
+
+<p>数据（Consensuses、Descriptors）通过过滤器得到处理后的子集，例如分析后得到IP地址和relay的昵称，转发到相对应的分析模块中，这些模块独立运作，但共享数据结构。</p>
+<p>分析后根据特征的不同给出不同的结果（CSV或Image）</p>
+<h4 id="利用network-churn检测"><a href="#利用network-churn检测" class="headerlink" title="利用network churn检测"></a>利用network churn检测</h4><p>这里churn rate说的是新的fingerprints在consensuses中波动（流失）情况</p>
+<p>在Tor中本身对此作出了一个阈值限制，但50的阈值过高，很难检测出Sybil relays</p>
+<p>在该文中新提出了计算churn rate的公式如下：</p>
+<img src="/.com//论文Identifying-and-characterizing-Sybils-in-the-Tor-network/屏幕快照 2019-09-22 上午10.36.18.png" alt="屏幕快照 2019-09-22 上午10.36.18" style="zoom:70%;">
+
+<p>值得注意的是，本文采用的检测方法主要是基于tor中的relays，关于公式是符号的定义，论文已有详尽说明。</p>
+<img src="/.com//hezhengjie/hexo/source/_posts/论文Identifying-and-characterizing-Sybils-in-the-Tor-network/屏幕快照 2019-09-22 上午10.40.43.png" alt="屏幕快照 2019-09-22 上午10.40.43" style="zoom:50%;">
+
+<h4 id="利用Fingerprint检测"><a href="#利用Fingerprint检测" class="headerlink" title="利用Fingerprint检测"></a>利用Fingerprint检测</h4><p>问题：</p>
+<p>HSDir是Tor网络中的服务器目录，由于HSDir是公开的，攻击者可能通过重复更改其fingerprint，来使其逐渐接近HSDir中的索引。</p>
+<p>解决方案：</p>
+<p>因为正常的relay的无论重启还是重分配IP，其fingerprint都不会变。</p>
+<p>故维护一个可以将relay的IP地址映射到指纹列表的lookup表，通过改变的频次进行排序，输出结果作为可能的Sybil relay进一步分析。</p>
+<h4 id="Nearest-neighbor-ranking寻找潜在Sybil"><a href="#Nearest-neighbor-ranking寻找潜在Sybil" class="headerlink" title="Nearest-neighbor ranking寻找潜在Sybil"></a>Nearest-neighbor ranking寻找潜在Sybil</h4><p>采用一种距离排名算法，将relay作为输入，比较其端口、流量等信息作为排序，以寻找到可能的恶意exit relay。</p>
+<p>不同于数据挖掘中的KNN，这里主要是将relays中的信息作为输入，比起输出列表中相似的子relay，根据编辑距离进行排名比较。</p>
+<img src="/.com//屏幕快照 2019-09-22 上午10.48.16.png" alt="屏幕快照 2019-09-22 上午10.48.16" style="zoom:50%;">
+
+
+
+<p>###结果评估和缺陷</p>
+<table><tr><td bgcolor="WhiteSmoke">该论文还对其返现的sybil relays根据其特点和可能的目的作出了分类，这里不作介绍。</td></tr></table>
+#### 一些实验结果展示
+
+<img src="/.com//屏幕快照 2019-09-22 上午11.03.28.png" alt="屏幕快照 2019-09-22 上午11.03.28" style="zoom:50%;">
+
+
+
+<img src="/.com//屏幕快照 2019-09-22 上午11.03.18.png" alt="屏幕快照 2019-09-22 上午11.03.18" style="zoom:50%;">
+
+
+
+<img src="/.com//屏幕快照 2019-09-22 上午11.04.36.png" alt="屏幕快照 2019-09-22 上午11.04.36" style="zoom:50%;">
+
+
+
+<img src="/.com//屏幕快照 2019-09-22 上午11.04.05.png" alt="屏幕快照 2019-09-22 上午11.04.05" style="zoom:50%;">
+
+<h4 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h4><p>在前文已有叙述。</p>
+<blockquote>
+<p>参考：</p>
+<p>[论文来源][<a href="https://censoredplanet.org/publications]" target="_blank" rel="noopener">https://censoredplanet.org/publications]</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/21/md语法试验/" rel="next" title="md语法试验">
+                <i class="fa fa-chevron-left"></i> md语法试验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/me.jpg" alt="HEATAO">
+            
+              <p class="site-author-name" itemprop="name">HEATAO</p>
+              <p class="site-description motion-element" itemprop="description">heatao的个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文-Identifying-and-characterizing-Sybils-in-the-Tor-network"><span class="nav-number">1.</span> <span class="nav-text">论文 Identifying and characterizing Sybils in the Tor network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本文想解决什么问题"><span class="nav-number">1.0.1.</span> <span class="nav-text">本文想解决什么问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#该问题为何困难"><span class="nav-number">1.0.2.</span> <span class="nav-text">该问题为何困难</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前人的研究成果如何"><span class="nav-number">1.0.3.</span> <span class="nav-text">前人的研究成果如何</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本文的新贡献何在"><span class="nav-number">1.0.4.</span> <span class="nav-text">本文的新贡献何在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本结论"><span class="nav-number">1.0.5.</span> <span class="nav-text">基本结论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本文方法有何假设或者不足"><span class="nav-number">1.0.6.</span> <span class="nav-text">本文方法有何假设或者不足</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#名词说明"><span class="nav-number">1.0.7.</span> <span class="nav-text">名词说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计和实验"><span class="nav-number">1.1.</span> <span class="nav-text">设计和实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sybilhunter架构"><span class="nav-number">1.1.1.</span> <span class="nav-text">Sybilhunter架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sybilhunter内部结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">Sybilhunter内部结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用network-churn检测"><span class="nav-number">1.1.3.</span> <span class="nav-text">利用network churn检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用Fingerprint检测"><span class="nav-number">1.1.4.</span> <span class="nav-text">利用Fingerprint检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nearest-neighbor-ranking寻找潜在Sybil"><span class="nav-number">1.1.5.</span> <span class="nav-text">Nearest-neighbor ranking寻找潜在Sybil</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺陷"><span class="nav-number">1.1.6.</span> <span class="nav-text">缺陷</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
