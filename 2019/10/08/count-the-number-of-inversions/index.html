@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="algorithm,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Divide and Conquer&amp;#x95EE;&amp;#x9898;&amp;#x63CF;&amp;#x8FF0;&amp;#x200B;    Recall the problem of &amp;#xFB01;nding the number of inversions. As in the course, we are given a sequence of n numbers a 1 , &amp;#xB7; &amp;#xB7; &amp;">
+<meta name="keywords" content="algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="count the number of inversions">
+<meta property="og:url" content="http://yoursite.com/2019/10/08/count-the-number-of-inversions/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="Divide and Conquer&amp;#x95EE;&amp;#x9898;&amp;#x63CF;&amp;#x8FF0;&amp;#x200B;    Recall the problem of &amp;#xFB01;nding the number of inversions. As in the course, we are given a sequence of n numbers a 1 , &amp;#xB7; &amp;#xB7; &amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/10/08/count-the-number-of-inversions/%E4%BA%8C%E5%8F%89%E6%A0%91.png">
+<meta property="og:updated_time" content="2019-10-08T14:03:45.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="count the number of inversions">
+<meta name="twitter:description" content="Divide and Conquer&amp;#x95EE;&amp;#x9898;&amp;#x63CF;&amp;#x8FF0;&amp;#x200B;    Recall the problem of &amp;#xFB01;nding the number of inversions. As in the course, we are given a sequence of n numbers a 1 , &amp;#xB7; &amp;#xB7; &amp;">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/08/count-the-number-of-inversions/%E4%BA%8C%E5%8F%89%E6%A0%91.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/08/count-the-number-of-inversions/">
+
+
+
+
+
+  <title>count the number of inversions | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/count-the-number-of-inversions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HEATAO">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">count the number of inversions</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T21:05:40+08:00">
+                2019-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Divide-and-Conquer"><a href="#Divide-and-Conquer" class="headerlink" title="Divide and Conquer"></a>Divide and Conquer</h1><h3 id="&#x95EE;&#x9898;&#x63CF;&#x8FF0;"><a href="#&#x95EE;&#x9898;&#x63CF;&#x8FF0;" class="headerlink" title="&#x95EE;&#x9898;&#x63CF;&#x8FF0;"></a>&#x95EE;&#x9898;&#x63CF;&#x8FF0;</h3><p>&#x200B;    Recall the problem of &#xFB01;nding the number of inversions. As in the course, we are given a sequence of n numbers a 1 , &#xB7; &#xB7; &#xB7; , a n , which we assume are all distinct, and we de&#xFB01;ne an inversion to be a pair i &lt; j such that a i &gt; a j .</p>
+<p>&#x200B;    We motivated the problem of counting inversions as a good measure of how di&#xFB00;erent two orderings are. However, one might feel that this measure is too sensitive. Let&#x2019;s call a pair a significant inversion if i &lt; j and a i &gt; 3a j . Given an O(n log n) algorithm to count the number of signi&#xFB01;cant inversions between two orderings.</p>
+<h3 id="&#x89E3;&#x9898;&#x601D;&#x8DEF;"><a href="#&#x89E3;&#x9898;&#x601D;&#x8DEF;" class="headerlink" title="&#x89E3;&#x9898;&#x601D;&#x8DEF;"></a>&#x89E3;&#x9898;&#x601D;&#x8DEF;</h3><h4 id="&#x63CF;&#x8FF0;"><a href="#&#x63CF;&#x8FF0;" class="headerlink" title="&#x63CF;&#x8FF0;"></a>&#x63CF;&#x8FF0;</h4><p>&#x6700;&#x7B80;&#x5355;&#x7684;case&#xFF0C;&#x4E24;&#x4E2A;&#x5143;&#x7D20;&#x4E92;&#x76F8;&#x6BD4;</p>
+<p>A[n]&#x7684;&#x6570;&#x7EC4;&#xFF0C;&#x5206;&#x5DE6;&#x53F3;&#x4E24;&#x8FB9;&#x6392;&#x5E8F;&#x540E;&#x518D;&#x5408;&#x5E76;</p>
+<p>&#x5728;&#x5408;&#x5E76;&#x8FC7;&#x7A0B;&#x5BF9;&#x9006;&#x5E8F;&#x5BF9;&#x8FDB;&#x884C;&#x7EDF;&#x8BA1;</p>
+<p>&#x5DE6;&#x5B50;&#x6570;&#x7EC4;&#x518D;&#x5206;&#x4E3A;&#x5DE6;&#x53F3;&#x4E24;&#x90E8;&#x5206;&#xFF0C;&#x76F4;&#x5230;&#x6700;&#x7B80;&#x5355;&#x7684;case</p>
+<h4 id="&#x4EE3;&#x7801;"><a href="#&#x4EE3;&#x7801;" class="headerlink" title="&#x4EE3;&#x7801;"></a>&#x4EE3;&#x7801;</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> <span class="built_in">list</span>[], <span class="keyword">int</span> left, <span class="keyword">int</span> mid, <span class="keyword">int</span> right,<span class="keyword">int</span> <span class="built_in">array</span>[])</span> </span>{</span><br><span class="line">   <span class="keyword">int</span> i = mid;</span><br><span class="line">   <span class="keyword">int</span> j = right;</span><br><span class="line">   <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> lcount = <span class="number">0</span>;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">//&#xD5;&#xE2;&#xC0;&#xEF;&#xBD;&#xF8;&#xD0;&#xD0;&#xCD;&#xB3;&#xBC;&#xC6; </span></span><br><span class="line">   <span class="keyword">while</span> (i &gt;= left &amp;&amp; j &gt; mid) {</span><br><span class="line">       <span class="keyword">if</span>(<span class="built_in">list</span>[i] &gt; (<span class="keyword">long</span> <span class="keyword">long</span>) <span class="number">3</span> * <span class="built_in">list</span>[j]) {</span><br><span class="line">           lcount += j - mid;</span><br><span class="line">           i--;</span><br><span class="line">       }<span class="keyword">else</span>{</span><br><span class="line">           j--;</span><br><span class="line">       }</span><br><span class="line">   }</span><br><span class="line">   </span><br><span class="line">   <span class="comment">//&#xD5;&#xE2;&#xC0;&#xEF;&#xBD;&#xF8;&#xD0;&#xD0;&#xB9;&#xE9;&#xB2;&#xA2;&#xC5;&#xC5;&#xD0;&#xF2; </span></span><br><span class="line">   i = mid;</span><br><span class="line">   j = right;</span><br><span class="line">   <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">while</span> (i &gt;= left &amp;&amp; j &gt; mid) {</span><br><span class="line">       <span class="keyword">if</span>(<span class="built_in">list</span>[i] &gt; <span class="built_in">list</span>[j]) {</span><br><span class="line">           <span class="built_in">array</span>[k++] = <span class="built_in">list</span>[i--];</span><br><span class="line">       }<span class="keyword">else</span>{</span><br><span class="line">           <span class="built_in">array</span>[k++] = <span class="built_in">list</span>[j--];</span><br><span class="line">       }</span><br><span class="line">   }</span><br><span class="line">   <span class="keyword">while</span> (i &gt;= left) {</span><br><span class="line">       <span class="built_in">array</span>[k++] = <span class="built_in">list</span>[i--];</span><br><span class="line">   }</span><br><span class="line">   <span class="keyword">while</span> (j &gt; mid) {</span><br><span class="line">       <span class="built_in">array</span>[k++] = <span class="built_in">list</span>[j--];</span><br><span class="line">   }</span><br><span class="line">   <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; k; i++) {</span><br><span class="line">       <span class="built_in">list</span>[right - i] = <span class="built_in">array</span>[i];</span><br><span class="line">   }</span><br><span class="line">    <span class="keyword">return</span> lcount;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> <span class="title">merge_sort_helper</span><span class="params">(<span class="keyword">int</span> <span class="built_in">list</span>[],<span class="keyword">int</span> left, <span class="keyword">int</span> right,<span class="keyword">int</span> <span class="built_in">array</span>[])</span> </span>{</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(right &gt; left){</span><br><span class="line">        <span class="keyword">int</span> mid = (right+left) / <span class="number">2</span>;</span><br><span class="line">        cnt += merge_sort_helper(<span class="built_in">list</span>, left, mid, <span class="built_in">array</span>);</span><br><span class="line">        cnt += merge_sort_helper(<span class="built_in">list</span>, mid + <span class="number">1</span>, right, <span class="built_in">array</span>);</span><br><span class="line">        cnt += merge(<span class="built_in">list</span>, left, mid, right, <span class="built_in">array</span>);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> cnt;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> <span class="title">merge_sort</span><span class="params">(<span class="keyword">int</span> <span class="built_in">list</span>[], <span class="keyword">int</span> length)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">int</span> *<span class="built_in">array</span>=<span class="keyword">new</span> <span class="keyword">int</span>[length];</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> count = merge_sort_helper(<span class="built_in">list</span>, <span class="number">0</span>, length<span class="number">-1</span>, <span class="built_in">array</span>);</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">delete</span> <span class="built_in">array</span>;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> N, <span class="built_in">list</span>[<span class="number">100000</span>];</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i ++) {</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; <span class="built_in">list</span>[i];</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> count = merge_sort(<span class="built_in">list</span>, N);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; count;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x56FE;&#x793A;"><a href="#&#x56FE;&#x793A;" class="headerlink" title="&#x56FE;&#x793A;"></a>&#x56FE;&#x793A;</h3><p><img src="/2019/10/08/count-the-number-of-inversions/%E4%BA%8C%E5%8F%89%E6%A0%91.png" alt="&#x4E8C;&#x53C9;&#x6811;"></p>
+<h3 id="&#x6B63;&#x786E;&#x6027;&#x9A8C;&#x8BC1;"><a href="#&#x6B63;&#x786E;&#x6027;&#x9A8C;&#x8BC1;" class="headerlink" title="&#x6B63;&#x786E;&#x6027;&#x9A8C;&#x8BC1;"></a>&#x6B63;&#x786E;&#x6027;&#x9A8C;&#x8BC1;</h3><p>&#x5BF9;&#x8BE5;&#x95EE;&#x9898;&#x91C7;&#x53D6;&#x7684;&#x662F;&#x5F52;&#x5E76;&#x7684;&#x7B56;&#x7565;&#xFF0C;&#x5BF9;&#x5F52;&#x5E76;&#x6392;&#x5E8F;&#x8FDB;&#x884C;&#x4E00;&#x5B9A;&#x7684;&#x4FEE;&#x6539;&#xFF0C;&#x6545;&#x53EA;&#x9700;&#x8981;&#x8BC1;&#x660E;&#x5F52;&#x5E76;&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x662F;&#x4E00;&#x4E2A;&#x5F52;&#x5E76;&#x6392;&#x5E8F;&#x7684;&#x8FC7;&#x7A0B;:<br>&#x5047;&#x8BBE;&#x7ED9;&#x5B9A;&#x7684;&#x6570;&#x7EC4;&#x4E3A;[2, 4, 5, 3, 1]&#xFF0C;&#x5206;&#x540E;left&#x548C;right&#x6570;&#x7EC4;&#x5206;&#x522B;&#x4E3A;[2, 4, 5], [1, 3]&#xFF0C;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#x4E86;&#x201C;&#x5206;&#x201D;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x73B0;&#x5728;&#x4E3A;&#x6570;&#x7EC4;&#x7684;&#x201C;&#x5E76;&#x201D;&#x64CD;&#x4F5C;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th>a: [2, 4, 5]</th>
+<th>b: [1, 3]</th>
+<th>result:[1]</th>
+<th>&#x9009;&#x53D6;b&#x6570;&#x7EC4;&#x7684;1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a: [2, 4, 5]</td>
+<td>b: [3]</td>
+<td>result:[1, 2]</td>
+<td>&#x9009;&#x53D6;a&#x6570;&#x7EC4;&#x7684;2</td>
+</tr>
+<tr>
+<td>a: [4, 5]</td>
+<td>b: [3]</td>
+<td>result:[1, 2, 3]</td>
+<td>&#x9009;&#x53D6;b&#x6570;&#x7EC4;&#x7684;3</td>
+</tr>
+<tr>
+<td>a: [4, 5]</td>
+<td>b: []</td>
+<td>result:[1, 2, 3, 4]</td>
+<td>&#x9009;&#x53D6;a&#x6570;&#x7EC4;&#x7684;4</td>
+</tr>
+<tr>
+<td>a: [5]</td>
+<td>b: []</td>
+<td>result:[1, 2, 3, 4, 5]</td>
+<td>&#x9009;&#x53D6;a&#x6570;&#x7EC4;&#x7684;5</td>
+</tr>
+</tbody></table>
+<p>&#x5728;&#x6267;&#x884C;[2, 4, 5]&#x548C;[1, 3]&#x5408;&#x5E76;&#x7684;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x5C06;a&#x6570;&#x7EC4;&#x7684;&#x5143;&#x7D20;k&#x653E;&#x5165;result&#x6570;&#x7EC4;&#x65F6;&#xFF0C;result&#x4E2D;&#x5B58;&#x5728;&#x7684;b&#x6570;&#x7EC4;&#x7684;&#x5143;&#x7D20;&#x4E00;&#x5B9A;&#x6BD4;k&#x5C0F;&#x3002;&#x5728;&#x539F;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;b&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x5143;&#x7D20;&#x4F4D;&#x7F6E;&#x4E00;&#x5B9A;&#x5728;k&#x4E4B;&#x540E;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;k&#x548C;&#x8FD9;&#x4E9B;&#x5143;&#x7D20;&#x5747;&#x6784;&#x6210;&#x4E86;&#x9006;&#x5E8F;&#x5BF9;&#x3002;&#x90A3;&#x4E48;&#x5728;&#x653E;&#x5165;a&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x5143;&#x7D20;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x8BA1;&#x7B97;result&#x4E2D;b&#x6570;&#x7EC4;&#x7684;&#x5143;&#x7D20;&#x4E2A;&#x6570;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x8BA1;&#x7B97;&#x51FA;&#x5BF9;&#x4E8E;k&#x6765;&#x8BF4;&#xFF0C;b&#x6570;&#x7EC4;&#x4E2D;&#x6EE1;&#x8DB3;&#x9006;&#x5E8F;&#x5BF9;&#x7684;&#x4E2A;&#x6570;&#x3002;&#x53C8;&#x56E0;&#x4E3A;&#x9012;&#x5F52;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;a&#x6570;&#x7EC4;&#x4E2D;&#x548C;k&#x6EE1;&#x8DB3;&#x9006;&#x5E8F;&#x5BF9;&#x7684;&#x6570;&#x4E5F;&#x8BA1;&#x7B97;&#x8FC7;&#x3002;&#x5219;&#x5728;&#x8BE5;&#x6B21;&#x9012;&#x5F52;&#x7ED3;&#x675F;&#x65F6;&#xFF0C;[2, 4, 5, 3, 1]&#x4E2D;&#x6240;&#x6709;k&#x7684;&#x9006;&#x5E8F;&#x5BF9;&#x4E2A;&#x6570;&#x4E5F;&#x5C31;&#x90FD;&#x7EDF;&#x8BA1;&#x4E86;&#x3002;&#x663E;&#x7136;&#x5BF9;&#x4E8E;a&#x4E2D;&#x5176;&#x4ED6;&#x7684;&#x5143;&#x7D20;&#x4E5F;&#x540C;&#x6837;&#x6709;&#x8FD9;&#x6837;&#x7684;&#x6027;&#x8D28;&#x3002;</p>
+<p>&#x7531;&#x6B64;&#x53EF;&#x4EE5;&#x63A8;&#x5BFC;&#x51FA;&#xFF0C;&#x6BCF;&#x6B21;&#x5F52;&#x5E76;&#x6392;&#x5E8F;&#x7684;&#x91CD;&#x8981;&#x9006;&#x5E8F;&#x5BF9;&#x4E4B;&#x548C;&#x5373;&#x4E3A;A[n]&#x4E2D;&#x91CD;&#x8981;&#x9006;&#x5E8F;&#x5BF9;&#x7684;&#x4E2A;&#x6570;&#x3002;</p>
+<h3 id="&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;"><a href="#&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;" class="headerlink" title="&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;"></a>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;</h3><p>&#x63A8;&#x5BFC;&#xFF1A;</p>
+<p>&#x6BCF;&#x4E00;&#x5C42;&#x4E0E;&#x5B50;&#x5212;&#x5206;&#x7684;&#x5173;&#x7CFB;&#x4E3A;&#xFF1A;T(n) = T(n/2) + T(n/2) + O(n)</p>
+<p>&#x7531;&#x793A;&#x610F;&#x56FE;&#x4E2D;&#x7684;&#x9012;&#x5F52;&#x6811;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#xFF0C;&#x7B2C;&#x4E00;&#x5C42;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E3A;cn</p>
+<p>&#x7B2C;&#x4E8C;&#x5C42;&#x662F;cn/2+cn/2 = cn</p>
+<p>&#x4E00;&#x5171;&#x6709;logn + 1&#x5C42;&#xFF0C;&#x6545;T(n) = cn * (logn + 1)</p>
+<p>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(nlogn)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/08/maximum-distance-of-2-nodes-in-a-tree/" rel="next" title="maximum distance of 2 nodes in a tree">
+                <i class="fa fa-chevron-left"></i> maximum distance of 2 nodes in a tree
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/me.jpg" alt="HEATAO">
+            
+              <p class="site-author-name" itemprop="name">HEATAO</p>
+              <p class="site-description motion-element" itemprop="description">heatao的个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heatao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:heatao59@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Divide-and-Conquer"><span class="nav-number">1.</span> <span class="nav-text">Divide and Conquer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">1.0.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路"><span class="nav-number">1.0.2.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示"><span class="nav-number">1.0.3.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正确性验证"><span class="nav-number">1.0.4.</span> <span class="nav-text">正确性验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度"><span class="nav-number">1.0.5.</span> <span class="nav-text">时间复杂度</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
