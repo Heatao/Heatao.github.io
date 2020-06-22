@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x8FD1;&amp;#x6765;&amp;#x62A5;&amp;#x540D;&amp;#x4E86;CCCC&amp;#x7F51;&amp;#x7EDC;&amp;#x6280;&amp;#x672F;&amp;#x6311;&amp;#x6218;&amp;#x8D5B;&amp;#xFF0C;&amp;#x5948;&amp;#x4F55;&amp;#x53C2;&amp;#x52A0;&amp;#x5F97;&amp;#x592A;&amp;#x665A;&amp;#xFF0C;&amp;#x8DDD;&amp;#x79BB;&amp;#x8D44;&amp;#x6">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020C4 EP4资格赛题库爬虫">
+<meta property="og:url" content="http://yoursite.com/2020/05/30/2020C4-EP4资格赛题库爬虫/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="&amp;#x8FD1;&amp;#x6765;&amp;#x62A5;&amp;#x540D;&amp;#x4E86;CCCC&amp;#x7F51;&amp;#x7EDC;&amp;#x6280;&amp;#x672F;&amp;#x6311;&amp;#x6218;&amp;#x8D5B;&amp;#xFF0C;&amp;#x5948;&amp;#x4F55;&amp;#x53C2;&amp;#x52A0;&amp;#x5F97;&amp;#x592A;&amp;#x665A;&amp;#xFF0C;&amp;#x8DDD;&amp;#x79BB;&amp;#x8D44;&amp;#x6">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/05/30/2020C4-EP4资格赛题库爬虫/604948-20160309212612069-1078321533.png">
+<meta property="og:updated_time" content="2020-05-31T11:23:14.943Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2020C4 EP4资格赛题库爬虫">
+<meta name="twitter:description" content="&amp;#x8FD1;&amp;#x6765;&amp;#x62A5;&amp;#x540D;&amp;#x4E86;CCCC&amp;#x7F51;&amp;#x7EDC;&amp;#x6280;&amp;#x672F;&amp;#x6311;&amp;#x6218;&amp;#x8D5B;&amp;#xFF0C;&amp;#x5948;&amp;#x4F55;&amp;#x53C2;&amp;#x52A0;&amp;#x5F97;&amp;#x592A;&amp;#x665A;&amp;#xFF0C;&amp;#x8DDD;&amp;#x79BB;&amp;#x8D44;&amp;#x6">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/30/2020C4-EP4资格赛题库爬虫/604948-20160309212612069-1078321533.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/30/2020C4-EP4资格赛题库爬虫/">
+
+
+
+
+
+  <title>2020C4 EP4资格赛题库爬虫 | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/30/2020C4-EP4资格赛题库爬虫/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HEATAO">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2020C4 EP4资格赛题库爬虫</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-30T12:00:06+08:00">
+                2020-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x8FD1;&#x6765;&#x62A5;&#x540D;&#x4E86;CCCC&#x7F51;&#x7EDC;&#x6280;&#x672F;&#x6311;&#x6218;&#x8D5B;&#xFF0C;&#x5948;&#x4F55;&#x53C2;&#x52A0;&#x5F97;&#x592A;&#x665A;&#xFF0C;&#x8DDD;&#x79BB;&#x8D44;&#x683C;&#x8D5B;&#x53EA;&#x6709;&#x51E0;&#x5929;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x8D44;&#x683C;&#x8D5B;&#x662F;&#x5237;&#x9898;&#xFF0C;&#x5C31;&#x60F3;&#x7740;&#x80FD;&#x5426;&#x5C06;&#x9898;&#x5E93;&#x722C;&#x4E0B;&#x6765;&#x5462;&#xFF1F;</p>
+<p>&#x5B66;&#x4E60;&#x4E86;[Jack Cui&#x5927;&#x4F6C;&#x7684;&#x6559;&#x7A0B;][<a href="https://github.com/Jack-Cherish/python-spider/tree/master/2020]&#xFF0C;&#x8BF4;&#x505A;&#x5C31;&#x505A;&#x3002;" target="_blank" rel="noopener">https://github.com/Jack-Cherish/python-spider/tree/master/2020]&#xFF0C;&#x8BF4;&#x505A;&#x5C31;&#x505A;&#x3002;</a></p>
+<h3 id="&#x722C;&#x866B;&#x7B80;&#x4ECB;"><a href="#&#x722C;&#x866B;&#x7B80;&#x4ECB;" class="headerlink" title="&#x722C;&#x866B;&#x7B80;&#x4ECB;"></a>&#x722C;&#x866B;&#x7B80;&#x4ECB;</h3><h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>&#x722C;&#x866B;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x6A21;&#x62DF;&#x6D4F;&#x89C8;&#x5668;&#x5BF9;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;&#x8BF7;&#x6C42;&#xFF0C;&#x5F97;&#x5230;&#x76EE;&#x6807;&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x7684;&#x6587;&#x5B57;&#xFF0C;&#x89C6;&#x9891;&#xFF0C;&#x56FE;&#x7247;&#x7B49;&#x7B49;&#x3002;</p>
+<p>&#x800C;&#x8BBF;&#x95EE;&#x76EE;&#x6807;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5219;&#x662F;&#x901A;&#x8FC7;URL</p>
+<blockquote>
+<p>protocol :// hostname[:port] / path / [;parameters][?query]#fragment</p>
+</blockquote>
+<p>&#x5C31;&#x50CF;&#x8FD9;&#x6837;</p>
+<img src="/2020/05/30/2020C4-EP4&#x8D44;&#x683C;&#x8D5B;&#x9898;&#x5E93;&#x722C;&#x866B;/604948-20160309212612069-1078321533.png" alt="604948-20160309212612069-1078321533" style="zoom:100%;">
+
+<ul>
+<li><strong>protocol</strong>&#xFF1A;&#x7B2C;&#x4E00;&#x90E8;&#x5206;&#x5C31;&#x662F;&#x534F;&#x8BAE;&#xFF0C;&#x4F8B;&#x5982;&#x767E;&#x5EA6;&#x4F7F;&#x7528;&#x7684;&#x5C31;&#x662F;https&#x534F;&#x8BAE;&#xFF1B;</li>
+<li><strong>hostname[:port]</strong>&#xFF1A;&#x7B2C;&#x4E8C;&#x90E8;&#x5206;&#x5C31;&#x662F;&#x4E3B;&#x673A;&#x540D;&#xFF08;&#x8FD8;&#x6709;&#x7AEF;&#x53E3;&#x53F7;&#x4E3A;&#x53EF;&#x9009;&#x53C2;&#x6570;&#xFF09;&#xFF0C;&#x4E00;&#x822C;&#x7F51;&#x7AD9;&#x9ED8;&#x8BA4;&#x7684;&#x7AEF;&#x53E3;&#x53F7;&#x4E3A;80&#xFF0C;&#x4F8B;&#x5982;&#x767E;&#x5EA6;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x5C31;&#x662F;<a href="http://www.baidu.com&#xFF0C;&#x8FD9;&#x4E2A;&#x5C31;&#x662F;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5730;&#x5740;&#xFF1B;" target="_blank" rel="noopener">www.baidu.com&#xFF0C;&#x8FD9;&#x4E2A;&#x5C31;&#x662F;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5730;&#x5740;&#xFF1B;</a></li>
+<li><strong>path</strong>&#xFF1A;&#x7B2C;&#x4E09;&#x90E8;&#x5206;&#x5C31;&#x662F;&#x4E3B;&#x673A;&#x8D44;&#x6E90;&#x7684;&#x5177;&#x4F53;&#x5730;&#x5740;&#xFF0C;&#x5982;&#x76EE;&#x5F55;&#x548C;&#x6587;&#x4EF6;&#x540D;&#x7B49;&#x3002;</li>
+</ul>
+<p>&#x6709;&#x65F6;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x4E00;&#x4E9B;&#x6761;&#x4EF6;&#xFF0C;&#x8FD9;&#x4E2A;&#x6761;&#x4EF6;&#x5C31;&#x662F; [;parameters][?query]#fragment</p>
+<p>&#x8981;&#x7406;&#x89E3;&#x901A;&#x8FC7;URL&#x8BBF;&#x95EE;&#x670D;&#x52A1;&#x5668;&#x8FD9;&#x4E00;&#x8FC7;&#x7A0B;&#xFF0C;&#x53EF;&#x4EE5;&#x53C2;&#x8003;&#x300A;&#x7F51;&#x7EDC;&#x662F;&#x600E;&#x6837;&#x8FDE;&#x63A5;&#x7684;&#x8FD9;&#x4E00;&#x672C;&#x4E66;&#x300B;</p>
+<h4 id="&#x68C0;&#x67E5;F12"><a href="#&#x68C0;&#x67E5;F12" class="headerlink" title="&#x68C0;&#x67E5;F12"></a>&#x68C0;&#x67E5;F12</h4><p>&#x6211;&#x4EEC;&#x9700;&#x8981;&#x722C;&#x7684;&#x8D44;&#x6E90;&#x5F80;&#x5F80;&#x5E76;&#x975E;&#x8F93;&#x5165;&#x7F51;&#x5740;&#x7684;URL&#xFF0C;&#x4E00;&#x4E2A;&#x7F51;&#x9875;&#x5305;&#x542B;&#x4E86;&#x591A;&#x4E2A;URI&#xFF0C;&#x8FD9;&#x4E9B;URI&#x53EF;&#x4EE5;&#x662F;&#x56FE;&#x7247;&#xFF0C;&#x4E0B;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x7B49;&#x7B49;&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x6D88;&#x606F;&#x53EA;&#x80FD;&#x5199;&#x4E00;&#x4E2A;URI&#xFF0C;&#x4E00;&#x4E2A;&#x7F51;&#x9875;&#x5F80;&#x5F80;&#x5305;&#x542B;&#x4E86;&#x591A;&#x4E2A;URI&#xFF0C;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x591A;&#x6B21;&#x8BF7;&#x6C42;&#x3002;</p>
+<p>&#x8981;&#x83B7;&#x53D6;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x7684;URI&#xFF0C;&#x9700;&#x8981;&#x7528;&#x201C;&#x68C0;&#x67E5;&#x201D;&#xFF0C;&#x53F3;&#x952E;&#x7F51;&#x9875;-&#x68C0;&#x67E5;&#xFF0C;&#x6216;&#x8005;F12&#x90FD;&#x53EF;&#x3002;</p>
+<p>&#x901A;&#x8FC7;<strong>Element</strong>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x7F51;&#x9875;&#x6E90;&#x4EE3;&#x7801;&#xFF0C;&#x5E76;&#x4E14;&#x53EF;&#x4EE5;&#x5BF9;&#x5E94;&#x4EE3;&#x7801;&#x4E0E;&#x7F51;&#x9875;&#x7684;&#x4F4D;&#x7F6E;&#x3002;</p>
+<p>&#x901A;&#x8FC7;<strong>Network</strong>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6BCF;&#x4E00;&#x6B21;&#x7684;&#x8BF7;&#x6C42;&#x548C;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x3002;</p>
+<h4 id="&#x722C;&#x866B;&#x7684;&#x6B65;&#x9AA4;"><a href="#&#x722C;&#x866B;&#x7684;&#x6B65;&#x9AA4;" class="headerlink" title="&#x722C;&#x866B;&#x7684;&#x6B65;&#x9AA4;"></a>&#x722C;&#x866B;&#x7684;&#x6B65;&#x9AA4;</h4><p>&#x722C;&#x866B;&#x5927;&#x81F4;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E09;&#x4E2A;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ul>
+<li>&#x53D1;&#x8D77;&#x8BF7;&#x6C42;</li>
+<li>&#x89E3;&#x6790;&#x6570;&#x636E;</li>
+<li>&#x4FDD;&#x5B58;&#x6570;&#x636E;</li>
+</ul>
+<p>&#x5176;&#x4E2D;&#xFF0C;&#x53D1;&#x8D77;&#x8BF7;&#x6C42;&#x6BD4;&#x8F83;&#x5E38;&#x7528;&#x7684;&#x4E8B;Python&#x7684;request&#x5E93;&#x548C;urllib&#x5E93;&#xFF0C;&#x524D;&#x8005;&#x662F;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;&#xFF0C;&#x540E;&#x8005;&#x662F;python&#x81EA;&#x5E26;&#x7684;&#x3002;</p>
+<blockquote>
+<p>request&#x5B98;&#x7F51;&#x6559;&#x7A0B;</p>
+<p><a href="http://docs.python-requests.org/zh_CN/latest/user/quickstart.html" target="_blank" rel="noopener">http://docs.python-requests.org/zh_CN/latest/user/quickstart.html</a></p>
+</blockquote>
+<p>request&#x7B80;&#x5355;&#x4F7F;&#x7528;&#xFF0C;&#x53D1;&#x9001;&#x4E00;&#x4E2A;GET&#x8BF7;&#x6C42;&#xFF0C;&#x5F97;&#x5230;html&#x6587;&#x4EF6;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line">target = <span class="string">&quot;baidu.com&quot;</span></span><br><span class="line">req = requests.get(url=target)</span><br><span class="line">req.encoding = <span class="string">&apos;utf-8&apos;</span></span><br><span class="line">html = req.text</span><br></pre></td></tr></table></figure>
+
+<p>&#x89E3;&#x6790;&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x7528;&#x5F88;&#x591A;&#x65B9;&#x5F0F;&#xFF0C;xpath&#x3001;BeautifulSoup&#x3001;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7B49;&#xFF0C;&#x6700;&#x5E38;&#x7528;&#x7684;&#x662F;BeautifulSoup&#x3002;</p>
+<blockquote>
+<p>Beautifulsoup&#x5B98;&#x65B9;&#x6559;&#x7A0B;</p>
+<p><a href="https://beautifulsoup.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">https://beautifulsoup.readthedocs.io/zh_CN/latest/</a></p>
+</blockquote>
+<p>BeautifulSoup&#x7B80;&#x5355;&#x4F7F;&#x7528;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> request</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">target = <span class="string">&apos;http://58.213.119.26:8090/exam/train/?cloud=4&apos;</span></span><br><span class="line">req = requests.get(url=target)</span><br><span class="line">req.encoding = <span class="string">&apos;utf-8&apos;</span></span><br><span class="line">html = req.text</span><br><span class="line"></span><br><span class="line">bs = BeautifulSoup(html, <span class="string">&apos;lxml&apos;</span>)</span><br><span class="line"><span class="comment"># &#x7528;find&#x8FC7;&#x6EE4;&#x6807;&#x7B7E;</span></span><br><span class="line">text_ht = aim_html.find(<span class="string">&apos;div&apos;</span>, class_=<span class="string">&quot;question_item&quot;</span>)</span><br><span class="line">text_htss = aim_html.find_all(<span class="string">&apos;div&apos;</span>, class_=<span class="string">&quot;question_item&quot;</span>)</span><br><span class="line"><span class="comment"># &#x7528;get&#x5F97;&#x5230;&#x6807;&#x7B7E;&#x5C5E;&#x6027;&#x7684;&#x503C;&#xFF0C;&#x5FC5;&#x987B;&#x5148;&#x7528;&#x4E86;find&#x624D;&#x80FD;&#x7528;&#x4E2A;get</span></span><br><span class="line">quesID = text_ht.get(<span class="string">&apos;data-id&apos;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x6A21;&#x62DF;&#x767B;&#x5F55;"><a href="#&#x6A21;&#x62DF;&#x767B;&#x5F55;" class="headerlink" title="&#x6A21;&#x62DF;&#x767B;&#x5F55;"></a>&#x6A21;&#x62DF;&#x767B;&#x5F55;</h3><p>&#x5F88;&#x591A;&#x7F51;&#x9875;&#x9700;&#x8981;&#x8D26;&#x53F7;&#x5BC6;&#x7801;&#x767B;&#x9646;&#x540E;&#x624D;&#x53EF;&#x722C;&#x53D6;&#xFF0C;&#x5BF9;&#x4E8E;&#x9700;&#x8981;&#x767B;&#x9646;&#x7684;&#x7F51;&#x9875;&#x722C;&#x866B;&#xFF0C;&#x6709;&#x4EE5;&#x4E0B;&#x4E09;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li>POST&#x8BF7;&#x6C42;&#xFF0C;&#x586B;&#x5199;&#x8D26;&#x53F7;&#x5BC6;&#x7801;</li>
+<li>&#x6DFB;&#x52A0;Cookie&#xFF0C;<strong>&#x4F18;&#x5148;&#x91C7;&#x7528;</strong></li>
+<li>Selenium&#x6A21;&#x62DF;&#x767B;&#x5F55;&#xFF0C;&#x548C;&#x7528;&#x6237;&#x64CD;&#x4F5C;&#x5F88;&#x7C7B;&#x4F3C;</li>
+</ul>
+<p>&#x8FD9;&#x91CC;&#x6BD4;&#x8F83;&#x5E38;&#x7528;&#x7684;&#x662F;&#x6DFB;&#x52A0;Cookie&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x624B;&#x52A8;&#x8BBF;&#x95EE;&#x7F51;&#x9875;&#x5728;&#x201C;&#x68C0;&#x67E5;-Network-Header&#x201D;&#x4E2D;&#x627E;&#x5230;&#x767B;&#x5F55;&#x540E;&#x7684;Cookie&#x590D;&#x5236;&#x4E0B;&#x6765;&#xFF0C;&#x5728;request&#x8BF7;&#x6C42;&#x7684;&#x65F6;&#x5019;&#x6DFB;&#x52A0;header&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x5173;&#x4E8E;cookie&#xFF0C;Crossin&#x7684;&#x7F16;&#x7A0B;&#x6559;&#x5BA4;[&#x8FD9;&#x7BC7;&#x6587;][<a href="https://mp.weixin.qq.com/s/Rog0tuuVV1EkLwFgbDfdYw]&#x8BB2;&#x5F97;&#x4E0D;&#x9519;&#xFF0C;&#x5E76;&#x4E14;&#x8FD8;&#x63D0;&#x5230;&#x4E86;&#x9762;&#x8BD5;&#x7684;&#x95EE;&#x6CD5;&#x3002;" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/Rog0tuuVV1EkLwFgbDfdYw]&#x8BB2;&#x5F97;&#x4E0D;&#x9519;&#xFF0C;&#x5E76;&#x4E14;&#x8FD8;&#x63D0;&#x5230;&#x4E86;&#x9762;&#x8BD5;&#x7684;&#x95EE;&#x6CD5;&#x3002;</a></p>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x7528;POST&#x6216;&#x8005;Selenium&#x6A21;&#x62DF;&#x767B;&#x5F55;&#x540E;&#x83B7;&#x53D6;Cookie&#x3002;</p>
+<h3 id="&#x5E38;&#x89C1;&#x7684;&#x53CD;&#x722C;&#x624B;&#x6BB5;"><a href="#&#x5E38;&#x89C1;&#x7684;&#x53CD;&#x722C;&#x624B;&#x6BB5;" class="headerlink" title="&#x5E38;&#x89C1;&#x7684;&#x53CD;&#x722C;&#x624B;&#x6BB5;"></a>&#x5E38;&#x89C1;&#x7684;&#x53CD;&#x722C;&#x624B;&#x6BB5;</h3><p><strong>&#x4E0D;&#x5141;&#x8BB8;&#x53F3;&#x952E;&#x68C0;&#x67E5;</strong></p>
+<p>&#x6BD4;&#x5982;&#x6211;&#x559C;&#x6B22;&#x7684;[&#x5FE7;&#x90C1;&#x7684;Loli][<a href="https://beats0.github.io/www.mygalgame.com/]&#x7F51;&#x7AD9;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;F12&#x6253;&#x5F00;&#x68C0;&#x67E5;&#x3002;" target="_blank" rel="noopener">https://beats0.github.io/www.mygalgame.com/]&#x7F51;&#x7AD9;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;F12&#x6253;&#x5F00;&#x68C0;&#x67E5;&#x3002;</a></p>
+<p>&#x6709;&#x7684;&#x7F51;&#x7AD9;&#x7981;&#x6B62;&#x4E86;F12&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5C06;&#x9F20;&#x6807;&#x79FB;&#x5230;&#x6D4F;&#x89C8;&#x5668;&#x5730;&#x5740;&#x680F;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x6309;F12&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x91C7;&#x7528;view-souce: URL</p>
+<blockquote>
+<p>view-source: <a href="https://beats0.github.io/www.mygalgame.com/" target="_blank" rel="noopener">https://beats0.github.io/www.mygalgame.com/</a></p>
+</blockquote>
+<p><strong>&#x901A;&#x8FC7;header&#x5B57;&#x6BB5;&#x53CD;&#x722C;</strong></p>
+<p>&#x7F51;&#x9875;&#x53EF;&#x80FD;&#x901A;&#x8FC7;User-Agent&#x3001;referer&#x3001;X-Requested-With&#x7B49;&#x53CD;&#x722C;&#xFF0C;&#x8FD9;&#x4E9B;&#x90FD;&#x53EF;&#x4EE5;&#x5728;request&#x91CC;&#x6DFB;&#x52A0;header&#x5904;&#x7406;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5728;&#x201C;&#x68C0;&#x67E5;-Network&#x201D;&#x4E2D;&#x67E5;&#x770B;&#x771F;&#x5B9E;&#x8BF7;&#x6C42;URI&#x7684;header&#x662F;&#x4EC0;&#x4E48;&#x5373;&#x53EF;&#x3002;</p>
+<p><strong>&#x901A;&#x8FC7;IP&#x5730;&#x5740;&#x53CD;&#x722C;</strong></p>
+<p>&#x540C;&#x4E00;&#x4E2A;IP&#x5927;&#x91CF;&#x8BF7;&#x6C42;&#x4E86;&#x670D;&#x52A1;&#x5668;&#x65F6;&#xFF0C;&#x53EF;&#x80FD;&#x522B;&#x8BC6;&#x522B;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;IP&#x6C60;&#xFF0C;&#x91C7;&#x7528;&#x514D;&#x8D39;&#x7684;&#x4EE3;&#x7406;ip&#x6216;&#x8005;&#x8D2D;&#x4E70;ip&#x3002;</p>
+<p><strong>&#x901A;&#x8FC7;&#x9A8C;&#x8BC1;&#x7801;&#x53CD;&#x722C;</strong></p>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;OCR&#x6216;&#x8005;&#x673A;&#x5668;&#x5B66;&#x4E60;&#x8BC6;&#x522B;&#x3002;</p>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x4E00;&#x4E9B;API&#xFF0C;&#x6BD4;&#x5982;&#x6253;&#x7801;&#x5E73;&#x53F0;&#x8BC6;&#x522B;&#x3002;</p>
+<h3 id="EP4&#x8D44;&#x683C;&#x8D5B;&#x9898;&#x5E93;&#x722C;&#x866B;"><a href="#EP4&#x8D44;&#x683C;&#x8D5B;&#x9898;&#x5E93;&#x722C;&#x866B;" class="headerlink" title="EP4&#x8D44;&#x683C;&#x8D5B;&#x9898;&#x5E93;&#x722C;&#x866B;"></a>EP4&#x8D44;&#x683C;&#x8D5B;&#x9898;&#x5E93;&#x722C;&#x866B;</h3><h4 id="&#x5206;&#x6790;URI"><a href="#&#x5206;&#x6790;URI" class="headerlink" title="&#x5206;&#x6790;URI"></a>&#x5206;&#x6790;URI</h4><p>&#x767B;&#x5F55;C4&#x7ADE;&#x8D5B;&#x7B54;&#x9898;&#x7F51;&#x7AD9;&#xFF0C;&#x5206;&#x6790;&#x60F3;&#x8981;&#x5F97;&#x5230;&#x7684;URI&#x3002;</p>
+<p>&#x6839;&#x7EDD;&#x89C2;&#x5BDF;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;&#x5207;&#x6362;&#x9898;&#x76EE;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9875;&#x9762;&#x7684;URL&#x5E76;&#x6CA1;&#x6709;&#x6539;&#x53D8;&#x3002;</p>
+<p>&#x89C2;&#x5BDF;&#x70B9;&#x51FB;&#x201C;&#x4E0B;&#x4E00;&#x9898;&#x201D;&#x548C;&#x201C;&#x63D0;&#x4EA4;&#x7684;&#x6309;&#x94AE;&#x201D;&#xFF0C;&#x5728;Network&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8BF7;&#x6C42;&#x7684;URI&#x548C;header&#xFF0C;&#x5176;&#x4E2D;&#x201C;&#x63D0;&#x4EA4;&#x201D;&#x65F6;&#xFF0C;&#x51FA;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;answer&#x8BF7;&#x6C42;&#x5305;&#xFF0C;&#x662F;&#x4E00;&#x4E2A;post&#x8BF7;&#x6C42;&#xFF0C;&#x67E5;&#x770B;post&#x8BF7;&#x6C42;&#x7684;&#x53D1;&#x9001;&#x7684;data&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5206;&#x522B;&#x9700;&#x8981;&#x63D0;&#x4EA4;question_id&#xFF0C;answers&#xFF0C;cloud_platform_id&#xFF0C;&#x663E;&#x7136;question_id&#x662F;&#x9700;&#x8981;&#x6839;&#x636E;&#x9898;&#x76EE;&#x6539;&#x53D8;&#x7684;&#x3002;</p>
+<p>![&#x622A;&#x5C4F;2020-05-30 &#x4E0B;&#x5348;4.24.26](2020C4-EP4&#x8D44;&#x683C;&#x8D5B;&#x9898;&#x5E93;&#x722C;&#x866B;/&#x622A;&#x5C4F;2020-05-30 &#x4E0B;&#x5348;4.24.26.png)</p>
+<p>![&#x622A;&#x5C4F;2020-05-30 &#x4E0B;&#x5348;4.26.30](2020C4-EP4&#x8D44;&#x683C;&#x8D5B;&#x9898;&#x5E93;&#x722C;&#x866B;/&#x622A;&#x5C4F;2020-05-30 &#x4E0B;&#x5348;4.26.30.png)</p>
+<p>&#x901A;&#x8FC7;&#x201C;Network-Preview&#x201D;&#x770B;&#x5230;&#x6B63;&#x662F;&#x60F3;&#x8981;&#x7684;&#x3002;</p>
+<p>![&#x622A;&#x5C4F;2020-05-30 &#x4E0B;&#x5348;4.23.43](2020C4-EP4&#x8D44;&#x683C;&#x8D5B;&#x9898;&#x5E93;&#x722C;&#x866B;/&#x622A;&#x5C4F;2020-05-30 &#x4E0B;&#x5348;4.23.43.png)</p>
+<p>&#x70B9;&#x51FB;&#x201C;&#x4E0B;&#x4E00;&#x9898;&#x201D;&#x65F6;&#xFF0C;&#x51FA;&#x73B0;&#x4E86;&#x4E0B;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x7684;&#x8BF7;&#x6C42;&#x5305;&#xFF0C;&#x5728;&#x201C;Network-Response&#x201D;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6BCF;&#x6B21;&#x70B9;&#x51FB;&#x4E0B;&#x4E00;&#x9898;&#x8FD4;&#x56DE;&#x7684;html&#xFF0C;&#x5728;&#x5176;&#x4E2D;&#x89C2;&#x5BDF;&#x5F97;&#x5230;question_id&#x548C;&#x5BF9;&#x5E94;&#x7684;&#x9898;&#x76EE;&#x3002;</p>
+<p>&#x57FA;&#x4E8E;&#x6B64;&#xFF0C;&#x5199;&#x5165;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> w3lib <span class="keyword">import</span> html</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">final version: 1.1</span></span><br><span class="line"><span class="string">Author: hzj</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">aim_url = <span class="string">&apos;http://58.213.119.26:8090/exam/train/?cloud=4&apos;</span></span><br><span class="line">post_answer_url = <span class="string">&apos;http://58.213.119.26:8090/exam/train/submit/answer/&apos;</span></span><br><span class="line">next_ques_url = <span class="string">&apos;http://58.213.119.26:8090/exam/train/question/filter/&apos;</span></span><br><span class="line"></span><br><span class="line">cookie = <span class="string">&quot;Your cookie&quot;</span></span><br><span class="line"></span><br><span class="line">answer_header = {</span><br><span class="line">    <span class="string">&apos;Accept&apos;</span>: <span class="string">&apos;application/json, text/javascript, */*; q=0.01&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Accept-Encoding&apos;</span>: <span class="string">&apos;gzip, deflate&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Accept-Language&apos;</span>: <span class="string">&apos;zh-CN,zh;q=0.9&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Connection&apos;</span>: <span class="string">&apos;keep-alive&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Content-Type&apos;</span>: <span class="string">&apos;application/x-www-form-urlencoded; charset=UTF-8&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Referer&apos;</span>: <span class="string">&apos;http://58.213.119.26:8090/exam/train/?cloud=4&apos;</span>,</span><br><span class="line">    <span class="string">&apos;User-Agent&apos;</span>: <span class="string">&apos;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Origin&apos;</span>: <span class="string">&apos;http://58.213.119.26:8090&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Host&apos;</span>: <span class="string">&apos;58.213.119.26:8090&apos;</span>,</span><br><span class="line">    <span class="string">&apos;X-Requested-With&apos;</span>: <span class="string">&apos;XMLHttpRequest&apos;</span>,</span><br><span class="line">    <span class="string">&apos;X-CSRFToken&apos;</span>: <span class="string">&apos;CqfsEZhizFZaafLjd1Cpl0d8T6bJEabE&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Cookie&apos;</span>: cookie</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">aim_header = {</span><br><span class="line">    <span class="string">&apos;Referer&apos;</span>: <span class="string">&apos;http://58.213.119.26:8090/exam/train/?cloud=4&apos;</span>,</span><br><span class="line">    <span class="string">&apos;User-Agent&apos;</span>: <span class="string">&apos;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Origin&apos;</span>: <span class="string">&apos;http://58.213.119.26:8090&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Host&apos;</span>: <span class="string">&apos;58.213.119.26:8090&apos;</span>,</span><br><span class="line">    <span class="comment"># &apos;X-Requested-With&apos;: &apos;XMLHttpRequest&apos;,</span></span><br><span class="line">    <span class="comment"># &apos;X-CSRFToken&apos;: &apos;CqfsEZhizFZaafLjd1Cpl0d8T6bJEabE&apos;,</span></span><br><span class="line">    <span class="string">&apos;Cookie&apos;</span>: cookie</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">next_header = {</span><br><span class="line">    <span class="string">&apos;Accept-Encoding&apos;</span>: <span class="string">&apos;gzip, deflate&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Referer&apos;</span>: <span class="string">&apos;http://58.213.119.26:8090/exam/train/?cloud=4&apos;</span>,</span><br><span class="line">    <span class="string">&apos;User-Agent&apos;</span>: <span class="string">&apos;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Origin&apos;</span>: <span class="string">&apos;http://58.213.119.26:8090&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Host&apos;</span>: <span class="string">&apos;58.213.119.26:8090&apos;</span>,</span><br><span class="line">    <span class="string">&apos;Cookie&apos;</span>: cookie,</span><br><span class="line">    <span class="string">&apos;X-Requested-With&apos;</span>: <span class="string">&apos;XMLHttpRequest&apos;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x9009;&#x62E9;&#x9898;&#x7684;post</span></span><br><span class="line">up_data = {</span><br><span class="line">    <span class="string">&apos;question_id&apos;</span>: <span class="string">&apos;5&apos;</span>,</span><br><span class="line">    <span class="string">&apos;answers&apos;</span>: <span class="string">&apos;[&quot;B&quot;]&apos;</span>,</span><br><span class="line">    <span class="string">&apos;cloud_platform_id&apos;</span>: <span class="string">&apos;4&apos;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x5224;&#x65AD;&#x9898;&#x7684;post</span></span><br><span class="line">up_check_data = {</span><br><span class="line">    <span class="string">&apos;question_id&apos;</span>: <span class="string">&apos;5&apos;</span>,</span><br><span class="line">    <span class="string">&apos;answers&apos;</span>: <span class="string">&apos;[&quot;1&quot;]&apos;</span>,</span><br><span class="line">    <span class="string">&apos;cloud_platform_id&apos;</span>: <span class="string">&apos;4&apos;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x9009;&#x62E9;&#x7684;&#x8BBF;&#x95EE;&#x53C2;&#x6570;&#xFF0C;&#x5373;url&#x540E;&#x534A;&#x90E8;&#x5206;</span></span><br><span class="line">next_ques_params = {</span><br><span class="line">    <span class="string">&apos;index&apos;</span>: <span class="string">&apos;1&apos;</span>,            <span class="comment"># &#x8FD9;&#x91CC;&#x9700;&#x8981;&#x66FF;&#x6362;&#xFF0C;&#x4ECE;0&#x5230;597</span></span><br><span class="line">    <span class="string">&apos;cloud_platform_id&apos;</span>: <span class="number">4</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x5224;&#x65AD;&#x7684;&#x8BBF;&#x95EE;&#x53C2;&#x6570;</span></span><br><span class="line">next_ques_check_params = {</span><br><span class="line">    <span class="string">&apos;index&apos;</span>: <span class="string">&apos;1&apos;</span>,</span><br><span class="line">    <span class="string">&apos;cloud_platform_id&apos;</span>: <span class="number">4</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">list_txt</span><span class="params">(List)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">&apos;QA_2020C4EP3.txt&apos;</span>, <span class="string">&apos;w&apos;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> each <span class="keyword">in</span> List:</span><br><span class="line">            f.write(each)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&apos;__main__&apos;</span>:</span><br><span class="line"></span><br><span class="line">    QA_list = []</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> index &lt;= <span class="number">597</span>:</span><br><span class="line">        next_ques_params[<span class="string">&apos;index&apos;</span>] = index  <span class="comment"># &#x8FD9;&#x91CC;&#x7684;index&#x4ECE;0&#x5230;597</span></span><br><span class="line">        req = requests.get(url=next_ques_url, params=next_ques_params, headers=next_header)</span><br><span class="line">        req.encoding = <span class="string">&apos;utf-8&apos;</span></span><br><span class="line">        next_ht = BeautifulSoup(req.text, <span class="string">&apos;lxml&apos;</span>)</span><br><span class="line">        next_ht = next_ht.find(<span class="string">&apos;div&apos;</span>, class_=<span class="string">&apos;question_item hide&apos;</span>)          <span class="comment"># &#x5FC5;&#x987B;&#x5148;&#x7528;find&#x624D;&#x80FD;&#x7528;get&#x5594;</span></span><br><span class="line">        quesID = next_ht.get(<span class="string">&apos;data-id&apos;</span>)</span><br><span class="line">        print(index, quesID)</span><br><span class="line"></span><br><span class="line">        text_ht = next_ht.find(<span class="string">&apos;div&apos;</span>, class_=<span class="string">&apos;test_body clearfix&apos;</span>)</span><br><span class="line">        ques = text_ht.get_text().strip().replace(<span class="string">&apos;\n&apos;</span>, <span class="string">&apos;&apos;</span>)</span><br><span class="line">        ques = html.remove_tags(ques)</span><br><span class="line">        print(ques)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&apos;&#x5BF9;&apos;</span> <span class="keyword">in</span> ques:</span><br><span class="line">            up_check_data[<span class="string">&quot;question_id&quot;</span>] = quesID</span><br><span class="line">            req = requests.post(url=post_answer_url, headers=answer_header, data=up_check_data)</span><br><span class="line">            req.encoding = <span class="string">&apos;utf-8&apos;</span></span><br><span class="line">            aim_html = BeautifulSoup(req.text, <span class="string">&apos;lxml&apos;</span>)</span><br><span class="line">            answer_dic = json.loads(aim_html.text.strip())</span><br><span class="line">            print(answer_dic)</span><br><span class="line">            QA_list.append(ques + <span class="string">&quot;\n&quot;</span> + answer_dic[<span class="string">&quot;analysis&quot;</span>] + answer_dic[<span class="string">&quot;right_answer&quot;</span>])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            up_data[<span class="string">&quot;question_id&quot;</span>] = quesID</span><br><span class="line">            req = requests.post(url=post_answer_url, headers=answer_header, data=up_data)</span><br><span class="line">            req.encoding = <span class="string">&apos;utf-8&apos;</span></span><br><span class="line">            aim_html = BeautifulSoup(req.text, <span class="string">&apos;lxml&apos;</span>)</span><br><span class="line">            answer_dic = json.loads(aim_html.text.strip())</span><br><span class="line">            print(answer_dic)</span><br><span class="line">            QA_list.append(ques + <span class="string">&quot;\n&quot;</span> + answer_dic[<span class="string">&quot;analysis&quot;</span>] + answer_dic[<span class="string">&quot;right_answer&quot;</span>])</span><br><span class="line">        index += <span class="number">1</span></span><br><span class="line">    print(QA_list)</span><br><span class="line">    list_txt(QA_list)</span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x533A;&#x5206;&#x9009;&#x62E9;&#x9898;&#x548C;&#x5224;&#x65AD;&#x9898;&#xFF0C;&#x6211;&#x7528;&#x4E86;&#x4E00;&#x4E2A;&#x5F88;naive&#x7684;&#x65B9;&#x6CD5;&#xFF0C; &#x5373;&#x5224;&#x65AD;&#x6E05;&#x6D17;&#x540E;&#x7684;&#x6587;&#x5B57;&#x662F;&#x5426;&#x5305;&#x542B;&#x201C;&#x662F;&#x201D;&#xFF0C;&#x8FD9;&#x6837;&#x7684;&#x505A;&#x996D;&#x603B;&#x611F;&#x89C9;&#x4E0D;&#x592A;&#x4F18;&#x96C5;&#x3002;</p>
+<h4 id="&#x6587;&#x5B57;&#x89E3;&#x6790;&#x95EE;&#x9898;"><a href="#&#x6587;&#x5B57;&#x89E3;&#x6790;&#x95EE;&#x9898;" class="headerlink" title="&#x6587;&#x5B57;&#x89E3;&#x6790;&#x95EE;&#x9898;"></a>&#x6587;&#x5B57;&#x89E3;&#x6790;&#x95EE;&#x9898;</h4><p>&#x5728;&#x8C03;&#x7528;BeautifulSoup&#x7684;text&#x8FD4;&#x56DE;&#x6587;&#x5B57;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x603B;&#x6709;&#x5F88;&#x591A;&#x6807;&#x7B7E;&#x53BB;&#x4E0D;&#x6389;&#xFF0C;&#x6700;&#x5F00;&#x59CB;&#x91C7;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x5B8C;&#x5584;&#x7684;&#x5339;&#x914D;&#x89C4;&#x5219;&#x4F1A;&#x53BB;&#x6389;&#x5F88;&#x591A;&#x9700;&#x8981;&#x7684;&#x6587;&#x5B57;&#x3002;</p>
+<p>&#x6700;&#x540E;&#x9009;&#x62E9;w3lib&#x5E93;&#x3002;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> w3lib <span class="keyword">import</span> html</span><br><span class="line"></span><br><span class="line">doc = <span class="string">&apos;&lt;div&gt;&lt;p&gt;&lt;b&gt;This is a link:&lt;/b&gt; &lt;a href=&quot;http://www.example.com&quot;&gt;example&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;&apos;</span></span><br><span class="line">html.remove_tags(doc)</span><br></pre></td></tr></table></figure>
+
+<h4 id="&#x8D85;&#x65F6;&#x95EE;&#x9898;"><a href="#&#x8D85;&#x65F6;&#x95EE;&#x9898;" class="headerlink" title="&#x8D85;&#x65F6;&#x95EE;&#x9898;"></a>&#x8D85;&#x65F6;&#x95EE;&#x9898;</h4><p>request&#x8BF7;&#x6C42;&#x6709;&#x65F6;&#x4F1A;&#x6709;&#x8D85;&#x65F6;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;[&#x8FD9;&#x4E2A;][<a href="https://www.cnblogs.com/gl1573/p/10129382.html]" target="_blank" rel="noopener">https://www.cnblogs.com/gl1573/p/10129382.html]</a></p>
+<p>&#x53EF;&#x4EE5;&#x53C2;&#x8003;[&#x8FD9;&#x4E2A;&#x535A;&#x5BA2;][<a href="https://blog.csdn.net/Homewm/article/details/92127567]" target="_blank" rel="noopener">https://blog.csdn.net/Homewm/article/details/92127567]</a></p>
+<p>&#x4E3B;&#x8981;&#x6709;&#x4EE5;&#x4E0B;&#x505A;&#x6CD5;</p>
+<ul>
+<li>&#x4F7F;&#x7528;<strong>eventlet</strong>&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x9002;&#x7528;&#x4E8E;&#x591A;&#x8FDB;&#x7A0B;</li>
+<li><strong>&#x4F7F;&#x7528;signal&#x8BBE;&#x7F6E;&#x88C5;&#x9970;&#x5668;</strong></li>
+</ul>
+<blockquote>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x53C2;&#x8003;Jack Cui&#x5927;&#x4F6C;&#x7684;[&#x6559;&#x7A0B;][<a href="https://github.com/Jack-Cherish/python-spider/tree/master/2020]" target="_blank" rel="noopener">https://github.com/Jack-Cherish/python-spider/tree/master/2020]</a></p>
+<p>&#x5728;&#x5BFB;&#x627E;&#x8D44;&#x6599;&#x65F6;&#x8FD8;&#x53D1;&#x73B0;&#x4E86;&#x4EE5;&#x4E0B;&#x4E0D;&#x9519;&#x7684;&#x8D44;&#x6E90;</p>
+<p>[Python&#x7F51;&#x7EDC;&#x722C;&#x866B;&#x5B9E;&#x6218;][<a href="https://www.jianshu.com/p/3a038d070eb1]" target="_blank" rel="noopener">https://www.jianshu.com/p/3a038d070eb1]</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/26/Deep-Learning-for-Encrypted-Traffic-Classification-An-Overview阅读笔记/" rel="next" title="Deep Learning for  Encrypted Traffic Classification: An Overview阅读笔记">
+                <i class="fa fa-chevron-left"></i> Deep Learning for  Encrypted Traffic Classification: An Overview阅读笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/" rel="prev" title="Prototypical Networks for Few-shot Learning阅读笔记">
+                Prototypical Networks for Few-shot Learning阅读笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/me.jpg" alt="HEATAO">
+            
+              <p class="site-author-name" itemprop="name">HEATAO</p>
+              <p class="site-description motion-element" itemprop="description">heatao的个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heatao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:heatao59@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫简介"><span class="nav-number">1.</span> <span class="nav-text">爬虫简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL"><span class="nav-number">1.1.</span> <span class="nav-text">URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查F12"><span class="nav-number">1.2.</span> <span class="nav-text">检查F12</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#爬虫的步骤"><span class="nav-number">1.3.</span> <span class="nav-text">爬虫的步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟登录"><span class="nav-number">2.</span> <span class="nav-text">模拟登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的反爬手段"><span class="nav-number">3.</span> <span class="nav-text">常见的反爬手段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EP4资格赛题库爬虫"><span class="nav-number">4.</span> <span class="nav-text">EP4资格赛题库爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分析URI"><span class="nav-number">4.1.</span> <span class="nav-text">分析URI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文字解析问题"><span class="nav-number">4.2.</span> <span class="nav-text">文字解析问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#超时问题"><span class="nav-number">4.3.</span> <span class="nav-text">超时问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
