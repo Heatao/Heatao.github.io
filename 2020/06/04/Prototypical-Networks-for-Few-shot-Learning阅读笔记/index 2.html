@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x672C;&amp;#x6587;&amp;#x89E3;&amp;#x51B3;&amp;#x7684;&amp;#x4EC0;&amp;#x4E48;&amp;#x95EE;&amp;#x9898; few-shot classification&amp;#xFF1A;&amp;#x5C0F;&amp;#x6837;&amp;#x672C;&amp;#x5206;&amp;#x7C7B;&amp;#x95EE;&amp;#x9898; &amp;#x95EE;&amp;#x9898;&amp;#x4ECB;&amp;#x7ECD;Few-sho">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prototypical Networks for Few-shot Learning阅读笔记">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="&amp;#x672C;&amp;#x6587;&amp;#x89E3;&amp;#x51B3;&amp;#x7684;&amp;#x4EC0;&amp;#x4E48;&amp;#x95EE;&amp;#x9898; few-shot classification&amp;#xFF1A;&amp;#x5C0F;&amp;#x6837;&amp;#x672C;&amp;#x5206;&amp;#x7C7B;&amp;#x95EE;&amp;#x9898; &amp;#x95EE;&amp;#x9898;&amp;#x4ECB;&amp;#x7ECD;Few-sho">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-04%20下午8.40.12.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-04%20下午8.42.47.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-04%20下午8.54.42.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-05%20上午11.21.23.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-05%20下午5.11.28.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-05%20下午5.11.58.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-06%20上午10.32.07.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/v2-3596533392abb2857d736f067f74d5f6_1440w.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-06%20下午12.01.07.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-06%20下午2.44.34.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-06%20下午3.00.38.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-06%20下午3.30.51.png">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cmathbb%7BR%7D%5En%5Ctimes+%5Cmathbb%7BR%7D%5En+%5Crightarrow+%5Cmathbb%7BR%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=d%28x%2Cy%29">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cmathbb%7BR%7D%5En">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=X">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cmathbb%7BE%7D%5BX%5D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=y%5Crightarrow+%5Cmathbb%7BE%7D%5Bd%28X%2Cy%29%5D">
+<meta property="og:updated_time" content="2020-06-08T15:43:42.087Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Prototypical Networks for Few-shot Learning阅读笔记">
+<meta name="twitter:description" content="&amp;#x672C;&amp;#x6587;&amp;#x89E3;&amp;#x51B3;&amp;#x7684;&amp;#x4EC0;&amp;#x4E48;&amp;#x95EE;&amp;#x9898; few-shot classification&amp;#xFF1A;&amp;#x5C0F;&amp;#x6837;&amp;#x672C;&amp;#x5206;&amp;#x7C7B;&amp;#x95EE;&amp;#x9898; &amp;#x95EE;&amp;#x9898;&amp;#x4ECB;&amp;#x7ECD;Few-sho">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/截屏2020-06-04%20下午8.40.12.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/">
+
+
+
+
+
+  <title>Prototypical Networks for Few-shot Learning阅读笔记 | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/Prototypical-Networks-for-Few-shot-Learning阅读笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HEATAO">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Prototypical Networks for Few-shot Learning阅读笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-04T16:00:41+08:00">
+                2020-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x672C;&#x6587;&#x89E3;&#x51B3;&#x7684;&#x4EC0;&#x4E48;&#x95EE;&#x9898;</p>
+<p>few-shot classification&#xFF1A;&#x5C0F;&#x6837;&#x672C;&#x5206;&#x7C7B;&#x95EE;&#x9898;</p>
+<h2 id="&#x95EE;&#x9898;&#x4ECB;&#x7ECD;"><a href="#&#x95EE;&#x9898;&#x4ECB;&#x7ECD;" class="headerlink" title="&#x95EE;&#x9898;&#x4ECB;&#x7ECD;"></a>&#x95EE;&#x9898;&#x4ECB;&#x7ECD;</h2><p>Few-shot classification&#x9700;&#x8981;&#x5728;&#x6BCF;&#x4E2A;&#x7C7B;&#x522B;&#x7684;&#x6807;&#x6CE8;&#x6837;&#x672C;&#x5F88;&#x5C11;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x8FDB;&#x884C;&#x5206;&#x7C7B;&#xFF0C;&#x751A;&#x81F3;&#x9700;&#x8981;&#x5BF9;&#x8BAD;&#x7EC3;&#x8FC7;&#x7A0B;&#x4E2D;&#x6CA1;&#x6709;&#x51FA;&#x73B0;&#x7684;&#x7C7B;&#x522B;&#x8FDB;&#x884C;&#x5206;&#x7C7B;&#x3002;</p>
+<p>&#x5728;&#x6807;&#x6CE8;&#x6837;&#x672C;&#x5F88;&#x5C11;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x8BAD;&#x7EC3;&#x5206;&#x7C7B;&#x5668;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x5BFC;&#x81F4;&#x8FC7;&#x62DF;&#x5408;&#x3002;</p>
+<p><strong>Few-shot Learning &#x662F;</strong> <strong>Meta Learning &#x5728;&#x76D1;&#x7763;&#x5B66;&#x4E60;&#x9886;&#x57DF;&#x7684;&#x5E94;&#x7528;&#x3002;</strong>Meta Learning&#xFF0C;&#x53C8;&#x79F0;&#x4E3A; learning to learn&#xFF0C;&#x5728; meta training &#x9636;&#x6BB5;&#x5C06;&#x6570;&#x636E;&#x96C6;&#x5206;&#x89E3;&#x4E3A;&#x4E0D;&#x540C;&#x7684; meta task&#xFF0C;&#x53BB;&#x5B66;&#x4E60;&#x7C7B;&#x522B;&#x53D8;&#x5316;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x6A21;&#x578B;&#x7684;&#x6CDB;&#x5316;&#x80FD;&#x529B;&#xFF0C;<strong>&#x5728; meta testing &#x9636;&#x6BB5;&#xFF0C;&#x9762;&#x5BF9;&#x5168;&#x65B0;&#x7684;&#x7C7B;&#x522B;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x53D8;&#x52A8;&#x5DF2;&#x6709;&#x7684;&#x6A21;&#x578B;</strong>&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5B8C;&#x6210;&#x5206;&#x7C7B;&#x3002;</p>
+<p>&#x5F62;&#x5F0F;&#x5316;&#x6765;&#x8BF4;&#xFF0C;few-shot &#x7684;&#x8BAD;&#x7EC3;&#x96C6;&#x4E2D;&#x5305;&#x542B;&#x4E86;&#x5F88;&#x591A;&#x7684;&#x7C7B;&#x522B;&#xFF0C;&#x6BCF;&#x4E2A;&#x7C7B;&#x522B;&#x4E2D;&#x6709;&#x591A;&#x4E2A;&#x6837;&#x672C;&#x3002;&#x5728;&#x8BAD;&#x7EC3;&#x9636;&#x6BB5;&#xFF0C;&#x4F1A;&#x5728;&#x8BAD;&#x7EC3;&#x96C6;&#x4E2D;&#x968F;&#x673A;&#x62BD;&#x53D6; C &#x4E2A;&#x7C7B;&#x522B;&#xFF0C;&#x6BCF;&#x4E2A;&#x7C7B;&#x522B; K &#x4E2A;&#x6837;&#x672C;&#xFF08;&#x603B;&#x5171; CK &#x4E2A;&#x6570;&#x636E;&#xFF09;&#xFF0C;&#x6784;&#x5EFA;&#x4E00;&#x4E2A; meta-task&#xFF0C;&#x4F5C;&#x4E3A;&#x6A21;&#x578B;&#x7684;&#x652F;&#x6491;&#x96C6;&#xFF08;support set&#xFF09;&#x8F93;&#x5165;&#xFF1B;&#x518D;&#x4ECE;&#x8FD9; C &#x4E2A;&#x7C7B;&#x4E2D;&#x5269;&#x4F59;&#x7684;&#x6570;&#x636E;&#x4E2D;&#x62BD;&#x53D6;&#x4E00;&#x6279;&#xFF08;batch&#xFF09;&#x6837;&#x672C;&#x4F5C;&#x4E3A;&#x6A21;&#x578B;&#x7684;&#x9884;&#x6D4B;&#x5BF9;&#x8C61;&#xFF08;batch set&#xFF09;&#x3002;&#x5373;&#x8981;&#x6C42;&#x6A21;&#x578B;&#x4ECE; C<em>K &#x4E2A;&#x6570;&#x636E;&#x4E2D;&#x5B66;&#x4F1A;&#x5982;&#x4F55;&#x533A;&#x5206;&#x8FD9; C &#x4E2A;&#x7C7B;&#x522B;&#xFF0C;*</em>&#x8FD9;&#x6837;&#x7684;&#x4EFB;&#x52A1;&#x88AB;&#x79F0;&#x4E3A; C-way K-shot &#x95EE;&#x9898;&#x3002;**</p>
+<p>&#x8BAD;&#x7EC3;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6BCF;&#x6B21;&#x8BAD;&#x7EC3;&#xFF08;episode&#xFF09;&#x90FD;&#x4F1A;&#x91C7;&#x6837;&#x5F97;&#x5230;&#x4E0D;&#x540C; meta-task&#xFF0C;&#x6240;&#x4EE5;&#x603B;&#x4F53;&#x6765;&#x770B;&#xFF0C;&#x8BAD;&#x7EC3;&#x5305;&#x542B;&#x4E86;&#x4E0D;&#x540C;&#x7684;&#x7C7B;&#x522B;&#x7EC4;&#x5408;&#xFF0C;&#x8FD9;&#x79CD;&#x673A;&#x5236;&#x4F7F;&#x5F97;&#x6A21;&#x578B;&#x5B66;&#x4F1A;&#x4E0D;&#x540C; meta-task &#x4E2D;&#x7684;&#x5171;&#x6027;&#x90E8;&#x5206;&#xFF0C;&#x6BD4;&#x5982;&#x5982;&#x4F55;&#x63D0;&#x53D6;&#x91CD;&#x8981;&#x7279;&#x5F81;&#x53CA;&#x6BD4;&#x8F83;&#x6837;&#x672C;&#x76F8;&#x4F3C;&#x7B49;&#xFF0C;&#x5FD8;&#x6389; meta-task &#x4E2D; task &#x76F8;&#x5173;&#x90E8;&#x5206;&#x3002;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x5B66;&#x4E60;&#x673A;&#x5236;&#x5B66;&#x5230;&#x7684;&#x6A21;&#x578B;&#xFF0C;&#x5728;&#x9762;&#x5BF9;&#x65B0;&#x7684;&#x672A;&#x89C1;&#x8FC7;&#x7684; meta-task &#x65F6;&#xFF0C;&#x4E5F;&#x80FD;&#x8F83;&#x597D;&#x5730;&#x8FDB;&#x884C;&#x5206;&#x7C7B;&#x3002;</p>
+<h3 id="&#x524D;&#x4EBA;&#x7684;&#x5DE5;&#x4F5C;"><a href="#&#x524D;&#x4EBA;&#x7684;&#x5DE5;&#x4F5C;" class="headerlink" title="&#x524D;&#x4EBA;&#x7684;&#x5DE5;&#x4F5C;"></a>&#x524D;&#x4EBA;&#x7684;&#x5DE5;&#x4F5C;</h3><p><strong>Vinyals(matching networks)</strong></p>
+<p>Vinyals&#x63D0;&#x51FA;&#x7684;matching networks&#xFF08;&#x5339;&#x914D;&#x7F51;&#x7EDC;&#xFF09;&#xFF0C;&#x5728;&#x6807;&#x8BB0;&#x7684;&#x6837;&#x672C;&#x96C6;&#xFF08;&#x652F;&#x6301;&#x96C6;&#xFF09;&#x7684;embedding&#x4E2D;&#x4F7F;&#x7528;attention&#x6765;&#x9884;&#x6D4B;&#x672A;&#x6807;&#x8BB0;&#x6837;&#x70B9;&#xFF08;&#x67E5;&#x8BE2;&#x96C6;&#xFF09;&#x7684;&#x7C7B;&#x522B;&#x3002;&#x5339;&#x914D;&#x7F51;&#x7EDC;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x5728;embedding&#x7A7A;&#x95F4;&#x4E2D;&#x7684;&#x52A0;&#x6743;&#x6700;&#x8FD1;&#x90BB;&#x5206;&#x7C7B;&#x5668;&#x3002;</p>
+<p>&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x8BE5;&#x6A21;&#x578B;&#x5229;&#x7528;&#x4E86;&#x5728;&#x8BAD;&#x7EC3;&#x671F;&#x95F4;&#x88AB;&#x79F0;&#x4E3A;episodes &#x7684;mini-batches&#xFF08;&#x62BD;&#x6837;&#xFF09;&#xFF0C;&#x6BCF;&#x4E2A;episodes&#x65E8;&#x5728;&#x901A;&#x8FC7;&#x5BF9;&#x7C7B;&#x522B;&#x4EE5;&#x53CA;&#x6570;&#x636E;&#x70B9;&#x8FDB;&#x884C;&#x4E8C;&#x6B21;&#x91C7;&#x6837;&#x6765;&#x6A21;&#x4EFF;few-shot&#x4EFB;&#x52A1;&#x3002;</p>
+<p><strong>Ravi and Larochelle</strong></p>
+<p>Ravi&#x548C;Larochelle&#x4E5F;&#x662F;&#x91C7;&#x7528;&#x7684;&#x8FD9;&#x79CD;episodes&#x5F0F;&#x7684;&#x8BAD;&#x7EC3;&#x601D;&#x60F3;&#xFF0C;&#x5E76;&#x63D0;&#x51FA;&#x4E86;&#x4E00;&#x79CD;meta-learning&#x65B9;&#x6CD5;&#x6765;&#x8FDB;&#x884C;&#x5C0F;&#x6837;&#x672C;&#x5B66;&#x4E60;&#x3002;</p>
+<p>&#x4ED6;&#x4EEC;&#x7684;&#x65B9;&#x5F0F;&#x662F;&#xFF0C;&#x7ED9;&#x5B9A;episode&#x8BAD;&#x7EC3;&#x4E00;&#x4E2A;LSTM&#x5BF9;&#x5206;&#x7C7B;&#x5668;&#x8FDB;&#x884C;&#x66F4;&#x65B0;&#xFF0C;&#x4EE5;&#x4FBF;&#x5F88;&#x597D;&#x7684;&#x63A8;&#x5E7F;&#x5230;&#x6D4B;&#x8BD5;&#x96C6;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;LSTM meta-learner&#x4E0D;&#x662F;&#x5BF9;&#x4E8E;&#x591A;&#x4E2A;episode&#x8BAD;&#x7EC3;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x5206;&#x7C7B;&#x5668;&#xFF0C;&#x800C;&#x662F;&#x4E3A;&#x6BCF;&#x4E00;&#x4E2A;episode&#x8BAD;&#x7EC3;&#x4E00;&#x4E2A;&#x5B9A;&#x5236;&#x7684;&#x5206;&#x7C7B;&#x5668;&#x3002;</p>
+<blockquote>
+<p>&#x8FD9;&#x6BB5;&#x6CA1;&#x8BFB;&#x61C2;&#xFF0C;&#x610F;&#x601D;&#x662F;&#x6BCF;&#x4E2A;&#x5206;&#x7C7B;&#x6765;&#x4E86;&#x4E4B;&#x540E;&#x5BF9;&#x5206;&#x7C7B;&#x5668;&#x8FDB;&#x884C;&#x4E8C;&#x6B21;&#x8BAD;&#x7EC3;&#x6765;&#x66F4;&#x65B0;</p>
+<p>&#x4E0E;&#x76F4;&#x63A5;&#x8BAD;&#x7EC3;&#x4E00;&#x4E2A;&#x591A;&#x5206;&#x7C7B;&#x7684;&#x5206;&#x7C7B;&#x5668;&#x7684;&#x4E0D;&#x540C;&#x4E48;</p>
+</blockquote>
+<h3 id="&#x672C;&#x6587;&#x7684;&#x601D;&#x60F3;"><a href="#&#x672C;&#x6587;&#x7684;&#x601D;&#x60F3;" class="headerlink" title="&#x672C;&#x6587;&#x7684;&#x601D;&#x60F3;"></a>&#x672C;&#x6587;&#x7684;&#x601D;&#x60F3;</h3><p><strong>prototypical networks</strong></p>
+<p>prototypical networks&#x7684;&#x601D;&#x60F3;&#x662F;&#x6BCF;&#x4E00;&#x4E2A;&#x7C7B;&#x522B;&#x7684;&#x6240;&#x6709;&#x70B9;embedding&#x4F1A;&#x56F4;&#x7ED5;&#x4E00;&#x4E2A;&#x539F;&#x578B;&#x805A;&#x96C6;&#x3002;&#x7531;&#x4E8E;&#x6837;&#x672C;&#x6709;&#x9650;&#xFF0C;&#x5206;&#x7C7B;&#x5668;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x5F52;&#x7EB3;&#x504F;&#x5DEE; (inductive bias)&#x3002;</p>
+<p>&#x505A;&#x6CD5;&#x662F;&#x5C06;&#x6BCF;&#x4E00;&#x4E2A;&#x7C7B;&#x522B;&#x6620;&#x5C04;&#x5230;&#x975E;&#x7EBF;&#x6027;&#x7A7A;&#x95F4;embedding&#xFF0C;&#x6C42;&#x5176;&#x5747;&#x503C;&#x4F5C;&#x4E3A;&#x539F;&#x578B;&#xFF0C;&#x5206;&#x7C7B;&#x7684;&#x65F6;&#x5019;&#x67E5;&#x8BE2;&#x6700;&#x8FD1;&#x7684;&#x539F;&#x578B;&#x70B9;&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x8FD8;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x89E3;&#x51B3;zero-shot&#x5B66;&#x4E60;&#xFF0C;&#x8BE5;&#x4EFB;&#x52A1;&#x6BCF;&#x4E2A;&#x7C7B;&#x522B;&#x90FD;&#x6709;meta-data&#xFF0C;meta-data&#x5BF9;&#x7C7B;&#x8FDB;&#x884C;&#x4E86;&#x9AD8;&#x7EA7;&#x63CF;&#x8FF0;&#xFF0C;&#x800C;&#x975E;&#x5C11;&#x6570;&#x5E26;&#x6807;&#x7B7E;&#x7684;&#x793A;&#x4F8B;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x5143;&#x6570;&#x636E;&#x5D4C;&#x5165;&#x5230;&#x5171;&#x4EAB;&#x7A7A;&#x95F4;&#x4E2D;&#xFF0C;&#x4EE5;&#x7528;&#x4F5C;&#x6BCF;&#x4E2A;&#x7C7B;&#x7684;&#x539F;&#x578B;&#x3002;</p>
+<p>##prototypical networks&#x6A21;&#x578B;</p>
+<h3 id="&#x7B26;&#x53F7;"><a href="#&#x7B26;&#x53F7;" class="headerlink" title="&#x7B26;&#x53F7;"></a>&#x7B26;&#x53F7;</h3><p>&#x5171;N&#x4E2A;&#x6837;&#x672C;&#x6BCF;&#x4E2A;&#x70B9;&#x4E3A;(X<del>i</del>, y<del>i</del>)&#xFF0C;&#x5176;&#x4E2D;X<del>i</del>&#x662F;&#x4E00;&#x4E2A;D-dimensional&#x7684;&#x5411;&#x91CF;&#xFF0C;y<del>i</del>&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x5B57;&#x7C7B;&#x578B;&#x7684;&#x6807;&#x8BB0;&#x7C7B;&#x522B;&#xFF0C;&#x5171;K&#x7C7B;&#xFF0C;S<del>k</del>&#x8868;&#x793A;&#x5C5E;&#x4E8E;&#x7B2C;K&#x7C7B;&#x3002;</p>
+<h3 id="&#x6A21;&#x578B;"><a href="#&#x6A21;&#x578B;" class="headerlink" title="&#x6A21;&#x578B;"></a>&#x6A21;&#x578B;</h3><p>&#x901A;&#x8FC7;embedding&#x51FD;&#x6570; <strong><em>f<del>&#x3A6;</del></em></strong>&#xFF08;&#x53C2;&#x6570;&#x3A6;&#xFF09;&#xFF0C;&#x5C06;X<del>i</del>&#x4ECE;D-dimensional&#x7684;&#x7279;&#x5F81;&#x6620;&#x5C04;&#x5230;M-dimensional&#x7684;&#x7A7A;&#x95F4;&#x4E2D;&#xFF0C;&#x518D;&#x8FDB;&#x884C;&#x6C42;&#x5747;&#x503C;&#x5F97;&#x5230;&#x539F;&#x578B;&#xFF1A;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-04 &#x4E0B;&#x5348;8.40.12.png" alt="&#x622A;&#x5C4F;2020-06-04 &#x4E0B;&#x5348;8.40.12" style="zoom:50%;">
+
+<p>&#x901A;&#x8FC7;&#x4E00;&#x4E2A;softmax&#x5BF9;&#x67E5;&#x8BE2;&#x70B9;x&#x8FDB;&#x884C;&#x5206;&#x7C7B;&#xFF0C;<strong>x</strong> &#x5C5E;&#x4E8E;&#x7C7B;&#x522B; <strong><em>k</em></strong> &#x7684;&#x6982;&#x7387;&#x4E3A;&#xFF1A;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-04 &#x4E0B;&#x5348;8.42.47.png" alt="&#x622A;&#x5C4F;2020-06-04 &#x4E0B;&#x5348;8.42.47" style="zoom:50%;">
+
+<p>&#x5176;&#x4E2D; <strong><em>d()</em></strong> &#x662F;&#x8DDD;&#x79BB;&#x51FD;&#x6570;&#xFF0C;&#x8BA1;&#x7B97;&#x6837;&#x672C;&#x70B9; <strong>x</strong> &#x5230;&#x539F;&#x578B;&#x70B9;&#x7684;&#x8DDD;&#x79BB;&#xFF0C;&#x53D6;&#x76F8;&#x53CD;&#x6570;&#x7684;&#x539F;&#x56E0;&#x662F;&#x76F8;&#x8DDD;&#x6700;&#x5C0F;&#x7684;&#x539F;&#x578B;&#x6700;&#x6709;&#x53EF;&#x80FD;&#x4F7F;&#x8FD9;&#x4E2A;&#x6837;&#x672C;&#x70B9;&#x5BF9;&#x5E94;&#x7684;&#x7C7B;&#x3002;</p>
+<p>&#x901A;&#x8FC7;&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6700;&#x5C0F;&#x5316;&#x6B63;&#x786E;&#x7C7B;&#x522B;<strong><em>k</em></strong>&#x7684;&#x8D1F;&#x5BF9;&#x6570;&#x6982;&#x7387;&#xFF1A;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-04 &#x4E0B;&#x5348;8.54.42.png" alt="&#x622A;&#x5C4F;2020-06-04 &#x4E0B;&#x5348;8.54.42" style="zoom:50%;">
+
+<p>&#x6700;&#x5C0F;&#x5316;&#x6B63;&#x786E;&#x7C7B;&#x522B;&#x7684;&#x8D1F;&#x5BF9;&#x6570;&#x6982;&#x7387;&#x7B49;&#x4EF7;&#x4E8E;&#x6700;&#x5927;&#x5316; <strong><em>p<del>&#x3D5;</del>(y=k|x)</em></strong> &#xFF0C;&#x5176;&#x4E2D;x&#x5C5E;&#x4E8E;&#x7C7B;k&#x3002;</p>
+<p>Training episodes&#x662F;&#x4ECE;&#x8BAD;&#x7EC3;&#x96C6;&#x6240;&#x6709;&#x7C7B;&#x522B;&#x79CD;&#x62BD;&#x53D6;&#x7684;&#x7C7B;&#x522B;&#xFF08;&#x5C31;&#x662F;&#x62BD;&#x53D6;N<del>C</del>&#x4E2A;&#x7C7B;&#x522B;&#xFF09;&#x3002;</p>
+<p>support set&#x662F;episodes&#x6BCF;&#x4E2A;&#x7C7B;&#x522B;&#x62BD;&#x53D6;&#x7684;&#x6837;&#x4F8B;&#x7684;&#x5B50;&#x96C6;&#xFF0C;support set&#x4EE5;&#x5916;&#x7684;&#x90E8;&#x5206;&#x8FDB;&#x884C;&#x62BD;&#x6837;&#x5F97;&#x5230;query points&#x3002;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-05 &#x4E0A;&#x5348;11.21.23.png" alt="&#x622A;&#x5C4F;2020-06-05 &#x4E0A;&#x5348;11.21.23" style="zoom:80%;">
+
+<p>&#x8FD9;&#x6BB5;&#x4F2A;&#x4EE3;&#x7801;&#x7684;&#x51E0;&#x4E2A;&#x6CE8;&#x610F;&#x70B9;</p>
+<ul>
+<li>&#x8FD9;&#x662F;&#x4E00;&#x4E2A;episode&#x7684;&#x8BAD;&#x7EC3;&#xFF0C;&#x800C;&#x975E;&#x6574;&#x4E2A;&#x8BAD;&#x7EC3;&#x8FC7;&#x7A0B;</li>
+<li>2-way 5-shot&#x6307;&#x7684;&#x662F;N<del>c</del>=2&#xFF0C;Q<del>k</del></li>
+<li>&#x5C0F;k&#x4EE3;&#x8868;&#x7684;&#x662F;&#x7C7B;k&#xFF0C;K&#x662F;&#x6574;&#x4E2A;&#x8BAD;&#x7EC3;&#x6570;&#x636E;&#x6709;K&#x4E2A;&#x7C7B;&#x522B;</li>
+<li>Compute prototype from support examples &#x4E2D;&#x7684;N<del>C</del>&#x5E94;&#x8BE5;&#x4E3A;N<del>S</del></li>
+<li>Update loss&#x6B65;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x5F0F;&#x5B50;&#x53EF;&#x5316;&#x4E3A;x&#x5C5E;&#x4E8E;c<del>k</del>&#x7C7B;&#x7684;&#x6982;&#x7387;&#xFF08;&#x524D;&#x9762;&#x63D0;&#x5230;&#x7684;&#xFF09;<ul>
+<li>&#x8FD9;&#x6837;&#x7684;&#x6548;&#x679C;&#x662F;&#x53E0;&#x52A0;&#x6BCF;&#x4E2A;&#x7C7B;&#x7684; query set &#x8282;&#x70B9;&#x7684;&#x635F;&#x5931;&#x4F5C;&#x4E3A;&#x635F;&#x5931;&#x51FD;&#x6570;</li>
+</ul>
+</li>
+</ul>
+<h2 id="&#x8FDB;&#x4E00;&#x6B65;&#x5206;&#x6790;"><a href="#&#x8FDB;&#x4E00;&#x6B65;&#x5206;&#x6790;" class="headerlink" title="&#x8FDB;&#x4E00;&#x6B65;&#x5206;&#x6790;"></a>&#x8FDB;&#x4E00;&#x6B65;&#x5206;&#x6790;</h2><h3 id="&#x539F;&#x578B;&#x7F51;&#x7EDC;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x6DF7;&#x5408;&#x5BC6;&#x5EA6;&#x4F30;&#x8BA1;"><a href="#&#x539F;&#x578B;&#x7F51;&#x7EDC;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x6DF7;&#x5408;&#x5BC6;&#x5EA6;&#x4F30;&#x8BA1;" class="headerlink" title="&#x539F;&#x578B;&#x7F51;&#x7EDC;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x6DF7;&#x5408;&#x5BC6;&#x5EA6;&#x4F30;&#x8BA1;"></a>&#x539F;&#x578B;&#x7F51;&#x7EDC;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x6DF7;&#x5408;&#x5BC6;&#x5EA6;&#x4F30;&#x8BA1;</h3><p>&#x5F53;&#x8DDD;&#x79BB;&#x51FD;&#x6570; <strong><em>d</em></strong> &#x4E3A;regular Bregman divergences&#x65F6;&#xFF0C;&#x672C;&#x6587;&#x63D0;&#x5230;&#x7684;&#x539F;&#x578B;&#x7F51;&#x7EDC;&#x7684;&#x7B97;&#x6CD5;&#x76F8;&#x5F53;&#x4E8E;&#x5BF9;&#x5177;&#x6709;&#x6307;&#x6570;&#x65CF;&#x5BC6;&#x5EA6;&#x7684;&#x652F;&#x6301;&#x96C6;&#x8FDB;&#x884C;&#x6DF7;&#x5408;&#x5BC6;&#x5EA6;&#x4F30;&#x8BA1;&#x3002;</p>
+<p>Bregman divergence&#x5305;&#x62EC;&#x4E86;&#x5E38;&#x89C1;&#x4E86;&#x201C;&#x8DDD;&#x79BB;&#x201D;&#x5B9A;&#x4E49;&#xFF0C;&#x5982;&#x5747;&#x65B9;&#x6B27;&#x5F0F;&#x8DDD;&#x79BB;Mahalanobis&#x8DDD;&#x79BB;&#x3002;&#x6839;&#x636E;Bregman divergence&#x7684;&#x6027;&#x8D28;&#xFF0C;&#x5728;support set&#x4E0A;&#x5229;&#x7528;&#x5411;&#x91CF;&#x5747;&#x503C;&#x6C42;&#x5F97;&#x5F97;&#x503C;&#x662F;&#x6700;&#x4F18;&#x7684;&#x805A;&#x7C7B;&#x4E2D;&#x5FC3;&#x3002;</p>
+<blockquote>
+<p>&#x8FD9;&#x4E00;&#x70B9;&#x4F5C;&#x8005;&#x6CA1;&#x6709;&#x76F4;&#x63A5;&#x8BC1;&#x660E;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x901A;&#x8FC7;[4]&#x95F4;&#x63A5;&#x8BF4;&#x660E;</p>
+<p>[4] Arindam Banerjee, Srujana Merugu, Inderjit S Dhillon, and Joydeep Ghosh. Clustering with bregman divergences. Journal of machine learning research, 6(Oct):1705&#x2013;1749, 2005. </p>
+</blockquote>
+<h3 id="&#x7406;&#x89E3;&#x4E3A;&#x7EBF;&#x6027;&#x6A21;&#x578B;"><a href="#&#x7406;&#x89E3;&#x4E3A;&#x7EBF;&#x6027;&#x6A21;&#x578B;" class="headerlink" title="&#x7406;&#x89E3;&#x4E3A;&#x7EBF;&#x6027;&#x6A21;&#x578B;"></a>&#x7406;&#x89E3;&#x4E3A;&#x7EBF;&#x6027;&#x6A21;&#x578B;</h3><p>&#x5728;&#x5E94;&#x7528;&#x6B27;&#x5F0F;&#x8DDD;&#x79BB; <strong><em>d(z, z&#x2019;) = ||z - z&#x2019;||^2^</em></strong> &#x65F6;&#xFF0C;&#x4E0A;&#x6587;&#x7684;softmax&#x76F8;&#x5F53;&#x4E8E;&#x6709;&#x7279;&#x5B9A;&#x53C2;&#x6570;&#x7684;&#x7EBF;&#x6027;&#x6A21;&#x578B;&#xFF0C;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#xFF1A;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-05 &#x4E0B;&#x5348;5.11.28.png" alt="&#x622A;&#x5C4F;2020-06-05 &#x4E0B;&#x5348;5.11.28" style="zoom:50%;">
+
+<p>&#x7531;&#x4E8E; <strong><em>k</em></strong> &#x662F;&#x5E38;&#x6570;&#xFF0C;&#x53EF;&#x4EE5;&#x8FDB;&#x4E00;&#x6B65;&#x5316;&#x4E3A;&#x5982;&#x4E0B;&#x7EBF;&#x6027;&#x6A21;&#x578B;&#xFF1A;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-05 &#x4E0B;&#x5348;5.11.58.png" alt="&#x622A;&#x5C4F;2020-06-05 &#x4E0B;&#x5348;5.11.58" style="zoom:50%;">
+
+<p>&#x672C;&#x6587;&#x7684;&#x5DE5;&#x4F5C;&#x8868;&#x660E;&#xFF0C;&#x4F7F;&#x7528;&#x6B27;&#x5F0F;&#x8DDD;&#x79BB;&#x867D;&#x7136;&#x7B80;&#x5355;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x7EBF;&#x6027;&#x6A21;&#x578B;&#xFF0C;&#x4F46;&#x662F;&#x6709;&#x6548;&#x3002;&#x4F5C;&#x8005;&#x731C;&#x6D4B;&#x6240;&#x9700;&#x8981;&#x7684;&#x975E;&#x7EBF;&#x6027;&#x56E0;&#x7D20;&#x90FD;&#x5728;embedding&#x51FD;&#x6570;&#x4E2D;&#x5B66;&#x5230;&#x4E86;&#x3002;</p>
+<h3 id="&#x4E0E;Matching-Networks&#x6BD4;&#x8F83;"><a href="#&#x4E0E;Matching-Networks&#x6BD4;&#x8F83;" class="headerlink" title="&#x4E0E;Matching Networks&#x6BD4;&#x8F83;"></a>&#x4E0E;Matching Networks&#x6BD4;&#x8F83;</h3><p>&#x539F;&#x578B;&#x7F51;&#x7EDC;Prototypical networks&#x548C;&#x5339;&#x914D;&#x7F51;&#x7EDC;Matching networks&#x5728;few-shot&#xFF08;&#x5C11;&#x6837;&#x672C;&#xFF09;&#x7684;&#x573A;&#x666F;&#x4E0B;&#x662F;&#x4E0D;&#x540C;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x5728;one-shot&#xFF08;&#x5355;&#x4E00;&#x6837;&#x672C;&#xFF09;&#x7684;&#x573A;&#x666F;&#x4E0B;&#x662F;&#x7B49;&#x4EF7;&#x7684;&#x3002;</p>
+<p>&#x5728;one-shot&#x7684;&#x573A;&#x666F;&#x4E0B;&#xFF0C;&#x539F;&#x578B;&#x70B9;&#x5C31;&#x662F;&#x6837;&#x672C;&#x70B9; <strong><em>c<del>k</del> = x<del>k</del></em></strong> &#x3002;</p>
+<p>Matching networks&#x63D0;&#x51FA;&#x4E86;&#x8BB8;&#x591A;&#x6269;&#x5C55;&#xFF0C;&#x5305;&#x62EC;&#x5C06;&#x652F;&#x6301;&#x70B9;&#x548C;&#x67E5;&#x8BE2;&#x70B9;&#x7684;&#x5D4C;&#x5165;&#x89E3;&#x8026;&#x5408;&#xFF0C;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;&#x8003;&#x8651;&#x4E86;&#x6BCF;&#x4E2A;episode&#x4E2D;&#x7279;&#x5B9A;&#x70B9;&#x7684;second-level, fully-conditional embedding&#xFF08;FCE&#xFF09;&#x3002; &#x8FD9;&#x4E9B;&#x540C;&#x6837;&#x53EF;&#x4EE5;&#x5408;&#x5E76;&#x5230;&#x539F;&#x578B;&#x7F51;&#x7EDC;&#x4E2D;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x4EEC;&#x589E;&#x52A0;&#x4E86;&#x53C2;&#x6570;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x5E76;&#x4E14;FCE&#x4F7F;&#x7528;&#x53CC;&#x5411;LSTM&#x5BF9;&#x652F;&#x6301;&#x96C6;&#x65BD;&#x52A0;&#x4E86;arbitrary ordering&#x3002;</p>
+<h3 id="&#x8BBE;&#x8BA1;&#x9009;&#x62E9;"><a href="#&#x8BBE;&#x8BA1;&#x9009;&#x62E9;" class="headerlink" title="&#x8BBE;&#x8BA1;&#x9009;&#x62E9;"></a>&#x8BBE;&#x8BA1;&#x9009;&#x62E9;</h3><p><strong>Distance metric</strong></p>
+<p>&#x76F8;&#x6BD4;&#x4F59;&#x5F26;&#x8DDD;&#x79BB;&#xFF0C;&#x672C;&#x6587;&#x53D1;&#x73B0;&#x4F7F;&#x7528;&#x5E73;&#x65B9;&#x6B27;&#x51E0;&#x91CC;&#x5FB7;&#x8DDD;&#x79BB;&#x53EF;&#x4EE5;&#x6781;&#x5927;&#x5730;&#x6539;&#x5584;&#x539F;&#x578B;&#x7F51;&#x7EDC;&#x548C;&#x5339;&#x914D;&#x7F51;&#x7EDC;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x4F5C;&#x8005;&#x63A8;&#x6D4B;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x4F59;&#x5F26;&#x8DDD;&#x79BB;&#x4E0D;&#x662F;Bregman&#x6563;&#x5EA6;&#xFF0C;&#x56E0;&#x6B64;&#x4E0E;&#x6DF7;&#x5408;&#x5BC6;&#x5EA6;&#x4F30;&#x8BA1;&#x4E0D;&#x7B49;&#x4EF7;&#x3002;</p>
+<p><strong>Episode composition</strong></p>
+<p>Vinyals&#xFF08;&#x5339;&#x914D;&#x7F51;&#x7EDC;&#xFF09;&#x548C;Ravi&#x7B49;&#x4EBA;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x76F4;&#x63A5;&#x9009;&#x62E9;Nc&#x4E2A;&#x7C7B;&#x4F5C;&#x4E3A;episode&#xFF0C;&#x6BCF;&#x4E2A;&#x7C7B;&#x76F4;&#x63A5;&#x9009;&#x62E9;N<del>S</del>&#x4E2A;&#x6837;&#x672C;&#x7684;&#x652F;&#x6301;&#x96C6;&#x3002;</p>
+<p>&#x4F5C;&#x8005;&#x53D1;&#x73B0;&#xFF0C;&#x5728;&#x6D4B;&#x8BD5;&#x96C6;&#x7684;&#x65F6;&#x5019;&#x9009;&#x62E9;&#x66F4;&#x5927;&#x7684;Nc&#x548C;N<del>S</del>&#x4F1A;&#x6709;&#x66F4;&#x597D;&#x7684;&#x6548;&#x679C;&#xFF0C;&#x5E76;&#x4E14;&#x4F5C;&#x8005;&#x53D1;&#x73B0;&#x8BAD;&#x7EC3;&#x548C;&#x6D4B;&#x8BD5;&#x91C7;&#x7528;&#x76F8;&#x540C;&#x6570;&#x91CF;&#xFF1F;&#x7684;N<del>S</del>&#x4F1A;&#x66F4;&#x597D;&#x3002;</p>
+<h3 id="Zero-Shot&#x96F6;&#x6837;&#x672C;&#x5B66;&#x4E60;"><a href="#Zero-Shot&#x96F6;&#x6837;&#x672C;&#x5B66;&#x4E60;" class="headerlink" title="Zero-Shot&#x96F6;&#x6837;&#x672C;&#x5B66;&#x4E60;"></a>Zero-Shot&#x96F6;&#x6837;&#x672C;&#x5B66;&#x4E60;</h3><p>Zero-shot learning&#x4E0E;fewer -shot learning&#x7684;&#x4E0D;&#x540C;&#x4E4B;&#x5904;&#x662F;&#xFF0C;&#x6CA1;&#x6709;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x8BAD;&#x7EC3;&#x7684;&#x652F;&#x6301;&#x96C6;&#xFF0C;&#x800C;&#x662F;&#x7ED9;&#x6BCF;&#x4E2A;&#x7C7B;&#x4E00;&#x4E2A;&#x5143;&#x6570;&#x636E;&#x5411;&#x91CF;v<del>k</del>&#xFF0C;&#x8FD9;&#x4E2A;&#x5143;&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x4E8B;&#x5148;&#x5B9A;&#x4E49;&#x6216;&#x8005;&#x901A;&#x8FC7;&#x5B66;&#x4E60;&#x5F97;&#x5230;&#x3002;</p>
+<p>&#x5C06;&#x539F;&#x578B;&#x7F51;&#x7EDC;&#x5E94;&#x7528;&#x4E8E;Zero-shot&#x53EA;&#x9700;&#x8981;&#x5C06;&#x5143;&#x6570;&#x636E;&#x4F5C;&#x4E3A;&#x539F;&#x578B;&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x7531;&#x4E8E;&#x539F;&#x6570;&#x636E;&#x7684;&#x5411;&#x91CF;&#x548C;query point&#x901A;&#x5E38;&#x6765;&#x81EA;&#x4E0D;&#x540C;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x4F5C;&#x8005;&#x53D1;&#x73B0;&#x53EF;&#x7528;&#x56FA;&#x5B9A;&#x539F;&#x578B;embedding&#x7684;&#x957F;&#x5EA6;&#x4E3A;&#x5355;&#x4F4D;&#x957F;&#x5EA6;&#xFF0C;&#x5BF9;query embedding&#x4E0D;&#x9650;&#x5236;&#x3002;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-06 &#x4E0A;&#x5348;10.32.07.png" alt="&#x622A;&#x5C4F;2020-06-06 &#x4E0A;&#x5348;10.32.07" style="zoom:80%;">
+
+<h2 id="&#x5B9E;&#x9A8C;"><a href="#&#x5B9E;&#x9A8C;" class="headerlink" title="&#x5B9E;&#x9A8C;"></a>&#x5B9E;&#x9A8C;</h2><p>&#x5BF9;&#x4E8E;few-shot learning&#xFF0C;&#x5728;Omniglot&#x548C;miniImageNet version of ILSVRC-2012&#x4E0A;&#x8FDB;&#x884C;&#x5B9E;&#x9A8C;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;zero-shot learning&#xFF0C;&#x5728;2011 version of the Caltech UCSD bird dataset (CUB-200 2011) &#x4E0A;&#x8FDB;&#x884C;&#x5B9E;&#x9A8C;&#x3002;</p>
+<h3 id="Omniglot-Few-shot-Classification"><a href="#Omniglot-Few-shot-Classification" class="headerlink" title="Omniglot Few-shot Classification"></a>Omniglot Few-shot Classification</h3><p>Omniglot &#x6570;&#x636E;&#x96C6;&#x5305;&#x542B;&#x6765;&#x81EA; 50&#x4E0D;&#x540C;&#x5B57;&#x6BCD;&#xFF08;&#x8BED;&#x8A00;&#xFF09;&#x7684;1623 &#x4E2A;&#x4E0D;&#x540C;&#x624B;&#x5199;&#x5B57;&#x7B26;&#x3002;&#x6BCF;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x90FD;&#x662F;&#x7531; 20&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x4EBA;&#x901A;&#x8FC7;&#x4E9A;&#x9A6C;&#x900A;&#x7684; Mechanical Turk &#x5728;&#x7EBF;&#x7ED8;&#x5236;&#x7684;&#x3002;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/v2-3596533392abb2857d736f067f74d5f6_1440w.jpg" alt="v2-3596533392abb2857d736f067f74d5f6_1440w" style="zoom:80%;">
+
+<p>&#x4F5C;&#x8005;&#x53C2;&#x7167;Vinyals&#x7B49;&#x4EBA;&#x7684;&#x6B65;&#x9AA4;&#xFF0C;&#x5C06;&#x7070;&#x5EA6;&#x56FE;&#x50CF;&#x8C03;&#x6574;&#x4E3A;28 &#x2716;&#xFE0F; 28&#xFF0C;&#x5E76;&#x5C06;&#x56FE;&#x50CF;&#x591A;&#x6B21;&#x65CB;&#x8F6C;90&#x5EA6;&#x6765;&#x589E;&#x52A0;&#x5B57;&#x7B26;&#x7C7B;&#x522B;&#x3002;&#x4F7F;&#x7528;1200&#x4E2A;&#x5B57;&#x7B26;&#x53CA;&#x5176;&#x65CB;&#x8F6C;&#x6765;&#x8BAD;&#x7EC3;(&#x603B;&#x5171;4800&#x4E2A;&#x7C7B;)&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x7C7B;&#x522B;&#xFF08;&#x5305;&#x62EC;&#x65CB;&#x8F6C;&#x540E;&#x7684;&#xFF09;&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;&#x3002;</p>
+<p>embedding architecture&#x4E5F;&#x662F;&#x53C2;&#x8003;&#x7684;Vinyals&#x7B49;&#x4EBA;&#x7684;&#x7ED3;&#x6784;&#xFF0C;&#x7531;&#x56DB;&#x4E2A;&#x5377;&#x79EF;&#x5757;&#x7EC4;&#x6210;&#xFF0C;&#x6BCF;&#x4E2A;&#x5757;&#x5305;&#x62EC;&#x4E00;&#x4E2A;64&#x6EE4;&#x6CE2;&#x5668;3 &#x2716;&#xFE0F; 3&#x5377;&#x79EF;&#xFF0C;batch normalization layer &#xFF0C;&#x4E00;&#x4E2A;ReLU&#x975E;&#x7EBF;&#x6027;&#x548C;&#x4E00;&#x4E2A;2 &#x2716;&#xFE0F; 2&#x6700;&#x5927;&#x6C60;&#x5316;&#x5C42;&#x3002;&#x5F53;&#x5E94;&#x7528;&#x4E8E;28 &#x2716;&#xFE0F; 28&#x7684;Omniglot&#x56FE;&#x50CF;&#x65F6;&#xFF0C;&#x6B64;&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x5C06;&#x4EA7;&#x751F;64&#x7EF4;&#x8F93;&#x51FA;&#x7A7A;&#x95F4;&#x3002;</p>
+<p>&#x6240;&#x6709;&#x7684;&#x6A21;&#x578B;&#x90FD;&#x901A;&#x8FC7;&#x4F7F;&#x7528;Adam&#x7684;SGD&#x8FDB;&#x884C;&#x8BAD;&#x7EC3;&#x3002; &#x4F7F;&#x7528;10^-3^&#x7684;&#x521D;&#x59CB;&#x5B66;&#x4E60;&#x7387;&#xFF0C;&#x6BCF;2000&#x4E2A;episode&#x5C06;&#x5B66;&#x4E60;&#x7387;&#x51CF;&#x534A;&#x3002; &#x9664;&#x4E86;batch normalization&#x5916;&#xFF0C;&#x4E0D;&#x4F7F;&#x7528;&#x4EFB;&#x4F55;&#x6B63;&#x5219;&#x5316;&#x3002;</p>
+<p>&#x4F5C;&#x8005;&#x5728;1-shot&#x548C;5-shot&#x573A;&#x666F;&#x4E0B;&#x8FDB;&#x884C;&#x8BAD;&#x7EC3;&#x539F;&#x578B;&#x7F51;&#x7EDC;&#xFF0C;&#x6BCF;&#x4E2A;episode&#x5305;&#x542B;60&#x4E2A;&#x7C7B;&#x522B;&#xFF0C;&#x5176;&#x4E2D;&#x6BCF;&#x4E2A;&#x7C7B;&#x5305;&#x542B;5&#x4E2A;query point&#x3002;</p>
+<p>&#x4F5C;&#x8005;&#x53D1;&#x73B0;&#xFF0C;&#x5C06;training-shot&#x4E0E;test-shot&#x76F8;&#x5339;&#x914D;&#x662F;&#x6709;&#x5229;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x7528;&#x4E8E;&#x8BAD;&#x7EC3;&#x7684;episode&#x5305;&#x542B;&#x66F4;&#x591A;&#x7684;&#x7C7B;&#x522B;&#x4E5F;&#x4F1A;&#x4F7F;&#x7ED3;&#x679C;&#x66F4;&#x597D;&#x3002;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-06 &#x4E0B;&#x5348;12.01.07.png" alt="&#x622A;&#x5C4F;2020-06-06 &#x4E0B;&#x5348;12.01.07" style="zoom:80%;">
+
+<h3 id="miniImageNet-Few-shot-Classification"><a href="#miniImageNet-Few-shot-Classification" class="headerlink" title="miniImageNet Few-shot Classification"></a>miniImageNet Few-shot Classification</h3><p>miniImageNet&#x6570;&#x636E;&#x96C6;&#x6765;&#x6E90;&#x4E8E;ILSVRC-12&#x6570;&#x636E;&#x96C6;&#xFF0C;Vinyals&#x7B49;&#x4EBA;&#x5728;match networks&#x63D0;&#x51FA;&#x5E76;&#x4F7F;&#x7528;&#x3002;&#x672C;&#x6587;&#x53C2;&#x8003;&#x4E86;&#x6B64;&#x524D;&#x7684;sota&#xFF0C;Ravi&#x548C;Larochelle&#x7B49;&#x4EBA;&#x7684;&#x505A;&#x6CD5;&#xFF0C;&#x6BCF;&#x4E2A;&#x5206;&#x5272;&#x7531;100&#x4E2A;&#x7C7B;&#x522B;&#xFF0C;&#x5176;&#x4E2D;64&#x4E2A;&#x7C7B;&#x522B;&#x7528;&#x4E8E;&#x8BAD;&#x7EC3;&#xFF0C;16&#x4E2A;&#x7C7B;&#x522B;&#x7528;&#x4E8E;&#x9A8C;&#x8BC1;&#xFF0C;20&#x4E2A;&#x7C7B;&#x522B;&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;&#x3002;</p>
+<p>embedding&#x51FD;&#x6570;&#x4F7F;&#x7528;&#x548C;Omniglot&#x76F8;&#x540C;&#x7684;&#x7ED3;&#x6784;&#xFF0C;&#x7531;&#x4E8E;&#x56FE;&#x50CF;&#x5C3A;&#x5BF8;&#x7684;&#x589E;&#x52A0;&#xFF0C;&#x8F93;&#x51FA;&#x7A7A;&#x95F4;&#x662F;1600&#x7EF4;&#xFF0C;&#x5B66;&#x4E60;&#x7387;&#x4E5F;&#x662F;&#x548C;&#x4E4B;&#x524D;&#x4F7F;&#x7528;&#x7684;&#x4E00;&#x6837;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;1-shot&#x5206;&#x7C7B;&#xFF0C;&#x4F7F;&#x7528;30-way episodes&#xFF0C;&#x5BF9;&#x4E8E;5-shot&#x5206;&#x7C7B;&#xFF0C;&#x4F7F;&#x7528;20-way episodes&#x3002;</p>
+<p>&#x548C;&#x4E4B;&#x524D;&#x7684;&#x51E0;&#x4E2A;&#x5DE5;&#x4F5C;&#x76F8;&#x6BD4;&#xFF0C;&#x6548;&#x679C;&#x6700;&#x597D;&#x3002;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-06 &#x4E0B;&#x5348;2.44.34.png" alt="&#x622A;&#x5C4F;2020-06-06 &#x4E0B;&#x5348;2.44.34" style="zoom:80%;">
+
+<p>&#x4F5C;&#x8005;&#x8FDB;&#x4E00;&#x6B65;&#x5206;&#x6790;&#x4E86;&#x8DDD;&#x79BB;&#x51FD;&#x6570;&#x548C;&#x6BCF;&#x4E2A;episode&#x7684;&#x8BAD;&#x7EC3;&#x7C7B;&#x522B;&#x6570;&#x5BF9;&#x7ED3;&#x679C;&#x7684;&#x5F71;&#x54CD;&#x3002;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-06 &#x4E0B;&#x5348;3.00.38.png" alt="&#x622A;&#x5C4F;2020-06-06 &#x4E0B;&#x5348;3.00.38" style="zoom:80%;">
+
+<p>&#x7ED3;&#x679C;&#x663E;&#x793A;&#xFF0C;&#x5747;&#x65B9;&#x6B27;&#x5F0F;&#x8DDD;&#x79BB;&#x6BD4;&#x4F59;&#x5F26;&#x8DDD;&#x79BB;&#x66F4;&#x597D;&#xFF0C;&#x6BCF;&#x4E2A;episode&#x4E2D;&#x7684;&#x7C7B;&#x522B;&#x66F4;&#x591A;&#x7ED3;&#x679C;&#x4E5F;&#x4F1A;&#x66F4;&#x597D;&#x3002;</p>
+<blockquote>
+<p>&#x6211;&#x7684;&#x7406;&#x89E3;&#xFF1A;</p>
+<p>5-way&#x6307;&#x7684;&#x5C31;&#x662F;&#x6BCF;&#x4E2A;episode5&#x4E2A;&#x7C7B;&#x522B;&#xFF0C;1-shot&#x5C31;&#x662F;episode&#x4E2D;&#x7684;&#x7C7B;&#x522B;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x3002;</p>
+<p>&#x90A3;&#x8FD9;&#x53E5;&#x8BDD;&#x662F;&#x4EC0;&#x4E48;&#x610F;&#x601D;&#x5462;&#xFF1F;</p>
+<p>with 15 query points per class per episode.</p>
+<p>&#x67E5;&#x9605;&#x4E86;&#x4E00;&#x4E9B;&#x8D44;&#x6599;&#x540E;&#x7EC8;&#x4E8E;&#x7406;&#x89E3;&#xFF0C;5-shot&#x6307;&#x7684;&#x662F;&#x652F;&#x6301;&#x96C6;&#x6709;5&#x4E2A;&#x5B9E;&#x4F8B;&#xFF0C;query set&#x53E6;&#x8BF4;&#x3002;</p>
+</blockquote>
+<h3 id="CUB-Zero-shot-Classification"><a href="#CUB-Zero-shot-Classification" class="headerlink" title="CUB Zero-shot Classification"></a>CUB Zero-shot Classification</h3><p>Caltech-UCSDBirds(CUB)20&#x6570;&#x636E;&#x96C6;&#x5305;&#x542B;11788&#x5F20;&#x56FE;&#x7247;&#xFF0C;&#x5171;200&#x79CD;&#x7C7B;&#x7684;&#x9E1F;&#x7C7B;&#x3002;&#x4F5C;&#x8005;&#x5C06;&#x6240;&#x6709;&#x7C7B;&#x522B;&#x5206;&#x4E3A;100&#x4E2A;&#x7C7B;&#x522B;&#x4F5C;&#x4E3A;&#x8BAD;&#x7EC3;&#xFF0C;50&#x4E2A;&#x7C7B;&#x522B;&#x4F5C;&#x4E3A;&#x9A8C;&#x8BC1;&#xFF0C;50&#x4E2A;&#x7C7B;&#x522B;&#x4F5C;&#x4E3A;&#x6D4B;&#x8BD5;&#x3002;</p>
+<p>&#x91C7;&#x7528;GoogLeNet&#x5BF9;&#x4E2D;&#xFF0C;&#x5DE6;&#x4E0A;&#xFF0C;&#x53F3;&#x4E0A;&#xFF0C;&#x5DE6;&#x4E0B;&#x548C;&#x53F3;&#x4E0B;&#x5171;&#x63D0;&#x53D6;&#x4E86;1024&#x7EF4;&#x7684;&#x7279;&#x5F81;&#xFF0C;&#x6D4B;&#x8BD5;&#x65F6;&#x4EC5;&#x4F7F;&#x7528;&#x539F;&#x59CB;&#x56FE;&#x50CF;&#x7684;&#x4E2D;&#x95F4;&#x90E8;&#x5206;&#x3002;</p>
+<p>&#x6A21;&#x578B;&#x5BF9;&#x9E1F;&#x7C7B;&#x7684;&#x79CD;&#x7C7B;&#x3001;&#x989C;&#x8272;&#x3001;&#x7FBD;&#x6BDB;&#x7B49;&#x5C5E;&#x6027;&#x7F16;&#x7801;&#x5F97;&#x5230;312&#x7EF4;&#x5EA6;&#x7684;&#x5143;&#x5411;&#x91CF;&#x3002;</p>
+<p>&#x5728;1024&#x7EF4;&#x56FE;&#x50CF;&#x7279;&#x5F81;&#x548C;312&#x7EF4;&#x5C5E;&#x6027;&#x5411;&#x91CF;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x5B66;&#x4E60;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x7EBF;&#x6027;&#x6620;&#x5C04;&#xFF0C;&#x4EE5;&#x751F;&#x6210;1024&#x7EF4;&#x8F93;&#x51FA;&#x7A7A;&#x95F4;&#x3002;</p>
+<p>&#x8BAD;&#x7EC3;episode&#x7684;&#x7C7B;&#x522B;&#x4E3A;50&#xFF0C;&#x6BCF;&#x4E2A;&#x7C7B;&#x522B;&#x7684;&#x67E5;&#x8BE2;&#x70B9;&#x4E3A;10&#x4E2A;&#x3002;</p>
+<img src="/2020/06/04/Prototypical-Networks-for-Few-shot-Learning&#x9605;&#x8BFB;&#x7B14;&#x8BB0;/&#x622A;&#x5C4F;2020-06-06 &#x4E0B;&#x5348;3.30.51.png" alt="&#x622A;&#x5C4F;2020-06-06 &#x4E0B;&#x5348;3.30.51" style="zoom:50%;">
+
+<h2 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h2><blockquote>
+<p>&#x5728;&#x9605;&#x8BFB;&#x8BBA;&#x6587;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53C2;&#x8003;&#x4E86;&#x4E00;&#x4E9B;&#x89E3;&#x8BFB;</p>
+<p><a href="https://zhuanlan.zhihu.com/p/54340045" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/54340045</a></p>
+<p><a href="https://blog.csdn.net/weixin_37589575/article/details/92768668" target="_blank" rel="noopener">https://blog.csdn.net/weixin_37589575/article/details/92768668</a></p>
+<p>[&#x963F;&#x91CC;&#x5DF4;&#x5DF4;-&#x5C0F;&#x6837;&#x672C;&#x5B66;&#x4E60;&#xFF08;Few-shot Learning&#xFF09;&#x7EFC;&#x8FF0;][<a href="https://zhuanlan.zhihu.com/p/61215293]" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/61215293]</a></p>
+</blockquote>
+<p>&#x6458;&#x81EA;&#x77E5;&#x4E4E;&#x8983;&#x542B;&#x7AE0;&#x7684;&#x56DE;&#x7B54;&#xFF1A;</p>
+<p>&#x5982;&#x4F55;&#x7406;&#x89E3;Bregman divergence</p>
+<p>&#x901A;&#x4FD7;&#x6765;&#x8BF4;&#xFF0C;&#x4EC0;&#x4E48;&#x662F;Bregman divergence&#xFF0C;&#x5C31;&#x662F;<strong>&#x5982;&#x679C;&#x4F60;&#x62BD;&#x8C61;&#x5730;&#x5B9A;&#x4E49;&#x4E00;&#x79CD;&#x5728;&#x7279;&#x5B9A;&#x7A7A;&#x95F4;&#x91CC;&#x4E24;&#x4E2A;&#x70B9;&#x4E4B;&#x95F4;&#x7684;&#x201C;&#x8DDD;&#x79BB;&#x201D;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x8FD9;&#x4E9B;&#x70B9;&#x6EE1;&#x8DB3;&#x4EFB;&#x610F;&#x7684;&#x6982;&#x7387;&#x5206;&#x5E03;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x8FD9;&#x4E9B;&#x70B9;&#x7684;&#x5E73;&#x5747;&#x503C;&#x70B9;&#xFF08;mean point&#xFF09;&#x4E00;&#x5B9A;&#x662F;&#x7A7A;&#x95F4;&#x4E2D;&#x8DDD;&#x79BB;&#x8FD9;&#x4E9B;&#x70B9;&#x7684;&#x5E73;&#x5747;&#x8DDD;&#x79BB;&#x6700;&#x5C0F;&#x7684;&#x70B9;&#xFF08;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x6B63;&#x5E38;&#x7684;&#x6211;&#x4EEC;&#x5E0C;&#x671B;&#x5BF9;&#x201C;&#x8DDD;&#x79BB;&#x201D;&#x7684;&#x5B9A;&#x4E49;&#x5427;&#xFF09;</strong>&#x3002;</p>
+<p>&#x4EE4;&#x4EBA;&#x5403;&#x60CA;&#x7684;&#x662F;&#xFF0C;&#x8FD9;&#x4E2A;&#x6761;&#x4EF6;&#x662F;&#x5F53;&#x4E14;&#x4EC5;&#x5F53;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x53CD;&#x8FC7;&#x6765;&#x8BF4;&#xFF0C;&#x7ED9;&#x5B9A;&#x4E00;&#x4E2A; <img src="https://www.zhihu.com/equation?tex=%5Cmathbb%7BR%7D%5En%5Ctimes+%5Cmathbb%7BR%7D%5En+%5Crightarrow+%5Cmathbb%7BR%7D" alt="[&#x516C;&#x5F0F;]"> &#x4E0A;&#x7684;divergence&#x51FD;&#x6570; <img src="https://www.zhihu.com/equation?tex=d%28x%2Cy%29" alt="[&#x516C;&#x5F0F;]"> &#xFF0C;&#x5982;&#x679C;&#x6EE1;&#x8DB3;&#x5BF9;&#x6240;&#x6709; <img src="https://www.zhihu.com/equation?tex=%5Cmathbb%7BR%7D%5En" alt="[&#x516C;&#x5F0F;]"> &#x4E0A;&#x7684;&#x968F;&#x673A;&#x53D8;&#x91CF;(random variable) <img src="https://www.zhihu.com/equation?tex=X" alt="[&#x516C;&#x5F0F;]"> , <img src="https://www.zhihu.com/equation?tex=%5Cmathbb%7BE%7D%5BX%5D" alt="[&#x516C;&#x5F0F;]"> &#x90FD;&#x662F; <img src="https://www.zhihu.com/equation?tex=y%5Crightarrow+%5Cmathbb%7BE%7D%5Bd%28X%2Cy%29%5D" alt="[&#x516C;&#x5F0F;]"> &#x552F;&#x4E00;&#x7684;minimizer&#xFF0C;<strong>&#x90A3;&#x4E48;d&#x4E00;&#x5B9A;&#x662F;&#x4E00;&#x4E2A;Bregman divergence&#x3002;&#x6211;&#x4EEC;&#x4E00;&#x822C;&#x6240;&#x4EE5;&#x4E5F;&#x8BF4;Bregman divergence&#x662F;exhastive&#xFF08;&#x7A77;&#x5C3D;&#xFF09;&#x7684;&#xFF0C;&#x5373;&#x5B83;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x5207;&#x5BF9;&#x201C;&#x6B63;&#x5E38;&#x8DDD;&#x79BB;&#x201D;&#x7684;&#x5B9A;&#x4E49;&#x3002;</strong></p>
+<p>&#x672C;&#x6587;&#x63D0;&#x51FA;&#x7684;&#x7684;Prototypical Networks&#xFF08;P-net&#xFF09;&#x601D;&#x60F3;&#x4E0E;match network&#xFF08;M-net&#xFF09;&#x5341;&#x5206;&#x76F8;&#x4F3C;&#xFF0C;&#x4F46;&#x4E5F;&#x6709;&#x51E0;&#x4E2A;&#x4E0D;&#x540C;&#x70B9;&#xFF1A;1.&#x4F7F;&#x7528;&#x4E86;&#x4E0D;&#x540C;&#x7684;&#x8DDD;&#x79BB;&#x5EA6;&#x91CF;&#x65B9;&#x5F0F;&#xFF0C;M-net&#x4E2D;&#x662F;cosine&#x5EA6;&#x91CF;&#x8DDD;&#x79BB;&#xFF0C;P-net&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x5C5E;&#x4E8E;&#x5E03;&#x96F7;&#x683C;&#x66FC;&#x6563;&#x5EA6;&#xFF08;&#x8BE6;&#x89C1;&#x8BBA;&#x6587;&#xFF09;&#x7684;&#x6B27;&#x51E0;&#x91CC;&#x5F97;&#x8DDD;&#x79BB;&#x3002;2.&#x4E8C;&#x8005;&#x5728;few-shot&#x7684;&#x573A;&#x666F;&#x4E0B;&#x4E0D;&#x540C;&#xFF0C;&#x5728;one-shot&#x65F6;&#x7B49;&#x4EF7;&#xFF08;one-shot&#x65F6;&#x53D6;&#x5F97;&#x7684;&#x539F;&#x578B;&#x5C31;&#x662F;&#x652F;&#x6301;&#x96C6;&#x4E2D;&#x7684;&#x6837;&#x672C;&#xFF09;3.&#x7F51;&#x7EDC;&#x7ED3;&#x6784;&#x4E0A;&#xFF0C;P-net&#x76F8;&#x6BD4;M-net&#x5C06;&#x7F16;&#x7801;&#x5C42;&#x548C;&#x5206;&#x7C7B;&#x5C42;&#x5408;&#x4E00;&#xFF0C;&#x53C2;&#x6570;&#x66F4;&#x5C11;&#xFF0C;&#x8BAD;&#x7EC3;&#x66F4;&#x52A0;&#x65B9;&#x4FBF;&#x3002;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/30/2020C4-EP4资格赛题库爬虫/" rel="next" title="2020C4 EP4资格赛题库爬虫">
+                <i class="fa fa-chevron-left"></i> 2020C4 EP4资格赛题库爬虫
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/16/Threat-Detection-and-Investigation-with-System-level-Provenance-Graphs-A-Survey阅读记录/" rel="prev" title="Threat Detection and Investigation with System-level Provenance Graphs: A Survey阅读记录">
+                Threat Detection and Investigation with System-level Provenance Graphs: A Survey阅读记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/me.jpg" alt="HEATAO">
+            
+              <p class="site-author-name" itemprop="name">HEATAO</p>
+              <p class="site-description motion-element" itemprop="description">heatao的个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heatao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:heatao59@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题介绍"><span class="nav-number">1.</span> <span class="nav-text">问题介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前人的工作"><span class="nav-number">1.1.</span> <span class="nav-text">前人的工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本文的思想"><span class="nav-number">1.2.</span> <span class="nav-text">本文的思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#符号"><span class="nav-number">1.3.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">1.4.</span> <span class="nav-text">模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进一步分析"><span class="nav-number">2.</span> <span class="nav-text">进一步分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型网络可以理解为混合密度估计"><span class="nav-number">2.1.</span> <span class="nav-text">原型网络可以理解为混合密度估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解为线性模型"><span class="nav-number">2.2.</span> <span class="nav-text">理解为线性模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与Matching-Networks比较"><span class="nav-number">2.3.</span> <span class="nav-text">与Matching Networks比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计选择"><span class="nav-number">2.4.</span> <span class="nav-text">设计选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Zero-Shot零样本学习"><span class="nav-number">2.5.</span> <span class="nav-text">Zero-Shot零样本学习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验"><span class="nav-number">3.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Omniglot-Few-shot-Classification"><span class="nav-number">3.1.</span> <span class="nav-text">Omniglot Few-shot Classification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#miniImageNet-Few-shot-Classification"><span class="nav-number">3.2.</span> <span class="nav-text">miniImageNet Few-shot Classification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CUB-Zero-shot-Classification"><span class="nav-number">3.3.</span> <span class="nav-text">CUB Zero-shot Classification</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
