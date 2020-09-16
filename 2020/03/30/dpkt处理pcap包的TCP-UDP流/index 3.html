@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Network," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x7F51;&amp;#x7EDC;&amp;#x884C;&amp;#x4E3A;&amp;#x5B66;&amp;#x5BFC;&amp;#x8BBA;&amp;#x505A;&amp;#x7684;&amp;#x4E00;&amp;#x4E2A;&amp;#x5B9E;&amp;#x8DF5;&amp;#x4F5C;&amp;#x4E1A;&amp;#xFF0C;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x5229;&amp;#x7528;commview&amp;#x6293;&amp;#x5305;&amp;#x548C;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dpkt处理pcap包的TCP&#x2F;UDP流">
+<meta property="og:url" content="http://yoursite.com/2020/03/30/dpkt%E5%A4%84%E7%90%86pcap%E5%8C%85%E7%9A%84TCP-UDP%E6%B5%81/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="&amp;#x7F51;&amp;#x7EDC;&amp;#x884C;&amp;#x4E3A;&amp;#x5B66;&amp;#x5BFC;&amp;#x8BBA;&amp;#x505A;&amp;#x7684;&amp;#x4E00;&amp;#x4E2A;&amp;#x5B9E;&amp;#x8DF5;&amp;#x4F5C;&amp;#x4E1A;&amp;#xFF0C;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x5229;&amp;#x7528;commview&amp;#x6293;&amp;#x5305;&amp;#x548C;">
+<meta property="og:image" content="http://yoursite.com/2020/03/30/dpkt%E5%A4%84%E7%90%86pcap%E5%8C%85%E7%9A%84TCP-UDP%E6%B5%81/1.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/03/30/dpkt%E5%A4%84%E7%90%86pcap%E5%8C%85%E7%9A%84TCP-UDP%E6%B5%81/2.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/03/30/dpkt%E5%A4%84%E7%90%86pcap%E5%8C%85%E7%9A%84TCP-UDP%E6%B5%81/&#x622A;&#x5C4F;2020-03-27&#x4E0B;&#x5348;5.08.10.png">
+<meta property="article:published_time" content="2020-03-30T03:26:53.000Z">
+<meta property="article:modified_time" content="2020-09-01T02:18:28.000Z">
+<meta property="article:author" content="HEATAO">
+<meta property="article:tag" content="Network">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/30/dpkt%E5%A4%84%E7%90%86pcap%E5%8C%85%E7%9A%84TCP-UDP%E6%B5%81/1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/30/dpkt处理pcap包的TCP-UDP流/"/>
+
+
+
+
+
+  <title>dpkt处理pcap包的TCP/UDP流 | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/30/dpkt%E5%A4%84%E7%90%86pcap%E5%8C%85%E7%9A%84TCP-UDP%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HEATAO">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">dpkt处理pcap包的TCP/UDP流</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-30T11:26:53+08:00">
+                2020-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x7F51;&#x7EDC;&#x884C;&#x4E3A;&#x5B66;&#x5BFC;&#x8BBA;&#x505A;&#x7684;&#x4E00;&#x4E2A;&#x5B9E;&#x8DF5;&#x4F5C;&#x4E1A;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x5229;&#x7528;commview&#x6293;&#x5305;&#x548C;dpkt&#x5206;&#x6790;&#xFF0C;&#x4E0E;&#x4E00;&#x822C;&#x6293;&#x5305;&#x4E0D;&#x540C;&#x7684;&#x70B9;&#x662F;&#x5229;&#x7528;&#x900F;&#x660E;&#x4EE3;&#x7406;&#x6293;&#x5883;&#x5916;&#x6D41;&#x91CF;</p>
+<h3 id="&#x7B2C;&#x4E00;&#x90E8;&#x5206;&#xFF1A;&#x6293;&#x5305;"><a href="#&#x7B2C;&#x4E00;&#x90E8;&#x5206;&#xFF1A;&#x6293;&#x5305;" class="headerlink" title="&#x7B2C;&#x4E00;&#x90E8;&#x5206;&#xFF1A;&#x6293;&#x5305;"></a>&#x7B2C;&#x4E00;&#x90E8;&#x5206;&#xFF1A;&#x6293;&#x5305;</h3><p>&#x5229;&#x7528;&#x53EF;&#x7FFB;&#x5899;&#x7684;&#x865A;&#x62DF;&#x673A;&#x4F5C;&#x4E3A;&#x900F;&#x660E;&#x4EE3;&#x7406;&#xFF0C;&#x9996;&#x5148;&#x5C06;&#x865A;&#x62DF;&#x673A;&#x8BBE;&#x7F6E;&#x4E3A;&#x6865;&#x63A5;&#x6A21;&#x5F0F;&#x8BA9;&#x5176;&#x5728;&#x5C40;&#x57DF;&#x7F51;&#x53EF;&#x89C1;&#xFF0C;&#x518D;&#x624B;&#x52A8;&#x8BBE;&#x7F6E;&#x5B89;&#x5353;&#x673A;&#x7684;&#x7F51;&#x5173;&#x4E3A;&#x865A;&#x62DF;&#x673A;&#x7684;IP&#xFF0C;&#x5728;&#x5B89;&#x5353;&#x673A;&#x4E0A;&#x91C7;&#x7528;&#x4E86;<strong>&#x9ED1;&#x57DF;</strong>&#x4EE5;&#x83B7;&#x53D6;&#x66F4;&#x7EAF;&#x51C0;&#x7684;&#x6D41;&#x91CF;</p>
+<p>&#x5728;&#x5BBF;&#x4E3B;&#x673A;&#x5229;&#x7528;commview&#x8FDB;&#x884C;&#x6293;&#x5305;&#xFF0C;&#x91C7;&#x7528;&#x4E86;&#x9AD8;&#x7EA7;&#x8FC7;&#x6EE4;&#x548C;IP&#x8FC7;&#x6EE4;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;</p>
+<img src="/2020/03/30/dpkt%E5%A4%84%E7%90%86pcap%E5%8C%85%E7%9A%84TCP-UDP%E6%B5%81/1.PNG" alt="1" style="zoom:75%;">
+
+<img src="/2020/03/30/dpkt%E5%A4%84%E7%90%86pcap%E5%8C%85%E7%9A%84TCP-UDP%E6%B5%81/2.PNG" alt="2" style="zoom:75%;">
+
+<h3 id="&#x7B2C;&#x4E8C;&#x90E8;&#x5206;&#xFF1A;&#x5206;&#x6790;"><a href="#&#x7B2C;&#x4E8C;&#x90E8;&#x5206;&#xFF1A;&#x5206;&#x6790;" class="headerlink" title="&#x7B2C;&#x4E8C;&#x90E8;&#x5206;&#xFF1A;&#x5206;&#x6790;"></a>&#x7B2C;&#x4E8C;&#x90E8;&#x5206;&#xFF1A;&#x5206;&#x6790;</h3><p>&#x91C7;&#x7528;[dpkt][<a href="https://dpkt.readthedocs.io/en/latest/]&#x5BF9;pcap&#x8FDB;&#x884C;&#x8BFB;&#x53D6;" target="_blank" rel="noopener">https://dpkt.readthedocs.io/en/latest/]&#x5BF9;pcap&#x8FDB;&#x884C;&#x8BFB;&#x53D6;</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install dpkt</span><br></pre></td></tr></table></figure>
+
+<p>&#x9009;&#x53D6;&#x7684;&#x7279;&#x5F81;&#x5982;&#x4E0B;:</p>
+<p>&#x6D41;&#x5F00;&#x59CB;&#x65F6;&#x95F4;(&#x6574;&#x578B;)&#xFF0C;&#x6301;&#x7EED;&#x65F6;&#x95F4;(&#x6574;&#x578B;)&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;IP(&#x5B57;&#x7B26;&#x4E32;)&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x7AEF;&#x53E3;(&#x4E3B;&#x673A;&#x5E8F;)&#xFF0C;&#x670D;&#x52A1;&#x5668;IP(&#x5B57;&#x7B26;&#x4E32;)&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x53E3;(&#x4E3B;&#x673A;&#x5E8F;)&#xFF0C;&#x5E94;&#x7528;&#x540D;&#x79F0;&#xFF0C;&#x5E94;&#x7528;&#x884C;&#x4E3A;&#xFF0C;&#x6D41;&#x7684;&#x603B;&#x5305;&#x6570;,&#x6D41;&#x7684;&#x603B;&#x5B57;&#x8282;&#x6570;,&#x5E73;&#x5747;&#x6BCF;&#x5305;&#x5B57;&#x8282;&#x6570;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&quot;StartTime&quot;, &quot;DurationTime&quot;, &quot;ClientIP&quot;, &quot;ClientPort&quot;, &quot;ServerIP&quot;, &quot;ServerPort&quot;, &quot;AppName&quot;, &quot;AppAction&quot;, &quot;FlowPackets&quot;, &quot;FlowBytes&quot;, &quot;PacketsBytesAvg&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>&#x5176;&#x4E2D;&#xFF0C;AppName&#x548C;AppAction&#x4ECE;&#x6587;&#x4EF6;&#x540D;&#x83B7;&#x53D6;&#xFF0C;&#x5176;&#x4F59;&#x90E8;&#x5206;&#x901A;&#x8FC7;&#x89E3;&#x6790;&#x5305;&#x83B7;&#x5F97;&#xFF0C;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>&#x8BFB;&#x53D6;&#x6570;&#x636E;pcap&#x5305;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">f = open(pcap_path, <span class="string">&apos;rb&apos;</span>)</span><br><span class="line">    pcap = dpkt.pcap.Reader(f)</span><br><span class="line">    <span class="keyword">for</span> timestamp, buf <span class="keyword">in</span> pcap:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x89E3;&#x4EE5;&#x592A;&#x7F51;&#x5E27;&#xFF0C;&#x5BF9;&#x6CA1;&#x6709;IP&#x6BB5;&#x7684;&#x5305;&#x8FC7;&#x6EE4;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> timestamp, buf <span class="keyword">in</span> pcap:</span><br><span class="line">    eth = dpkt.ethernet.Ethernet(buf) <span class="comment"># &#x89E3;&#x4EE5;&#x592A;&#x7F51;&#x6862;</span></span><br><span class="line">    <span class="keyword">if</span> eth.type != dpkt.ethernet.ETH_TYPE_IP:               						<span class="comment"># &#x5BF9;&#x6CA1;&#x6709;IP&#x6BB5;&#x7684;&#x5305;&#x8FC7;&#x6EE4;&#x6389;</span></span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    ip = eth.data</span><br></pre></td></tr></table></figure>
+
+<p>&#x5BF9;&#x4F20;&#x8F93;&#x5C42;&#x534F;&#x8BAE;&#x975E;TCP&#x7684;&#x5305;&#x8FDB;&#x884C;&#x8FC7;&#x6EE4;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> isinstance(ip.data, dpkt.tcp.TCP):                   				<span class="comment"># &#x89E3;&#x5305;&#xFF0C;&#x5224;&#x65AD;&#x4F20;&#x8F93;&#x5C42;&#x534F;&#x8BAE;&#x662F;&#x5426;&#x662F;TCP</span></span><br><span class="line">    this_tcp = ip.data</span><br></pre></td></tr></table></figure>
+
+<h4 id="&#x5BF9;&#x6D41;&#x7684;&#x5904;&#x7406;"><a href="#&#x5BF9;&#x6D41;&#x7684;&#x5904;&#x7406;" class="headerlink" title="&#x5BF9;&#x6D41;&#x7684;&#x5904;&#x7406;"></a>&#x5BF9;&#x6D41;&#x7684;&#x5904;&#x7406;</h4><p>&#x91C7;&#x7528;&#x542F;&#x53D1;&#x5F0F;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5373;&#x5BF9;&#x4E8E;&#x4E00;&#x5BF9;IP&#x800C;&#x8A00;&#xFF0C;&#x6839;&#x636E;flags&#x5224;&#x65AD;&#x662F;&#x5426;&#x5904;&#x4E8E;&#x63E1;&#x624B;&#x9636;&#x6BB5;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">JudgeTcpState</span><span class="params">(flags)</span>:</span></span><br><span class="line">    aim = <span class="number">1</span>                                         </span><br><span class="line">    <span class="comment"># &#x4ECE;&#x53F3;&#x5F80;&#x5DE6;&#x7B2C;&#x51E0;&#x4F4D;&#xFF0C;&#x4ECE;1&#x5F00;&#x59CB;</span></span><br><span class="line">    fin = flags &amp; (<span class="number">1</span> &lt;&lt; (aim - <span class="number">1</span>)) &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    aim = <span class="number">2</span></span><br><span class="line">    syn = flags &amp; (<span class="number">1</span> &lt;&lt; (aim - <span class="number">1</span>)) &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    aim = <span class="number">5</span></span><br><span class="line">    ack = flags &amp; (<span class="number">1</span> &lt;&lt; (aim - <span class="number">1</span>)) &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> syn <span class="keyword">is</span> <span class="literal">True</span>:                                 </span><br><span class="line">      <span class="comment"># &#x7B2C;&#x4E00;&#x6B21;&#x63E1;&#x624B;&#xFF0C;&#x53EA;&#x6709;syn&#x4E3A;True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&apos;fshake&apos;</span></span><br><span class="line">    <span class="keyword">if</span> fin <span class="keyword">is</span> <span class="literal">True</span>:                                      </span><br><span class="line">      <span class="comment"># &#x5982;&#x679C;&#x771F;&#x6B63;&#x60F3;&#x786E;&#x8BA4;&#x6325;&#x624B;&#xFF0C;&#x9700;&#x8981;&#x5224;&#x65AD;&#x4E0D;&#x6B62;&#x4E00;&#x6761;&#x6570;&#x636E;&#x7684;flag</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&apos;wave&apos;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&apos;Transdata&apos;</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x4EE5;&#x4E0B;&#x662F;dpkt&#x7684;TCP&#x5305;&#x6E90;&#x7801;&#xFF1A;</p>
+<img src="/2020/03/30/dpkt%E5%A4%84%E7%90%86pcap%E5%8C%85%E7%9A%84TCP-UDP%E6%B5%81/&#x622A;&#x5C4F;2020-03-27&#x4E0B;&#x5348;5.08.10.png" alt="&#x622A;&#x5C4F;2020-03-27&#x4E0B;&#x5348;5.08.10" style="zoom:50%;">
+
+<p>&#x5BF9;&#x4E8E;TCP&#x6D41;&#x7684;&#x7ED3;&#x675F;&#xFF0C;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;dict&#x4FDD;&#x5B58;&#x6325;&#x624B;&#x72B6;&#x6001;&#xFF0C;&#x5F53;&#x7B2C;&#x4E00;&#x6B21;&#x6325;&#x624B;FIN=1&#x4E4B;&#x540E;&#x56DB;&#x6B21;&#x76F8;&#x540C;IP&#x5BF9;&#x7684;&#x5305;&#x51FA;&#x73B0;&#xFF0C;&#x4E14;&#x5176;&#x4E2D;&#x8FD8;&#x6709;&#x4E00;&#x6B21;FIN=1&#x65F6;&#xFF0C;&#x8BA4;&#x4E3A;&#x6325;&#x624B;&#x6210;&#x529F;&#xFF08;&#x8FD9;&#x6837;&#x5176;&#x5B9E;&#x6709;&#x5F88;&#x5927;&#x7F3A;&#x9677;&#xFF0C;&#x6BD4;&#x5982;&#x6709;&#x7684;&#x65F6;&#x5019;&#x6325;&#x624B;&#x5F02;&#x5E38;&#x4E0D;&#x6B62;&#x56DB;&#x6B21;&#xFF09;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ip_set <span class="keyword">in</span> TCP_wave_dic:                          </span><br><span class="line">    <span class="keyword">if</span> JudgeTcpState(this_flags) == <span class="string">&apos;wave&apos;</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">0</span>] == <span class="number">0</span>:</span><br><span class="line">        TCP_wave_dic[ip_set][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        <span class="comment"># print(&apos;first wave&apos;)</span></span><br><span class="line">    <span class="keyword">elif</span> TCP_wave_dic[ip_set][<span class="number">1</span>] != <span class="number">1</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">0</span>] == <span class="number">1</span>:                        </span><br><span class="line">    <span class="comment"># &#x7B2C;&#x4E8C;&#x6B21;&#x6325;&#x624B;</span></span><br><span class="line">        TCP_wave_dic[ip_set][<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">        <span class="comment"># print(&apos;second wave&apos;)</span></span><br><span class="line">    <span class="keyword">elif</span> JudgeTcpState(this_flags) == <span class="string">&apos;wave&apos;</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">2</span>] != <span class="number">1</span> <span class="keyword">and</span>\</span><br><span class="line">            TCP_wave_dic[ip_set][<span class="number">0</span>] == <span class="number">1</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">1</span>] == <span class="number">1</span>:      </span><br><span class="line">        <span class="comment"># &#x7B2C;&#x4E09;&#x6B21;&#x6325;&#x624B;</span></span><br><span class="line">        TCP_wave_dic[ip_set][<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> TCP_wave_dic[ip_set][<span class="number">0</span>] == <span class="number">1</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">1</span>] == <span class="number">1</span> <span class="keyword">and</span> \</span><br><span class="line">            TCP_wave_dic[ip_set][<span class="number">2</span>] == <span class="number">1</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">3</span>] != <span class="number">1</span>:</span><br><span class="line">        TCP_wave_dic[ip_set][<span class="number">3</span>] = <span class="number">1</span>                         </span><br><span class="line">        <span class="comment"># &#x7B2C;&#x56DB;&#x6B21;&#x6325;&#x624B;&#xFF0C;&#x6B64;&#x65F6;&#x5F00;&#x59CB;&#x66F4;&#x65B0;dic&#x7684;&#x65F6;&#x95F4;&#x6233;&#x548C;&#x5E73;&#x5747;</span></span><br><span class="line">        TCP_dic[ip_set][<span class="number">1</span>] = int(timestamp)</span><br><span class="line">        TCP_dic[ip_set][<span class="number">10</span>] = TCP_dic[ip_set][<span class="number">9</span>] / TCP_dic[ip_set][<span class="number">8</span>]</span><br></pre></td></tr></table></figure>
+
+<p>&#x5BF9;&#x4E8E;&#x6CA1;&#x6709;&#x6325;&#x624B;&#x6210;&#x529F;&#xFF0C;&#x4F46;&#x5DF2;&#x7ECF;&#x63E1;&#x624B;&#x7684;IP&#x5BF9;&#xFF0C;&#x5219;&#x5728;pcap&#x8BFB;&#x53D6;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;&#x4EE5;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x76F8;&#x540C;IP&#x5BF9;&#x7684;&#x65F6;&#x95F4;&#x6233;&#x8FDB;&#x884C;&#x4FDD;&#x5B58;</p>
+<h5 id="&#x5BF9;&#x4E8E;UDP"><a href="#&#x5BF9;&#x4E8E;UDP" class="headerlink" title="&#x5BF9;&#x4E8E;UDP"></a>&#x5BF9;&#x4E8E;UDP</h5><p>&#x91C7;&#x7528;&#x7B2C;&#x4E00;&#x6B21;&#x51FA;&#x73B0;IP&#x5BF9;&#x548C;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x51FA;&#x73B0;IP&#x5BF9;&#x4F5C;&#x4E3A;&#x201C;&#x6D41;&#x201D;&#x8FDB;&#x884C;&#x7EDF;&#x8BA1;</p>
+<h4 id="&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;"><a href="#&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;" class="headerlink" title="&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;"></a>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> dpkt</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> listdir</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inet_to_str</span><span class="params">(inet)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">return</span> socket.inet_ntop(socket.AF_INET, inet)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x8FD9;&#x91CC;&#x6709;&#x4E2A;&#x7F3A;&#x9677;&#x662F;&#xFF0C;&#x7528;set&#x4FDD;&#x5B58;&#xFF0C;&#x5219;&#x4E0D;&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#x65B9;&#x5411;&#xFF0C;&#x6325;&#x624B;&#x53EF;&#x80FD;&#x4F1A;&#x6709;&#x9519;&#x8BEF;</span></span><br><span class="line"><span class="comment"># &#x5E76;&#x4E14;&#x6211;&#x9ED8;&#x8BA4;&#x56DB;&#x6B21;&#x6325;&#x624B;&#x540E;&#x4E0D;&#x4F1A;&#x518D;&#x6B21;&#x6536;&#x5230;&#x8FDE;&#x63A5;&#xFF0C;&#x5176;&#x5B9E;&#x6709;&#x53EF;&#x80FD;&#x518D;&#x6B21;&#x63E1;&#x624B;&#x8FDB;&#x884C;&#x4F20;&#x8F93;</span></span><br><span class="line"><span class="comment"># &#x7F3A;&#x9677;&#x4E09;&#x662F;&#x53EA;&#x4F1A;&#x7EDF;&#x8BA1;&#x88AB;&#x6355;&#x6349;&#x5230;&#x7B2C;&#x4E00;&#x6B21;&#x6325;&#x624B;&#x7684;&#x5305;&#xFF0C;&#x5176;&#x4ED6;tcp&#x6D41;&#x4E0D;&#x4F1A;&#x88AB;&#x6355;&#x6349;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">JudgeTcpState</span><span class="params">(flags)</span>:</span></span><br><span class="line">    aim = <span class="number">1</span>                                         <span class="comment"># &#x4ECE;&#x53F3;&#x5F80;&#x5DE6;&#x7B2C;&#x51E0;&#x4F4D;&#xFF0C;&#x4ECE;1&#x5F00;&#x59CB;</span></span><br><span class="line">    fin = flags &amp; (<span class="number">1</span> &lt;&lt; (aim - <span class="number">1</span>)) &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    aim = <span class="number">2</span></span><br><span class="line">    syn = flags &amp; (<span class="number">1</span> &lt;&lt; (aim - <span class="number">1</span>)) &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    aim = <span class="number">5</span></span><br><span class="line">    ack = flags &amp; (<span class="number">1</span> &lt;&lt; (aim - <span class="number">1</span>)) &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> syn <span class="keyword">is</span> <span class="literal">True</span>:                                 <span class="comment"># &#x7B2C;&#x4E00;&#x6B21;&#x63E1;&#x624B;&#xFF0C;&#x53EA;&#x6709;syn&#x4E3A;True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&apos;fshake&apos;</span></span><br><span class="line">    <span class="keyword">if</span> fin <span class="keyword">is</span> <span class="literal">True</span>:                                      <span class="comment"># &#x5982;&#x679C;&#x771F;&#x6B63;&#x60F3;&#x786E;&#x8BA4;&#x6325;&#x624B;&#xFF0C;&#x9700;&#x8981;&#x5224;&#x65AD;&#x4E0D;&#x6B62;&#x4E00;&#x6761;&#x6570;&#x636E;&#x7684;flag</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&apos;wave&apos;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&apos;Transdata&apos;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&apos;&apos;&apos;</span></span><br><span class="line"><span class="string">TCP&#x6D41;&#xFF1A;&#x4ECE;&#x7B2C;&#x4E00;&#x6B21;&#x63E1;&#x624B;&#x5F00;&#x59CB;&#x7EDF;&#x8BA1;&#xFF0C;&#x53EA;&#x8981;sip&#x548C;dip&#x76F8;&#x540C;&#xFF0C;&#x5219;&#x53E0;&#x52A0;</span></span><br><span class="line"><span class="string">&apos;&apos;&apos;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tcp_udp_process</span><span class="params">(PcapPath)</span>:</span></span><br><span class="line">    name_list = PcapPath.split(<span class="string">&apos;_&apos;</span>)</span><br><span class="line">    AppName, AppAction = name_list[<span class="number">3</span>], name_list[<span class="number">5</span>]</span><br><span class="line">    print(AppName, AppAction)</span><br><span class="line"></span><br><span class="line">    TCP_dic = {}</span><br><span class="line">    TCP_wave_dic = {}                   <span class="comment"># TCP_wave_dic&#x7528;&#x4E8E;&#x5224;&#x65AD;&#x6325;&#x624B;&#x72B6;&#x6001;</span></span><br><span class="line">    UDP_dic = {}</span><br><span class="line"></span><br><span class="line">    f = open(PcapPath, <span class="string">&apos;rb&apos;</span>)</span><br><span class="line">    pcap = dpkt.pcap.Reader(f)</span><br><span class="line">    <span class="keyword">for</span> timestamp, buf <span class="keyword">in</span> pcap:</span><br><span class="line">        eth = dpkt.ethernet.Ethernet(buf)                       <span class="comment"># &#x89E3;&#x4EE5;&#x592A;&#x7F51;&#x6862;</span></span><br><span class="line">        <span class="keyword">if</span> eth.type != dpkt.ethernet.ETH_TYPE_IP:               <span class="comment"># &#x5BF9;&#x6CA1;&#x6709;IP&#x6BB5;&#x7684;&#x5305;&#x8FC7;&#x6EE4;&#x6389;</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        ip = eth.data</span><br><span class="line"></span><br><span class="line">        ip_src = inet_to_str(ip.src)  <span class="comment"># &#x539F;ip&#x548C;&#x76EE;&#x7684;ip</span></span><br><span class="line">        ip_dst = inet_to_str(ip.dst)</span><br><span class="line">        ip_set = (ip_dst, ip_src)  <span class="comment"># &#x7528;tuple&#x4FDD;&#x5B58;ip</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> isinstance(ip.data, dpkt.tcp.TCP):                   <span class="comment"># &#x89E3;&#x5305;&#xFF0C;&#x5224;&#x65AD;&#x4F20;&#x8F93;&#x5C42;&#x534F;&#x8BAE;&#x662F;&#x5426;&#x662F;TCP</span></span><br><span class="line">            this_tcp = ip.data</span><br><span class="line"></span><br><span class="line">            this_flags = this_tcp.flags                         <span class="comment"># &#x82E5;&#x8FD9;&#x5BF9;ip&#x4E0D;&#x5728;TCP_dict&#x91CC;&#xFF0C;&#x4E14;&#x76EE;&#x524D;&#x5904;&#x4E8E;&#x7B2C;&#x4E00;&#x6B21;&#x63E1;&#x624B;&#xFF0C;&#x5219;&#x653E;&#x8FDB;TCP_dict</span></span><br><span class="line">            <span class="keyword">if</span> ip_set <span class="keyword">not</span> <span class="keyword">in</span> TCP_dic <span class="keyword">and</span> JudgeTcpState(this_flags) == <span class="string">&apos;fshake&apos;</span>:</span><br><span class="line">                fpackets = <span class="number">1</span></span><br><span class="line">                fbytes = len(eth)</span><br><span class="line"></span><br><span class="line">                flow_list = []</span><br><span class="line">                flow_list.append(int(timestamp))  <span class="comment"># &#x6D41;&#x5F00;&#x59CB;&#x65F6;&#x95F4;</span></span><br><span class="line">                flow_list.append(<span class="number">0</span>)                             <span class="comment"># &#x7ED3;&#x675F;&#x65F6;&#x95F4;&#x6682;&#x65F6;&#x4E3A;0&#xFF0C;&#x4F4D;&#x7F6E;&#x4E3A;1&#xFF0C;&#x6700;&#x540E;&#x82E5;&#x672A;&#x6325;&#x624B;&#xFF0C;&#x5219;&#x6839;&#x636E;0&#x5224;&#x65AD;</span></span><br><span class="line">                flow_list.append(ip_src)  <span class="comment"># &#x5BA2;&#x6237;&#x7AEF;IP</span></span><br><span class="line">                flow_list.append(this_tcp.sport)  <span class="comment"># &#x5BA2;&#x6237;&#x7AEF;Port</span></span><br><span class="line">                flow_list.append(ip_dst)</span><br><span class="line">                flow_list.append(this_tcp.dport)</span><br><span class="line">                flow_list.append(AppName)</span><br><span class="line">                flow_list.append(AppAction)</span><br><span class="line">                flow_list.append(fpackets)  <span class="comment"># &#x6301;&#x7EED;&#x66F4;&#x65B0; 8</span></span><br><span class="line">                flow_list.append(fbytes)  <span class="comment"># &#x6301;&#x7EED;&#x66F4;&#x65B0; 9</span></span><br><span class="line">                flow_list.append(<span class="number">0</span>)  <span class="comment"># PacketsBytesAvg&#x56DB;&#x6B21;&#x6325;&#x624B;&#x65F6;&#x518D;&#x66F4;&#x65B0;</span></span><br><span class="line">                flow_list.append(<span class="string">&apos;TCP&apos;</span>)</span><br><span class="line"></span><br><span class="line">                TCP_dic[ip_set] = flow_list</span><br><span class="line">                TCP_wave_dic[ip_set] = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]             <span class="comment"># &#x4FDD;&#x5B58;&#x5728;wave_dic&#x4E2D;</span></span><br><span class="line">            <span class="keyword">elif</span> ip_set <span class="keyword">in</span> TCP_dic:                             <span class="comment"># &#x4F20;&#x8F93;&#x6570;&#x636E;&#x72B6;&#x6001;&#xFF0C;&#x66F4;&#x65B0;fpackets&#x548C;fbyte</span></span><br><span class="line">                TCP_dic[ip_set][<span class="number">8</span>] += <span class="number">1</span></span><br><span class="line">                TCP_dic[ip_set][<span class="number">9</span>] += len(eth)</span><br><span class="line">                TCP_dic[ip_set][<span class="number">1</span>] = int(timestamp)             <span class="comment"># &#x8FD9;&#x91CC;&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#x6233;&#x662F;&#x9632;&#x6B62;&#x6CA1;&#x6709;&#x6325;&#x624B;&#x65F6;&#xFF0C;&#x96BE;&#x4EE5;&#x627E;&#x5230;&#x6700;&#x540E;&#x4E00;&#x4E2A;tcp&#x7684;&#x65F6;&#x95F4;&#x6233;</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ip_set <span class="keyword">in</span> TCP_wave_dic:                          <span class="comment"># &#x8FD9;&#x91CC;&#x4E0D;&#x80FD;&#x548C;&#x4E0A;&#x5206;if&#x5408;&#x5E76;&#xFF0C;&#x56E0;&#x4E3A;&#x6325;&#x624B;&#x4E5F;&#x8981;&#x7EDF;&#x8BA1;</span></span><br><span class="line">                <span class="keyword">if</span> JudgeTcpState(this_flags) == <span class="string">&apos;wave&apos;</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">0</span>] == <span class="number">0</span>:</span><br><span class="line">                    TCP_wave_dic[ip_set][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">                    <span class="comment"># print(&apos;first wave&apos;)</span></span><br><span class="line">                <span class="keyword">elif</span> TCP_wave_dic[ip_set][<span class="number">1</span>] != <span class="number">1</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">0</span>] == <span class="number">1</span>:                        <span class="comment"># &#x7B2C;&#x4E8C;&#x6B21;&#x6325;&#x624B;</span></span><br><span class="line">                    TCP_wave_dic[ip_set][<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">                    <span class="comment"># print(&apos;second wave&apos;)</span></span><br><span class="line">                <span class="keyword">elif</span> JudgeTcpState(this_flags) == <span class="string">&apos;wave&apos;</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">2</span>] != <span class="number">1</span> <span class="keyword">and</span>\</span><br><span class="line">                        TCP_wave_dic[ip_set][<span class="number">0</span>] == <span class="number">1</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">1</span>] == <span class="number">1</span>:      <span class="comment"># &#x7B2C;&#x4E09;&#x6B21;&#x6325;&#x624B;</span></span><br><span class="line">                    TCP_wave_dic[ip_set][<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> TCP_wave_dic[ip_set][<span class="number">0</span>] == <span class="number">1</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">1</span>] == <span class="number">1</span> <span class="keyword">and</span> \</span><br><span class="line">                        TCP_wave_dic[ip_set][<span class="number">2</span>] == <span class="number">1</span> <span class="keyword">and</span> TCP_wave_dic[ip_set][<span class="number">3</span>] != <span class="number">1</span>:</span><br><span class="line">                    TCP_wave_dic[ip_set][<span class="number">3</span>] = <span class="number">1</span>                         <span class="comment"># &#x7B2C;&#x56DB;&#x6B21;&#x6325;&#x624B;&#xFF0C;&#x6B64;&#x65F6;&#x5F00;&#x59CB;&#x66F4;&#x65B0;dic&#x7684;&#x65F6;&#x95F4;&#x6233;&#x548C;&#x5E73;&#x5747;</span></span><br><span class="line">                    TCP_dic[ip_set][<span class="number">1</span>] = int(timestamp)</span><br><span class="line">                    TCP_dic[ip_set][<span class="number">10</span>] = TCP_dic[ip_set][<span class="number">9</span>] / TCP_dic[ip_set][<span class="number">8</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> isinstance(ip.data, dpkt.udp.UDP):                   <span class="comment"># &#x89E3;&#x5305;&#xFF0C;&#x5224;&#x65AD;&#x4F20;&#x8F93;&#x5C42;&#x534F;&#x8BAE;&#x662F;&#x5426;&#x662F;UDP</span></span><br><span class="line">            this_udp = ip.data</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ip_set <span class="keyword">not</span> <span class="keyword">in</span> UDP_dic:</span><br><span class="line">                fpackets = <span class="number">1</span></span><br><span class="line">                fbytes = len(eth)</span><br><span class="line">                flow_list = [</span><br><span class="line">                    int(timestamp),</span><br><span class="line">                    <span class="number">0</span>,</span><br><span class="line">                    ip_src,</span><br><span class="line">                    this_udp.sport,</span><br><span class="line">                    ip_dst,</span><br><span class="line">                    this_udp.dport,</span><br><span class="line">                    AppName,</span><br><span class="line">                    AppAction,</span><br><span class="line">                    fpackets,</span><br><span class="line">                    fbytes,</span><br><span class="line">                    <span class="number">0</span>,</span><br><span class="line">                    <span class="string">&apos;UDP&apos;</span></span><br><span class="line">                ]</span><br><span class="line">                UDP_dic[ip_set] = flow_list</span><br><span class="line">            <span class="keyword">elif</span> ip_set <span class="keyword">in</span> UDP_dic:</span><br><span class="line">                UDP_dic[ip_set][<span class="number">8</span>] += <span class="number">1</span></span><br><span class="line">                UDP_dic[ip_set][<span class="number">9</span>] += len(eth)</span><br><span class="line">                UDP_dic[ip_set][<span class="number">1</span>] = int(timestamp)</span><br><span class="line">    <span class="comment"># &#x8BFB;&#x53D6;&#x5B8C;&#x6BD5;&#x5F00;&#x59CB;&#x66F4;&#x65B0;&#x672A;&#x56DB;&#x6B21;&#x6325;&#x624B;&#x7684;tcp&#x5305;&#x548C;&#x6240;&#x6709;udp&#x5305;&#x7684;&#x5E73;&#x5747;&#x5305;&#x6570;&#xFF0C;&#x7B2C;10&#x5594;</span></span><br><span class="line">    <span class="keyword">for</span> tcp_key, tcp_value <span class="keyword">in</span> TCP_dic.items():</span><br><span class="line">        <span class="keyword">if</span> tcp_value[<span class="number">10</span>] == <span class="number">0</span>:</span><br><span class="line">            TCP_dic[tcp_key][<span class="number">10</span>] = tcp_value[<span class="number">9</span>] / tcp_value[<span class="number">8</span>]</span><br><span class="line">    <span class="keyword">for</span> udp_key, udp_value <span class="keyword">in</span> UDP_dic.items():</span><br><span class="line">        <span class="keyword">if</span> udp_value[<span class="number">10</span>] == <span class="number">0</span>:</span><br><span class="line">            UDP_dic[udp_key][<span class="number">10</span>] = udp_value[<span class="number">9</span>] / udp_value[<span class="number">8</span>]</span><br><span class="line">    <span class="keyword">return</span> TCP_dic, UDP_dic</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_csv</span><span class="params">(path=<span class="string">&apos;flow_output.csv&apos;</span>)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(path, <span class="string">&apos;w&apos;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        csv_write = csv.writer(f)</span><br><span class="line">        csv_head = ([<span class="string">&quot;StartTime&quot;</span>, <span class="string">&quot;DurationTime&quot;</span>, <span class="string">&quot;ClientIP&quot;</span>, <span class="string">&quot;ClientPort&quot;</span>, <span class="string">&quot;ServerIP&quot;</span>, <span class="string">&quot;ServerPort&quot;</span>, <span class="string">&quot;AppName&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;AppAction&quot;</span>, <span class="string">&quot;FlowPackets&quot;</span>, <span class="string">&quot;FlowBytes&quot;</span>, <span class="string">&quot;PacketsBytesAvg&quot;</span>])</span><br><span class="line">        csv_write.writerow(csv_head)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x5C06;tcp&#x548C;udp&#x7684;&#x6570;&#x636E;&#x5199;&#x5165;csv</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_csv</span><span class="params">(WritePath, tcp_dic, udp_dic)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(WritePath, <span class="string">&apos;a&apos;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        csv_write = csv.writer(f)</span><br><span class="line">        <span class="keyword">for</span> tcp_value <span class="keyword">in</span> tcp_dic.values():</span><br><span class="line">            csv_write.writerow(tcp_value)</span><br><span class="line">        <span class="keyword">for</span> udp_value <span class="keyword">in</span> udp_dic.values():</span><br><span class="line">            csv_write.writerow(udp_value)</span><br><span class="line">    print(<span class="string">&apos;Write successful!&apos;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&apos;__main__&apos;</span>:</span><br><span class="line">    <span class="comment"># pcap_path = &apos;29404_feishu/mac_feishu_V3.17.3_NA_1.pcap&apos;.replace(&apos;/&apos;, &apos;&#xFF0F;&apos;).replace(&apos;\\&apos;, &apos;&#xFF3C;&apos;)</span></span><br><span class="line">    <span class="comment"># tcp_dic, udp_dic = tcp_udp_process(pcap_path)</span></span><br><span class="line">    <span class="comment"># exit()</span></span><br><span class="line"></span><br><span class="line">    path = <span class="string">&apos;flow_output.csv&apos;</span></span><br><span class="line">    create_csv(path)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># write_csv(path, tcp_dic, udp_dic)</span></span><br><span class="line"></span><br><span class="line">    cam_path = <span class="string">&apos;pcap_data/camsurf&apos;</span></span><br><span class="line">    link_path = <span class="string">&apos;pcap_data/linkedin&apos;</span></span><br><span class="line">    camsurf_files = listdir(cam_path)</span><br><span class="line">    linkedin_files = listdir(link_path)</span><br><span class="line">    print(camsurf_files)</span><br><span class="line">    print(linkedin_files)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> each_file <span class="keyword">in</span> camsurf_files:</span><br><span class="line">        <span class="keyword">if</span> each_file == <span class="string">&apos;.DS_Store&apos;</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        thispath = cam_path+<span class="string">&apos;/&apos;</span>+each_file</span><br><span class="line">        tcp_dic, udp_dic = tcp_udp_process(thispath)</span><br><span class="line">        write_csv(path, tcp_dic, udp_dic)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> each_file <span class="keyword">in</span> linkedin_files:</span><br><span class="line">        <span class="keyword">if</span> each_file == <span class="string">&apos;.DS_Store&apos;</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        thispath = link_path+<span class="string">&apos;/&apos;</span>+each_file</span><br><span class="line">        tcp_dic, udp_dic = tcp_udp_process(thispath)</span><br><span class="line">        write_csv(path, tcp_dic, udp_dic)</span><br></pre></td></tr></table></figure>
+
+<h5 id="&#x6709;&#x5F85;&#x8FDB;&#x4E00;&#x6B65;&#x6539;&#x5584;&#x7684;&#x5730;&#x65B9;"><a href="#&#x6709;&#x5F85;&#x8FDB;&#x4E00;&#x6B65;&#x6539;&#x5584;&#x7684;&#x5730;&#x65B9;" class="headerlink" title="&#x6709;&#x5F85;&#x8FDB;&#x4E00;&#x6B65;&#x6539;&#x5584;&#x7684;&#x5730;&#x65B9;"></a>&#x6709;&#x5F85;&#x8FDB;&#x4E00;&#x6B65;&#x6539;&#x5584;&#x7684;&#x5730;&#x65B9;</h5><ul>
+<li><p>IP&#x5BF9;&#x7528;set&#x4FDD;&#x5B58;&#xFF0C;&#x5219;&#x4E0D;&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#x4E0A;&#x4E0B;&#x884C;&#x65B9;&#x5411;</p>
+</li>
+<li><p>&#x9ED8;&#x8BA4;&#x56DB;&#x6B21;&#x6325;&#x624B;&#x540E;&#x4E0D;&#x4F1A;&#x518D;&#x6B21;&#x6536;&#x5230;&#x8FDE;&#x63A5;&#xFF0C;&#x5176;&#x5B9E;&#x6709;&#x53EF;&#x80FD;&#x518D;&#x6B21;&#x63E1;&#x624B;&#x8FDB;&#x884C;&#x4F20;&#x8F93;&#xFF0C;&#x6709;&#x7684;&#x65F6;&#x5019;&#x6325;&#x624B;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x4E0D;&#x6B62;&#x56DB;&#x6B21;</p>
+</li>
+<li><p>&#x53EA;&#x4F1A;&#x7EDF;&#x8BA1;&#x88AB;&#x6355;&#x6349;&#x5230;&#x7B2C;&#x4E00;&#x6B21;&#x6325;&#x624B;&#x7684;&#x5305;&#xFF0C;&#x5176;&#x4ED6;tcp&#x6D41;&#x4E0D;&#x4F1A;&#x88AB;&#x6355;&#x6349;</p>
+</li>
+</ul>
+<blockquote>
+<p>[<a href="https://www.cnblogs.com/guanfuchang/p/6495533.html" target="_blank" rel="noopener">python+pcap+dpkt&#x6293;&#x5305;&#x5C0F;&#x5B9E;&#x4F8B;</a>]</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Network/" rel="tag"># Network</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/24/%E6%8A%93%E5%8C%85%E7%9A%84%E4%B8%80%E4%BA%9B%E9%9B%B6%E7%A2%8E%E8%AE%B0%E5%BD%95%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/" rel="next" title="抓包的一些零碎记录（持续更新）">
+                <i class="fa fa-chevron-left"></i> 抓包的一些零碎记录（持续更新）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/31/BGP%E5%8D%8F%E8%AE%AE%E4%B8%AA%E4%BA%BA%E8%AE%B0%E5%BD%95/" rel="prev" title="BGP协议个人记录">
+                BGP协议个人记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/me.jpg"
+                alt="HEATAO" />
+            
+              <p class="site-author-name" itemprop="name">HEATAO</p>
+              <p class="site-description motion-element" itemprop="description">heatao的个人博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heatao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:heatao59@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#&#x7B2C;&#x4E00;&#x90E8;&#x5206;&#xFF1A;&#x6293;&#x5305;"><span class="nav-number">1.</span> <span class="nav-text">&amp;#x7B2C;&amp;#x4E00;&amp;#x90E8;&amp;#x5206;&amp;#xFF1A;&amp;#x6293;&amp;#x5305;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#&#x7B2C;&#x4E8C;&#x90E8;&#x5206;&#xFF1A;&#x5206;&#x6790;"><span class="nav-number">2.</span> <span class="nav-text">&amp;#x7B2C;&amp;#x4E8C;&amp;#x90E8;&amp;#x5206;&amp;#xFF1A;&amp;#x5206;&amp;#x6790;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#&#x5BF9;&#x6D41;&#x7684;&#x5904;&#x7406;"><span class="nav-number">2.1.</span> <span class="nav-text">&amp;#x5BF9;&amp;#x6D41;&amp;#x7684;&amp;#x5904;&amp;#x7406;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#&#x5BF9;&#x4E8E;UDP"><span class="nav-number">2.1.1.</span> <span class="nav-text">&amp;#x5BF9;&amp;#x4E8E;UDP</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;"><span class="nav-number">2.2.</span> <span class="nav-text">&amp;#x5B8C;&amp;#x6574;&amp;#x4EE3;&amp;#x7801;&amp;#x5982;&amp;#x4E0B;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#&#x6709;&#x5F85;&#x8FDB;&#x4E00;&#x6B65;&#x6539;&#x5584;&#x7684;&#x5730;&#x65B9;"><span class="nav-number">2.2.1.</span> <span class="nav-text">&amp;#x6709;&amp;#x5F85;&amp;#x8FDB;&amp;#x4E00;&amp;#x6B65;&amp;#x6539;&amp;#x5584;&amp;#x7684;&amp;#x5730;&amp;#x65B9;</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
