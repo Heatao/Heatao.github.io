@@ -1823,7 +1823,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #4d0801;
+  background: #f930d2;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3126,4 +3126,14 @@ pre .javascript .function {
 }
 .post-toc ol {
   font-size: 13px;
+}
+body {
+  background: url("/images/wallhaven-575v81.jpeg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+.main-inner {
+  opacity: 0.85;
 }

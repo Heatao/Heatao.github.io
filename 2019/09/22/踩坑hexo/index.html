@@ -85,8 +85,9 @@
 <meta property="og:url" content="http://yoursite.com/2019/09/22/%E8%B8%A9%E5%9D%91hexo/index.html">
 <meta property="og:site_name" content="HEATAO&#39;s Blog">
 <meta property="og:description" content="hexo&amp;#x4E2A;&amp;#x4EBA;&amp;#x8E29;&amp;#x5751;&amp;#x5173;&amp;#x4E8E;&amp;#x5EFA;&amp;#x7AD9;&amp;#x4EC0;&amp;#x4E48;&amp;#x7684;&amp;#x5C31;&amp;#x4E0D;&amp;#x8BF4;&amp;#x4E86;&amp;#xFF0C;&amp;#x7F51;&amp;#x4E0A;&amp;#x5DF2;&amp;#x7ECF;&amp;#x6709;&amp;#x5F88;&amp;#x591A;&amp;#x94FE;&amp;#x6">
+<meta property="og:locale">
 <meta property="article:published_time" content="2019-09-22T05:28:23.000Z">
-<meta property="article:modified_time" content="2021-07-14T02:48:31.901Z">
+<meta property="article:modified_time" content="2021-07-14T04:32:25.783Z">
 <meta property="article:author" content="HEATAO">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary">
@@ -96,7 +97,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -135,7 +136,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -235,9 +236,9 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/22/%E8%B8%A9%E5%9D%91hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HEATAO">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="image" content="/images/me2.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -319,14 +320,11 @@
 <li><p>&#x5C06;_config.yml&#x4E2D;&#x7684;post_asset_folder&#x6539;&#x4E3A;true</p>
 </li>
 <li><p>&#x5728;hexo&#x76EE;&#x5F55;&#x4E0B;&#x6267;&#x884C;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hero-asset-image --save</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hero-asset-image --save</span><br></pre></td></tr></table></figure></li>
 <li><p>&#x8FD9;&#x662F;&#x7528;hext new &#x201C;&#x201D;&#x4F1A;&#x5728;source&#x4E0B;&#x751F;&#x6210;&#x6587;&#x7AE0;&#x540C;&#x540D;&#x6587;&#x4EF6;&#x5939;</p>
 </li>
 <li><p>&#x5C06;&#x56FE;&#x7247;&#x653E;&#x5165;&#x6587;&#x4EF6;&#x5939;&#x518D;&#x7528;&#x76F8;&#x5BF9;&#x8DEF;&#x5F84;&#x6307;&#x5411;&#x5373;&#x53EF;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](xxxx/example.jpg)</span><br></pre></td></tr></table></figure>
-
-</li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](xxxx/example.jpg)</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5728;&#x7528;hexo g&#x90E8;&#x7F72;&#x7684;&#x65F6;&#x5019;&#x5728;pulic/2019/0x/xx/index.html&#x4E2D;&#x7684;&#x76F8;&#x5173;&#x5B57;&#x6BB5;</p>
 <p>html&#x6807;&#x7B7E;&#x5185;&#x7684;&#x8BED;&#x53E5;&#x662F;img src = &#x201C;2018/04/19/xxxx/&#x56FE;&#x7247;&#x540D;.jpg&#x201D;&#x800C;&#x4E0D;&#x662F;imgsrc=&#x201D;xxxx.&#x56FE;&#x7247;&#x540D;.jpg&#x201D;</p>
@@ -337,34 +335,47 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;hexo-asset-image&quot;</span>: <span class="string">&quot;^0.0.1&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>&#x518D;&#x5728;&#x535A;&#x5BA2;&#x6839;&#x76EE;&#x5F55;&#x6267;&#x884C;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo install</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo install</span><br></pre></td></tr></table></figure>
 
 <p>&#x66F4;&#x65B0;&#x4E4B;&#x540E;&#x5373;&#x53EF;</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>[&#x611F;&#x8C22;&#x8FD9;&#x4F4D;&#x535A;&#x4E3B;&#x63D0;&#x4F9B;&#x7684;&#x65B9;&#x6CD5;][<a href="https://alreadyright.github.io/2019/06/16/aboutHexo/]" target="_blank" rel="noopener">https://alreadyright.github.io/2019/06/16/aboutHexo/]</a></p>
-<p>[&#x53C2;&#x8003;&#x4E86;&#x8FD9;&#x4F4D;&#x540C;&#x5B66;][<a href="https://blog.csdn.net/qq_40265501/article/details/80019774]" target="_blank" rel="noopener">https://blog.csdn.net/qq_40265501/article/details/80019774]</a></p>
+<p>[&#x611F;&#x8C22;&#x8FD9;&#x4F4D;&#x535A;&#x4E3B;&#x63D0;&#x4F9B;&#x7684;&#x65B9;&#x6CD5;][<a target="_blank" rel="noopener" href="https://alreadyright.github.io/2019/06/16/aboutHexo/]">https://alreadyright.github.io/2019/06/16/aboutHexo/]</a></p>
+<p>[&#x53C2;&#x8003;&#x4E86;&#x8FD9;&#x4F4D;&#x540C;&#x5B66;][<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40265501/article/details/80019774]">https://blog.csdn.net/qq_40265501/article/details/80019774]</a></p>
 </blockquote>
-<h3 id="&#x6DFB;&#x52A0;github&#x548C;email&#x540E;&#x62A5;&#x9519;"><a href="#&#x6DFB;&#x52A0;github&#x548C;email&#x540E;&#x62A5;&#x9519;" class="headerlink" title="&#x6DFB;&#x52A0;github&#x548C;email&#x540E;&#x62A5;&#x9519;"></a><font color="CornflowerBlue">&#x6DFB;&#x52A0;github&#x548C;email&#x540E;&#x62A5;&#x9519;</font></h3><p>Unhandled rejection Error: ENOENT: no such file or directory, open &#x2018;/Users/felixxiong/FelixXiong<em>Hexo*Folder</em>/themes/next/layout/_scripts/schemes/.swig</p>
+<h3 id="&#x6DFB;&#x52A0;github&#x548C;email&#x540E;&#x62A5;&#x9519;"><a href="#&#x6DFB;&#x52A0;github&#x548C;email&#x540E;&#x62A5;&#x9519;" class="headerlink" title="&#x6DFB;&#x52A0;github&#x548C;email&#x540E;&#x62A5;&#x9519;"></a><font color="CornflowerBlue">&#x6DFB;&#x52A0;github&#x548C;email&#x540E;&#x62A5;&#x9519;</font></h3><p>Unhandled rejection Error: ENOENT: no such file or directory, open &#x2018;/Users/felixxiong/FelixXiong<em>Hexo</em>Folder*/themes/next/layout/_scripts/schemes/.swig</p>
 <p>&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5C0F;&#x95EE;&#x9898;&#xFF0C;&#x5C06;&#x94FE;&#x63A5;&#x524D;&#x7684;socal&#x53D6;&#x6D88;&#x6CE8;&#x91CA;&#x5373;&#x53EF;&#x3002;</p>
-<h3 id="&#x5347;&#x7EA7;node&#x5F15;&#x53D1;&#x7684;&#x95EE;&#x9898;"><a href="#&#x5347;&#x7EA7;node&#x5F15;&#x53D1;&#x7684;&#x95EE;&#x9898;" class="headerlink" title="&#x5347;&#x7EA7;node&#x5F15;&#x53D1;&#x7684;&#x95EE;&#x9898;"></a>&#x5347;&#x7EA7;node&#x5F15;&#x53D1;&#x7684;&#x95EE;&#x9898;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ATAL Something&apos;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span><br><span class="line">TypeError [ERR_INVALID_ARG_TYPE]: The &quot;mode&quot; argument must be integer. Received an instance of Object</span><br><span class="line">    at copyFile (fs.js:1895:10)</span><br><span class="line">    at tryCatcher (/Users/luodi/githubblog/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at ret (eval at makeNodePromisifiedEval (/usr/local/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span><br><span class="line">    at /Users/luodi/githubblog/node_modules/hexo-fs/lib/fs.js:144:39</span><br><span class="line">    at tryCatcher (/Users/luodi/githubblog/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at Promise._settlePromiseFromHandler (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:547:31)</span><br><span class="line">    at Promise._settlePromise (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:604:18)</span><br><span class="line">    at Promise._settlePromise0 (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:649:10)</span><br><span class="line">    at Promise._settlePromises (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:729:18)</span><br><span class="line">    at Promise._fulfill (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:673:18)</span><br><span class="line">    at Promise._resolveCallback (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:466:57)</span><br><span class="line">    at Promise._settlePromiseFromHandler (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:559:17)</span><br><span class="line">    at Promise._settlePromise (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:604:18)</span><br><span class="line">    at Promise._settlePromise0 (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:649:10)</span><br><span class="line">    at Promise._settlePromises (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:729:18)</span><br><span class="line">    at Promise._fulfill (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:673:18)</span><br><span class="line">    at Promise._resolveCallback (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:466:57)</span><br><span class="line">    at Promise._settlePromiseFromHandler (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:559:17)</span><br><span class="line">    at Promise._settlePromise (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:604:18)</span><br><span class="line">    at Promise._settlePromise0 (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:649:10)</span><br><span class="line">    at Promise._settlePromises (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:729:18)</span><br><span class="line">    at Promise._fulfill (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:673:18)</span><br></pre></td></tr></table></figure>
+<h3 id="&#x5347;&#x7EA7;node&#x5F15;&#x53D1;&#x7684;&#x95EE;&#x9898;"><a href="#&#x5347;&#x7EA7;node&#x5F15;&#x53D1;&#x7684;&#x95EE;&#x9898;" class="headerlink" title="&#x5347;&#x7EA7;node&#x5F15;&#x53D1;&#x7684;&#x95EE;&#x9898;"></a>&#x5347;&#x7EA7;node&#x5F15;&#x53D1;&#x7684;&#x95EE;&#x9898;</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ATAL Something&apos;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span><br><span class="line">TypeError [ERR_INVALID_ARG_TYPE]: The &quot;mode&quot; argument must be integer. Received an instance of Object</span><br><span class="line">    at copyFile (fs.js:1895:10)</span><br><span class="line">    at tryCatcher (/Users/luodi/githubblog/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at ret (eval at makeNodePromisifiedEval (/usr/local/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span><br><span class="line">    at /Users/luodi/githubblog/node_modules/hexo-fs/lib/fs.js:144:39</span><br><span class="line">    at tryCatcher (/Users/luodi/githubblog/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at Promise._settlePromiseFromHandler (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:547:31)</span><br><span class="line">    at Promise._settlePromise (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:604:18)</span><br><span class="line">    at Promise._settlePromise0 (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:649:10)</span><br><span class="line">    at Promise._settlePromises (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:729:18)</span><br><span class="line">    at Promise._fulfill (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:673:18)</span><br><span class="line">    at Promise._resolveCallback (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:466:57)</span><br><span class="line">    at Promise._settlePromiseFromHandler (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:559:17)</span><br><span class="line">    at Promise._settlePromise (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:604:18)</span><br><span class="line">    at Promise._settlePromise0 (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:649:10)</span><br><span class="line">    at Promise._settlePromises (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:729:18)</span><br><span class="line">    at Promise._fulfill (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:673:18)</span><br><span class="line">    at Promise._resolveCallback (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:466:57)</span><br><span class="line">    at Promise._settlePromiseFromHandler (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:559:17)</span><br><span class="line">    at Promise._settlePromise (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:604:18)</span><br><span class="line">    at Promise._settlePromise0 (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:649:10)</span><br><span class="line">    at Promise._settlePromises (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:729:18)</span><br><span class="line">    at Promise._fulfill (/Users/luodi/githubblog/node_modules/bluebird/js/release/promise.js:673:18)</span><br></pre></td></tr></table></figure>
 
 <p>&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#xFF1A;&#x5347;&#x7EA7;hexo&#x6216;&#x56DE;&#x9000;node</p>
 <h3 id="&#x81EA;&#x5DF1;&#x628A;md&#x653E;&#x5230;source&#x4E0B;&#x9762;"><a href="#&#x81EA;&#x5DF1;&#x628A;md&#x653E;&#x5230;source&#x4E0B;&#x9762;" class="headerlink" title="&#x81EA;&#x5DF1;&#x628A;md&#x653E;&#x5230;source&#x4E0B;&#x9762;"></a>&#x81EA;&#x5DF1;&#x628A;md&#x653E;&#x5230;source&#x4E0B;&#x9762;</h3><p>&#x8FD9;&#x6837;&#x7684;&#x95EE;&#x9898;&#x5728;&#x4E8E;&#x6CA1;&#x6709;tag&#x548C;date&#xFF0C;&#x4E0D;&#x4F1A;&#x6309;&#x7167;&#x65F6;&#x95F4;&#x6392;&#x5E8F;</p>
 <h3 id="&#x4FEE;&#x6539;&#x6587;&#x7AE0;&#x540D;&#x5B57;&#x95EE;&#x9898;"><a href="#&#x4FEE;&#x6539;&#x6587;&#x7AE0;&#x540D;&#x5B57;&#x95EE;&#x9898;" class="headerlink" title="&#x4FEE;&#x6539;&#x6587;&#x7AE0;&#x540D;&#x5B57;&#x95EE;&#x9898;"></a><font color="CornflowerBlue">&#x4FEE;&#x6539;&#x6587;&#x7AE0;&#x540D;&#x5B57;&#x95EE;&#x9898;</font></h3><p>&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x4FEE;&#x6539;&#xFF0C;&#x5EFA;&#x8BAE;&#x5220;&#x6389;&#x91CD;new</p>
-<h3 id="&#x76EE;&#x5F55;&#x4E71;&#x7801;&#x95EE;&#x9898;"><a href="#&#x76EE;&#x5F55;&#x4E71;&#x7801;&#x95EE;&#x9898;" class="headerlink" title="&#x76EE;&#x5F55;&#x4E71;&#x7801;&#x95EE;&#x9898;"></a>&#x76EE;&#x5F55;&#x4E71;&#x7801;&#x95EE;&#x9898;</h3><p>&#x8FD9;&#x4E2A;&#x6682;&#x65F6;&#x8FD8;&#x6CA1;&#x89E3;&#x51B3;&#xFF0C;&#x53EA;&#x597D;&#x4E0D;&#x7528;&#x76EE;&#x5F55;&#x4E86;&#x3002;</p>
+<h3 id="next&#x76EE;&#x5F55;&#x4E71;&#x7801;&#x95EE;&#x9898;"><a href="#next&#x76EE;&#x5F55;&#x4E71;&#x7801;&#x95EE;&#x9898;" class="headerlink" title="next&#x76EE;&#x5F55;&#x4E71;&#x7801;&#x95EE;&#x9898;"></a>next&#x76EE;&#x5F55;&#x4E71;&#x7801;&#x95EE;&#x9898;</h3><p>&#x8FD9;&#x4E2A;&#x6682;&#x65F6;&#x8FD8;&#x6CA1;&#x89E3;&#x51B3;&#xFF0C;&#x53EA;&#x597D;&#x4E0D;&#x7528;&#x76EE;&#x5F55;&#x4E86;&#x3002;</p>
+<h3 id="&#x6DFB;&#x52A0;&#x80CC;&#x666F;&#x56FE;&#x7247;"><a href="#&#x6DFB;&#x52A0;&#x80CC;&#x666F;&#x56FE;&#x7247;" class="headerlink" title="&#x6DFB;&#x52A0;&#x80CC;&#x666F;&#x56FE;&#x7247;"></a>&#x6DFB;&#x52A0;&#x80CC;&#x666F;&#x56FE;&#x7247;</h3><p><code>hexo\themes\next\source\images\</code> &#x7684;&#x8DEF;&#x5F84;&#x4E0B;&#x5B58;&#x653E;&#x56FE;&#x7247;</p>
+<p>  &#x4FEE;&#x6539;<code>themes\next\source\css\ _custom\custom.styl</code>&#x6587;&#x4EF6;&#xFF0C;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">body {</span><br><span class="line">    background:url(/images/&#x56FE;&#x7247;.jpg);</span><br><span class="line">    background-repeat: no-repeat;</span><br><span class="line">    background-attachment:fixed;</span><br><span class="line">    background-position:50% 50%;</span><br><span class="line">    background-size:cover;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4FEE;&#x6539;&#x4E0D;&#x900F;&#x660E;&#x5EA6;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.main-inner {</span><br><span class="line">    opacity: 0.85;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x9996;&#x9875;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;"><a href="#&#x9996;&#x9875;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;" class="headerlink" title="&#x9996;&#x9875;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;"></a>&#x9996;&#x9875;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;</h3><p>&#x51FA;&#x73B0;&#x4E71;&#x7801;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{% extends &apos;_layout.swig&apos; %} {% import &apos;_macro/post.swig&apos; as post_template %} {% import &apos;_macro/sidebar.swig&apos; as sidebar_template %} {% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %} {% block page_class %} {% if is_home() %}page-home{% endif -%} {% endblock %} {% block content %} {% for post in page.posts %} {{ post_template.render(post, true) }} {% endfor %} {% include &apos;_partials/pagination.swig&apos; %} {% endblock %} {% block sidebar %} {{ sidebar_template.render(false) }} {% endblock %}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD0;&#x884C;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-renderer-swig</span><br><span class="line"></span><br><span class="line">hexo c</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
 <h3 id="&#x5E38;&#x7528;&#x547D;&#x4EE4;"><a href="#&#x5E38;&#x7528;&#x547D;&#x4EE4;" class="headerlink" title="&#x5E38;&#x7528;&#x547D;&#x4EE4;"></a>&#x5E38;&#x7528;&#x547D;&#x4EE4;</h3><p>&#x5168;&#x5C40;&#x5347;&#x7EA7;hexo-cli</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
 
 <p>&#x5347;&#x7EA7;hexo&#xFF1A;&#x4FEE;&#x6539; <strong>package.json</strong> &#x6587;&#x4EF6;&#x201C;dependencies&#x201D;&#x4E0B;&#x5BF9;&#x5E94;&#x7684;hexo&#x7248;&#x672C;&#x53F7;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm update</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm update</span><br></pre></td></tr></table></figure>
 
 <p>&#x66F4;&#x65B0;hexo&#x535A;&#x5BA2;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
 
 <p>&#x65B0;&#x5EFA;&#x6587;&#x7AE0;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;&#x6587;&#x7AE0;&#x540D;&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;&#x6587;&#x7AE0;&#x540D;&quot;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -466,11 +477,11 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/me.jpg"
-                alt="HEATAO" />
+                src="/images/me2.png"
+                alt="" />
             
-              <p class="site-author-name" itemprop="name">HEATAO</p>
-              <p class="site-description motion-element" itemprop="description">heatao的个人博客</p>
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -738,5 +749,5 @@
 
   
 
-</body>
+<script src="/public/public/live2dw/public/public/live2dw/public/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"public/public/live2dw/","pluginJsPath":"public/public/live2dw/public/lib/","pluginModelPath":"node_modules/live2d-widget-model-shizuku/assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/public/public/live2dw/node_modules/live2d-widget-model-shizuku/assets/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":315,"hOffset":198,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>

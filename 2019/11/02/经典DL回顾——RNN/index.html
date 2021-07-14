@@ -85,6 +85,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/11/02/%E7%BB%8F%E5%85%B8DL%E5%9B%9E%E9%A1%BE%E2%80%94%E2%80%94RNN/index.html">
 <meta property="og:site_name" content="HEATAO&#39;s Blog">
 <meta property="og:description" content="&amp;#x7C97;&amp;#x7565;DL&amp;#x81EA;&amp;#x9605;&amp;#x7B14;&amp;#x8BB0;&amp;#x2014;&amp;#x2014;RNN &amp;#x5FAA;&amp;#x73AF;&amp;#x795E;&amp;#x7ECF;&amp;#x7F51;&amp;#x7EDC;  &amp;#x4E3A;&amp;#x4EC0;&amp;#x4E48;&amp;#x8981;&amp;#x7528;RNN&amp;#xFF1F; &amp;#x5BF9;&amp;#x4E8E;&amp;#x4F20;&amp;#x7">
+<meta property="og:locale">
 <meta property="og:image" content="http://yoursite.com/2019/11/02/%E7%BB%8F%E5%85%B8DL%E5%9B%9E%E9%A1%BE%E2%80%94%E2%80%94RNN/v2-3884f344d71e92d70ec3c44d2795141f_hd.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/11/02/%E7%BB%8F%E5%85%B8DL%E5%9B%9E%E9%A1%BE%E2%80%94%E2%80%94RNN/v2-206db7ba9d32a80ff56b6cc988a62440_hd.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/11/02/%E7%BB%8F%E5%85%B8DL%E5%9B%9E%E9%A1%BE%E2%80%94%E2%80%94RNN/5c8932423af040d581b0edd979262fc7.jpeg">
@@ -107,7 +108,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -146,7 +147,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -246,9 +247,9 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/02/%E7%BB%8F%E5%85%B8DL%E5%9B%9E%E9%A1%BE%E2%80%94%E2%80%94RNN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HEATAO">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="image" content="/images/me2.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -324,7 +325,7 @@
 <p>&#x4E0E;DNN&#x4E0D;&#x540C;&#x7684;&#x662F;&#xFF0C;RNN&#x9690;&#x85CF;&#x5C42;&#x72B6;&#x6001;s<del>t</del>&#x4E0D;&#x4EC5;&#x4EC5;&#x53D6;&#x51B3;&#x4E8E;&#x5F53;&#x524D;&#x65F6;&#x523B;&#x7684;&#x8F93;&#x5165;x<del>t</del>&#xFF0C;&#x8FD8;&#x53D6;&#x51B3;&#x4E8E;&#x4E0A;&#x4E00;&#x65F6;&#x523B;&#x7684;&#x9690;&#x85CF;&#x5C42;&#x72B6;&#x6001;s<del>t-1</del><br>$$<br>z_t = Us_{t-1} + Wx_t + b<br>$$</p>
 <p>$$<br>s_t = f(z_t)<br>$$</p>
 <p>$$<br>O_t = g(V&#xB7;S_t)<br>$$</p>
-<p>&#x5176;&#x4E2D;<em>z<del>t</del></em>&#x4E3A;&#x9690;&#x85CF;&#x5C42;&#x8F93;&#x5165;&#xFF0C;<em>f(&#xB7;)</em>&#x662F;&#x975E;&#x7EBF;&#x6027;&#x6FC0;&#x6D3B;&#x51FD;&#x6570;&#xFF0C;<em>U</em>&#x662F;&#x72B6;&#x6001;-&#x72B6;&#x6001;&#x6743;&#x91CD;&#x77E9;&#x9635;&#xFF0C;<em>W</em>&#x662F;&#x72B6;&#x6001;-&#x8F93;&#x5165;&#x6743;&#x91CD;&#x77E9;&#x9635;&#xFF0C;<em>b</em>&#x662F;&#x504F;&#x7F6E;&#x9879;</p>
+<p>&#x5176;&#x4E2D;<em>z<del>t</del><em>&#x4E3A;&#x9690;&#x85CF;&#x5C42;&#x8F93;&#x5165;&#xFF0C;</em>f(&#xB7;)<em>&#x662F;&#x975E;&#x7EBF;&#x6027;&#x6FC0;&#x6D3B;&#x51FD;&#x6570;&#xFF0C;</em>U</em>&#x662F;&#x72B6;&#x6001;-&#x72B6;&#x6001;&#x6743;&#x91CD;&#x77E9;&#x9635;&#xFF0C;<em>W</em>&#x662F;&#x72B6;&#x6001;-&#x8F93;&#x5165;&#x6743;&#x91CD;&#x77E9;&#x9635;&#xFF0C;<em>b</em>&#x662F;&#x504F;&#x7F6E;&#x9879;</p>
 <h2 id="RNN&#x7684;&#x4E0D;&#x540C;&#x67B6;&#x6784;"><a href="#RNN&#x7684;&#x4E0D;&#x540C;&#x67B6;&#x6784;" class="headerlink" title="RNN&#x7684;&#x4E0D;&#x540C;&#x67B6;&#x6784;"></a>RNN&#x7684;&#x4E0D;&#x540C;&#x67B6;&#x6784;</h2><p>&#x6839;&#x636E;&#x4EFB;&#x52A1;&#x7684;&#x9700;&#x8981;&#xFF0C;&#x53EF;&#x4EE5;&#x91C7;&#x53D6;&#x4E00;&#x4E9B;&#x4E0D;&#x540C;&#x7684;RNN&#x67B6;&#x6784;</p>
 <p><strong>1 to N</strong></p>
 <img src="/2019/11/02/%E7%BB%8F%E5%85%B8DL%E5%9B%9E%E9%A1%BE%E2%80%94%E2%80%94RNN/5c8932423af040d581b0edd979262fc7.jpeg" alt="5c8932423af040d581b0edd979262fc7" style="zoom:50%;">
@@ -365,10 +366,10 @@
 <p>&#x5176;&#x6B21;&#xFF0C;RNN&#x672C;&#x8EAB;&#x7684;&#x5E8F;&#x5217;&#x8F93;&#x5165;&#xFF0C;&#x5728;&#x5DE5;&#x4E1A;&#x754C;&#x6548;&#x7387;&#x4E0D;&#x9AD8;&#xFF0C;&#x5F88;&#x96BE;&#x9AD8;&#x6548;&#x7684;&#x5E76;&#x884C;&#x8BA1;&#x7B97;&#xFF0C;&#x4E0D;&#x8FC7;&#x6709;&#x4E00;&#x4E9B;&#x6539;&#x9020;&#x7684;RNN&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x5E76;&#x884C;&#x8BA1;&#x7B97;&#xFF0C;&#x4F46;&#x8FD9;&#x4E9B;&#x505A;&#x6CD5;&#x4F7F;RNN&#x7684;&#x7279;&#x70B9;&#x5E76;&#x4E0D;&#x90A3;&#x4E48;&#x660E;&#x663E;&#x3002;</p>
 <blockquote>
 <p>&#x53C2;&#x8003;</p>
-<p>[&#x77E5;&#x4E4E;&#x4E13;&#x680F;&#x201C;&#x673A;&#x5668;&#x5B66;&#x4E60;&#x7B97;&#x6CD5;&#x4E0E;&#x81EA;&#x7136;&#x8BED;&#x8A00;&#x5904;&#x7406;&#x201D;][<a href="https://zhuanlan.zhihu.com/p/30844905]" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/30844905]</a></p>
-<p>[AI&#x9047;&#x89C1;&#x673A;&#x5668;&#x5B66;&#x4E60;&#xFF0C;&#x4F5C;&#x8005;Evan][<a href="http://www.sohu.com/a/225389155_651893]" target="_blank" rel="noopener">http://www.sohu.com/a/225389155_651893]</a></p>
+<p>[&#x77E5;&#x4E4E;&#x4E13;&#x680F;&#x201C;&#x673A;&#x5668;&#x5B66;&#x4E60;&#x7B97;&#x6CD5;&#x4E0E;&#x81EA;&#x7136;&#x8BED;&#x8A00;&#x5904;&#x7406;&#x201D;][<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/30844905]">https://zhuanlan.zhihu.com/p/30844905]</a></p>
+<p>[AI&#x9047;&#x89C1;&#x673A;&#x5668;&#x5B66;&#x4E60;&#xFF0C;&#x4F5C;&#x8005;Evan][<a target="_blank" rel="noopener" href="http://www.sohu.com/a/225389155_651893]">http://www.sohu.com/a/225389155_651893]</a></p>
 <p>[&#x90B1;&#x9521;&#x9E4F;&#xFF1A;&#x300A;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x4E0E;&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;&#x300B;][]</p>
-<p>[&#x96F6;&#x57FA;&#x7840;&#x5165;&#x95E8;&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;hanbingtao][<a href="https://zybuluo.com/hanbingtao/note/541458]" target="_blank" rel="noopener">https://zybuluo.com/hanbingtao/note/541458]</a></p>
+<p>[&#x96F6;&#x57FA;&#x7840;&#x5165;&#x95E8;&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;hanbingtao][<a target="_blank" rel="noopener" href="https://zybuluo.com/hanbingtao/note/541458]">https://zybuluo.com/hanbingtao/note/541458]</a></p>
 </blockquote>
 
       
@@ -470,11 +471,11 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/me.jpg"
-                alt="HEATAO" />
+                src="/images/me2.png"
+                alt="" />
             
-              <p class="site-author-name" itemprop="name">HEATAO</p>
-              <p class="site-description motion-element" itemprop="description">heatao的个人博客</p>
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -742,5 +743,5 @@
 
   
 
-</body>
+<script src="/public/public/live2dw/public/public/live2dw/public/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"public/public/live2dw/","pluginJsPath":"public/public/live2dw/public/lib/","pluginModelPath":"node_modules/live2d-widget-model-shizuku/assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/public/public/live2dw/node_modules/live2d-widget-model-shizuku/assets/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":315,"hOffset":198,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>

@@ -85,6 +85,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="HEATAO&#39;s Blog">
 <meta property="og:description" content="KBQA: Learning Question Answering over QA Corpora and Knowledge Bases&amp;#x7B14;&amp;#x8BB0;&amp;#x672C;&amp;#x6587;&amp;#x60F3;&amp;#x89E3;&amp;#x51B3;&amp;#x4EC0;&amp;#x4E48;&amp;#x95EE;&amp;#x9898;&amp;#xFF1F;  KBQA&amp;#x524D;&amp;#x63D0;&amp;#x662F;&amp;#x53">
+<meta property="og:locale">
 <meta property="og:image" content="http://yoursite.com/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/Eq1.png">
 <meta property="og:image" content="http://yoursite.com/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/Eq3.png">
 <meta property="og:image" content="http://yoursite.com/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/F4.png">
@@ -113,7 +114,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -152,7 +153,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -252,9 +253,9 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HEATAO">
+      <meta itemprop="name" content="">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="image" content="/images/me2.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -359,7 +360,7 @@
 <img src="/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/Eq3.png" alt="Eq3" style="zoom:50%;">
 
 <blockquote>
-<p>&#x53C2;&#x8003;&#x4E86;[&#x8BE5;&#x535A;&#x5BA2;][<a href="https://blog.csdn.net/chenmingwei000/article/details/88360105]" target="_blank" rel="noopener">https://blog.csdn.net/chenmingwei000/article/details/88360105]</a></p>
+<p>&#x53C2;&#x8003;&#x4E86;[&#x8BE5;&#x535A;&#x5BA2;][<a target="_blank" rel="noopener" href="https://blog.csdn.net/chenmingwei000/article/details/88360105]">https://blog.csdn.net/chenmingwei000/article/details/88360105]</a></p>
 </blockquote>
 <img src="/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/F4.png" alt="F4" style="zoom:50%;">
 
@@ -399,25 +400,25 @@
 <p>&#x73B0;&#x5728;&#xFF0C;&#x6700;&#x5927;&#x5316;QA&#x7684;&#x4F3C;&#x7136;&#xFF0C;&#x7B49;&#x4EF7;&#x4E8E;&#x6700;&#x5927;&#x5316;<em>X</em>&#x7684;&#x4F3C;&#x7136;&#x3002;&#x6839;&#x636E;Eq2&#x7684;&#x751F;&#x6210;&#x6A21;&#x578B;&#xFF0C;&#x8BA1;&#x7B97;P(q_i, e_i, v_i)&#x53EF;&#x901A;&#x8FC7;&#x6240;&#x6709;&#x6A21;&#x677F;<em>t</em>&#x548C;&#x8C13;&#x8BED;<em>p</em>&#x7684;&#x8FB9;&#x7F18;&#x8054;&#x5408;&#x6982;&#x7387;P(q, e, t, p, v)&#xFF0C;&#x5F97;&#x5230;&#x516C;&#x5F0F;Eq14&#xFF0C;&#x6574;&#x4E2A;&#x8FC7;&#x7A0B;&#x5728;Figure4</p>
 <img src="/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/Eq14.png" alt="Eq14" style="zoom:50%;">
 
-<h4 id="Parameter-Estimation"><a href="#Parameter-Estimation" class="headerlink" title="Parameter Estimation"></a>Parameter Estimation</h4><p>&#x8FD9;&#x4E00;&#x8282;&#x901A;&#x8FC7;&#x6700;&#x5927;&#x5316;Eq14&#x6765;&#x8BC4;&#x4F30;<em>P(p|t)</em>&#x3002;&#x5C06;&#x5206;&#x5E03;<em>P(P|T)</em>&#x8868;&#x793A;&#x4E3A;&#x53C2;&#x6570;<em>&#x3B8;</em>&#xFF0C;&#x5BF9;&#x5E94;&#x4F3C;&#x7136;&#x4F30;&#x8BA1;L(&#x3B8;)&#xFF0C;<em>P(p|t)</em>&#x4F5C;&#x4E3A;<em>&#x3B8;_pt</em>&#xFF0C;&#x6545;&#x4F30;&#x8BA1;<em>&#x3B8;</em>&#x901A;&#x8FC7;&#xFF1A;</p>
+<h4 id="Parameter-Estimation"><a href="#Parameter-Estimation" class="headerlink" title="Parameter Estimation"></a>Parameter Estimation</h4><p>&#x8FD9;&#x4E00;&#x8282;&#x901A;&#x8FC7;&#x6700;&#x5927;&#x5316;Eq14&#x6765;&#x8BC4;&#x4F30;<em>P(p|t)<em>&#x3002;&#x5C06;&#x5206;&#x5E03;</em>P(P|T)<em>&#x8868;&#x793A;&#x4E3A;&#x53C2;&#x6570;</em>&#x3B8;</em>&#xFF0C;&#x5BF9;&#x5E94;&#x4F3C;&#x7136;&#x4F30;&#x8BA1;L(&#x3B8;)&#xFF0C;<em>P(p|t)<em>&#x4F5C;&#x4E3A;</em>&#x3B8;_pt</em>&#xFF0C;&#x6545;&#x4F30;&#x8BA1;<em>&#x3B8;</em>&#x901A;&#x8FC7;&#xFF1A;</p>
 <img src="/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/Eq16.png" alt="Eq16" style="zoom:50%;">
 
-<p><strong>Intuition of EM Estimation&#xFF1A;</strong>&#x6211;&#x4EEC;&#x6CE8;&#x610F;&#x5230;&#x4E00;&#x4E9B;&#x968F;&#x673A;&#x53D8;&#x91CF;(&#x5982;&#x8C13;&#x8BCD;&#x548C;&#x6A21;&#x677F;)&#x9690;&#x85CF;&#x5728;&#x63D0;&#x51FA;&#x7684;&#x6982;&#x7387;&#x6A21;&#x578B;&#x4E2D;&#xFF0C;&#x53EF;&#x4F7F;&#x7528;&#x671F;&#x671B;&#x6700;&#x5927;&#x5316;(EM)&#x7B97;&#x6CD5;&#x6765;&#x4F30;&#x8BA1;&#x53C2;&#x6570;&#x3002;EM&#x7B97;&#x6CD5;&#x53EF;&#x4EE5;&#x5728;&#x5177;&#x6709;&#x672A;&#x89C2;&#x5BDF;&#x5230;&#x7684;&#x53D8;&#x91CF;&#x7684;&#x7EDF;&#x8BA1;&#x6A21;&#x578B;&#x4E2D;&#x627E;&#x5230;&#x53C2;&#x6570;&#x7684;&#x6700;&#x5927;&#x4F3C;&#x7136;&#x4F30;&#x8BA1;&#x3002; &#x6700;&#x7EC8;&#x76EE;&#x6807;&#x662F;&#x4F7F;&#x5B8C;&#x6574;&#x6570;&#x636E;L&#xFF08;&#x3B8;&#xFF09;&#x7684;&#x53EF;&#x80FD;&#x6027;&#x6700;&#x5927;&#x5316;&#x3002;&#x7136;&#x800C;&#xFF0C;EM&#x7B97;&#x6CD5;&#x6709;&#x5F88;&#x591A;&#x5BF9;&#x6570;&#xFF0C;&#x8BA1;&#x7B97;&#x590D;&#x6742;&#xFF0C;&#x6545;&#x8F6C;&#x800C;&#x6C42;&#x89E3;&#x5B83;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x4E0B;&#x754C;[7]&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x4E3A;&#x4E86;&#x5B9A;&#x4E49;Q&#x51FD;&#x6570; <em>Q(&#x3B8;; &#x3B8;^(s))</em>&#xFF0C;&#x6211;&#x4EEC;&#x5229;&#x7528;&#x5176;&#x5B8C;&#x6574;&#x6570;&#x636E;&#x7684;&#x4F3C;&#x7136;&#x4F30;&#x8BA1;L_c(&#x3B8;)&#xFF0C;EM&#x7B97;&#x6CD5;&#x901A;&#x8FC7;&#x8FED;&#x4EE3;&#x6700;&#x5927;&#x5316;L_c(&#x3B8;)&#x7684;&#x4E0B;&#x754C;<em>Q(&#x3B8;; &#x3B8;^(s))</em>&#x6765;&#x6700;&#x5927;&#x5316;L_c(&#x3B8;)&#x3002;&#x5728;&#x7B2C;s&#x6B21;&#x8FED;&#x4EE3;&#xFF0C;<strong>E-step</strong>&#x901A;&#x8FC7;&#x7ED9;&#x5B9A;&#x7684;&#x53C2;&#x6570;&#x3B8;^(s)&#x8BA1;&#x7B97;<em>Q(&#x3B8;; &#x3B8;^(s))</em>&#xFF0C;<strong>M-step</strong>&#x4F30;&#x8BA1;&#x53C2;&#x6570;&#x3B8;^(s+1)&#x6765;&#x6700;&#x5927;&#x5316;&#x4E0B;&#x754C;&#x3002;</p>
+<p><strong>Intuition of EM Estimation&#xFF1A;</strong>&#x6211;&#x4EEC;&#x6CE8;&#x610F;&#x5230;&#x4E00;&#x4E9B;&#x968F;&#x673A;&#x53D8;&#x91CF;(&#x5982;&#x8C13;&#x8BCD;&#x548C;&#x6A21;&#x677F;)&#x9690;&#x85CF;&#x5728;&#x63D0;&#x51FA;&#x7684;&#x6982;&#x7387;&#x6A21;&#x578B;&#x4E2D;&#xFF0C;&#x53EF;&#x4F7F;&#x7528;&#x671F;&#x671B;&#x6700;&#x5927;&#x5316;(EM)&#x7B97;&#x6CD5;&#x6765;&#x4F30;&#x8BA1;&#x53C2;&#x6570;&#x3002;EM&#x7B97;&#x6CD5;&#x53EF;&#x4EE5;&#x5728;&#x5177;&#x6709;&#x672A;&#x89C2;&#x5BDF;&#x5230;&#x7684;&#x53D8;&#x91CF;&#x7684;&#x7EDF;&#x8BA1;&#x6A21;&#x578B;&#x4E2D;&#x627E;&#x5230;&#x53C2;&#x6570;&#x7684;&#x6700;&#x5927;&#x4F3C;&#x7136;&#x4F30;&#x8BA1;&#x3002; &#x6700;&#x7EC8;&#x76EE;&#x6807;&#x662F;&#x4F7F;&#x5B8C;&#x6574;&#x6570;&#x636E;L&#xFF08;&#x3B8;&#xFF09;&#x7684;&#x53EF;&#x80FD;&#x6027;&#x6700;&#x5927;&#x5316;&#x3002;&#x7136;&#x800C;&#xFF0C;EM&#x7B97;&#x6CD5;&#x6709;&#x5F88;&#x591A;&#x5BF9;&#x6570;&#xFF0C;&#x8BA1;&#x7B97;&#x590D;&#x6742;&#xFF0C;&#x6545;&#x8F6C;&#x800C;&#x6C42;&#x89E3;&#x5B83;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x4E0B;&#x754C;[7]&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x4E3A;&#x4E86;&#x5B9A;&#x4E49;Q&#x51FD;&#x6570; *Q(&#x3B8;; &#x3B8;^(s))<em>&#xFF0C;&#x6211;&#x4EEC;&#x5229;&#x7528;&#x5176;&#x5B8C;&#x6574;&#x6570;&#x636E;&#x7684;&#x4F3C;&#x7136;&#x4F30;&#x8BA1;L_c(&#x3B8;)&#xFF0C;EM&#x7B97;&#x6CD5;&#x901A;&#x8FC7;&#x8FED;&#x4EE3;&#x6700;&#x5927;&#x5316;L_c(&#x3B8;)&#x7684;&#x4E0B;&#x754C;</em>Q(&#x3B8;; &#x3B8;^(s))<em>&#x6765;&#x6700;&#x5927;&#x5316;L_c(&#x3B8;)&#x3002;&#x5728;&#x7B2C;s&#x6B21;&#x8FED;&#x4EE3;&#xFF0C;<strong>E-step</strong>&#x901A;&#x8FC7;&#x7ED9;&#x5B9A;&#x7684;&#x53C2;&#x6570;&#x3B8;^(s)&#x8BA1;&#x7B97;</em>Q(&#x3B8;; &#x3B8;^(s))*&#xFF0C;<strong>M-step</strong>&#x4F30;&#x8BA1;&#x53C2;&#x6570;&#x3B8;^(s+1)&#x6765;&#x6700;&#x5927;&#x5316;&#x4E0B;&#x754C;&#x3002;</p>
 <blockquote>
 <p>[7] Q. Cai and A. Yates. Semantic parsing freebase: Towards open-domain semantic parsing.Atlanta, Georgia, USA, page 328, \2013. </p>
 </blockquote>
-<p><strong>Likelihood of Complete Data&#xFF1A;</strong>&#x76F4;&#x63A5;&#x8BA1;&#x7B97;L(&#x3B8;)&#x4F1A;&#x5F88;&#x56F0;&#x96BE;&#xFF0C;&#x56E0;&#x4E3A;&#x51FD;&#x6570;&#x4E2D;&#x5305;&#x542B;&#x5BF9;&#x6570;&#x548C;&#x3002;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x6BCF;&#x4E00;&#x4E2A;&#x53EF;&#x89C2;&#x6D4B;&#x7684;&#x6570;&#x636E;&#x7684;&#x5B8C;&#x6574;&#x6570;&#x636E;&#xFF0C;&#x4F8B;&#x5982;&#x77E5;&#x9053;template&#x548C;predicate&#xFF0C;&#x5219;&#x4F30;&#x8BA1;&#x53EF;&#x4EE5;&#x53D8;&#x5F97;&#x5BB9;&#x6613;&#x3002;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x7ED9;&#x6BCF;&#x4E2A;&#x4E09;&#x5143;&#x7EC4;<em>x_i</em>&#x5F15;&#x5165;&#x4E00;&#x4E2A;&#x9690;&#x53D8;&#x91CF;<em>z_i</em>&#x3002;<em>z_i</em>&#x7684;&#x503C;&#x662F;&#x4E00;&#x5BF9;template&#x548C;predicate&#xFF0C;&#x4F8B;&#x5982;<em>z_i = (p, t)</em>&#xFF0C;&#x8868;&#x793A;<em>x_i</em>&#x751F;&#x6210;&#x4E00;&#x5BF9;&#x8C13;&#x8BED;p&#x548C;&#x6A21;&#x677F;t&#x3002;&#x6CE8;&#x610F;&#x6211;&#x4EEC;&#x8003;&#x8651;&#x8C13;&#x8BED;&#x548C;&#x6A21;&#x677F;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x5E76;&#x975E;&#x5B64;&#x7ACB;&#x7684;&#x3002;&#x56E0;&#x6B64;<em>P(z_i = (p, t))</em>&#x662F;<em>x_i</em>&#x751F;&#x6210;p&#x548C;t&#x7684;&#x6982;&#x7387;&#x3002;</p>
+<p><strong>Likelihood of Complete Data&#xFF1A;</strong>&#x76F4;&#x63A5;&#x8BA1;&#x7B97;L(&#x3B8;)&#x4F1A;&#x5F88;&#x56F0;&#x96BE;&#xFF0C;&#x56E0;&#x4E3A;&#x51FD;&#x6570;&#x4E2D;&#x5305;&#x542B;&#x5BF9;&#x6570;&#x548C;&#x3002;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x6BCF;&#x4E00;&#x4E2A;&#x53EF;&#x89C2;&#x6D4B;&#x7684;&#x6570;&#x636E;&#x7684;&#x5B8C;&#x6574;&#x6570;&#x636E;&#xFF0C;&#x4F8B;&#x5982;&#x77E5;&#x9053;template&#x548C;predicate&#xFF0C;&#x5219;&#x4F30;&#x8BA1;&#x53EF;&#x4EE5;&#x53D8;&#x5F97;&#x5BB9;&#x6613;&#x3002;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x7ED9;&#x6BCF;&#x4E2A;&#x4E09;&#x5143;&#x7EC4;<em>x_i</em>&#x5F15;&#x5165;&#x4E00;&#x4E2A;&#x9690;&#x53D8;&#x91CF;<em>z_i</em>&#x3002;<em>z_i</em>&#x7684;&#x503C;&#x662F;&#x4E00;&#x5BF9;template&#x548C;predicate&#xFF0C;&#x4F8B;&#x5982;<em>z_i = (p, t)<em>&#xFF0C;&#x8868;&#x793A;</em>x_i</em>&#x751F;&#x6210;&#x4E00;&#x5BF9;&#x8C13;&#x8BED;p&#x548C;&#x6A21;&#x677F;t&#x3002;&#x6CE8;&#x610F;&#x6211;&#x4EEC;&#x8003;&#x8651;&#x8C13;&#x8BED;&#x548C;&#x6A21;&#x677F;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x5E76;&#x975E;&#x5B64;&#x7ACB;&#x7684;&#x3002;&#x56E0;&#x6B64;<em>P(z_i = (p, t))<em>&#x662F;</em>x_i</em>&#x751F;&#x6210;p&#x548C;t&#x7684;&#x6982;&#x7387;&#x3002;</p>
 <p>&#x5B9A;&#x4E49;Z = {z_1,&#x2026;,z_m}&#x3002;Z&#x548C;X&#x5171;&#x540C;&#x5F62;&#x6210;&#x5B8C;&#x6574;&#x6570;&#x636E;&#x3002;&#x5219;&#x89C2;&#x6D4B;&#x5230;&#x7684;&#x5B8C;&#x6574;&#x6570;&#x636E;&#x7684;&#x4F3C;&#x7136;&#x51FD;&#x6570;&#x7684;&#x5BF9;&#x6570;&#x4E3A;</p>
 <img src="/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/Eq19.png" alt="Eq19" style="zoom:50%;">
 
-<p>&#x5728;&#x524D;&#x6587;&#x5DF2;&#x63D0;&#x5230;<em>f()</em>&#x53EF;&#x4EE5;&#x5728;&#x8BC4;&#x4F30;P(p|t)&#x4E4B;&#x524D;&#x5355;&#x72EC;&#x8BA1;&#x7B97;&#xFF0C;&#x6545;&#x53EF;&#x4EE5;&#x5C06;&#x4E4B;&#x89C6;&#x4E3A;&#x5DF2;&#x77E5;&#x7684;&#x56E0;&#x5B50;&#x3002;</p>
+<p>&#x5728;&#x524D;&#x6587;&#x5DF2;&#x63D0;&#x5230;*f()*&#x53EF;&#x4EE5;&#x5728;&#x8BC4;&#x4F30;P(p|t)&#x4E4B;&#x524D;&#x5355;&#x72EC;&#x8BA1;&#x7B97;&#xFF0C;&#x6545;&#x53EF;&#x4EE5;&#x5C06;&#x4E4B;&#x89C6;&#x4E3A;&#x5DF2;&#x77E5;&#x7684;&#x56E0;&#x5B50;&#x3002;</p>
 <p><strong>Q-function&#xFF1A;</strong>&#x5E76;&#x975E;&#x76F4;&#x63A5;&#x8BA1;&#x7B97;L(&#x3B8;)&#xFF0C;&#x6211;&#x4EEC;&#x5728;Eq20&#x4E2D;&#x5B9A;&#x4E49;&#x201C;Q-funcation&#x201D;&#xFF0C;&#x8868;&#x793A;&#x5B8C;&#x6574;&#x89C2;&#x6D4B;&#x7684;&#x4F3C;&#x7136;&#x7684;&#x671F;&#x671B;&#x3002;&#x5176;&#x4E2D;&#x3B8;^(s)&#x662F;&#x3B8;&#x5728;&#x7B2C;s&#x8F6E;&#x7684;&#x4F30;&#x8BA1;&#x3002;&#x6839;&#x636E;&#x7406;&#x8BBA; 1&#x5C06;<em>h(&#x3B8;^(s))<em>&#x89C6;&#x4E3A;&#x5E38;&#x6570;&#xFF0C;</em>Q(&#x3B8;; &#x3B8;^(s))<em>&#x7ED9;</em>L(&#x3B8;)<em>&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x4E0B;&#x754C;&#x3002;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x5C1D;&#x8BD5;&#x63D0;&#x9AD8;</em>Q(&#x3B8;; &#x3B8;^(s))<em>&#x800C;&#x975E;&#x76F4;&#x63A5;&#x63D0;&#x9AD8;</em>L(&#x3B8;)</em>.</p>
 <img src="/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/Eq20.png" alt="Eq20" style="zoom:50%;">
 
 <blockquote>
-<p>&#x8FD9;&#x90E8;&#x5206;&#x5728;<a href="https://blog.csdn.net/chenmingwei000/article/details/89388410#commentBox&#x505A;&#x4E86;&#x7406;&#x89E3;" target="_blank" rel="noopener">https://blog.csdn.net/chenmingwei000/article/details/89388410#commentBox&#x505A;&#x4E86;&#x7406;&#x89E3;</a></p>
+<p>&#x8FD9;&#x90E8;&#x5206;&#x5728;<a target="_blank" rel="noopener" href="https://blog.csdn.net/chenmingwei000/article/details/89388410#commentBox%E5%81%9A%E4%BA%86%E7%90%86%E8%A7%A3">https://blog.csdn.net/chenmingwei000/article/details/89388410#commentBox&#x505A;&#x4E86;&#x7406;&#x89E3;</a></p>
 </blockquote>
-<p>&#x5728;<strong>E-step</strong>&#xFF0C;&#x6211;&#x4EEC;&#x8BA1;&#x7B97;<em>Q(&#x3B8;; &#x3B8;^(s))</em>&#xFF0C;&#x5BF9;&#x4E8E;Eq20&#x7684;&#x6BCF;&#x4E2A;<em>P(z_i | X, &#x3B8;^s)</em>&#xFF0C;&#x6709;</p>
+<p>&#x5728;<strong>E-step</strong>&#xFF0C;&#x6211;&#x4EEC;&#x8BA1;&#x7B97;*Q(&#x3B8;; &#x3B8;^(s))<em>&#xFF0C;&#x5BF9;&#x4E8E;Eq20&#x7684;&#x6BCF;&#x4E2A;</em>P(z_i | X, &#x3B8;^s)*&#xFF0C;&#x6709;</p>
 <img src="/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/Eq21.png" alt="Eq21" style="zoom:50%;">
 
 <p>&#x5728;<strong>M-step</strong>&#xFF0C;&#x6211;&#x4EEC;&#x6700;&#x5927;&#x5316;Q&#x51FD;&#x6570;&#x3002;&#x5229;&#x7528;&#x62C9;&#x683C;&#x6717;&#x65E5;&#x4E58;&#x5B50;&#x6765;&#x83B7;&#x53D6;(&#x3B8;_pt)^(s+1)</p>
@@ -445,9 +446,9 @@
 
 <blockquote>
 <p>&#x53C2;&#x8003;&#xFF1A;</p>
-<p>[&#x8BBA;&#x6587;&#x94FE;&#x63A5;][<a href="https://arxiv.org/abs/1903.02419?context=cs.CL]" target="_blank" rel="noopener">https://arxiv.org/abs/1903.02419?context=cs.CL]</a></p>
-<p><a href="https://blog.csdn.net/chenmingwei000" target="_blank" rel="noopener">chenmingwei000&#x7684;&#x8BBA;&#x6587;&#x89E3;&#x8BFB;</a></p>
-<p>[chenmingwei000&#x535A;&#x4E3B;&#x7684;&#x590D;&#x73B0;][<a href="https://download.csdn.net/download/chenmingwei000/10280245]" target="_blank" rel="noopener">https://download.csdn.net/download/chenmingwei000/10280245]</a></p>
+<p>[&#x8BBA;&#x6587;&#x94FE;&#x63A5;][<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1903.02419?context=cs.CL%5D">https://arxiv.org/abs/1903.02419?context=cs.CL]</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chenmingwei000">chenmingwei000&#x7684;&#x8BBA;&#x6587;&#x89E3;&#x8BFB;</a></p>
+<p>[chenmingwei000&#x535A;&#x4E3B;&#x7684;&#x590D;&#x73B0;][<a target="_blank" rel="noopener" href="https://download.csdn.net/download/chenmingwei000/10280245]">https://download.csdn.net/download/chenmingwei000/10280245]</a></p>
 </blockquote>
 
       
@@ -479,8 +480,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/11/Docker%E5%B0%9D%E8%AF%95/" rel="next" title="Docker尝试">
-                <i class="fa fa-chevron-left"></i> Docker尝试
+              <a href="/2019/10/11/Docker%E5%B0%9D%E8%AF%95/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -549,11 +550,11 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/me.jpg"
-                alt="HEATAO" />
+                src="/images/me2.png"
+                alt="" />
             
-              <p class="site-author-name" itemprop="name">HEATAO</p>
-              <p class="site-description motion-element" itemprop="description">heatao的个人博客</p>
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -821,5 +822,5 @@
 
   
 
-</body>
+<script src="/public/public/live2dw/public/public/live2dw/public/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"public/public/live2dw/","pluginJsPath":"public/public/live2dw/public/lib/","pluginModelPath":"node_modules/live2d-widget-model-shizuku/assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/public/public/live2dw/node_modules/live2d-widget-model-shizuku/assets/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":315,"hOffset":198,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>
