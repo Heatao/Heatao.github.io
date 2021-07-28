@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x8C03;&amp;#x7528;&amp;#x7B2C;&amp;#x4E09;&amp;#x65B9;&amp;#x5E93;&amp;#x5F53;&amp;#x6211;&amp;#x4EEC;&amp;#x6253;&amp;#x7B97;&amp;#x5728;Java&amp;#x8C03;&amp;#x7528;python&amp;#x7A0B;&amp;#x5E8F;&amp;#x7684;&amp;#x65F6;&amp;#x5019;&amp;#xFF0C;&amp;#x9700;&amp;#x8981;&amp;#x8003;&amp;#x865">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jython，Jep，GraalVM，你最想要的Java调Python方法是哪种？">
+<meta property="og:url" content="http://yoursite.com/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="&amp;#x8C03;&amp;#x7528;&amp;#x7B2C;&amp;#x4E09;&amp;#x65B9;&amp;#x5E93;&amp;#x5F53;&amp;#x6211;&amp;#x4EEC;&amp;#x6253;&amp;#x7B97;&amp;#x5728;Java&amp;#x8C03;&amp;#x7528;python&amp;#x7A0B;&amp;#x5E8F;&amp;#x7684;&amp;#x65F6;&amp;#x5019;&amp;#xFF0C;&amp;#x9700;&amp;#x8981;&amp;#x8003;&amp;#x865">
+<meta property="og:locale">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/python2native.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/&#x83B7;&#x53D6;GIL&#x9501;.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/&#x91CA;&#x653E;GIL&#x9501;.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/170cd5f122c10d32-20201030205700539.png">
+<meta property="article:published_time" content="2020-10-30T08:32:09.000Z">
+<meta property="article:modified_time" content="2021-07-14T07:42:26.653Z">
+<meta property="article:author" content="HEATAO">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/python2native.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/10/30/Jython，Jep，GraalVM，你最想要的Java调Python方法是哪种？/"/>
+
+
+
+
+
+  <title>Jython，Jep，GraalVM，你最想要的Java调Python方法是哪种？ | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me2.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Jython，Jep，GraalVM，你最想要的Java调Python方法是哪种？</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-30T16:32:09+08:00">
+                2020-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="&#x8C03;&#x7528;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;"><a href="#&#x8C03;&#x7528;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;" class="headerlink" title="&#x8C03;&#x7528;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;"></a>&#x8C03;&#x7528;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;</h2><p><strong>&#x5F53;&#x6211;&#x4EEC;&#x6253;&#x7B97;&#x5728;Java&#x8C03;&#x7528;python&#x7A0B;&#x5E8F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9700;&#x8981;&#x8003;&#x8651;&#x4EC0;&#x4E48;&#xFF1F;</strong></p>
+<ul>
+<li>python&#x5B9E;&#x73B0;&#x7684;&#x529F;&#x80FD;&#x80FD;&#x5426;&#x7528;Java&#x5B9E;&#x73B0;&#xFF1F;<ul>
+<li>&#x5982;&#x679C;&#x662F;&#x673A;&#x5668;&#x5B66;&#x4E60;&#x90E8;&#x5206;&#xFF0C;&#x4E5F;&#x8BB8;&#x53EF;&#x4EE5;&#x8003;&#x8651;&#x4F7F;&#x7528;Deeplearning4j</li>
+<li>&#x5982;&#x679C;&#x6D89;&#x53CA;&#x8F83;&#x591A;&#x79D1;&#x5B66;&#x8BA1;&#x7B97;&#xFF0C;python&#x79D1;&#x5B66;&#x8BA1;&#x7B97;&#x5E38;&#x7528;&#x5E93;&#x6BD4;&#x5982;numpy&#x548C;pandas&#x5E95;&#x5C42;&#x90FD;&#x7528;C&#x8FDB;&#x884C;&#x4E86;&#x4F18;&#x5316;&#xFF0C;&#x901F;&#x5EA6;&#x4E0D;&#x662F;&#x52A3;&#x52BF;&#x3002;</li>
+</ul>
+</li>
+<li>&#x662F;&#x5426;&#x5C06;python&#x90E8;&#x5206;&#x5C01;&#x88C5;&#x4E3A;&#x670D;&#x52A1;&#xFF1F;</li>
+</ul>
+<p>&#x8FDE;&#x63A5;Java&#x548C;Python&#x7684;&#x5DE5;&#x5177;&#x6709;&#x5F88;&#x591A;&#xFF0C;&#x4E0B;&#x9762;&#x5217;&#x4E3E;&#x7684;&#x53EA;&#x662F;heatao&#x77E5;&#x9053;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF1A;</p>
+<h3 id="Jython"><a href="#Jython" class="headerlink" title="Jython"></a>Jython</h3><blockquote>
+<p>Website: <a target="_blank" rel="noopener" href="https://www.jython.org/index">https://www.jython.org/index</a></p>
+<p>Source: <a target="_blank" rel="noopener" href="https://github.com/jython">https://github.com/jython</a></p>
+</blockquote>
+<p>Jython&#x662F;&#x6BD4;&#x8F83;&#x6709;&#x540D;&#x7684;&#x8FDE;&#x63A5;Java&#x548C;Python&#x7684;&#x6865;&#x6881;&#xFF08;&#x4E0D;&#x5E94;&#x8BE5;&#x8BA4;&#x4E3A;&#x662F;&#x6865;&#x672C;&#x8EAB;&#xFF09;&#xFF0C;Jython&#x662F;&#x7528;Java&#x7F16;&#x5199;&#x7684;Python&#x89E3;&#x91CA;&#x5668;&#x3002;</p>
+<p>Jython&#x6700;&#x5927;&#x7684;&#x52A3;&#x52BF;&#x5728;&#x4E8E;&#xFF0C;&#x76EE;&#x524D;&#xFF08;2020.10&#xFF09;&#x53EA;&#x652F;&#x6301;Python2.7&#xFF0C;&#x65E0;&#x6CD5;&#x8BBF;&#x95EE;&#x5E9E;&#x5927;&#x7684;CPython&#x751F;&#x6001;&#x7CFB;&#x7EDF;&#xFF0C;&#x4E0D;&#x652F;&#x6301;&#x5982;NumPy&#x6216;SciPy&#x4E4B;&#x7C7B;&#x7684;&#x5E93;&#xFF0C;&#x800C;&#x5F88;&#x591A;&#x673A;&#x5668;&#x5B66;&#x4E60;&#x7684;&#x5DE5;&#x5177;&#x90FD;&#x4F9D;&#x8D56;&#x8FD9;&#x4E9B;&#x5E93;&#x3002;</p>
+<p>Jython&#x7684;&#x4F18;&#x52BF;&#x5728;&#x4E8E;&#x7075;&#x6D3B;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5C06;python&#x4EE3;&#x7801;&#x5D4C;&#x5165;Java&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x4E5F;&#x5141;&#x8BB8;&#x5728;Python&#x4E2D;&#x76F4;&#x63A5;&#x5199;Java&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.python.util.PythonInterpreter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JythonHelloWorld</span> </span>{</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">    <span class="keyword">try</span>(PythonInterpreter pyInterp = <span class="keyword">new</span> PythonInterpreter()) {</span><br><span class="line">      pyInterp.exec(<span class="string">&quot;print(&apos;Hello Python World!&apos;)&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> java.lang <span class="keyword">import</span> System <span class="comment"># Java import</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&apos;Running on Java version: &apos;</span> + System.getProperty(<span class="string">&apos;java.version&apos;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&apos;Unix time from Java: &apos;</span> + <span class="built_in">str</span>(System.currentTimeMillis()))</span><br></pre></td></tr></table></figure>
+
+<h3 id="Jpy"><a href="#Jpy" class="headerlink" title="Jpy"></a>Jpy</h3><blockquote>
+<p>Website: <a target="_blank" rel="noopener" href="https://github.com/bcdev/jpy/">https://github.com/bcdev/jpy/</a></p>
+<p>Documentation: <a target="_blank" rel="noopener" href="https://jpy.readthedocs.io/en/latest/">https://jpy.readthedocs.io/en/latest/</a></p>
+<p>Source: <a target="_blank" rel="noopener" href="https://github.com/bcdev/jpy">https://github.com/bcdev/jpy</a></p>
+<p>PyPI: <a target="_blank" rel="noopener" href="https://pypi.org/project/jpy/">https://pypi.org/project/jpy/</a></p>
+</blockquote>
+<p>jpy&#x662F;&#x4E00;&#x4E2A;&#x53CC;&#x5411;&#x7684;Python-Java&#x6865;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5B83;&#x5728;Python&#x7A0B;&#x5E8F;&#x4E2D;&#x5D4C;&#x5165;Java&#x4EE3;&#x7801;&#xFF0C;&#x6216;&#x8005;&#x53CD;&#x8FC7;&#x6765;&#x4F7F;&#x7528;&#x3002;&#x5B83;&#x662F;&#x4E13;&#x95E8;&#x9488;&#x5BF9;&#x4E24;&#x79CD;&#x8BED;&#x8A00;&#x4E4B;&#x95F4;&#x7684;&#x6700;&#x5927;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x901F;&#x5EA6;&#x800C;&#x8BBE;&#x8BA1;&#x7684;&#x3002;</p>
+<p>jpy&#x7684;&#x6700;&#x521D;&#x5F00;&#x53D1;&#x662F;&#x7531;&#x4E8E;&#x9700;&#x8981;&#x4E3A;&#x4E00;&#x4E2A;&#x7528;Java&#x7F16;&#x7A0B;&#x7684;&#x5DF2;&#x5EFA;&#x7ACB;&#x7684;&#x79D1;&#x5B66;&#x6210;&#x50CF;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7F16;&#x5199;Python&#x6269;&#x5C55;&#xFF0C;&#x5373;SNAP toolbox&#xFF0C;&#x7531;&#x6B27;&#x6D32;&#x822A;&#x5929;&#x5C40;(ESA)&#x8D44;&#x52A9;&#x7684;&#x9879;&#x76EE;&#x3002;(jpy&#x4E0E;SNAP&#x53D1;&#x884C;&#x7248;&#x6346;&#x7ED1;&#x5728;&#x4E00;&#x8D77;&#x3002;)</p>
+<p>&#x5B89;&#x88C5;&#xFF1A;</p>
+<p>clone the repository</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JDK_HOME=&lt;your-jdk-dir&gt;</span><br><span class="line">export JAVA_HOME=$JDK_HOME</span><br><span class="line">python3 setup.py build maven bdist_wheel</span><br></pre></td></tr></table></figure>
+
+<p>&#x5728;Python&#x4E2D;&#x4F7F;&#x7528;&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">jpy.create_jvm([<span class="string">&quot;-Djava.class.path=&quot;</span> + jar_path])</span><br><span class="line">StringBuilder = jpy.get_type(<span class="string">&quot;java.lang.StringBuilder&quot;</span>)</span><br><span class="line">sb = StringBuilder()</span><br><span class="line">sb.append(<span class="string">&quot;Demonstration of &quot;</span>)</span><br><span class="line">sb.append(<span class="string">&quot;StringBuilder&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(sb.toString())</span><br><span class="line"></span><br><span class="line">Main = jpy.get_type(<span class="string">&quot;net.talvi.pythonjavabridgedemos.Main&quot;</span>)</span><br><span class="line">main = Main(<span class="string">&quot;Bob&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(main.greet(<span class="string">&quot;Wotcha&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&#x9700;&#x8981;&#x5F88;&#x591A;&#x8BBE;&#x7F6E;&#x624D;&#x80FD;&#x4F7F;&#x7528;&#xFF0C;&#x4E0D;&#x662F;&#x5F88;&#x63A8;&#x8350;</li>
+</ul>
+<h3 id="Jep&#xFF08;&#x63A8;&#x8350;&#xFF09;"><a href="#Jep&#xFF08;&#x63A8;&#x8350;&#xFF09;" class="headerlink" title="Jep&#xFF08;&#x63A8;&#x8350;&#xFF09;"></a>Jep&#xFF08;&#x63A8;&#x8350;&#xFF09;</h3><blockquote>
+<p>Website: <a target="_blank" rel="noopener" href="https://github.com/ninia/jep">https://github.com/ninia/jep</a></p>
+<p>Documentation: <a target="_blank" rel="noopener" href="https://github.com/ninia/jep/wiki">https://github.com/ninia/jep/wiki</a></p>
+<p>Source: <a target="_blank" rel="noopener" href="https://github.com/ninia/jep">https://github.com/ninia/jep</a></p>
+<p>PyPI: <a target="_blank" rel="noopener" href="https://pypi.org/project/jep/">https://pypi.org/project/jep/</a></p>
+</blockquote>
+<p>&#x5728;&#x5176;&#x9996;&#x9875;&#x4ECB;&#x7ECD;&#x662F;&#x901A;&#x8FC7; ==JNI== &#x6765;&#x5C06;CPython&#x5D4C;&#x5165;Java</p>
+<p><strong>&#x8BD5;&#x9A8C;</strong></p>
+<p>setup.py build install&#x547D;&#x4EE4;&#x8FDB;&#x884C;&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x3002;</p>
+<p>Install&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;Python&#x5BF9;&#x5E94;&#x7684;site-package&#x8DEF;&#x5F84;&#x4E5F;&#x4F1A;&#x6709;&#x5BF9;&#x5E94;&#x7684;jar&#x5305;&#x3002;</p>
+<p>&#x1F330;&#xFF1A;</p>
+<p>invoke_args.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"> </span><br><span class="line">df2 = pd.DataFrame(np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>,<span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]]))</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">invokeNoArgs</span>():</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;<span class="built_in">print</span>(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(df2)</span><br></pre></td></tr></table></figure>
+
+<p>Java&#x8C03;&#x7528;Python&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF0C;&#x6CE8;&#x610F;&#x628A;JEP&#x6DFB;&#x52A0;&#x5230;Java&#x7684;Library Path&#x4E2D;&#x53BB;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> first;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> jep.Interpreter;</span><br><span class="line"><span class="keyword">import</span> jep.JepConfig;</span><br><span class="line"><span class="keyword">import</span> jep.JepException;</span><br><span class="line"><span class="keyword">import</span> jep.SubInterpreter;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">invoke2</span> </span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> JepException </span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;JepConfig config = <span class="keyword">new</span> JepConfig();</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;config.addIncludePaths(<span class="string">&quot;C:\\Users\\IdeaProjects\\DailyLearning\\src\\python&quot;</span>);</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">try</span> (Interpreter interp = <span class="keyword">new</span> SubInterpreter(config)){</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;interp.eval(<span class="string">&quot;from invoke_args import *&quot;</span>);</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">// test a basic invoke with no args</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Object result = interp.invoke(<span class="string">&quot;invokeNoArgs&quot;</span>);</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">if</span> (result!=<span class="keyword">null</span>){</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="keyword">throw</span> newIllegalStateException(</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="string">&quot;Received &quot;</span> +result + <span class="string">&quot;but expected null&quot;</span>);</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;}</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;}</span><br><span class="line">&#xA0;&#xA0;&#xA0; }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x652F;&#x6301;CPython&#x6269;&#x5C55;&#x548C;&#x6A21;&#x5757;&#xFF0C;&#x6BD4;&#x5982;numpy&#x7B49;&#x5E93;&#xFF0C;&#x4F46;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x5728;&#x6240;&#x6709;&#x60C5;&#x51B5;&#x4E0B;&#x90FD;&#x53EF;&#x6B63;&#x5E38;&#x5DE5;&#x4F5C;</li>
+<li>&#x652F;&#x6301;python3.x</li>
+</ul>
+<p>&#x7F3A;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x4E0D;&#x652F;&#x6301;&#x4ECE;Python&#x4E2D;&#x8C03;&#x7528;Java</li>
+</ul>
+<h3 id="Javabridge"><a href="#Javabridge" class="headerlink" title="Javabridge"></a>Javabridge</h3><p>&#x652F;&#x6301;&#x5728;Python&#x4EE3;&#x7801;&#x4E2D;&#x542F;&#x52A8;JVM&#x865A;&#x62DF;&#x673A;&#xFF0C;&#x65B9;&#x4FBF;&#x4E0E;Java&#x7684;API&#x548C;JVM&#x4EA4;&#x4E92;&#x3002;&#x4F7F;&#x7528;&#x4EBA;&#x6570;&#x4E0D;&#x591A;&#xFF0C;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x5B9E;&#x9A8C;&#x6216;&#x5B66;&#x4E60;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x5B89;&#x88C5;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install javabridge</span><br></pre></td></tr></table></figure>
+
+<p>&#x1F330;&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">javabridge.start_vm(run_headless=<span class="literal">True</span>, class_path=javabridge.JARS +</span><br><span class="line">                    [jar_path])</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># Bind a Java variable and run a script that uses it.</span></span><br><span class="line">    <span class="built_in">print</span>(javabridge.run_script(</span><br><span class="line">        <span class="string">&apos;java.lang.String.format(&quot;Hello, %s!&quot;, greetee);&apos;</span>,</span><br><span class="line">        <span class="built_in">dict</span>(greetee=<span class="string">&quot;world&quot;</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Wrap a Java object and call some of its methods.</span></span><br><span class="line">    array_list = javabridge.JWrapper(javabridge.make_instance(</span><br><span class="line">        <span class="string">&quot;java/util/ArrayList&quot;</span>, <span class="string">&quot;()V&quot;</span>))</span><br><span class="line">    array_list.add(<span class="string">&quot;ArrayList item 1&quot;</span>)</span><br><span class="line">    array_list.add(<span class="string">&quot;ArrayList item 2&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;ArrayList size:&quot;</span>, array_list.size())</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;First ArrayList item:&quot;</span>, array_list.get(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Wrap a Java object from our jar and call a method.</span></span><br><span class="line">    main1 = javabridge.JWrapper(javabridge.make_instance(</span><br><span class="line">        <span class="string">&quot;net/talvi/pythonjavabridgedemos/Main&quot;</span>,</span><br><span class="line">        <span class="string">&quot;(Ljava/lang/String;)V&quot;</span>, <span class="string">&quot;Alice&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(main1.greet(<span class="string">&quot;Hello&quot;</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Wrap a Java object using JClassWrapper (no signature required)</span></span><br><span class="line">    main2 = javabridge.JClassWrapper(</span><br><span class="line">        <span class="string">&quot;net.talvi.pythonjavabridgedemos.Main&quot;</span>)(<span class="string">&quot;Bob&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(main2.greet(<span class="string">&quot;Hi there&quot;</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;2 + 2 =&quot;</span>, main2.add(<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    javabridge.kill_vm()</span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x5176;&#x4ED6;&#x7684;Java&#x4E0E;Python&#x4EA4;&#x4E92;&#x5DE5;&#x5177;"><a href="#&#x5176;&#x4ED6;&#x7684;Java&#x4E0E;Python&#x4EA4;&#x4E92;&#x5DE5;&#x5177;" class="headerlink" title="&#x5176;&#x4ED6;&#x7684;Java&#x4E0E;Python&#x4EA4;&#x4E92;&#x5DE5;&#x5177;"></a>&#x5176;&#x4ED6;&#x7684;Java&#x4E0E;Python&#x4EA4;&#x4E92;&#x5DE5;&#x5177;</h3><p><strong>Py4j</strong></p>
+<ul>
+<li><p>Website: <a target="_blank" rel="noopener" href="https://www.py4j.org/">https://www.py4j.org/</a></p>
+</li>
+<li><p>&#x5141;&#x8BB8;&#x5728;Python&#x89E3;&#x91CA;&#x5668;&#x4E2D;&#x8FD0;&#x884C;&#x7684;Python&#x7A0B;&#x5E8F;&#x52A8;&#x6001;&#x8BBF;&#x95EE;Java&#x865A;&#x62DF;&#x673A;&#x4E2D;&#x7684;Java&#x5BF9;&#x8C61;</p>
+</li>
+<li><p>&#x5141;&#x8BB8;Java&#x7A0B;&#x5E8F;&#x4F1A;&#x8C03;Python&#x5BF9;&#x8C61;</p>
+</li>
+</ul>
+<p><strong>JPype</strong></p>
+<ul>
+<li><p>Website: <a target="_blank" rel="noopener" href="https://github.com/jpype-project/jpype/">https://github.com/jpype-project/jpype/</a></p>
+</li>
+<li><p>&#x662F;&#x4E00;&#x4E2A;Python&#x5E93;&#xFF0C;&#x8BA9;Python&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Java&#x7684;&#x5E93;</p>
+</li>
+<li><p>&#x5E76;&#x975E;&#x50CF;Jython&#x90A3;&#x6837;&#x5B9E;&#x73B0;&#x4E86;&#x89E3;&#x91CA;&#x5668;&#xFF0C;&#x800C;&#x662F;&#x901A;&#x8FC7;&#x4E24;&#x4E2A;&#x865A;&#x62DF;&#x673A;&#x7684;&#x672C;&#x673A;&#x63A5;&#x53E3;&#x5B9E;&#x73B0;</p>
+</li>
+<li><p>&#x540C;&#x65F6;&#x63D0;&#x4F9B;&#x5BF9;CPython&#x548C;Java&#x5E93;&#x7684;&#x8BBF;&#x95EE;</p>
+</li>
+</ul>
+<p><strong>PyJNIus</strong></p>
+<ul>
+<li>Website: <a target="_blank" rel="noopener" href="https://github.com/kivy/pyjnius">https://github.com/kivy/pyjnius</a></li>
+<li>Python&#x5E93;&#xFF0C;&#x4E0D;&#x652F;&#x6301;Java&#x8C03;Python</li>
+<li>&#x5141;&#x8BB8;Python&#x901A;&#x8FC7;JNI&#x6765;&#x83B7;&#x5F97;Java&#x7684;&#x7C7B;&#xFF0C;&#x4ECE;Github star&#x6765;&#x770B;&#x662F;&#x4E0A;&#x8FF0;&#x51E0;&#x79CD;&#x65B9;&#x5F0F;&#x4E2D;&#x6700;&#x591A;&#x7684;</li>
+<li>&#x9002;&#x7528;&#x573A;&#x666F;&#xFF1A;&#x6781;&#x4E2A;&#x522B;&#x7684;&#x52A0;&#x5BC6;&#x7B97;&#x6CD5;&#x7B49;&#x5185;&#x5BB9;&#xFF0C;&#x7528;python&#x4E0D;&#x65B9;&#x4FBF;&#x5B9E;&#x73B0;&#x6216;&#x8005;&#x5B9E;&#x73B0;&#x8F83;&#x8017;&#x65F6;&#xFF0C;&#x53EF;&#x57FA;&#x4E8E;Pyjnius&#x628A;java&#x7C7B;&#x5F53;&#x505A;python&#x5E93;&#x4F7F;&#x7528;</li>
+</ul>
+<h2 id="&#x901A;&#x8FC7;Runtime&#x8C03;&#x7528;"><a href="#&#x901A;&#x8FC7;Runtime&#x8C03;&#x7528;" class="headerlink" title="&#x901A;&#x8FC7;Runtime&#x8C03;&#x7528;"></a>&#x901A;&#x8FC7;Runtime&#x8C03;&#x7528;</h2><p>&#x5728;java&#x4E2D;&#xFF0C;&#x8C03;&#x7528;&#x7CFB;&#x7EDF;&#x547D;&#x4EE4;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RunTime.getRuntime().exec()</span><br></pre></td></tr></table></figure>
+
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x8FDB;&#x7A0B;&#x53BB;&#x8FD0;&#x884C;&#x8C03;&#x7528;&#x7684;&#x7A0B;&#x5E8F;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x76F8;&#x5F53;&#x4E8E;&#x76F4;&#x63A5;&#x5BF9;&#x547D;&#x4EE4;&#x884C;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x53EF;&#x4EE5;&#x6253;&#x5F00;&#x8F6F;&#x4EF6;&#xFF0C;&#x81EA;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x8C03;&#x7528;Python&#x811A;&#x672C;&#x3002;</p>
+<p>&#x1F330;&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params">a,b</span>):</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;<span class="keyword">return</span> a + b</span><br><span class="line">res = add(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> first;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">invoke</span> </span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException,InterruptedException </span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;String executer = <span class="string">&quot;python&quot;</span>;</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;String file_path = <span class="string">&quot;D:\\add_test.py&quot;</span>;<span class="comment">// python&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;String[] command_line = <span class="keyword">new</span> String[]{executer, file_path};</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Process process = Runtime.getRuntime().exec(command_line);</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;BufferedReader in = <span class="keyword">new</span> BufferedReader(newInputStreamReader(process.getInputStream()));</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;String line;</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">while</span> ((line = in.readLine()) != <span class="keyword">null</span>) {</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;System.out.println(line);</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;}</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;in.close();</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;process.waitFor();</span><br><span class="line">&#xA0;&#xA0;&#xA0; }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x901A;&#x8FC7;runtime&#x8C03;&#x7528;&#x7684;&#x7F3A;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x5BF9;&#x4E8E;&#x590D;&#x6742;&#x6570;&#x636E;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x8C03;&#x7528;&#x4EA4;&#x4E92;&#x8F83;&#x4E3A;&#x9EBB;&#x70E6;</li>
+<li>&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x6CA1;&#x6709;&#x72B6;&#x6001;&#x4FDD;&#x6301;&#xFF0C;&#x6BCF;&#x6B21;&#x8C03;&#x7528;&#x90FD;&#x662F;&#x5168;&#x65B0;&#x7684;&#x5F00;&#x59CB;</li>
+<li>&#x8DE8;&#x673A;&#x8FDC;&#x7A0B;&#x8C03;&#x7528;&#x4E0D;&#x652F;&#x6301;</li>
+</ul>
+<p>&#x5982;&#x679C;&#x4F60;&#x6253;&#x7B97;&#x4F7F;&#x7528;Runtime.exec()&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x4E00;&#x70B9;Java&#x5B89;&#x5168;&#x7F16;&#x7801;&#x5594;&#xFF0C;&#x89C1;&#x53C2;&#x8003;:</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/175227">https://developer.aliyun.com/article/175227</a></p>
+</blockquote>
+<h2 id="Python&#x8F6C;jar&#x5305;&#xFF08;&#x4E0D;&#x662F;&#x90A3;&#x4E48;&#x5B9E;&#x7528;&#xFF09;"><a href="#Python&#x8F6C;jar&#x5305;&#xFF08;&#x4E0D;&#x662F;&#x90A3;&#x4E48;&#x5B9E;&#x7528;&#xFF09;" class="headerlink" title="Python&#x8F6C;jar&#x5305;&#xFF08;&#x4E0D;&#x662F;&#x90A3;&#x4E48;&#x5B9E;&#x7528;&#xFF09;"></a>Python&#x8F6C;jar&#x5305;&#xFF08;&#x4E0D;&#x662F;&#x90A3;&#x4E48;&#x5B9E;&#x7528;&#xFF09;</h2><blockquote>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x6765;&#x81EA;==<strong>&#x8F69;&#x8F95;&#x4E4B;&#x98CE;</strong>==&#x5927;&#x4F6C;&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x548C;&#x5176;&#x4ED6;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;&#x4F7F;&#x7528;JVM&#x865A;&#x62DF;&#x673A;&#x7684;&#x65B9;&#x5F0F;&#x4E0D;&#x540C;&#xFF0C;&#x8FD9;&#x91CC;&#x4ECE;JNI&#x5165;&#x624B;&#x3002;</p>
+<p>Source: <a target="_blank" rel="noopener" href="https://juejin.im/post/6844903972596088846#heading-18">https://juejin.im/post/6844903972596088846#heading-18</a></p>
+</blockquote>
+<p>&#x4F7F;&#x7528;HTTP&#x63A5;&#x53E3;&#x662F;&#x4E00;&#x79CD;&#x8026;&#x5408;&#x6027;&#x8F83;&#x4F4E;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4E5F;&#x65B9;&#x4FBF;Java&#x90E8;&#x5206;&#x548C;Python&#x90E8;&#x5206;&#x5355;&#x72EC;&#x5F00;&#x53D1;&#xFF0C;&#x4F46;&#x95EE;&#x9898;&#x5728;&#x4E8E;&#x5F53;&#x670D;&#x52A1;&#x5668;&#x4E0D;&#x591F;&#x591A;&#x4F46;&#x8BBF;&#x95EE;&#x91CF;&#x8F83;&#x5927;&#x65F6;&#xFF0C;&#x5E76;&#x53D1;&#x7F51;&#x7EDC;&#x8BBF;&#x95EE;&#x4F1A;&#x6210;&#x4E3A;&#x901F;&#x5EA6;&#x7684;&#x74F6;&#x9888;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E; Java &#x6765;&#x8BF4;&#xFF0C;&#x80FD;&#x591F;&#x672C;&#x5730;&#x8C03;&#x7528;&#x7684;&#x6709;&#x4E24;&#x79CD;&#xFF1A;</p>
+<ul>
+<li><strong>Java &#x4EE3;&#x7801;&#x5305;</strong></li>
+<li><strong>Native &#x4EE3;&#x7801;&#x6A21;&#x5757;</strong></li>
+</ul>
+<p>&#x50CF;Jython&#x8FD9;&#x79CD;&#x5728;JVM&#x4E2D;&#x4F7F;&#x7528;Python&#x7684;&#x65B9;&#x5F0F;&#x6709;&#x8BF8;&#x591A;&#x5C40;&#x9650;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x6761;&#x8DEF;&#x5C31;&#x662F;&#xFF0C;&#x628A; Python &#x4EE3;&#x7801;&#x8F6C;&#x6362;&#x6210; Native &#x4EE3;&#x7801;&#x5757;&#xFF0C;Java &#x901A;&#x8FC7; JNI &#x7684;&#x63A5;&#x53E3;&#x5F62;&#x5F0F;&#x8C03;&#x7528;&#x3002;</p>
+<h3 id="&#x6574;&#x4F53;&#x601D;&#x8DEF;"><a href="#&#x6574;&#x4F53;&#x601D;&#x8DEF;" class="headerlink" title="&#x6574;&#x4F53;&#x601D;&#x8DEF;"></a>&#x6574;&#x4F53;&#x601D;&#x8DEF;</h3><p>&#x5148;&#x5C06; Python &#x6E90;&#x4EE3;&#x7801;&#x8F6C;&#x6362;&#x6210; C &#x4EE3;&#x7801;&#xFF0C;&#x4E4B;&#x540E;&#x7528; GCC &#x7F16;&#x8BD1; C &#x4EE3;&#x7801;&#x4E3A;&#x4E8C;&#x8FDB;&#x5236;&#x6A21;&#x5757; so/dll&#xFF0C;&#x63A5;&#x7740;&#x8FDB;&#x884C;&#x4E00;&#x6B21; Java Native &#x63A5;&#x53E3;&#x5C01;&#x88C5;&#xFF0C;&#x4F7F;&#x7528; Jar &#x6253;&#x5305;&#x547D;&#x4EE4;&#x8F6C;&#x6362;&#x6210; Jar &#x5305;&#xFF0C;&#x7136;&#x540E; Java &#x4FBF;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x3002;</p>
+<p>&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;&#x601D;&#x8DEF;&#x5F88;&#x60F3;Jep&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x60F3;&#x81EA;&#x5DF1;&#x5F00;&#x53D1;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8003;&#x8651;Jep&#x7684;&#x65B9;&#x5F0F;&#x3002;</p>
+<img src="/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/python2native.jpg" alt="python2native" style="zoom:80%;">
+
+<p><strong>Python &#x4EE3;&#x7801;&#x5982;&#x4F55;&#x8F6C;&#x6362;&#x6210; C &#x4EE3;&#x7801;&#xFF1F;</strong></p>
+<ul>
+<li><strong>Cython</strong></li>
+</ul>
+<p>&#x8BF7;&#x6CE8;&#x610F;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;<strong>Cython</strong>&#x548C;&#x524D;&#x9762;&#x63D0;&#x5230;&#x7684;<strong>CPython</strong>&#x4E0D;&#x662F;&#x4E00;&#x56DE;&#x4E8B;&#x3002;CPython &#x72ED;&#x4E49;&#x4E0A;&#x662F;&#x6307; C &#x8BED;&#x8A00;&#x7F16;&#x5199;&#x7684; Python &#x89E3;&#x91CA;&#x5668;&#xFF0C;&#x662F; Windows&#x3001;Linux &#x4E0B;&#x6211;&#x4EEC;&#x9ED8;&#x8BA4;&#x7684; Python &#x811A;&#x672C;&#x89E3;&#x91CA;&#x5668;&#x3002;</p>
+<p>&#x800C; Cython &#x662F; Python &#x7684;&#x4E00;&#x4E2A;&#x7B2C;&#x4E09;&#x65B9;&#x5E93;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>pip install Cython</code>&#x8FDB;&#x884C;&#x5B89;&#x88C5;&#x3002;</p>
+<p>&#x5B98;&#x65B9;&#x4ECB;&#x7ECD; Cython &#x662F;&#x4E00;&#x4E2A; Python &#x8BED;&#x8A00;&#x89C4;&#x8303;&#x7684;&#x8D85;&#x96C6;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x5C06; Python+C &#x6DF7;&#x5408;&#x7F16;&#x7801;&#x7684;.pyx &#x811A;&#x672C;&#x8F6C;&#x6362;&#x4E3A; C &#x4EE3;&#x7801;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x4F18;&#x5316; Python &#x811A;&#x672C;&#x6027;&#x80FD;&#x6216; Python &#x8C03;&#x7528; C &#x51FD;&#x6570;&#x5E93;&#x3002;</p>
+<p>&#x542C;&#x4E0A;&#x53BB;&#x6709;&#x70B9;&#x590D;&#x6742;&#xFF0C;&#x4E5F;&#x6709;&#x70B9;&#x7ED5;&#xFF0C;&#x4E0D;&#x8FC7;&#x6CA1;&#x5173;&#x7CFB;&#xFF0C;get &#x4E00;&#x4E2A;&#x6838;&#x5FC3;&#x70B9;&#x5373;&#x53EF;&#xFF1A;<strong>Cython &#x80FD;&#x591F;&#x628A; Python &#x811A;&#x672C;&#x8F6C;&#x6362;&#x6210; C &#x4EE3;&#x7801;</strong></p>
+<h3 id="&#x5B9E;&#x9A8C;"><a href="#&#x5B9E;&#x9A8C;" class="headerlink" title="&#x5B9E;&#x9A8C;"></a>&#x5B9E;&#x9A8C;</h3><p><strong>&#x51C6;&#x5907; Python &#x6E90;&#x4EE3;&#x7801;</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># FileName: Test.py</span></span><br><span class="line"><span class="comment"># &#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF1A;&#x5C06;&#x8F93;&#x5165;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x8F6C;&#x53D8;&#x4E3A;&#x5927;&#x5199;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">logic</span>(<span class="params">param</span>):</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&apos;this is a logic function&apos;</span>)</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&apos;param is [%s]&apos;</span> % param)</span><br><span class="line">  <span class="keyword">return</span> param.upper()</span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x63A5;&#x53E3;&#x51FD;&#x6570;&#xFF0C;&#x5BFC;&#x51FA;&#x7ED9;Java Native&#x7684;&#x63A5;&#x53E3;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">JNI_API_TestFunction</span>(<span class="params">param</span>):</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;enter JNI_API_test_function&quot;</span>)</span><br><span class="line">  result = logic(param)</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;leave JNI_API_test_function&quot;</span>)</span><br><span class="line">  <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+<p><code>&#x6CE8;&#x610F;1&#xFF1A;</code>&#x8FD9;&#x91CC;&#x5728; python &#x6E90;&#x7801;&#x4E2D;&#x4F7F;&#x7528;&#x4E00;&#x79CD;&#x7EA6;&#x5B9A;&#xFF1A;<code>&#x4EE5;JNI_API_&#x4E3A;&#x524D;&#x7F00;&#x5F00;&#x5934;&#x7684;&#x51FD;&#x6570;&#x8868;&#x793A;&#x4E3A;Python&#x4EE3;&#x7801;&#x6A21;&#x5757;&#x8981;&#x5BFC;&#x51FA;&#x5BF9;&#x5916;&#x8C03;&#x7528;&#x7684;&#x63A5;&#x53E3;&#x51FD;&#x6570;</code>&#xFF0C;&#x8FD9;&#x6837;&#x505A;&#x7684;&#x76EE;&#x7684;&#x662F;&#x4E3A;&#x4E86;&#x8BA9;&#x6211;&#x4EEC;&#x7684; Python &#x4E00;&#x952E;&#x8F6C; Jar &#x5305;&#x7CFB;&#x7EDF;&#x80FD;&#x81EA;&#x52A8;&#x5316;&#x8BC6;&#x522B;&#x63D0;&#x53D6;&#x54EA;&#x4E9B;&#x63A5;&#x53E3;&#x4F5C;&#x4E3A;&#x5BFC;&#x51FA;&#x51FD;&#x6570;&#x3002;</p>
+<p><code>&#x6CE8;&#x610F;2&#xFF1A;</code>&#x8FD9;&#x4E00;&#x7C7B;&#x63A5;&#x53E3;&#x51FD;&#x6570;&#x7684;&#x8F93;&#x5165;&#x662F;&#x4E00;&#x4E2A; python &#x7684; str &#x7C7B;&#x578B;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8F93;&#x51FA;&#x4EA6;&#x7136;&#xFF0C;&#x5982;&#x6B64;&#x53EF;&#x4FBF;&#x4E8E;&#x79FB;&#x690D;&#x4EE5;&#x5F80;&#x901A;&#x8FC7;<code>JSON</code>&#x5F62;&#x5F0F;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x7684; RESTful &#x63A5;&#x53E3;&#x3002;&#x4F7F;&#x7528;<code>JSON</code>&#x7684;&#x597D;&#x5904;&#x662F;&#x53EF;&#x4EE5;&#x5BF9;&#x53C2;&#x6570;&#x8FDB;&#x884C;&#x5C01;&#x88C5;&#xFF0C;&#x652F;&#x6301;&#x591A;&#x79CD;&#x590D;&#x6742;&#x7684;&#x53C2;&#x6570;&#x5F62;&#x5F0F;&#xFF0C;&#x800C;&#x4E0D;&#x7528;&#x91CD;&#x8F7D;&#x51FA;&#x4E0D;&#x540C;&#x7684;&#x63A5;&#x53E3;&#x51FD;&#x6570;&#x5BF9;&#x5916;&#x8C03;&#x7528;&#x3002;</p>
+<p><code>&#x6CE8;&#x610F;3&#xFF1A;</code>&#x8FD8;&#x6709;&#x4E00;&#x70B9;&#x9700;&#x8981;&#x8BF4;&#x660E;&#x7684;&#x662F;&#xFF0C;&#x5728;&#x63A5;&#x53E3;&#x51FD;&#x6570;&#x524D;&#x7F00;<code>JNI_API_</code>&#x7684;&#x540E;&#x9762;&#xFF0C;<strong>&#x51FD;&#x6570;&#x547D;&#x540D;&#x4E0D;&#x80FD;&#x4EE5; python &#x60EF;&#x6709;&#x7684;&#x4E0B;&#x5212;&#x7EBF;&#x547D;&#x540D;&#x6CD5;&#xFF0C;&#x800C;&#x8981;&#x4F7F;&#x7528;&#x9A7C;&#x5CF0;&#x547D;&#x540D;&#x6CD5;&#xFF0C;&#x6CE8;&#x610F;&#x8FD9;&#x4E0D;&#x662F;&#x5EFA;&#x8BAE;&#xFF0C;&#x800C;&#x662F;&#x8981;&#x6C42;&#xFF0C;&#x539F;&#x56E0;&#x540E;&#x7EED;&#x4F1A;&#x63D0;&#x5230;&#x3002;</strong></p>
+<p><strong>&#x51C6;&#x5907;&#x4E00;&#x4E2A; main.c &#x6587;&#x4EF6;</strong></p>
+<p>&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x5BF9; Cython &#x8F6C;&#x6362;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x5C01;&#x88C5;&#xFF0C;&#x5C01;&#x88C5;&#x6210; Java JNI &#x63A5;&#x53E3;&#x5F62;&#x5F0F;&#x7684;&#x98CE;&#x683C;&#xFF0C;&#x4EE5;&#x5907;&#x4E0B;&#x4E00;&#x6B65; Java &#x7684;&#x4F7F;&#x7528;&#x3002;</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* DO NOT EDIT THIS FILE - it is machine generated */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Python.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _Included_main</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _Included_main</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> {</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> PY_MAJOR_VERSION &lt; 3</span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> MODINIT(name)  init ## name</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> MODINIT(name)  PyInit_ ## name</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="function">PyMODINIT_FUNC  <span class="title">MODINIT</span><span class="params">(Test)</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_Test_initModule</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *env, jobject obj)</span> </span>{</span><br><span class="line">  <span class="built_in">PyImport_AppendInittab</span>(<span class="string">&quot;Test&quot;</span>, <span class="built_in">MODINIT</span>(Test));</span><br><span class="line">  <span class="built_in">Py_Initialize</span>();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">PyRun_SimpleString</span>(<span class="string">&quot;import os&quot;</span>);</span><br><span class="line">  <span class="built_in">PyRun_SimpleString</span>(<span class="string">&quot;__name__ = \&quot;__main__\&quot;&quot;</span>);</span><br><span class="line">  <span class="built_in">PyRun_SimpleString</span>(<span class="string">&quot;import sys&quot;</span>);</span><br><span class="line">  <span class="built_in">PyRun_SimpleString</span>(<span class="string">&quot;sys.path.append(&apos;./&apos;)&quot;</span>);</span><br><span class="line"></span><br><span class="line">  PyObject* m = <span class="built_in">PyInit_Test_Test</span>();</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">PyModule_Check</span>(m)) {</span><br><span class="line">  	PyModuleDef *mdef = (PyModuleDef *) m;</span><br><span class="line">  	PyObject *modname = <span class="built_in">PyUnicode_FromString</span>(<span class="string">&quot;__main__&quot;</span>);</span><br><span class="line">  	m = <span class="literal">NULL</span>;</span><br><span class="line">  	<span class="keyword">if</span> (modname) {</span><br><span class="line">  	  m = <span class="built_in">PyModule_NewObject</span>(modname);</span><br><span class="line">  	  <span class="built_in">Py_DECREF</span>(modname);</span><br><span class="line">  	  <span class="keyword">if</span> (m) <span class="built_in">PyModule_ExecDef</span>(m, mdef);</span><br><span class="line">  	}</span><br><span class="line">  }</span><br><span class="line">  <span class="built_in">PyEval_InitThreads</span>();</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_Test_uninitModule</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *env, jobject obj)</span> </span>{</span><br><span class="line">  <span class="built_in">Py_Finalize</span>();</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT jstring JNICALL <span class="title">Java_Test_testFunction</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *env, jobject obj, jstring string)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span>* param = (<span class="keyword">char</span>*)(*env)-&gt;<span class="built_in">GetStringUTFChars</span>(env, string, <span class="literal">NULL</span>);</span><br><span class="line">  <span class="keyword">static</span> PyObject *s_pmodule = <span class="literal">NULL</span>;</span><br><span class="line">  <span class="keyword">static</span> PyObject *s_pfunc = <span class="literal">NULL</span>;</span><br><span class="line">  <span class="keyword">if</span> (!s_pmodule || !s_pfunc) {</span><br><span class="line">    s_pmodule = <span class="built_in">PyImport_ImportModule</span>(<span class="string">&quot;Test&quot;</span>);</span><br><span class="line">    s_pfunc = <span class="built_in">PyObject_GetAttrString</span>(s_pmodule, <span class="string">&quot;JNI_API_testFunction&quot;</span>);</span><br><span class="line">  }</span><br><span class="line">  PyObject *pyRet = <span class="built_in">PyObject_CallFunction</span>(s_pfunc, <span class="string">&quot;s&quot;</span>, param);</span><br><span class="line">  (*env)-&gt;<span class="built_in">ReleaseStringUTFChars</span>(env, string, param);</span><br><span class="line">  <span class="keyword">if</span> (pyRet) {</span><br><span class="line">    jstring retJstring = (*env)-&gt;<span class="built_in">NewStringUTF</span>(env, <span class="built_in">PyUnicode_AsUTF8</span>(pyRet));</span><br><span class="line">    <span class="built_in">Py_DECREF</span>(pyRet);</span><br><span class="line">    <span class="keyword">return</span> retJstring;</span><br><span class="line">  } <span class="keyword">else</span> {</span><br><span class="line">    <span class="built_in">PyErr_Print</span>();</span><br><span class="line">    <span class="keyword">return</span> (*env)-&gt;<span class="built_in">NewStringUTF</span>(env, <span class="string">&quot;error&quot;</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x4E00;&#x5171;&#x6709;3&#x4E2A;&#x51FD;&#x6570;&#xFF1A;</p>
+<ul>
+<li>Java_Test_initModule: python&#x521D;&#x59CB;&#x5316;&#x5DE5;&#x4F5C;</li>
+<li>Java_Test_uninitModule: python&#x53CD;&#x521D;&#x59CB;&#x5316;&#x5DE5;&#x4F5C;</li>
+<li>Java_Test_testFunction: <strong>&#x771F;&#x6B63;&#x7684;&#x4E1A;&#x52A1;&#x63A5;&#x53E3;&#xFF0C;&#x5C01;&#x88C5;&#x4E86;&#x5BF9;&#x539F;&#x6765;Python&#x4E2D;&#x5B9A;&#x4E49;&#x5BF9;JNI_API_testFuncion&#x51FD;&#x6570;&#x7684;&#x8C03;&#x7528;&#xFF0C;&#x540C;&#x65F6;&#x8981;&#x8D1F;&#x8D23;JNI&#x5C42;&#x9762;&#x7684;&#x53C2;&#x6570;jstring&#x7C7B;&#x578B;&#x7684;&#x8F6C;&#x6362;&#x3002;</strong></li>
+</ul>
+<p>&#x6839;&#x636E; JNI &#x63A5;&#x53E3;&#x89C4;&#x8303;&#xFF0C;native &#x5C42;&#x9762;&#x7684; C &#x51FD;&#x6570;&#x547D;&#x540D;&#x9700;&#x8981;&#x7B26;&#x5408;&#x5982;&#x4E0B;&#x7684;&#x5F62;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// QualifiedClassName: &#x5168;&#x7C7B;&#x540D;</span><br><span class="line">// MethodName: JNI&#x63A5;&#x53E3;&#x51FD;&#x6570;&#x540D;</span><br><span class="line">void</span><br><span class="line">JNICALL</span><br><span class="line">Java_QualifiedClassName_MethodName(JNIEnv*, jobject);</span><br></pre></td></tr></table></figure>
+
+<p>&#x6240;&#x4EE5;&#x5728;main.c&#x6587;&#x4EF6;&#x4E2D;&#x5BF9;&#x5B9A;&#x4E49;&#x9700;&#x8981;&#x5411;&#x4E0A;&#x9762;&#x8FD9;&#x6837;&#x547D;&#x540D;,&#x8FD9;&#x4E5F;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x524D;&#x9762;&#x5F3A;&#x8C03;python&#x63A5;&#x53E3;&#x51FD;&#x6570;&#x547D;&#x540D;&#x4E0D;&#x80FD;&#x7528;&#x4E0B;&#x5212;&#x7EBF;&#xFF0C;&#x8FD9;&#x4F1A;&#x5BFC;&#x81F4;JNI&#x63A5;&#x53E3;&#x627E;&#x4E0D;&#x5230;&#x5BF9;&#x5E94;&#x7684;native&#x51FD;&#x6570;&#x3002;</p>
+<h3 id="&#x5B58;&#x5728;&#x7684;&#x95EE;&#x9898;"><a href="#&#x5B58;&#x5728;&#x7684;&#x95EE;&#x9898;" class="headerlink" title="&#x5B58;&#x5728;&#x7684;&#x95EE;&#x9898;"></a>&#x5B58;&#x5728;&#x7684;&#x95EE;&#x9898;</h3><p><strong>import&#x95EE;&#x9898;</strong></p>
+<p>&#x4E0A;&#x9762;&#x6F14;&#x793A;&#x7684;&#x6848;&#x4F8B;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684; py &#x6587;&#x4EF6;&#xFF0C;&#x800C;&#x5B9E;&#x9645;&#x5DE5;&#x4F5C;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x9879;&#x76EE;&#x901A;&#x5E38;&#x662F;&#x5177;&#x6709;&#x591A;&#x4E2A; py &#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E9B;&#x6587;&#x4EF6;&#x901A;&#x5E38;&#x662F;&#x6784;&#x6210;&#x4E86;&#x590D;&#x6742;&#x7684;&#x76EE;&#x5F55;&#x5C42;&#x7EA7;&#xFF0C;&#x4E92;&#x76F8;&#x4E4B;&#x95F4;&#x5404;&#x79CD; import &#x5173;&#x7CFB;&#xFF0C;&#x9519;&#x7EFC;&#x590D;&#x6742;&#x3002;</p>
+<p>Cython &#x8FD9;&#x4E2A;&#x5DE5;&#x5177;&#x6709;&#x4E00;&#x4E2A;&#x6700;&#x5927;&#x7684;&#x5751;&#x5728;&#x4E8E;&#xFF1A;<strong>&#x7ECF;&#x8FC7;&#x5176;&#x5904;&#x7406;&#x7684;&#x6587;&#x4EF6;&#x4EE3;&#x7801;&#x4E2D;&#x4F1A;&#x4E22;&#x5931;&#x4EE3;&#x7801;&#x6587;&#x4EF6;&#x7684;&#x76EE;&#x5F55;&#x5C42;&#x7EA7;&#x4FE1;&#x606F;&#xFF0C;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF0C;C.py &#x8F6C;&#x6362;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x548C; m/C.py &#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x533A;&#x522B;&#x3002;</strong></p>
+<p>&#x8FD9;&#x5C31;&#x5E26;&#x6765;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x5927;&#x7684;&#x95EE;&#x9898;&#xFF1A;A.py &#x6216; B.py &#x4EE3;&#x7801;&#x4E2D;&#x5982;&#x679C;&#x6709;&#x5F15;&#x7528; m &#x76EE;&#x5F55;&#x4E0B;&#x7684; C.py &#x6A21;&#x5757;&#xFF0C;&#x76EE;&#x5F55;&#x4FE1;&#x606F;&#x7684;&#x4E22;&#x5931;&#x5C06;&#x5BFC;&#x81F4;&#x4E8C;&#x8005;&#x5728;&#x6267;&#x884C; import m.C &#x65F6;&#x62A5;&#x9519;&#xFF0C;&#x627E;&#x4E0D;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x6A21;&#x5757;&#xFF01;</p>
+<p>&#x5E78;&#x8FD0;&#x7684;&#x662F;&#xFF0C;&#x7ECF;&#x8FC7;&#x5B9E;&#x9A8C;&#x8868;&#x660E;&#xFF0C;&#x5728;&#x4E0A;&#x9762;&#x7684;&#x56FE;&#x4E2D;&#xFF0C;&#x5982;&#x679C; A&#x3001;B&#x3001;C &#x4E09;&#x4E2A;&#x6A21;&#x5757;&#x5904;&#x4E8E;&#x540C;&#x4E00;&#x7EA7;&#x76EE;&#x5F55;&#x4E0B;&#x65F6;&#xFF0C;import &#x80FD;&#x591F;&#x6B63;&#x786E;&#x6267;&#x884C;&#x3002;</p>
+<p><strong>Python GIL &#x95EE;&#x9898;</strong></p>
+<p>&#x4F17;&#x6240;&#x5468;&#x77E5;&#xFF0C;&#x9650;&#x4E8E;&#x5386;&#x53F2;&#x539F;&#x56E0;&#xFF0C;Python &#x8BDE;&#x751F;&#x4E8E;&#x4E0A;&#x4E16;&#x7EAA;&#x4E5D;&#x5341;&#x5E74;&#x4EE3;&#xFF0C;&#x5F7C;&#x65F6;&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x6982;&#x5FF5;&#x8FD8;&#x8FDC;&#x8FDC;&#x6CA1;&#x6709;&#x50CF;&#x4ECA;&#x5929;&#x8FD9;&#x6837;&#x6DF1;&#x5165;&#x4EBA;&#x5FC3;&#x8FC7;&#xFF0C;Python &#x4F5C;&#x4E3A;&#x8FD9;&#x4E2A;&#x65F6;&#x4EE3;&#x7684;&#x4EA7;&#x7269;&#x4E00;&#x8BDE;&#x751F;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x7EBF;&#x7A0B;&#x7684;&#x4EA7;&#x54C1;&#x3002;</p>
+<p>&#x867D;&#x7136; Python &#x4E5F;&#x6709;&#x591A;&#x7EBF;&#x7A0B;&#x5E93;&#xFF0C;&#x5141;&#x8BB8;&#x521B;&#x5EFA;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x4F46;&#x7531;&#x4E8E; C &#x8BED;&#x8A00;&#x7248;&#x672C;&#x7684;&#x89E3;&#x91CA;&#x5668;&#x5728;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x4E0A;&#x5E76;&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x89E3;&#x91CA;&#x5668;&#x5185;&#x90E8;&#x6709;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#x9501;&#x5728;&#x5236;&#x7EA6;&#x7740; Python &#x7684;&#x591A;&#x7EBF;&#x7A0B;&#xFF0C;&#x6240;&#x4EE5;&#x6240;&#x8C13;&#x591A;&#x7EBF;&#x7A0B;&#x5B9E;&#x9645;&#x4E0A;&#x4E5F;&#x53EA;&#x662F;&#x5927;&#x5BB6;&#x8F6E;&#x6D41;&#x6765;&#x5360;&#x5751;&#x3002;</p>
+<p>&#x539F;&#x6765; GIL &#x662F;&#x7531;&#x89E3;&#x91CA;&#x5668;&#x5728;&#x8FDB;&#x884C;&#x8C03;&#x5EA6;&#x7BA1;&#x7406;&#xFF0C;&#x5982;&#x4ECA;&#x88AB;&#x8F6C;&#x6210;&#x4E86; C &#x4EE3;&#x7801;&#x540E;&#xFF0C;&#x8C01;&#x6765;&#x8D1F;&#x8D23;&#x7BA1;&#x7406;&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x5B89;&#x5168;&#x5462;&#xFF1F;</p>
+<p>&#x83B7;&#x53D6; GIL &#x9501;&#xFF1A;</p>
+<img src="/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/&#x83B7;&#x53D6;GIL&#x9501;.png" alt="&#x83B7;&#x53D6;GIL&#x9501;" style="zoom:80%;">
+
+<p>&#x91CA;&#x653E; GIL &#x9501;&#xFF1A;</p>
+<img src="/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/&#x91CA;&#x653E;GIL&#x9501;.png" alt="&#x91CA;&#x653E;GIL&#x9501;" style="zoom:80%;">
+
+<p>&#x5728; JNI &#x8C03;&#x7528;&#x5165;&#x53E3;&#x9700;&#x8981;&#x83B7;&#x5F97; GIL &#x9501;&#xFF0C;&#x63A5;&#x53E3;&#x9000;&#x51FA;&#x65F6;&#x9700;&#x8981;&#x91CA;&#x653E; GIL &#x9501;&#x3002;</p>
+<p>&#x52A0;&#x5165; GIL &#x9501;&#x7684;&#x63A7;&#x5236;&#x540E;&#xFF0C;&#x70E6;&#x4EBA;&#x7684; Crash &#x95EE;&#x9898;&#x7EC8;&#x4E8E;&#x5F97;&#x4EE5;&#x89E3;&#x51B3;&#xFF01;</p>
+<h3 id="&#x6D4B;&#x8BD5;&#x6548;&#x679C;"><a href="#&#x6D4B;&#x8BD5;&#x6548;&#x679C;" class="headerlink" title="&#x6D4B;&#x8BD5;&#x6548;&#x679C;"></a>&#x6D4B;&#x8BD5;&#x6548;&#x679C;</h3><p>&#x51C6;&#x5907;&#x4E24;&#x4EFD;&#x4E00;&#x6A21;&#x4E00;&#x6837;&#x7684; py &#x6587;&#x4EF6;&#xFF0C;&#x540C;&#x6837;&#x7684;&#x4E00;&#x4E2A;&#x7B97;&#x6CD5;&#x51FD;&#x6570;&#xFF0C;&#x4E00;&#x4E2A;&#x901A;&#x8FC7; Flask Web &#x63A5;&#x53E3;&#x8BBF;&#x95EE;&#xFF0C;&#xFF08;Web &#x670D;&#x52A1;&#x90E8;&#x7F72;&#x4E8E;&#x672C;&#x5730; 127.0.0.1&#xFF0C;&#x5C3D;&#x53EF;&#x80FD;&#x51CF;&#x5C11;&#x7F51;&#x7EDC;&#x5EF6;&#x65F6;&#xFF09;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x901A;&#x8FC7;&#x4E0A;&#x8FF0;&#x8FC7;&#x7A0B;&#x8F6C;&#x6362;&#x6210; Jar &#x5305;&#x3002;</p>
+<p>&#x5728; Java &#x670D;&#x52A1;&#x4E2D;&#xFF0C;&#x5206;&#x522B;&#x8C03;&#x7528;&#x4E24;&#x4E2A;&#x63A5;&#x53E3; 100 &#x6B21;&#xFF0C;&#x6574;&#x4E2A;&#x6D4B;&#x8BD5;&#x5DE5;&#x4F5C;&#x8FDB;&#x884C; 10 &#x6B21;&#xFF0C;&#x7EDF;&#x8BA1;&#x6267;&#x884C;&#x8017;&#x65F6;&#xFF1A;</p>
+<img src="/2020/10/30/Jython%EF%BC%8CJep%EF%BC%8CGraalVM%EF%BC%8C%E4%BD%A0%E6%9C%80%E6%83%B3%E8%A6%81%E7%9A%84Java%E8%B0%83Python%E6%96%B9%E6%B3%95%E6%98%AF%E5%93%AA%E7%A7%8D%EF%BC%9F/170cd5f122c10d32-20201030205700539.png" alt="170cd5f122c10d32-20201030205700539" style="zoom:80%;">
+
+<p>&#x4E0A;&#x8FF0;&#x6D4B;&#x8BD5;&#x4E2D;&#xFF0C;&#x4E3A;&#x8FDB;&#x4E00;&#x6B65;&#x533A;&#x5206;&#x7F51;&#x7EDC;&#x5E26;&#x6765;&#x7684;&#x5EF6;&#x8FDF;&#x548C;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x672C;&#x8EAB;&#x7684;&#x5EF6;&#x8FDF;&#xFF0C;&#x5728;&#x7B97;&#x6CD5;&#x51FD;&#x6570;&#x7684;&#x5165;&#x53E3;&#x548C;&#x51FA;&#x53E3;&#x505A;&#x4E86;&#x8BA1;&#x65F6;&#xFF0C;&#x5728; Java &#x6267;&#x884C;&#x63A5;&#x53E3;&#x8C03;&#x7528;&#x524D;&#x548C;&#x83B7;&#x5F97;&#x7ED3;&#x679C;&#x7684;&#x5730;&#x65B9;&#x4E5F;&#x505A;&#x4E86;&#x8BA1;&#x65F6;&#xFF0C;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x8BA1;&#x7B97;&#x51FA;&#x7B97;&#x6CD5;&#x6267;&#x884C;&#x672C;&#x8EAB;&#x7684;&#x65F6;&#x95F4;&#x5728;&#x6574;&#x4E2A;&#x63A5;&#x53E3;&#x8C03;&#x7528;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x5360;&#x6BD4;&#x3002;</p>
+<ul>
+<li>&#x4ECE;&#x7ED3;&#x679C;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x901A;&#x8FC7; Web API &#x6267;&#x884C;&#x7684;&#x63A5;&#x53E3;&#x8BBF;&#x95EE;&#xFF0C;&#x7B97;&#x6CD5;&#x672C;&#x8EAB;&#x6267;&#x884C;&#x7684;&#x65F6;&#x95F4;&#x53EA;&#x5360;&#x5230;&#x4E86; 30%+&#xFF0C;&#x5927;&#x90E8;&#x5206;&#x7684;&#x65F6;&#x95F4;&#x7528;&#x5728;&#x4E86;&#x7F51;&#x7EDC;&#x5F00;&#x9500;&#xFF08;&#x6570;&#x636E;&#x5305;&#x7684;&#x6536;&#x53D1;&#x3001;Flask &#x6846;&#x67B6;&#x7684;&#x8C03;&#x5EA6;&#x5904;&#x7406;&#x7B49;&#x7B49;&#xFF09;&#x3002;</li>
+<li>&#x800C;&#x901A;&#x8FC7; JNI &#x63A5;&#x53E3;&#x672C;&#x5730;&#x8C03;&#x7528;&#xFF0C;&#x7B97;&#x6CD5;&#x7684;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x5360;&#x5230;&#x4E86;&#x6574;&#x4E2A;&#x63A5;&#x53E3;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x7684; 80%&#x4EE5;&#x4E0A;&#xFF0C;&#x800C; Java JNI &#x7684;&#x63A5;&#x53E3;&#x8F6C;&#x6362;&#x8FC7;&#x7A0B;&#x53EA;&#x5360;&#x7528; 10%+&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x6709;&#x6548;&#x63D0;&#x5347;&#x4E86;&#x6548;&#x7387;&#xFF0C;&#x51CF;&#x5C11;&#x989D;&#x5916;&#x65F6;&#x95F4;&#x7684;&#x6D6A;&#x8D39;&#x3002;</li>
+<li><strong>&#x9664;&#x6B64;&#x4E4B;&#x5916;&#xFF0C;&#x5355;&#x770B;&#x7B97;&#x6CD5;&#x672C;&#x8EAB;&#x7684;&#x6267;&#x884C;&#x90E8;&#x5206;&#xFF0C;&#x540C;&#x4E00;&#x4EFD;&#x4EE3;&#x7801;&#xFF0C;&#x8F6C;&#x6362;&#x6210; Native &#x4EE3;&#x7801;&#x540E;&#x7684;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x5728; 300<del>500&#x3BC;s&#xFF0C;&#x800C; CPython &#x89E3;&#x91CA;&#x6267;&#x884C;&#x7684;&#x65F6;&#x95F4;&#x5219;&#x5728; 2000</del>4000&#x3BC;s&#xFF0C;&#x540C;&#x6837;&#x4E5F;&#x662F;&#x76F8;&#x5DEE;&#x60AC;&#x6B8A;&#x3002;</strong></li>
+</ul>
+<h3 id="&#x7F3A;&#x70B9;"><a href="#&#x7F3A;&#x70B9;" class="headerlink" title="&#x7F3A;&#x70B9;"></a>&#x7F3A;&#x70B9;</h3><ul>
+<li>&#x5982;&#x679C;&#x8C03;&#x7528;&#x8F83;&#x591A;&#xFF0C;&#x9700;&#x8981;&#x4E8B;&#x5148;&#x7F16;&#x5199;Python&#x8F6C;Jar&#x5305;&#x811A;&#x672C;&#xFF0C;&#x5E76;&#x4E14;&#x5BF9;&#x4E8E;&#x51FD;&#x6570;&#x7684;&#x547D;&#x540D;&#x7B49;&#x65B9;&#x5F0F;&#x6709;&#x56FA;&#x5B9A;&#x8981;&#x6C42;&#x3002;</li>
+<li>&#x5728;python&#x4E2D;&#xFF0C;import&#x7684;&#x5F62;&#x5F0F;&#x591A;&#x79CD;&#x591A;&#x6837;&#xFF0C;&#x5982;&#x679C;&#x5168;&#x90E8;&#x8981;&#x6C42;&#x4EE5;&#x5E73;&#x5766;&#x7684;&#x7ED3;&#x6784;&#x5904;&#x7406;&#x6240;&#x6709;&#x60C5;&#x51B5;&#x2026;</li>
+</ul>
+<h2 id="&#x4F7F;&#x7528;GraalVM"><a href="#&#x4F7F;&#x7528;GraalVM" class="headerlink" title="&#x4F7F;&#x7528;GraalVM"></a>&#x4F7F;&#x7528;GraalVM</h2><blockquote>
+<p>Website: <a target="_blank" rel="noopener" href="https://www.graalvm.org/">https://www.graalvm.org/</a></p>
+<p>Documentation: <a target="_blank" rel="noopener" href="https://www.graalvm.org/docs/">https://www.graalvm.org/docs/</a></p>
+<p>Source: <a target="_blank" rel="noopener" href="https://github.com/oracle/graal">https://github.com/oracle/graal</a></p>
+</blockquote>
+<p>GraalVM&#x5E76;&#x975E;&#x67D0;&#x4E2A;&#x5E93;&#x6216;&#x8005;&#x5DE5;&#x5177;&#xFF0C;&#x800C;&#x4E14;&#x4E00;&#x4E2A;JVM&#x865A;&#x62DF;&#x673A;&#xFF0C;&#x4F46;&#x76EE;&#x524D;&#x4ECD;&#x5904;&#x4E8E;&#x5B9E;&#x9A8C;&#x6027;&#x8D28;&#xFF0C;&#x5176;&#x76EE;&#x6807;&#x53EF;&#x4EE5;&#x7528;&#x96C4;&#x5FC3;&#x52C3;&#x52C3;&#x6765;&#x5F62;&#x5BB9;&#xFF0C;&#x5F15;&#x7528;&#x5468;&#x5FD7;&#x660E;&#x8001;&#x5E08;&#x7684;&#x8BDD;&#xFF1A;</p>
+<blockquote>
+<p>Graal VM&#x88AB;&#x5B98;&#x65B9;&#x79F0;&#x4E3A;&#x201C;Universal VM&#x201D;&#x548C;&#x201C;Polyglot VM&#x201D;&#xFF0C;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5728;HotSpot&#x865A;&#x62DF;&#x673A;&#x57FA;&#x7840;&#x4E0A;&#x589E;&#x5F3A;&#x800C;&#x6210; &#x7684;&#x8DE8;&#x8BED;&#x8A00;&#x5168;&#x6808;&#x865A;&#x62DF;&#x673A;&#xFF0C;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x201C;&#x4EFB;&#x4F55;&#x8BED;&#x8A00;&#x201D;&#x7684;&#x8FD0;&#x884C;&#x5E73;&#x53F0;&#x4F7F;&#x7528;&#xFF0C;&#x8FD9;&#x91CC;&#x201C;&#x4EFB;&#x4F55;&#x8BED;&#x8A00;&#x201D;&#x5305;&#x62EC;&#x4E86;Java&#x3001;Scala&#x3001; Groovy&#x3001;Kotlin&#x7B49;&#x57FA;&#x4E8E;Java&#x865A;&#x62DF;&#x673A;&#x4E4B;&#x4E0A;&#x7684;&#x8BED;&#x8A00;&#xFF0C;&#x8FD8;&#x5305;&#x62EC;&#x4E86;C&#x3001;C++&#x3001;Rust&#x7B49;&#x57FA;&#x4E8E;LLVM&#x7684;&#x8BED;&#x8A00;&#xFF0C;&#x540C;&#x65F6;&#x652F; &#x6301;&#x5176;&#x4ED6;&#x50CF;JavaScript&#x3001;Ruby&#x3001;Python&#x548C;R&#x8BED;&#x8A00;&#x7B49;&#x3002;Graal VM&#x53EF;&#x4EE5;&#x65E0;&#x989D;&#x5916;&#x5F00;&#x9500;&#x5730;&#x6DF7;&#x5408;&#x4F7F;&#x7528;&#x8FD9;&#x4E9B;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#xFF0C; &#x652F;&#x6301;&#x4E0D;&#x540C;&#x8BED;&#x8A00;&#x4E2D;&#x6DF7;&#x7528;&#x5BF9;&#x65B9;&#x7684;&#x63A5;&#x53E3;&#x548C;&#x5BF9;&#x8C61;&#xFF0C;&#x4E5F;&#x80FD;&#x591F;&#x652F;&#x6301;&#x8FD9;&#x4E9B;&#x8BED;&#x8A00;&#x4F7F;&#x7528;&#x5DF2;&#x7ECF;&#x7F16;&#x5199;&#x597D;&#x7684;&#x672C;&#x5730;&#x5E93;&#x6587;&#x4EF6;&#x3002;</p>
+<p>Graal VM&#x7684;&#x57FA;&#x672C;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x662F;&#x5C06;&#x8FD9;&#x4E9B;&#x8BED;&#x8A00;&#x7684;&#x6E90;&#x4EE3;&#x7801;&#xFF08;&#x4F8B;&#x5982;JavaScript&#xFF09;&#x6216;&#x6E90;&#x4EE3;&#x7801;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x4E2D;&#x95F4;&#x683C;&#x5F0F; &#xFF08;&#x4F8B;&#x5982;LLVM&#x5B57;&#x8282;&#x7801;&#xFF09;&#x901A;&#x8FC7;&#x89E3;&#x91CA;&#x5668;&#x8F6C;&#x6362;&#x4E3A;&#x80FD;&#x88AB;Graal VM&#x63A5;&#x53D7;&#x7684;&#x4E2D;&#x95F4;&#x8868;&#x793A;&#xFF08;Intermediate Representation&#xFF0C; IR&#xFF09;&#xFF0C;&#x8B6C;&#x5982;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x89E3;&#x91CA;&#x5668;&#x4E13;&#x95E8;&#x5BF9;LLVM&#x8F93;&#x51FA;&#x7684;&#x5B57;&#x8282;&#x7801;&#x8FDB;&#x884C;&#x8F6C;&#x6362;&#x6765;&#x652F;&#x6301;C&#x548C;C++&#x8BED;&#x8A00;&#xFF0C;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x79F0;&#x4E3A;&#x7A0B; &#x5E8F;&#x7279;&#x5316;&#xFF08;Specialized&#xFF0C;&#x4E5F;&#x5E38;&#x88AB;&#x79F0;&#x4E3A;Partial Evaluation&#xFF09;&#x3002;Graal VM&#x63D0;&#x4F9B;&#x4E86;Truffle&#x5DE5;&#x5177;&#x96C6;&#x6765;&#x5FEB;&#x901F;&#x6784;&#x5EFA;&#x9762;&#x5411;&#x4E00; &#x79CD;&#x65B0;&#x8BED;&#x8A00;&#x7684;&#x89E3;&#x91CA;&#x5668;&#xFF0C;&#x5E76;&#x7528;&#x5B83;&#x6784;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x79F0;&#x4E3A;Sulong&#x7684;&#x9AD8;&#x6027;&#x80FD;LLVM&#x5B57;&#x8282;&#x7801;&#x89E3;&#x91CA;&#x5668;&#x3002;</p>
+<p>&#x53C2;&#x8003;&#x300A;&#x6DF1;&#x5165;&#x7406;&#x89E3;Java&#x865A;&#x62DF;&#x673A;&#x300B;&#x5468;&#x5FD7;&#x660E;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x56DE;&#x7B54;&#x5BF9;GraalVM&#x6709;&#x8FDB;&#x4E00;&#x6B65;&#x7684;&#x4ECB;&#x7ECD;&#xFF1A;</p>
+<blockquote>
+<p>&#x5982;&#x4F55;&#x8BC4;&#x4EF7; GraalVM &#x8FD9;&#x4E2A;&#x9879;&#x76EE;&#xFF1F; - kelthuzadx&#x7684;&#x56DE;&#x7B54; - &#x77E5;&#x4E4E; <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/274042223/answer/1270829173">https://www.zhihu.com/question/274042223/answer/1270829173</a></p>
+</blockquote>
+<p>&#x4E2A;&#x4EBA;&#x770B;&#x6CD5;&#xFF1A;</p>
+<ul>
+<li>&#x76EE;&#x524D;GraalVM&#x8FD8;&#x5728;&#x5B9E;&#x9A8C;&#x9636;&#x6BB5;&#xFF0C;&#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x5176;&#x80FD;&#x517C;&#x5BB9;Python&#x7684;&#x73B0;&#x6709;&#x5E93;&#xFF0C;&#x5982;&#x679C;&#x5E0C;&#x671B;&#x5728;&#x5DE5;&#x7A0B;&#x4E0A;&#x540C;&#x65F6;&#x4F7F;&#x7528;Java&#x548C;Python&#xFF0C;&#x53EF;&#x80FD;&#x5C1A;&#x4E0D;&#x9002;&#x5408;</li>
+<li>&#x5982;&#x679C;&#x4F7F;&#x7528;Jython&#x53EF;&#x4EE5;&#x5C1D;&#x8BD5;&#x8FC1;&#x79FB;&#x5230;GraalVM</li>
+</ul>
+<h2 id="&#x6211;&#x7684;&#x5EFA;&#x8BAE;"><a href="#&#x6211;&#x7684;&#x5EFA;&#x8BAE;" class="headerlink" title="&#x6211;&#x7684;&#x5EFA;&#x8BAE;"></a>&#x6211;&#x7684;&#x5EFA;&#x8BAE;</h2><ul>
+<li>&#x9996;&#x5148;&#x9700;&#x8981;&#x660E;&#x767D;&#x4F7F;&#x7528;&#x7684;&#x573A;&#x666F;<ul>
+<li>&#x5982;&#x679C;&#x672C;&#x5730;&#x7B80;&#x5355;&#x5B9E;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#x76F4;&#x63A5;&#x7528;runtime&#x65B0;&#x5F00;&#x8FDB;&#x7A0B;&#x5C31;&#x53EF;&#x4EE5;</li>
+</ul>
+</li>
+<li>&#x5C3D;&#x91CF;&#x51CF;&#x5C11;&#x7A0B;&#x5E8F;&#x8026;&#x5408;<ul>
+<li>&#x63A8;&#x8350;&#x4F7F;&#x7528;RESTFUL&#xFF0C;&#x7F51;&#x7EDC;&#x4F20;&#x8F93;&#x662F;&#x5176;&#x901F;&#x5EA6;&#x7684;&#x74F6;&#x9888;</li>
+</ul>
+</li>
+<li>&#x4F7F;&#x7528;&#x652F;&#x6301;Python3&#x7684;&#x65B9;&#x5F0F;<ul>
+<li>&#x7B2C;&#x4E00;&#x4E2A;&#x6392;&#x9664;Jython&#xFF0C;&#x5982;&#x679C;&#x5E0C;&#x671B;&#x8C03;&#x7528;&#x7B2C;&#x4E09;&#x65B9;&#x5DE5;&#x5177;&#xFF0C;&#x6211;&#x63A8;&#x8350;jep&#xFF0C;&#x4F46;&#x5E76;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x6240;&#x6709;python&#x7684;&#x5E93;&#x90FD;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;</li>
+</ul>
+</li>
+<li>&#x5982;&#x679C;&#x4F60;&#x5E0C;&#x671B;&#x5728;Python&#x4E2D;&#x4F7F;&#x7528;Java&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x63A8;&#x8350;Pyjnius</li>
+</ul>
+<h3 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.infoworld.com/article/3322898/machine-learning-with-python-an-introduction.html?page=2">https://www.infoworld.com/article/3322898/machine-learning-with-python-an-introduction.html?page=2</a></p>
+<p><a target="_blank" rel="noopener" href="https://py.processing.org/tutorials/python-jython-java/">https://py.processing.org/tutorials/python-jython-java/</a></p>
+<p><a target="_blank" rel="noopener" href="https://talvi.net/a-brief-overview-of-python-java-bridges-in-2020.html">https://talvi.net/a-brief-overview-of-python-java-bridges-in-2020.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844903972596088846#heading-18">https://juejin.im/post/6844903972596088846#heading-18</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42348333/article/details/106169841">https://blog.csdn.net/weixin_42348333/article/details/106169841</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844903972596088846#heading-18">https://juejin.im/post/6844903972596088846#heading-18</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/27/Optimizing-Feature-Selection-for-Efficient-Encrypted-Traffic-Classification-A-Systematic-Approach%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="next" title="Optimizing Feature Selection for Efficient Encrypted Traffic Classification: A Systematic Approach阅读笔记">
+                <i class="fa fa-chevron-left"></i> Optimizing Feature Selection for Efficient Encrypted Traffic Classification: A Systematic Approach阅读笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/02/Padding-Aint-Enough-Assessing-the-Privacy-Guarantees-of-Encrypted-DNS%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="prev" title="Padding Ain’t Enough: Assessing the Privacy Guarantees of Encrypted DNS阅读笔记">
+                Padding Ain’t Enough: Assessing the Privacy Guarantees of Encrypted DNS阅读笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/me2.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heatao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:heatao59@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/public/public/live2dw/public/public/live2dw/public/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"public/public/live2dw/","pluginJsPath":"public/public/live2dw/public/lib/","pluginModelPath":"node_modules/live2d-widget-model-shizuku/assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/public/public/live2dw/node_modules/live2d-widget-model-shizuku/assets/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":315,"hOffset":198,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x53C2;&amp;#x8003;&amp;#x4E86;&amp;#x4E0B;&amp;#x9762;&amp;#x8FD9;&amp;#x4E24;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&amp;#x8FDB;&amp;#x884C;&amp;#x5B66;&amp;#x4E60;&amp;#xFF0C;&amp;#x611F;&amp;#x8C22;&amp;#x5927;&amp;#x4F6C;&amp;#xFF0C;&amp;#x8FD9;&amp;#x91CC;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HEATAO&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/2019/10/11/Docker%E5%B0%9D%E8%AF%95/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x53C2;&amp;#x8003;&amp;#x4E86;&amp;#x4E0B;&amp;#x9762;&amp;#x8FD9;&amp;#x4E24;&amp;#x7BC7;&amp;#x6587;&amp;#x7AE0;&amp;#x8FDB;&amp;#x884C;&amp;#x5B66;&amp;#x4E60;&amp;#xFF0C;&amp;#x611F;&amp;#x8C22;&amp;#x5927;&amp;#x4F6C;&amp;#xFF0C;&amp;#x8FD9;&amp;#x91CC;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-10-11T05:31:19.000Z">
+<meta property="article:modified_time" content="2021-07-14T07:43:43.917Z">
+<meta property="article:author" content="HEATAO">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/11/Docker尝试/"/>
+
+
+
+
+
+  <title> | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/11/Docker%E5%B0%9D%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me2.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline"></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-11T13:31:19+08:00">
+                2019-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x4E3B;&#x8981;&#x662F;&#x53C2;&#x8003;&#x4E86;&#x4E0B;&#x9762;&#x8FD9;&#x4E24;&#x7BC7;&#x6587;&#x7AE0;&#x8FDB;&#x884C;&#x5B66;&#x4E60;&#xFF0C;&#x611F;&#x8C22;&#x5927;&#x4F6C;&#xFF0C;&#x8FD9;&#x91CC;&#x662F;&#x6211;&#x7684;&#x4E2A;&#x4EBA;&#x8BB0;&#x5F55;</p>
+<p>&#x53EA;&#x8981;&#x4E00;&#x5C0F;&#x65F6;&#xFF0C;&#x96F6;&#x57FA;&#x7840;&#x5165;&#x95E8;Docker - &#x7B11;&#x864E;&#x7684;&#x6587;&#x7AE0; - &#x77E5;&#x4E4E; <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23599229">https://zhuanlan.zhihu.com/p/23599229</a></p>
+<p>&#x5982;&#x4F55;&#x901A;&#x4FD7;&#x89E3;&#x91CA;Docker&#x662F;&#x4EC0;&#x4E48;&#xFF1F; - &#x6728;&#x5934;&#x9F99;&#x7684;&#x56DE;&#x7B54; - &#x77E5;&#x4E4E; <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/28300645/answer/585166942">https://www.zhihu.com/question/28300645/answer/585166942</a></p>
+<p>&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x67E5;&#x8BE2;&#x6587;&#x6863;&#x4F7F;&#x7528; <a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-container-usage.html">https://www.runoob.com/docker/docker-container-usage.html</a></p>
+<h3 id="Docker&#x6982;&#x5FF5;"><a href="#Docker&#x6982;&#x5FF5;" class="headerlink" title="Docker&#x6982;&#x5FF5;"></a>Docker&#x6982;&#x5FF5;</h3><p>&#x4E4B;&#x524D;&#x4F7F;&#x7528;&#x7684;VMware&#x7B49;&#x865A;&#x62DF;&#x673A;&#x662F;&#x786C;&#x4EF6;&#x865A;&#x62DF;&#x5316;&#x6280;&#x672F;&#x3002;Docker&#x662F;&#x5BB9;&#x5668;&#x6280;&#x672F;&#xFF0C;&#x4E5F;&#x662F;&#x4E00;&#x79CD;&#x8F7B;&#x91CF;&#x7EA7;&#x865A;&#x62DF;&#x5316;&#x6280;&#x672F;&#x3002;</p>
+<p>&#x5728;&#x76EE;&#x524D;&#x8BA1;&#x7B97;&#x673A;&#x786C;&#x4EF6;&#x6027;&#x80FD;&#x8FC7;&#x5269;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x51FA;&#x73B0;&#x4E86;&#x786C;&#x4EF6;&#x865A;&#x62DF;&#x5316;&#xFF0C;&#x5C31;&#x662F;&#x67D0;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x8F6F;&#x4EF6;&#xFF0C;&#x4EFF;&#x771F;&#x51FA;&#x4E00;&#x53F0;&#x6216;&#x8005;&#x591A;&#x53F0;&#x8BA1;&#x7B97;&#x673A;&#x7684;&#x5404;&#x79CD;&#x786C;&#x4EF6;&#xFF0C;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x5728;&#x8FD9;&#x4E00;&#x53F0;&#x865A;&#x62DF;&#x673A;&#x4E0A;&#x5B89;&#x88C5;&#x3001;&#x8FD0;&#x884C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF08;&#x4E00;&#x822C;&#x53EB;&#x6765;&#x5BBE;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF0C;Guest OS&#xFF09;&#x548C;&#x5404;&#x79CD;&#x5E94;&#x7528;&#xFF0C;&#x5E76;&#x4E14;&#x628A;Guest OS&#x548C;&#x4E0A;&#x9762;&#x5E94;&#x7528;&#x8F6F;&#x4EF6;&#x5BF9;&#x786C;&#x4EF6;&#x8D44;&#x6E90;&#x7684;&#x8BBF;&#x95EE;&#x8F6C;&#x53D1;&#x5230;&#x5E95;&#x5C42;&#x7684;&#x786C;&#x4EF6;&#x4E0A;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x5BF9;&#x4E8E;Guest OS&#x548C;&#x4E0A;&#x9762;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x53F0;&#x865A;&#x62DF;&#x673A;&#x548C;&#x666E;&#x901A;&#x7684;&#x7269;&#x7406;&#x8BA1;&#x7B97;&#x673A;&#x662F;&#x5B8C;&#x5168;&#x4E00;&#x6837;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x533A;&#x522B;&#x7684;&#x3002;</p>
+<p>&#x50CF;VMware&#xFF0C;EXSi&#x5C31;&#x662F;&#x8FD9;&#x6837;&#x7684;&#x8F6F;&#x4EF6;&#xFF0C;&#x8FD9;&#x7C7B;&#x8F6F;&#x4EF6;&#x82F1;&#x8BED;&#x6709;&#x4E00;&#x4E2A;&#x4E13;&#x7528;&#x7684;&#x5355;&#x8BCD;&#x662F;Hypervisor&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x865A;&#x62DF;&#x673A;&#x7684;&#x7F3A;&#x70B9;&#x662F;Guest OS&#x4F1A;&#x5360;&#x7528;&#x5F88;&#x591A;&#x786C;&#x4EF6;&#x8D44;&#x6E90;&#xFF0C;&#x80FD;&#x4E0D;&#x80FD;&#x6240;&#x6709;&#x7684;&#x5E94;&#x7528;&#x4F7F;&#x7528;&#x540C;&#x4E00;&#x4E2A;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x51CF;&#x5C11;&#x786C;&#x4EF6;&#x8D44;&#x6E90;&#x7684;&#x6D6A;&#x8D39;&#xFF0C;&#x4F46;&#x662F;&#x53C8;&#x80FD;&#x907F;&#x514D;&#x5305;&#x62EC;&#x8FD0;&#x884C;&#x5E93;&#x8FD0;&#x884C;&#x5E93;&#x5728;&#x5185;&#x7684;&#x8F6F;&#x4EF6;&#x51B2;&#x7A81;&#x5462;&#xFF1F;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5C42;&#x865A;&#x62DF;&#x5316;&#x2014;&#x2014;&#x5BB9;&#x5668;&#x6982;&#x5FF5;&#x7684;&#x63D0;&#x51FA;&#xFF0C;&#x5C31;&#x662F;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;</p>
+<p>Docker&#x8FD9;&#x7C7B;&#x6280;&#x672F;&#x6CA1;&#x6709;&#x865A;&#x62DF;&#x673A;&#x786C;&#x4EF6;&#x7684;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x53EF;&#x4EE5;&#x8282;&#x7EA6;&#x5F88;&#x591A;&#x542F;&#x52A8;&#x65F6;&#x95F4;&#xFF0C;&#x5E76;&#x4E14;&#x6CA1;&#x6709;Guest OS&#x7684;&#x5185;&#x5B58;&#x5F00;&#x9500;&#xFF0C;&#x65E0;&#x9700;&#x8FD0;&#x884C;App&#x4E0D;&#x9700;&#x8981;&#x7684;&#x5E93;&#x548C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x670D;&#x52A1;&#x3002;</p>
+<p>&#x5F53;&#x7136;&#xFF0C;&#x548C;&#x865A;&#x62DF;&#x673A;&#x76F8;&#x6BD4;&#xFF0C;&#x56E0;&#x4E3A;&#x5171;&#x7528;&#x5185;&#x6838;&#xFF0C;&#x53EA;&#x9760;cgroup&#x9694;&#x79BB;&#xFF0C;&#x5E94;&#x7528;&#x4E4B;&#x95F4;&#x7684;&#x9694;&#x79BB;&#x662F;&#x4E0D;&#x5982;&#x865A;&#x62DF;&#x673A;&#x5F7B;&#x5E95;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x5E94;&#x7528;&#x8FD0;&#x884C;&#x65F6;&#x5BFC;&#x81F4;&#x5185;&#x6838;&#x5D29;&#x6E83;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x5BB9;&#x5668;&#x90FD;&#x4F1A;&#x5D29;&#x6E83;&#x3002;&#x800C;&#x865A;&#x62DF;&#x673A;&#x5185;&#x7684;&#x5E94;&#x7528;&#x5D29;&#x6E83;&#xFF0C;&#x7406;&#x8BBA;&#x4E0A;&#x662F;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5176;&#x5B83;&#x865A;&#x62DF;&#x673A;&#x4EE5;&#x53CA;&#x4E0A;&#x9762;&#x8FD0;&#x884C;&#x7684;&#x5E94;&#x7528;&#x7684;&#xFF0C;&#x9664;&#x975E;&#x662F;&#x786C;&#x4EF6;&#x6216;&#x8005;Hypervisor&#x6709;Bug&#x3002;</p>
+<p>&#x4F46;&#x662F;&#xFF0C;&#x548C;&#x865A;&#x62DF;&#x673A;&#x76F8;&#x6BD4;&#xFF0C;&#x56E0;&#x4E3A;&#x5171;&#x7528;&#x5185;&#x6838;&#xFF0C;&#x53EA;&#x9760;cgroup&#x9694;&#x79BB;&#xFF0C;&#x5E94;&#x7528;&#x4E4B;&#x95F4;&#x7684;&#x9694;&#x79BB;&#x662F;&#x4E0D;&#x5982;&#x865A;&#x62DF;&#x673A;&#x5F7B;&#x5E95;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x5E94;&#x7528;&#x8FD0;&#x884C;&#x65F6;&#x5BFC;&#x81F4;&#x5185;&#x6838;&#x5D29;&#x6E83;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x5BB9;&#x5668;&#x90FD;&#x4F1A;&#x5D29;&#x6E83;&#x3002;&#x800C;&#x865A;&#x62DF;&#x673A;&#x5185;&#x7684;&#x5E94;&#x7528;&#x5D29;&#x6E83;&#xFF0C;&#x7406;&#x8BBA;&#x4E0A;&#x662F;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5176;&#x5B83;&#x865A;&#x62DF;&#x673A;&#x4EE5;&#x53CA;&#x4E0A;&#x9762;&#x8FD0;&#x884C;&#x7684;&#x5E94;&#x7528;&#x7684;&#xFF0C;&#x9664;&#x975E;&#x662F;&#x786C;&#x4EF6;&#x6216;&#x8005;Hypervisor&#x6709;Bug&#x3002;</p>
+<p>Docker&#x628A;App&#x548C;Lib&#x7684;&#x6587;&#x4EF6;&#x6253;&#x5305;&#x6210;&#x4E3A;&#x4E00;&#x4E2A;&#x955C;&#x50CF;&#xFF0C;&#x5E76;&#x4E14;&#x91C7;&#x7528;&#x7C7B;&#x4F3C;&#x591A;&#x6B21;&#x5FEB;&#x7167;&#x7684;&#x5B58;&#x50A8;&#x6280;&#x672F;&#xFF0C;&#x4F8B;&#x5982;aufs/device mapper/btrfs/zfs&#x7B49;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<ol>
+<li>&#x591A;&#x4E2A;App&#x53EF;&#x4EE5;&#x5171;&#x7528;&#x76F8;&#x540C;&#x7684;&#x5E95;&#x5C42;&#x955C;&#x50CF;&#xFF08;&#x521D;&#x59CB;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x955C;&#x50CF;&#xFF09;</li>
+<li>App&#x8FD0;&#x884C;&#x65F6;&#x7684;IO&#x64CD;&#x4F5C;&#x548C;&#x955C;&#x50CF;&#x6587;&#x4EF6;&#x9694;&#x79BB;&#xFF1B;</li>
+<li>&#x901A;&#x8FC7;&#x6302;&#x8F7D;&#x5305;&#x542B;&#x4E0D;&#x540C;&#x914D;&#x7F6E;/&#x6570;&#x636E;&#x6587;&#x4EF6;&#x7684;&#x76EE;&#x5F55;&#x6216;&#x8005;&#x5377;&#xFF08;Volume&#xFF09;&#xFF0C;&#x5355;&#x4E2A;App&#x955C;&#x50CF;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x7528;&#x6765;&#x8FD0;&#x884C;&#x65E0;&#x6570;&#x4E2A;&#x4E0D;&#x540C;&#x4E1A;&#x52A1;&#x7684;&#x5BB9;&#x5668;&#x3002;</li>
+</ol>
+<p>&#x4E0B;&#x9762;&#x7684;Docker&#x7684;&#x51E0;&#x4E2A;&#x91CD;&#x8981;&#x6982;&#x5FF5;&#xFF1A;</p>
+<ol>
+<li>&#x955C;&#x50CF;&#xFF08;Image&#xFF09;&#xFF1A;&#x7C7B;&#x4F3C;&#x4E8E;&#x865A;&#x62DF;&#x673A;&#x4E2D;&#x7684;&#x955C;&#x50CF;&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x6709;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x9762;&#x5411;Docker&#x5F15;&#x64CE;&#x7684;&#x53EA;&#x8BFB;&#x6A21;&#x677F;&#x3002;&#x4EFB;&#x4F55;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x90FD;&#x9700;&#x8981;&#x73AF;&#x5883;&#xFF0C;&#x800C;&#x955C;&#x50CF;&#x5C31;&#x662F;&#x7528;&#x6765;&#x63D0;&#x4F9B;&#x8FD9;&#x79CD;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x7684;&#x3002;&#x4F8B;&#x5982;&#x4E00;&#x4E2A;Ubuntu&#x955C;&#x50CF;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5305;&#x542B;Ubuntu&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x73AF;&#x5883;&#x7684;&#x6A21;&#x677F;&#xFF0C;&#x540C;&#x7406;&#x5728;&#x8BE5;&#x955C;&#x50CF;&#x4E0A;&#x88C5;&#x4E0A;Apache&#x8F6F;&#x4EF6;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x79F0;&#x4E3A;Apache&#x955C;&#x50CF;&#x3002;</li>
+<li>&#x5BB9;&#x5668;&#xFF08;Container&#xFF09;&#xFF1A;&#x7C7B;&#x4F3C;&#x4E8E;&#x4E00;&#x4E2A;&#x8F7B;&#x91CF;&#x7EA7;&#x7684;&#x6C99;&#x76D2;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x5176;&#x770B;&#x4F5C;&#x4E00;&#x4E2A;&#x6781;&#x7B80;&#x7684;Linux&#x7CFB;&#x7EDF;&#x73AF;&#x5883;&#xFF08;&#x5305;&#x62EC;root&#x6743;&#x9650;&#x3001;&#x8FDB;&#x7A0B;&#x7A7A;&#x95F4;&#x3001;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x548C;&#x7F51;&#x7EDC;&#x7A7A;&#x95F4;&#x7B49;&#xFF09;&#xFF0C;&#x4EE5;&#x53CA;&#x8FD0;&#x884C;&#x5728;&#x5176;&#x4E2D;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;Docker&#x5F15;&#x64CE;&#x5229;&#x7528;&#x5BB9;&#x5668;&#x6765;&#x8FD0;&#x884C;&#x3001;&#x9694;&#x79BB;&#x5404;&#x4E2A;&#x5E94;&#x7528;&#x3002;&#x5BB9;&#x5668;&#x662F;&#x955C;&#x50CF;&#x521B;&#x5EFA;&#x7684;&#x5E94;&#x7528;&#x5B9E;&#x4F8B;&#xFF0C;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x3001;&#x542F;&#x52A8;&#x3001;&#x505C;&#x6B62;&#x3001;&#x5220;&#x9664;&#x5BB9;&#x5668;&#xFF0C;&#x5404;&#x4E2A;&#x5BB9;&#x5668;&#x4E4B;&#x95F4;&#x662F;&#x662F;&#x76F8;&#x4E92;&#x9694;&#x79BB;&#x7684;&#xFF0C;&#x4E92;&#x4E0D;&#x5F71;&#x54CD;&#x3002;&#x6CE8;&#x610F;&#xFF1A;&#x955C;&#x50CF;&#x672C;&#x8EAB;&#x662F;&#x53EA;&#x8BFB;&#x7684;&#xFF0C;&#x5BB9;&#x5668;&#x4ECE;&#x955C;&#x50CF;&#x542F;&#x52A8;&#x65F6;&#xFF0C;Docker&#x5728;&#x955C;&#x50CF;&#x7684;&#x4E0A;&#x5C42;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x53EF;&#x5199;&#x5C42;&#xFF0C;&#x955C;&#x50CF;&#x672C;&#x8EAB;&#x4E0D;&#x53D8;&#x3002;</li>
+<li>&#x4ED3;&#x5E93;&#xFF08;Repository&#xFF09;&#xFF1A;&#x7C7B;&#x4F3C;&#x4E8E;&#x4EE3;&#x7801;&#x4ED3;&#x5E93;&#xFF0C;&#x8FD9;&#x91CC;&#x662F;&#x955C;&#x50CF;&#x4ED3;&#x5E93;&#xFF0C;&#x662F;Docker&#x7528;&#x6765;&#x96C6;&#x4E2D;&#x5B58;&#x653E;&#x955C;&#x50CF;&#x6587;&#x4EF6;&#x7684;&#x5730;&#x65B9;&#x3002;&#x6CE8;&#x610F;&#x4E0E;&#x6CE8;&#x518C;&#x670D;&#x52A1;&#x5668;&#xFF08;Registry&#xFF09;&#x7684;&#x533A;&#x522B;&#xFF1A;&#x6CE8;&#x518C;&#x670D;&#x52A1;&#x5668;&#x662F;&#x5B58;&#x653E;&#x4ED3;&#x5E93;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x4E00;&#x822C;&#x4F1A;&#x6709;&#x591A;&#x4E2A;&#x4ED3;&#x5E93;&#xFF1B;&#x800C;&#x4ED3;&#x5E93;&#x662F;&#x5B58;&#x653E;&#x955C;&#x50CF;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x4E00;&#x822C;&#x6BCF;&#x4E2A;&#x4ED3;&#x5E93;&#x5B58;&#x653E;&#x4E00;&#x7C7B;&#x955C;&#x50CF;&#xFF0C;&#x6BCF;&#x4E2A;&#x955C;&#x50CF;&#x5229;&#x7528;tag&#x8FDB;&#x884C;&#x533A;&#x5206;&#xFF0C;&#x6BD4;&#x5982;Ubuntu&#x4ED3;&#x5E93;&#x5B58;&#x653E;&#x6709;&#x591A;&#x4E2A;&#x7248;&#x672C;&#xFF08;12.04&#x3001;14.04&#x7B49;&#xFF09;&#x7684;Ubuntu&#x955C;&#x50CF;&#x3002;</li>
+</ol>
+<p>&#x5BF9;&#x4E8E;Docker&#x7684;&#x547D;&#x4EE4;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;[&#x5B98;&#x65B9;&#x6587;&#x6863;][docs.docker.com]&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x770B;Docker&#x5E2E;&#x52A9;&#x4FE1;&#x606F;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker --help</span><br></pre></td></tr></table></figure>
+
+<h3 id="Docker&#x5E38;&#x7528;&#x547D;&#x4EE4;"><a href="#Docker&#x5E38;&#x7528;&#x547D;&#x4EE4;" class="headerlink" title="Docker&#x5E38;&#x7528;&#x547D;&#x4EE4;"></a>Docker&#x5E38;&#x7528;&#x547D;&#x4EE4;</h3><p>&#x4E00;&#x822C;&#x7684;&#x6D41;&#x7A0B;&#x4E2D;,client&#x53D1;pull&#x547D;&#x4EE4;&#x4ECE;&#x4ED3;&#x5E93;&#x628A;image&#x62C9;&#x5230;Docker host&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;run&#x547D;&#x4EE4;&#x6307;&#x6325;image&#x5230;host&#x4E0A;&#x9762;&#x5F04;&#x4E00;&#x4E2A;container&#x6765;&#x8DD1;&#x8FD9;&#x4E2A;image&#x3002;</p>
+<p><strong>client&#x7528;pull&#x547D;&#x4EE4;&#x4ECE;&#x4ED3;&#x5E93;&#x628A;image&#x62C9;&#x5230;Docker host</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull[&#x9009;&#x9879;] [Docker Registry&#x5730;&#x5740;] &lt;&#x4ED3;&#x5E93;&#x540D;&gt;:&lt;&#x6807;&#x7B7E;&#x540D;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>&#x9ED8;&#x8BA4;&#x5730;&#x5740;&#x662F; DockerHub&#x3002; &#x4ED3;&#x5E93;&#x540D;&#xFF1A;&#x8FD9;&#x91CC;&#x7684;&#x4ED3;&#x5E93;&#x540D;&#x662F;&#x4E24;&#x6BB5;&#x5F0F;&#x540D;&#x79F0;&#xFF0C;&#x65E2; / &#xFF0C;&#x201C;/&#x201D;&#x524D;&#x9762;&#x4E00;&#x822C;&#x662F;&#x7528;&#x6237;&#x540D;&#x3002;&#x5BF9;&#x4E8E; Docker Hub&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x7ED9;&#x51FA;&#x7528;&#x6237;&#x540D;&#xFF0C;&#x5219;&#x9ED8;&#x8BA4;&#x4E3A; library &#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5B98;&#x65B9;&#x955C;&#x50CF;hub.docker.com&#x3002;</p>
+<p>&#x6BCF;&#x4E2A;&#x4ED3;&#x5E93;&#x4F1A;&#x6709;&#x591A;&#x4E2A;&#x955C;&#x50CF;&#xFF0C;&#x7528;tag&#x6807;&#x793A;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x52A0;tag&#xFF0C;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;latest&#x955C;&#x50CF;&#x3002;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># &#x4E0B;&#x8F7D; Ubuntu14.04&#x7684;image&#xFF08;&#x4EE5;Ubuntu&#x4E3A;&#x4F8B;&#xFF09;&#xFF1A;</span><br><span class="line">docker search centos    # &#x67E5;&#x770B;Ubuntu&#x955C;&#x50CF;&#x662F;&#x5426;&#x5B58;&#x5728;</span><br><span class="line">docker pull ubuntu:14.04</span><br></pre></td></tr></table></figure>
+
+<p><strong>&#x66F4;&#x6362;&#x955C;&#x50CF;&#x6E90;</strong></p>
+<p>&#x76F4;&#x63A5;&#x4F7F;&#x7528;pull&#x547D;&#x4EE4;&#x662F;&#x4ECE;Docker&#x5B98;&#x65B9;&#x7684;&#x955C;&#x50CF;&#x4ED3;&#x5E93;&#x6293;&#x53D6;&#xFF0C;&#x7531;&#x4E8E;&#x4F17;&#x6240;&#x5468;&#x77E5;&#x7684;&#x539F;&#x56E0;&#xFF0C;&#x8FD9;&#x6837;&#x901F;&#x5EA6;&#x4F1A;&#x5F88;&#x6162;&#xFF0C;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x963F;&#x91CC;&#x4E91;&#x955C;&#x50CF;&#x4ED3;&#x5E93;&#x3002;</p>
+<p>&#x53BB;&#x963F;&#x91CC;&#x4E91;&#x627E;&#x5230;&#x4E00;&#x4E2A;&#x53EF;&#x7528;&#x7684;&#x955C;&#x50CF;&#x52A0;&#x901F;&#x5668;&#xFF0C;&#x67E5;&#x770B;&#x64CD;&#x4F5C;&#x6587;&#x6863;</p>
+<p>&#x5BF9;&#x5E94;&#x5728;docker desltop&#x4E2D;preference-&gt;docker engine</p>
+<p>&#x4E3B;&#x8981;&#x5982;&#x679C;&#x70B9;&#x51FB;apply &amp; restart&#x6CA1;&#x7528;&#xFF0C;&#x5219;&#x5728;~/.docker&#x8DEF;&#x5F84;&#x4E0B;&#x81EA;&#x884C;&#x4FEE;&#x6539;daemon.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  <span class="attr">&quot;experimental&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">&quot;registry-mirror&quot;</span>: [</span><br><span class="line">     <span class="string">&quot;https://hizmnq94.mirror.aliyuncs.com&quot;</span>,</span><br><span class="line">     <span class="string">&quot;https://registry.docker-cn.com&quot;</span>,</span><br><span class="line">     <span class="string">&quot;http://hub-mirror.c.163.com&quot;</span>,</span><br><span class="line">     <span class="string">&quot;https://docker.mirrors.ustc.edu.cn&quot;</span></span><br><span class="line">  ]</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4FEE;&#x6539;&#x540E;&#x6D4B;&#x8BD5;&#xFF0C;&#x547D;&#x4EE4;&#x884C;&#x8F93;&#x5165;docker info&#xFF0C;&#x68C0;&#x67E5;&#x5176;&#x4E2D;&#x7684;Registry</p>
+<p><strong>&#x67E5;&#x770B;docker&#x6240;&#x6709;&#x955C;&#x50CF;</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<p>&#x663E;&#x793A;&#x4E86;repository&#xFF0C;tag&#xFF0C;image id</p>
+<p><strong>&#x8FD0;&#x884C;&#x955C;&#x50CF;</strong></p>
+<p>&#x8FD0;&#x884C;&#x5BB9;&#x5668;&#xFF0C;&#x9700;&#x8981;&#x7528;&#x5230;repository&#x548C;tag</p>
+<p>run&#x547D;&#x4EE4;&#x662F;Run a command in a <strong>new</strong> container</p>
+<p>&#x8FD9;&#x91CC;-it&#x662F;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;-i&#x548C;-t&#x3002;&#x524D;&#x8005;&#x8868;&#x793A;&#x6253;&#x5F00;&#x5E76;&#x4FDD;&#x6301;stdout&#xFF0C;&#x540E;&#x8005;&#x8868;&#x793A;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x7EC8;&#x7AEF;&#xFF08;pseudo-tty&#xFF09;&#x3002;&#x6B64;&#x65F6;&#x5982;&#x679C;&#x4F7F;&#x7528;exit&#x9000;&#x51FA;&#xFF0C;&#x5219;&#x5BB9;&#x5668;&#x7684;&#x72B6;&#x6001;&#x5904;&#x4E8E;Exit&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#x3002;&#x5982;&#x679C;&#x60F3;&#x8BA9;&#x5BB9;&#x5668;&#x4E00;&#x76F4;&#x8FD0;&#x884C;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x505C;&#x6B62;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5FEB;&#x6377;&#x952E; ctrl+p ctrl+q &#x9000;&#x51FA;&#xFF0C;&#x6B64;&#x65F6;&#x5BB9;&#x5668;&#x7684;&#x72B6;&#x6001;&#x4E3A;Up&#x3002;</p>
+<p>d&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x610F;&#x601D;&#x662F;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#xFF0C;&#x4E0D;&#x4F1A;&#x5BF9;&#x5F53;&#x524D;&#x7EC8;&#x7AEF;&#x4EA7;&#x751F;&#x4EFB;&#x4F55;&#x8F93;&#x51FA;&#x3002;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd &lt;Repository&gt;:&lt;Tag&gt; /bin/bash</span><br><span class="line"></span><br><span class="line">docker run -itd dingms/ucas-bdms-hw-u64-2019:16.04 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>&#x540E;&#x9762;&#x7684; bin/bash &#x662F;&#x4EC0;&#x4E48;&#x610F;&#x601D;&#xFF1F;</p>
+<p>&#x8FD9;&#x662F;&#x8868;&#x793A;&#x8F7D;&#x5165;&#x5BB9;&#x5668;&#x540E;&#x8FD0;&#x884C;bash ,docker&#x4E2D;&#x5FC5;&#x987B;&#x8981;&#x4FDD;&#x6301;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x8FD0;&#x884C;&#xFF0C;&#x8981;&#x4E0D;&#x7136;&#x6574;&#x4E2A;&#x5BB9;&#x5668;&#x5C31;&#x4F1A;&#x9000;&#x51FA;&#x3002;<br>&#x8FD9;&#x4E2A;&#x5C31;&#x8868;&#x793A;&#x542F;&#x52A8;&#x5BB9;&#x5668;&#x540E;&#x542F;&#x52A8;bash&#xFF0C;&#x6240;&#x4EE5;&#x8FD8;&#x53EF;&#x4EE5;/bin/zsh&#x54AF;&#xFF1F;</p>
+<p><strong>&#x9000;&#x51FA;&#x5BB9;&#x5668;</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br><span class="line"># exit&#x4F1A;&#x5173;&#x95ED;&#x5BB9;&#x5668;&#xFF0C;&#x9700;&#x8981;&#x518D;&#x6B21;docker start name/id</span><br><span class="line"></span><br><span class="line">Ctrl+P+Q &#xFF08;&#x6CE8;&#x610F;&#x662F;&#x5927;&#x5199;&#x7684;P&#x548C;Q&#xFF09;&#x9000;&#x51FA;&#x4F46;&#x4E0D;&#x5173;&#x95ED;&#x5BB9;&#x5668;</span><br></pre></td></tr></table></figure>
+
+<p><strong>&#x8FDB;&#x5165;&#x540E;&#x53F0;&#x5BB9;&#x5668;</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker attach container_name/container_id</span><br></pre></td></tr></table></figure>
+
+<p>&#x6CE8;&#x610F;&#x5982;&#x679C;&#x662F;&#x4EE5;&#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#x542F;&#x52A8;&#x7684;&#x5BB9;&#x5668;&#xFF0C;&#x5373;&#x7528;&#x547D;&#x4EE4;d&#x542F;&#x52A8;&#x7684;&#x8BDD;&#xFF0C;docker attach &#x5BB9;&#x5668;id &#x5C31;&#x4F1A;&#x4E00;&#x76F4;&#x5361;&#x7740;&#xFF0C;&#x53EF;&#x7528;: <strong>docker exec -it containerID /bin/bash</strong>&#x3002;</p>
+<p><strong>&#x67E5;&#x770B;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x955C;&#x50CF;</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker container ls</span><br><span class="line">&#x6216;&#x8005;</span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+
+<p>&#x67E5;&#x8BE2;&#x5F53;&#x524D;&#x5BB9;&#x5668;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container ls -all</span><br></pre></td></tr></table></figure>
+
+<p>&#x5BF9;&#x4E8E;&#x5DF2;&#x7ECF;&#x9000;&#x51FA;&#x7684;container&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;docker ps -a&#x6765;&#x67E5;&#x770B;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x9000;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;container&#x800C;&#x5FD8;&#x8BB0;&#x4FDD;&#x5B58;&#x5176;&#x4E2D;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;docker ps -a&#x6765;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x8FD0;&#x884C;&#x8FC7;&#x7684;container&#x4F7F;&#x7528;docker commit&#x547D;&#x4EE4;&#x5C06;&#x5176;&#x4FDD;&#x5B58;&#x4E3A;image&#x7136;&#x540E;&#x8FD0;&#x884C;&#x3002;</p>
+<p><strong>&#x505C;&#x6B62;&#x5E76;&#x5220;&#x9664;&#x955C;&#x50CF;</strong>-a&#x7684;&#x610F;&#x601D;&#x662F;all</p>
+<p>&#x6CE8;&#x610F;docker container ls -a&#x4F1A;&#x663E;&#x793A;&#x6240;&#x6709;&#x5BB9;&#x5668;&#xFF0C;&#x5305;&#x62EC;&#x5DF2;&#x5173;&#x95ED;&#x7684;&#x5594;&#xFF01;&#xFF01;&#xFF01;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ docker container ls</span><br><span class="line">$ docker container stop webserver</span><br><span class="line">$ docker container ls -a</span><br><span class="line">$ docker container rm webserver</span><br><span class="line">$ docker image ls</span><br><span class="line">$ docker image rm nginx</span><br></pre></td></tr></table></figure>
+
+<p>&#x5220;&#x9664;&#x5BB9;&#x5668;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm container_name/container_id</span><br></pre></td></tr></table></figure>
+
+<p><strong>&#x542F;&#x52A8;&#x3001;&#x505C;&#x6B62;&#x3001;&#x91CD;&#x542F;&#x5BB9;&#x5668;&#x547D;&#x4EE4;</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker start container_name/container_id</span><br><span class="line">docker stop container_name/container_id</span><br><span class="line">docker restart container_name/container_id</span><br></pre></td></tr></table></figure>
+
+<p><strong>&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#x5230;&#x5BB9;&#x5668; / &#x4ECE;&#x5BB9;&#x5668;&#x4E0B;&#x8F7D;&#x6587;&#x4EF6;&#x5230;&#x672C;&#x5730;OS</strong></p>
+<p>&#x5148;&#x7528;docker ps&#x67E5;&#x770B;&#x5BB9;&#x5668;id&#xFF0C;&#x518D;&#x7528;cp&#x547D;&#x4EE4;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker cp 5091062ef83a:/home/bdms/homework/hw1/README.md /Users/hezhengjie/desktop</span><br><span class="line">docker cp /Users/hezhengjie/Code/Java_project/BigData_homework/src/com/hw2/Hw2Part1.java ed9789e9534a:/home/bdms/homework/hw2/part1</span><br></pre></td></tr></table></figure>
+
+<p>&#x53C2;&#x6570;run&#x548C;exec&#xFF0C;&#x5C06;&#x955C;&#x50CF;&#x9644;&#x52A0;&#x5230;&#x4E00;&#x4E2A;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x5BB9;&#x5668;&#xFF08;&#x8BF4;&#x4EBA;&#x8BDD;&#x5C31;&#x662F;&#x5B9E;&#x4F8B;&#x5316;&#x5BB9;&#x5668;&#xFF09;&#xFF0C;&#x770B;docker&#x5B98;&#x65B9;&#x7684;&#x63CF;&#x8FF0;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exec    Run a command in a running container</span><br><span class="line"></span><br><span class="line">run     Run a command in a new container</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it &lt;CONTAINER ID&gt; /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p><strong>&#x7ED3;&#x675F;&#x8FD0;&#x884C;</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker stop &lt;CONTAINER ID&gt;</span><br><span class="line"></span><br><span class="line">docker rm $(docker ps -a -q)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Docker&#x6302;&#x8F7D;&#x76EE;&#x5F55;&#x548C;&#x7AEF;&#x53E3;&#x6620;&#x5C04;"><a href="#Docker&#x6302;&#x8F7D;&#x76EE;&#x5F55;&#x548C;&#x7AEF;&#x53E3;&#x6620;&#x5C04;" class="headerlink" title="Docker&#x6302;&#x8F7D;&#x76EE;&#x5F55;&#x548C;&#x7AEF;&#x53E3;&#x6620;&#x5C04;"></a>Docker&#x6302;&#x8F7D;&#x76EE;&#x5F55;&#x548C;&#x7AEF;&#x53E3;&#x6620;&#x5C04;</h4><p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;run&#x7684;&#x65F6;&#x5019;&#x6700;&#x597D;&#x5C31;&#x51B3;&#x5B9A;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x548C;&#x6302;&#x8F7D;&#x76EE;&#x5F55;&#xFF0C;&#x4E0D;&#x7136;&#x53EA;&#x80FD;&#x5220;&#x9664;&#x5BB9;&#x5668;&#x518D;&#x65B0;&#x5EFA;&#x4E86;&#x3002;&#x81F3;&#x4E8E;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CD;&#x542F;DOcker&#x670D;&#x52A1;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x522B;&#x7684;&#x5BB9;&#x5668;&#x5728;&#x8FD0;&#x884C;&#xFF0C;&#x5C31;&#x4E0D;&#x53EF;&#x884C;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x603B;&#x7ED3;&#x5F88;&#x68D2; <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ivictor/p/4834864.html">https://www.cnblogs.com/ivictor/p/4834864.html</a></p>
+<h4 id="Docker&#x7AEF;&#x53E3;&#x6620;&#x5C04;"><a href="#Docker&#x7AEF;&#x53E3;&#x6620;&#x5C04;" class="headerlink" title="Docker&#x7AEF;&#x53E3;&#x6620;&#x5C04;"></a>Docker&#x7AEF;&#x53E3;&#x6620;&#x5C04;</h4><p><strong>&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x7AEF;&#x53E3;&#x6620;&#x5C04;</strong></p>
+<p>&#x5728;&#x542F;&#x52A8;&#x5BB9;&#x5668;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x6307;&#x5B9A;&#x5BF9;&#x5E94;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x5728;&#x5BB9;&#x5668;&#x5916;&#x90E8;&#x662F;&#x65E0;&#x6CD5;&#x901A;&#x8FC7;&#x7F51;&#x7EDC;&#x6765;&#x8BBF;&#x95EE;&#x5BB9;&#x5668;&#x5185;&#x90E8;&#x7684;&#x7F51;&#x7EDC;&#x5E94;&#x7528;&#x548C;&#x670D;&#x52A1;&#x7684;&#x3002;</p>
+<p>&#x5F53;&#x5BB9;&#x5668;&#x4E2D;&#x8FD0;&#x884C;&#x4E00;&#x4E9B;&#x7F51;&#x7EDC;&#x5E94;&#x7528;&#xFF0C;&#x8981;&#x8BA9;&#x5916;&#x90E8;&#x8BBF;&#x95EE;&#x8FD9;&#x4E9B;&#x5E94;&#x7528;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;-p&#x6216;-P&#x53C2;&#x6570;&#x6765;&#x6307;&#x5B9A;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x3002;&#x5F53;&#x4F7F;&#x7528;-P(&#x5927;&#x5199;P)&#x6807;&#x8BB0;&#x65F6;&#xFF0C;Docker&#x4F1A;&#x968F;&#x673A;&#x6620;&#x5C04;&#x4E00;&#x4E2A;&#x7AEF;&#x53E3;&#x5230;&#x5185;&#x90E8;&#x5BB9;&#x5668;&#x5F00;&#x653E;&#x7684;&#x7F51;&#x7EDC;&#x7AEF;&#x53E3;(&#x7AEF;&#x53E3;&#x8303;&#x56F4;&#x5728;Linux&#x7CFB;&#x7EDF;&#x4F7F;&#x7528;&#x7684;&#x7AEF;&#x53E3;&#x4E4B;&#x5916;&#xFF0C;&#x4E00;&#x822C;&#x90FD;&#x8FC7;&#x4E07;)&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;docker ps&#x67E5;&#x770B;PORTS&#x663E;&#x793A;&#x7684;&#x7AEF;&#x53E3;&#x6620;&#x5C04;&#x60C5;&#x51B5;&#x3002;</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/williamjie/p/9915036.html">&#x4E00;&#x4E9B;&#x5EFA;&#x8BAE;</a></p>
+<h3 id="&#x81EA;&#x5EFA;&#x65B0;&#x955C;&#x50CF;"><a href="#&#x81EA;&#x5EFA;&#x65B0;&#x955C;&#x50CF;" class="headerlink" title="&#x81EA;&#x5EFA;&#x65B0;&#x955C;&#x50CF;"></a>&#x81EA;&#x5EFA;&#x65B0;&#x955C;&#x50CF;</h3><h4 id="&#x5728;&#x73B0;&#x6709;&#x955C;&#x50CF;&#x4E0A;&#x4FEE;&#x6539;"><a href="#&#x5728;&#x73B0;&#x6709;&#x955C;&#x50CF;&#x4E0A;&#x4FEE;&#x6539;" class="headerlink" title="&#x5728;&#x73B0;&#x6709;&#x955C;&#x50CF;&#x4E0A;&#x4FEE;&#x6539;"></a>&#x5728;&#x73B0;&#x6709;&#x955C;&#x50CF;&#x4E0A;&#x4FEE;&#x6539;</h4><p>&#x5229;&#x7528;&#x955C;&#x50CF;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;&#x540E;&#x8FDB;&#x884C;&#x4FEE;&#x6539; ==&gt; &#x5229;&#x7528;commit&#x63D0;&#x4EA4;&#x66F4;&#x65B0;&#x540E;&#x7684;&#x526F;&#x672C;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker run -it centos:latest /bin/bash    # &#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;</span><br><span class="line">[root@72f1a8a0e394 /]#    # &#x8FD9;&#x91CC;&#x547D;&#x4EE4;&#x884C;&#x5F62;&#x5F0F;&#x53D8;&#x4E86;&#xFF0C;&#x8868;&#x793A;&#x5DF2;&#x7ECF;&#x8FDB;&#x5165;&#x4E86;&#x4E00;&#x4E2A;&#x65B0;&#x73AF;&#x5883;</span><br><span class="line">[root@72f1a8a0e394 /]# git --version    # &#x6B64;&#x65F6;&#x7684;&#x5BB9;&#x5668;&#x4E2D;&#x6CA1;&#x6709;git</span><br><span class="line">bash: git: command not found</span><br><span class="line">[root@72f1a8a0e394 /]# yum install git    # &#x5229;&#x7528;yum&#x5B89;&#x88C5;git</span><br><span class="line">......</span><br><span class="line">[root@72f1a8a0e394 /]# git --version   # &#x6B64;&#x65F6;&#x7684;&#x5BB9;&#x5668;&#x4E2D;&#x5DF2;&#x7ECF;&#x88C5;&#x6709;git&#x4E86;</span><br><span class="line">git version 1.8.3.1</span><br></pre></td></tr></table></figure>
+
+<p>&#x6B64;&#x65F6;&#x5229;&#x7528;exit&#x9000;&#x51FA;&#x8BE5;&#x5BB9;&#x5668;&#xFF0C;&#x7136;&#x540E;&#x67E5;&#x770B;docker&#x4E2D;&#x8FD0;&#x884C;&#x7684;&#x7A0B;&#x5E8F;&#xFF08;&#x5BB9;&#x5668;&#xFF09;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker ps -a</span><br><span class="line">CONTAINER ID  IMAGE    COMMAND      CREATED   STATUS   PORTS    NAMES</span><br><span class="line">72f1a8a0e394  centos:latest &quot;/bin/bash&quot;  9 minutes ago   Exited (0) 3 minutes ago      angry_hodgkin</span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD9;&#x91CC;&#x5C06;&#x5BB9;&#x5668;&#x8F6C;&#x5316;&#x4E3A;&#x4E00;&#x4E2A;&#x955C;&#x50CF;&#xFF0C;&#x5373;&#x6267;&#x884C;commit&#x64CD;&#x4F5C;&#xFF0C;&#x5B8C;&#x6210;&#x540E;&#x53EF;&#x4F7F;&#x7528;docker images&#x67E5;&#x770B;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m=&quot;&#x63D0;&#x4EA4;&#x7684;&#x63CF;&#x8FF0;&#x4FE1;&#x606F;&quot; -a=&quot;&#x4F5C;&#x8005;&quot; &#x5BB9;&#x5668;id  &#x8981;&#x521B;&#x5EFA;&#x7684;&#x76EE;&#x6807;&#x955C;&#x50CF;&#x540D;:[&#x6807;&#x7B7E;&#x540D;]</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker commit -m &quot;centos with git&quot; -a &quot;qixianhu&quot; 72f1a8a0e394 xianhu/centos:git</span><br><span class="line"></span><br><span class="line">[root@xxx ~]# docker images</span><br><span class="line">REPOSITORY       TAG    IMAGE ID         CREATED             SIZE</span><br><span class="line">xianhu/centos    git    52166e4475ed     5 seconds ago       358.1 MB</span><br><span class="line">centos           latest 0584b3d2cf6d     9 days ago          196.5 MB</span><br></pre></td></tr></table></figure>
+
+<p>&#x5176;&#x4E2D;&#xFF0C;-m&#x6307;&#x5B9A;&#x8BF4;&#x660E;&#x4FE1;&#x606F;&#xFF1B;-a&#x6307;&#x5B9A;&#x7528;&#x6237;&#x4FE1;&#x606F;&#xFF1B;72f1a8a0e394&#x4EE3;&#x8868;&#x5BB9;&#x5668;&#x7684;id&#xFF1B;xianhu/centos:git&#x6307;&#x5B9A;&#x76EE;&#x6807;&#x955C;&#x50CF;&#x7684;&#x7528;&#x6237;&#x540D;&#x3001;&#x4ED3;&#x5E93;&#x540D;&#x548C; tag &#x4FE1;&#x606F;&#x3002;&#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x7684;&#x7528;&#x6237;&#x540D;xianhu&#xFF0C;&#x540E;&#x8FB9;&#x4F1A;&#x7528;&#x5230;&#x3002;</p>
+<p>&#x6B64;&#x65F6;Docker&#x5F15;&#x64CE;&#x4E2D;&#x5C31;&#x6709;&#x4E86;&#x6211;&#x4EEC;&#x65B0;&#x5EFA;&#x7684;&#x955C;&#x50CF;xianhu/centos:git&#xFF0C;&#x6B64;&#x955C;&#x50CF;&#x548C;&#x539F;&#x6709;&#x7684;CentOS&#x955C;&#x50CF;&#x533A;&#x522B;&#x5728;&#x4E8E;&#x591A;&#x4E86;&#x4E2A;Git&#x5DE5;&#x5177;&#x3002;&#x6B64;&#x65F6;&#x6211;&#x4EEC;&#x5229;&#x7528;&#x65B0;&#x955C;&#x50CF;&#x521B;&#x5EFA;&#x7684;&#x5BB9;&#x5668;&#xFF0C;&#x672C;&#x8EAB;&#x5C31;&#x81EA;&#x5E26;git&#x4E86;&#x3002;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker run -it xianhu/centos:git /bin/bash</span><br><span class="line">[root@520afc596c51 /]# git --version</span><br><span class="line">git version 1.8.3.1</span><br></pre></td></tr></table></figure>
+
+<p>&#x5229;&#x7528;exit&#x9000;&#x51FA;&#x5BB9;&#x5668;&#x3002;&#x6CE8;&#x610F;&#x6B64;&#x65F6;Docker&#x5F15;&#x64CE;&#x4E2D;&#x5C31;&#x6709;&#x4E86;&#x4E24;&#x4E2A;&#x5BB9;&#x5668;&#xFF0C;&#x53EF;&#x4F7F;&#x7528;docker ps -a&#x67E5;&#x770B;&#x3002;</p>
+<h4 id="&#x5229;&#x7528;Dockerfile&#x521B;&#x5EFA;&#x955C;&#x50CF;"><a href="#&#x5229;&#x7528;Dockerfile&#x521B;&#x5EFA;&#x955C;&#x50CF;" class="headerlink" title="&#x5229;&#x7528;Dockerfile&#x521B;&#x5EFA;&#x955C;&#x50CF;"></a>&#x5229;&#x7528;Dockerfile&#x521B;&#x5EFA;&#x955C;&#x50CF;</h4><p>Dockerfile&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x4E00;&#x79CD;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x7528;&#x6765;&#x544A;&#x8BC9;docker build&#x547D;&#x4EE4;&#x5E94;&#x8BE5;&#x6267;&#x884C;&#x54EA;&#x4E9B;&#x64CD;&#x4F5C;&#x3002;&#x4E00;&#x4E2A;&#x7B80;&#x6613;&#x7684;Dockerfile&#x6587;&#x4EF6;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF0C;&#x5B98;&#x65B9;&#x8BF4;&#x660E;&#xFF1A;<a href="https://link.zhihu.com/?target=https://docs.docker.com/engine/reference/builder/">Dockerfile reference</a>&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># &#x8BF4;&#x660E;&#x8BE5;&#x955C;&#x50CF;&#x4EE5;&#x54EA;&#x4E2A;&#x955C;&#x50CF;&#x4E3A;&#x57FA;&#x7840;</span><br><span class="line">FROM centos:latest</span><br><span class="line"></span><br><span class="line"># &#x6784;&#x5EFA;&#x8005;&#x7684;&#x57FA;&#x672C;&#x4FE1;&#x606F;</span><br><span class="line">MAINTAINER xianhu</span><br><span class="line"></span><br><span class="line"># &#x5728;build&#x8FD9;&#x4E2A;&#x955C;&#x50CF;&#x65F6;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;</span><br><span class="line">RUN yum update</span><br><span class="line">RUN yum install -y git</span><br><span class="line"></span><br><span class="line"># &#x62F7;&#x8D1D;&#x672C;&#x5730;&#x6587;&#x4EF6;&#x5230;&#x955C;&#x50CF;&#x4E2D;</span><br><span class="line">COPY ./* /usr/share/gitdir/</span><br></pre></td></tr></table></figure>
+
+<p>&#x6709;&#x4E86;Dockerfile&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5229;&#x7528;build&#x547D;&#x4EE4;&#x6784;&#x5EFA;&#x955C;&#x50CF;&#x4E86;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker build -t=&quot;xianhu/centos:gitdir&quot; .</span><br></pre></td></tr></table></figure>
+
+<p>&#x5176;&#x4E2D;-t&#x7528;&#x6765;&#x6307;&#x5B9A;&#x65B0;&#x955C;&#x50CF;&#x7684;&#x7528;&#x6237;&#x4FE1;&#x606F;&#x3001;tag&#x7B49;&#x3002;&#x6700;&#x540E;&#x7684;&#x70B9;&#x8868;&#x793A;&#x5728;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x5BFB;&#x627E;Dockerfile&#x3002;</p>
+<p>&#x6784;&#x5EFA;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x540C;&#x6837;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;docker images&#x547D;&#x4EE4;&#x67E5;&#x770B;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker images</span><br><span class="line">REPOSITORY        TAG       IMAGE ID      CREATED            SIZE</span><br><span class="line">xianhu/centos     gitdir    0749ecbca587  34 minutes ago     359.7 MB</span><br><span class="line">xianhu/centos     git       52166e4475ed  About an hour ago  358.1 MB</span><br><span class="line">centos            latest    0584b3d2cf6d  9 days ago         196.5 MB</span><br></pre></td></tr></table></figure>
+
+<p>&#x4EE5;&#x4E0A;&#x5C31;&#x662F;&#x6784;&#x5EFA;&#x81EA;&#x5DF1;&#x955C;&#x50CF;&#x7684;&#x4E24;&#x79CD;&#x65B9;&#x6CD5;&#x3002;&#x5176;&#x4E2D;&#x4E5F;&#x6D89;&#x53CA;&#x5230;&#x4E86;&#x5BB9;&#x5668;&#x7684;&#x4E00;&#x4E9B;&#x64CD;&#x4F5C;&#x3002;&#x5982;&#x679C;&#x60F3;&#x5220;&#x9664;&#x5BB9;&#x5668;&#x6216;&#x8005;&#x955C;&#x50CF;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;rm&#x547D;&#x4EE4;&#xFF0C;&#x6CE8;&#x610F;&#xFF1A;&#x5220;&#x9664;&#x955C;&#x50CF;&#x524D;&#x5FC5;&#x987B;&#x5148;&#x5220;&#x9664;&#x4EE5;&#x6B64;&#x955C;&#x50CF;&#x4E3A;&#x57FA;&#x7840;&#x7684;&#x5BB9;&#x5668;&#x3002;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker rm container_name/container_id</span><br><span class="line">[root@xxx ~]# docker rmi image_name/image_id</span><br></pre></td></tr></table></figure>
+
+<p>&#x955C;&#x50CF;&#x5176;&#x4ED6;&#x64CD;&#x4F5C;&#x6307;&#x4EE4;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker save -o centos.tar xianhu/centos:git    # &#x4FDD;&#x5B58;&#x955C;&#x50CF;, -o&#x4E5F;&#x53EF;&#x4EE5;&#x662F;--output</span><br><span class="line">[root@xxx ~]# docker load -i centos.tar    # &#x52A0;&#x8F7D;&#x955C;&#x50CF;, -i&#x4E5F;&#x53EF;&#x4EE5;&#x662F;--input</span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x53D1;&#x5E03;&#x955C;&#x50CF;&#x5230;&#x4ED3;&#x5E93;"><a href="#&#x53D1;&#x5E03;&#x955C;&#x50CF;&#x5230;&#x4ED3;&#x5E93;" class="headerlink" title="&#x53D1;&#x5E03;&#x955C;&#x50CF;&#x5230;&#x4ED3;&#x5E93;"></a>&#x53D1;&#x5E03;&#x955C;&#x50CF;&#x5230;&#x4ED3;&#x5E93;</h3><p>Docker&#x5B98;&#x65B9;&#x7EF4;&#x62A4;&#x4E86;&#x4E00;&#x4E2A;DockerHub&#x7684;&#x516C;&#x5171;&#x4ED3;&#x5E93;&#xFF0C;&#x91CC;&#x8FB9;&#x5305;&#x542B;&#x6709;&#x5F88;&#x591A;&#x5E73;&#x65F6;&#x7528;&#x7684;&#x8F83;&#x591A;&#x7684;&#x955C;&#x50CF;&#x3002;&#x9664;&#x4E86;&#x4ECE;&#x4E0A;&#x8FB9;&#x4E0B;&#x8F7D;&#x955C;&#x50CF;&#x4E4B;&#x5916;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x5C06;&#x81EA;&#x5DF1;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x955C;&#x50CF;&#x53D1;&#x5E03;&#xFF08;push&#xFF09;&#x5230;DockerHub&#x4E0A;&#x3002;</p>
+<p>&#x5728;&#x955C;&#x50CF;&#x64CD;&#x4F5C;&#x7AE0;&#x8282;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x65B0;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;xianhu/centos:git&#x955C;&#x50CF;&#x3002;</p>
+<p>&#xFF08;1&#xFF09;&#x8BBF;&#x95EE;<a href="https://link.zhihu.com/?target=https://hub.docker.com/">https://hub.docker.com/</a>&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x8D26;&#x53F7;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x6CE8;&#x518C;&#x4E00;&#x4E2A;&#x3002;</p>
+<p>&#xFF08;2&#xFF09;&#x5229;&#x7528;&#x547D;&#x4EE4;docker login&#x767B;&#x5F55;DockerHub&#xFF0C;&#x8F93;&#x5165;&#x7528;&#x6237;&#x540D;&#x3001;&#x5BC6;&#x7801;&#x5373;&#x53EF;&#x767B;&#x5F55;&#x6210;&#x529F;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker login</span><br><span class="line">Login with your Docker ID to push and pull images from Docker Hub. If you don&apos;t have a Docker ID, head over to https://hub.docker.com to create one.</span><br><span class="line">Username: xianhu</span><br><span class="line">Password:</span><br><span class="line">Login Succeeded</span><br></pre></td></tr></table></figure>
+
+<p>&#xFF08;3&#xFF09;&#x5C06;&#x672C;&#x5730;&#x7684;&#x955C;&#x50CF;&#x63A8;&#x9001;&#x5230;DockerHub&#x4E0A;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;xianhu&#x8981;&#x548C;&#x767B;&#x5F55;&#x65F6;&#x7684;username&#x4E00;&#x81F4;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker push xianhu/centos:git    # &#x6210;&#x529F;&#x63A8;&#x9001;</span><br><span class="line">[root@xxx ~]# docker push xxx/centos:git    # &#x5931;&#x8D25;</span><br><span class="line">The push refers to a repository [docker.io/xxx/centos]</span><br><span class="line">unauthorized: authentication required</span><br></pre></td></tr></table></figure>
+
+<p>&#xFF08;4&#xFF09;&#x4EE5;&#x540E;&#x522B;&#x4EBA;&#x5C31;&#x53EF;&#x4EE5;&#x4ECE;&#x4F60;&#x7684;&#x4ED3;&#x5E93;&#x4E2D;&#x4E0B;&#x8F7D;&#x5408;&#x9002;&#x7684;&#x955C;&#x50CF;&#x4E86;&#x3002;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@xxx ~]# docker pull xianhu/centos:git</span><br></pre></td></tr></table></figure>
+
+<p>&#x5BF9;&#x5E94;&#x4E8E;&#x955C;&#x50CF;&#x7684;&#x4E24;&#x79CD;&#x521B;&#x5EFA;&#x65B9;&#x6CD5;&#xFF0C;&#x955C;&#x50CF;&#x7684;&#x66F4;&#x65B0;&#x4E5F;&#x6709;&#x4E24;&#x79CD;&#xFF1A;</p>
+<ul>
+<li>&#x521B;&#x5EFA;&#x5BB9;&#x5668;&#x4E4B;&#x540E;&#x505A;&#x66F4;&#x6539;&#xFF0C;&#x4E4B;&#x540E;commit&#x751F;&#x6210;&#x955C;&#x50CF;&#xFF0C;&#x7136;&#x540E;push&#x5230;&#x4ED3;&#x5E93;&#x4E2D;&#x3002;</li>
+<li>&#x66F4;&#x65B0;Dockerfile&#x3002;&#x5728;&#x5DE5;&#x4F5C;&#x65F6;&#x4E00;&#x822C;&#x5EFA;&#x8BAE;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x66F4;&#x7B80;&#x6D01;&#x660E;&#x4E86;&#x3002;</li>
+</ul>
+<h3 id="&#x4E00;&#x53E5;&#x8BDD;&#x603B;&#x7ED3;"><a href="#&#x4E00;&#x53E5;&#x8BDD;&#x603B;&#x7ED3;" class="headerlink" title="&#x4E00;&#x53E5;&#x8BDD;&#x603B;&#x7ED3;"></a>&#x4E00;&#x53E5;&#x8BDD;&#x603B;&#x7ED3;</h3><p>Docker&#x4E3A;&#x4EC0;&#x4E48;&#x6BD4;VM&#x5FEB;&#xFF1F;</p>
+<ul>
+<li>DOcker&#x4F7F;&#x7528;&#x7684;&#x662F;&#x5BBF;&#x4E3B;&#x673A;&#x7684;&#x5185;&#x6838;&#xFF0C;&#x800C;VM&#x9700;&#x8981;Guest OS&#x3002;</li>
+</ul>
+<p>Docker&#x662F;&#x600E;&#x4E48;&#x5DE5;&#x4F5C;&#x7684;&#xFF1F;</p>
+<ul>
+<li>Docker&#x662F;&#x4E00;&#x4E2A;Client Server&#x7ED3;&#x6784;&#x7684;&#x7CFB;&#x7EDF;&#xFF0C;Docker&#x7684;&#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x5728;&#x4E3B;&#x673A;&#x4E0A;&#xFF0C;&#x901A;&#x8FC7;Socket&#x4ECE;&#x5BA2;&#x6237;&#x7AEF;&#x8BBF;&#x95EE;&#x3002;Docker&#x63A5;&#x6536;&#x5230;Docker Client&#x7684;&#x6307;&#x4EE4;&#xFF0C;&#x5C31;&#x4F1A;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x3002;</li>
+</ul>
+<p>Docker&#x7B80;&#x5355;&#x6D41;&#x7A0B;</p>
+<ul>
+<li>&#x4ECE;&#x4ED3;&#x5E93;&#xFF08;&#x4E00;&#x822C;&#x4E3A;DockerHub&#xFF09;&#x4E0B;&#x8F7D;&#xFF08;pull&#xFF09;&#x4E00;&#x4E2A;&#x955C;&#x50CF;&#xFF0C;Docker&#x6267;&#x884C;run&#x65B9;&#x6CD5;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;&#xFF0C;&#x7528;&#x6237;&#x5728;&#x5BB9;&#x5668;&#x91CC;&#x6267;&#x884C;&#x5404;&#x79CD;&#x64CD;&#x4F5C;&#x3002;Docker&#x6267;&#x884C;commit&#x65B9;&#x6CD5;&#x5C06;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;&#x8F6C;&#x5316;&#x4E3A;&#x955C;&#x50CF;&#x3002;Docker&#x5229;&#x7528;login&#x3001;push&#x7B49;&#x547D;&#x4EE4;&#x5C06;&#x672C;&#x5730;&#x955C;&#x50CF;&#x63A8;&#x9001;&#xFF08;push&#xFF09;&#x5230;&#x4ED3;&#x5E93;&#x3002;&#x5176;&#x4ED6;&#x673A;&#x5668;&#x6216;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8BE5;&#x955C;&#x50CF;&#x53BB;&#x751F;&#x6210;&#x5BB9;&#x5668;&#xFF0C;&#x8FDB;&#x800C;&#x8FD0;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E86;&#x3002;</li>
+</ul>
+<blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<p>&#x53EA;&#x8981;&#x4E00;&#x5C0F;&#x65F6;&#xFF0C;&#x96F6;&#x57FA;&#x7840;&#x5165;&#x95E8;Docker - &#x7B11;&#x864E;&#x7684;&#x6587;&#x7AE0; - &#x77E5;&#x4E4E; <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23599229">https://zhuanlan.zhihu.com/p/23599229</a></p>
+<p>&#x5982;&#x4F55;&#x901A;&#x4FD7;&#x89E3;&#x91CA;Docker&#x662F;&#x4EC0;&#x4E48;&#xFF1F; - &#x6728;&#x5934;&#x9F99;&#x7684;&#x56DE;&#x7B54; - &#x77E5;&#x4E4E; <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/28300645/answer/585166942">https://www.zhihu.com/question/28300645/answer/585166942</a></p>
+<p><strong>&#x53D1;&#x73B0;&#x4E00;&#x7BC7;&#x4ECB;&#x7ECD;&#x4E86;Docker&#x67B6;&#x6784;&#x539F;&#x7406;&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x7559;&#x5F85;&#x5B66;&#x4E60;</strong>&#xFF1A;</p>
+<p>Docker&#x67B6;&#x6784;&#x539F;&#x7406;&#x53CA;&#x7B80;&#x5355;&#x4F7F;&#x7528; - &#x4E50;&#x7AE0;&#x7684;&#x535A;&#x5BA2;&#x56ED;&#x6587;&#x7AE0; <a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangxingeng/p/11236968.html">https://www.cnblogs.com/zhangxingeng/p/11236968.html</a> </p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/09/Knowledge-Graph-Embedding-Based-Question-Answering%E7%AC%94%E8%AE%B0/" rel="next" title="Knowledge Graph Embedding Based Question Answering 笔记">
+                <i class="fa fa-chevron-left"></i> Knowledge Graph Embedding Based Question Answering 笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/15/KBQA-Learning-Question-Answering-over-QA-Corpora-and-Knowledge-Bases%E7%AC%94%E8%AE%B0/" rel="prev" title="KBQA: Learning Question Answering over QA Corpora and Knowledge Bases笔记">
+                KBQA: Learning Question Answering over QA Corpora and Knowledge Bases笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/me2.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heatao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:heatao59@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/public/public/live2dw/public/public/live2dw/public/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"public/public/live2dw/","pluginJsPath":"public/public/live2dw/public/lib/","pluginModelPath":"node_modules/live2d-widget-model-shizuku/assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/public/public/live2dw/node_modules/live2d-widget-model-shizuku/assets/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":315,"hOffset":198,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
