@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Database," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x6D45;&amp;#x6790;Presto &#x2F; openLooKeng &#x2F; Trino&amp;#x7684;JDBC&amp;#x8FDE;&amp;#x63A5;&amp;#x5668;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002; &amp;#x8FD1;&amp;#x671F;&amp;#x5728;&amp;#x793E;&amp;#x533A;&amp;#x5BF9;ClickHouse connector&amp;#x7684;&amp;#x5F00;&amp;#x53D1;&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openLooKeng connector原理与实现">
+<meta property="og:url" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="&amp;#x6D45;&amp;#x6790;Presto &#x2F; openLooKeng &#x2F; Trino&amp;#x7684;JDBC&amp;#x8FDE;&amp;#x63A5;&amp;#x5668;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002; &amp;#x8FD1;&amp;#x671F;&amp;#x5728;&amp;#x793E;&amp;#x533A;&amp;#x5BF9;ClickHouse connector&amp;#x7684;&amp;#x5F00;&amp;#x53D1;&amp;#">
+<meta property="og:locale">
+<meta property="og:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731091906523.png">
+<meta property="og:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/aHR0cHM6Ly91Y2MuYWxpY2RuLmNvbS9waWMvZGV2ZWxvcGVyLWVjb2xvZ3kvOTBiMGM5ZjAwNWY3NDJlY2IzNmFhODdhNGE0ODM0NTAucG5n.png">
+<meta property="og:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/&#x56FE;&#x7247;%201-7701094.png">
+<meta property="og:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731111319951.png">
+<meta property="og:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/20201117192257192.png">
+<meta property="og:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731112921420.png">
+<meta property="og:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731115608287.png">
+<meta property="og:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731120118287.png">
+<meta property="og:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731120407360.png">
+<meta property="og:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731115241068.png">
+<meta property="article:published_time" content="2021-07-31T04:53:30.000Z">
+<meta property="article:modified_time" content="2021-07-31T04:57:04.748Z">
+<meta property="article:author" content="HEATAO">
+<meta property="article:tag" content="Database">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731091906523.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/07/31/openLooKeng-connector原理与实现/"/>
+
+
+
+
+
+  <title>openLooKeng connector原理与实现 | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me2.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">openLooKeng connector原理与实现</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-31T12:53:30+08:00">
+                2021-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x6D45;&#x6790;Presto / openLooKeng / Trino&#x7684;JDBC&#x8FDE;&#x63A5;&#x5668;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>&#x8FD1;&#x671F;&#x5728;&#x793E;&#x533A;&#x5BF9;ClickHouse connector&#x7684;&#x5F00;&#x53D1;&#x8FDB;&#x884C;&#x4E86;&#x4E00;&#x6B21;&#x5206;&#x4EAB;&#xFF0C;&#x5728;&#x6B64;&#x7B80;&#x8981;&#x68B3;&#x7406;&#x3002;</p>
+</blockquote>
+<h2 id="Connector&#x67B6;&#x6784;&#x89E3;&#x6790;"><a href="#Connector&#x67B6;&#x6784;&#x89E3;&#x6790;" class="headerlink" title="Connector&#x67B6;&#x6784;&#x89E3;&#x6790;"></a>Connector&#x67B6;&#x6784;&#x89E3;&#x6790;</h2><p>openLooKeng&#x5B9E;&#x73B0;&#x8DE8;&#x6570;&#x636E;&#x6E90;&#x8DE8;&#x5730;&#x57DF;&#x5927;&#x6570;&#x636E;&#x5206;&#x6790;&#x662F;&#x57FA;&#x4E8E;Connector&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x4E0D;&#x540C;&#x7684;Connector&#x63D0;&#x4F9B;&#x4E86;&#x67E5;&#x8BE2;&#x4E0D;&#x540C;&#x6570;&#x636E;&#x6E90;&#x7684;&#x80FD;&#x529B;&#x3002;</p>
+<p>&#x4E0D;&#x540C;&#x6570;&#x636E;&#x6E90;&#x7684;&#x8FDE;&#x63A5;&#x5668;&#x53EA;&#x9700;&#x8981;&#x5B9E;&#x73B0;SPI&#x5BF9;&#x5E94;&#x7684;&#x63A5;&#x53E3;&#x5C31;&#x53EF;&#x4EE5;&#x88AB;openLooKeng&#x8C03;&#x7528;&#xFF0C;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF0C;&#x4E0D;&#x540C;&#x8FDE;&#x63A5;&#x5668;&#x7684;&#x5730;&#x4F4D;&#x662F;&#x7B49;&#x540C;&#x7684;&#x3002;</p>
+<img src="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731091906523.png" alt="image-20210731091906523" style="zoom:67%;">
+
+<p>openLooKeng&#x7684;&#x6574;&#x4F53;&#x67B6;&#x6784;&#x5206;&#x4E3A;coordinator&#x548C;worker&#xFF0C;coordinator&#x8D1F;&#x8D23;&#x4EFB;&#x52A1;&#x7684;&#x5206;&#x5272;&#x548C;&#x7BA1;&#x7406;worker&#x8282;&#x70B9;&#xFF0C;worker&#x8D1F;&#x8D23;&#x5B9E;&#x9645;&#x7684;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#xFF0C;worker&#x4F1A;&#x8C03;&#x7528;connector&#x53BB;&#x62C9;&#x53D6;&#x4E0D;&#x540C;&#x6570;&#x636E;&#x6E90;&#x7684;&#x6570;&#x636E;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x4E0D;&#x6B62;worker&#x4F1A;&#x8C03;&#x7528;connector&#xFF0C;coordinator&#x4E5F;&#x4F1A;&#x8C03;&#x7528;connector&#x5BF9;sql&#x8FDB;&#x884C;&#x4F18;&#x5316;&#xFF0C;&#x6BD4;&#x5982;&#x57FA;&#x4E8E;&#x89C4;&#x5219;&#x7684;&#x7B97;&#x5B50;&#x4E0B;&#x63A8;&#xFF0C;&#x6240;&#x4EE5;connector&#x4E5F;&#x88AB;&#x79F0;&#x4E3A;&#x63D2;&#x4EF6;&#x3002;</p>
+<img src="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/aHR0cHM6Ly91Y2MuYWxpY2RuLmNvbS9waWMvZGV2ZWxvcGVyLWVjb2xvZ3kvOTBiMGM5ZjAwNWY3NDJlY2IzNmFhODdhNGE0ODM0NTAucG5n.png" alt="aHR0cHM6Ly91Y2MuYWxpY2RuLmNvbS9waWMvZGV2ZWxvcGVyLWVjb2xvZ3kvOTBiMGM5ZjAwNWY3NDJlY2IzNmFhODdhNGE0ODM0NTAucG5n" style="zoom:67%;">
+
+<h3 id="SPI&#x673A;&#x5236;"><a href="#SPI&#x673A;&#x5236;" class="headerlink" title="SPI&#x673A;&#x5236;"></a>SPI&#x673A;&#x5236;</h3><p>SPI&#x662F;JDK&#x5185;&#x7F6E;&#x7684;&#x670D;&#x52A1;&#x63D0;&#x4F9B;/&#x53D1;&#x73B0;&#x673A;&#x5236;&#xFF0C;&#x5B83;&#x901A;&#x8FC7;&#x5728;ClassPath&#x8DEF;&#x5F84;&#x4E0B;&#x7684;<code>META-INF/services/</code>&#x76EE;&#x5F55;&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x81EA;&#x52A8;&#x52A0;&#x8F7D;&#x6587;&#x4EF6;&#x91CC;&#x6240;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x3002;</p>
+<p>SPI&#x7279;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>SPI&#x6587;&#x4EF6;&#x540D;&#x4E3A;&#x5B9E;&#x73B0;Service&#x63A5;&#x53E3;&#x7684;&#x5168;&#x9650;&#x5B9A;&#x540D;</li>
+<li>SPI&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x4E3A;&#x5B9E;&#x73B0;&#x8BE5;&#x63A5;&#x53E3;&#x7684;&#x5177;&#x4F53;&#x6587;&#x4EF6;</li>
+<li>&#x4F7F;&#x7528;ServiceLoader.load(Class class)&#x52A8;&#x6001;&#x52A0;&#x8F7D;Service&#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;</li>
+<li>&#x5982;&#x679C;SPI&#x5B9E;&#x73B0;&#x7684;&#x7C7B;&#x5728;&#x5916;&#x90E8;Jar&#x5305;&#x4E2D;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x5C06;&#x8BE5;jar&#x5305;&#x653E;&#x5728;&#x5F53;&#x524D;&#x7A0B;&#x5E8F;&#x7684;classpath&#x4E0B;</li>
+<li>Service&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x5FC5;&#x987B;&#x6709;&#x65E0;&#x53C2;&#x6784;&#x9020;&#x65B9;&#x6CD5;</li>
+</ul>
+<p>openLookeng&#x4E2D;&#x6709;&#x4E00;&#x4E2A;presto-spi&#x6A21;&#x5757;&#xFF0C;&#x8BE5;&#x6A21;&#x5757;&#x5373;&#x5B9A;&#x4E49;&#x4E86;openLooKeng&#x5BF9;&#x5916;&#x66B4;&#x9732;&#x7684;SPI&#x63A5;&#x53E3;&#xFF0C;&#x5B9E;&#x73B0;&#x5BF9;&#x5E94;&#x7684;&#x63A5;&#x53E3;&#x5373;&#x53EF;&#x5B9E;&#x73B0;&#x8FDE;&#x63A5;&#x5668;&#x3001;&#x7C7B;&#x578B;&#x3001;&#x51FD;&#x6570;&#x3001;&#x7CFB;&#x7EDF;&#x8BBF;&#x95EE;&#x63A7;&#x5236;&#x7B49;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<p>&#x7279;&#x522B;&#x7684;&#xFF0C;openLooKeng&#x7684;&#x63D2;&#x4EF6;&#x5373;&#x5B9E;&#x73B0;&#x4E86;Plugin SPI&#x7684;&#x6A21;&#x5757;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io.prestosql.spi.Plugin</span><br></pre></td></tr></table></figure>
+
+<p>&#x901A;&#x8FC7;&#x5728;META-INF/services/io.prestosql.spi.Plugin&#x6587;&#x4EF6;&#x4E2D;&#x5217;&#x51FA;&#x5B9E;&#x73B0;io.prestosql.spi.Plugin&#x63A5;&#x53E3;&#x7684;&#x5177;&#x4F53;&#x7C7B;&#xFF0C;&#x5373;&#x53EF;&#x4F7F;&#x8BE5;&#x5B9E;&#x73B0;&#x901A;&#x8FC7;java&#x5185;&#x7F6E;&#x7684;ServiceLoader&#x63D0;&#x4F9B;&#x7ED9;openLooKeng&#x3002;&#x5BF9;&#x4E8E;&#x5305;&#x542B;&#x5728;openLooKeng&#x6E90;&#x7801;&#x4E2D;&#x7684;&#x63D2;&#x4EF6;&#xFF0C;&#x53EA;&#x8981;&#x5728;pom.xml&#x4E2D;&#x5305;&#x542B;&lt;packaging&gt;presto-plugin&lt;/packaging&gt;&#x5C31;&#x4F1A;&#x81EA;&#x52A8;&#x521B;&#x5EFA;spi&#x6587;&#x4EF6;&#x3002;</p>
+<h2 id="Connector&#x57FA;&#x672C;&#x77E5;&#x8BC6;"><a href="#Connector&#x57FA;&#x672C;&#x77E5;&#x8BC6;" class="headerlink" title="Connector&#x57FA;&#x672C;&#x77E5;&#x8BC6;"></a>Connector&#x57FA;&#x672C;&#x77E5;&#x8BC6;</h2><p>openLooKeng&#x901A;&#x8FC7;connector&#x6765;&#x5BF9;&#x63A5;&#x6570;&#x636E;&#x6E90;&#xFF0C;&#x4E3A;&#x6B64;connector&#x9700;&#x8981;&#x5B9E;&#x73B0;SPI&#x63A5;&#x53E3;&#x7684;API&#xFF0C;&#x5B9E;&#x73B0;&#x5BF9;&#x6570;&#x636E;&#x6E90;&#x5143;&#x6570;&#x636E;&#x4FE1;&#x606F;&#x7684;&#x83B7;&#x53D6;&#xFF0C;&#x5728;openLooKeng&#x4E2D;&#x6570;&#x636E;&#x6E90;&#x76F8;&#x5173;&#x7684;&#x5143;&#x6570;&#x636E;&#x4FE1;&#x606F;&#x6709;catalog&#x3001;schema&#x3001;table&#x3001;column&#x7B49;&#x3002;Connector&#x8FD8;&#x9700;&#x8981;&#x5B8C;&#x6210;&#x5BF9;&#x6570;&#x636E;&#x6E90;&#x7684;&#x8BFB;&#x5199;&#x3002;&#x6570;&#x636E;&#x8BFB;&#xFF0C;&#x5728;Connector&#x5C42;&#x901A;&#x8FC7;&#x53D6;&#x56DE;&#x6570;&#x636E;&#x8868;&#x683C;&#x7684;&#x5F62;&#x5F0F; &#xFF08;&#x7C7B;&#x4F3C;&#x4E8E;JDBC&#x7684;ResultSet&#xFF09;&#x3002;&#x6570;&#x636E;&#x5199;&#xFF0C;&#x5728;Connector&#x5C42;&#x6267;&#x884C;&#x5177;&#x4F53;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x4F8B;&#x5982;&#x4E0B;&#x53D1; DML SQL&#x8BED;&#x53E5;&#xFF0C;&#x66F4;&#x6539;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x7B49;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x5177;&#x4F53;&#x6765;&#x8BB2;&#xFF0C;<code>Connector</code>&#x5B9E;&#x4F8B;&#x7531;<code>connectorFactory</code>&#x5B9E;&#x4F8B;&#x521B;&#x5EFA;&#xFF0C;openLooKeng&#x8C03;&#x7528;&#x63D2;&#x4EF6;&#x4E0A;&#x7684;<code>getConnectorFactory()</code>&#x65F6;&#x4F1A;&#x521B;&#x5EFA;&#x8BE5;<code>ConnectorFactory</code>&#x5B9E;&#x4F8B;&#x3002;&#x901A;&#x8FC7;<code>Connector</code>&#x83B7;&#x53D6;Metadata&#x3001;SplitManager&#x3001; RecordSetProvider&#x7684;&#x63A5;&#x53E3;&#x7C7B;&#x3002;</p>
+<ul>
+<li><p>ConnectorMetadata &#x5143;&#x6570;&#x636E;&#x63A5;&#x53E3;&#xFF0C;&#x5141;&#x8BB8;openLooKeng&#x67E5;&#x770B;&#x6A21;&#x5F0F;&#x5217;&#x8868;&#x3001;&#x8868;&#x5217;&#x8868;&#x3001;&#x5217;&#x5217;&#x8868;&#x7B49;&#x5143;&#x6570;&#x636E;&#x4FE1;&#x606F;&#x3002;&#x5982;&#x679C;&#x8981;&#x63A5;&#x5165;&#x7684;&#x6570;&#x636E;&#x6E90;&#x662F;&#x975E;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x5C06;&#x6570;&#x636E;&#x6E90;&#x6620;&#x5C04;&#x5230;openLooKeng&#x7684; &#x6A21;&#x5F0F;&#x3001;&#x8868;&#x3001;&#x5217;&#x6982;&#x5FF5;&#x3002;</p>
+</li>
+<li><p>ConnectorSplitManager&#x5206;&#x7247;&#x7BA1;&#x7406;&#x5668;&#xFF0C;&#x5C06;&#x8868;&#x7684;&#x6570;&#x636E;&#x5206;&#x533A;&#x4E3A;&#x591A;&#x5757;&#xFF0C;&#x5C06;&#x5757;&#x7531;openLooKeng&#x5206;&#x53D1;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x5DE5;&#x4F5C;&#x8282;&#x70B9;&#x5904;&#x7406;&#x3002;&#x5BF9;&#x4E8E;&#x6CA1;&#x6709;&#x5DF2;&#x5206;&#x533A;&#x6570;&#x636E;&#x7684;&#x6570;&#x636E;&#x6E90;&#xFF0C;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x7B56;&#x7565;&#x662F;&#x9488;&#x5BF9;&#x6574;&#x5F20;&#x8868;&#x8FD4;&#x56DE;&#x5355;&#x4E2A;&#x5206;&#x7247;&#x3002;</p>
+<p>openLooKeng&#x5206;&#x5E03;&#x5F0F;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x662F;&#x5C06;&#x4EFB;&#x52A1;&#x5212;&#x5206;&#x4E3A;Stage&#x5728;&#x4E0D;&#x540C;&#x7684;worker&#x4E0A;&#x6267;&#x884C;&#xFF0C;&#x6570;&#x636E;&#x6E90;&#x4E2D;&#x5B9A;&#x4E49;&#x7684;Split&#x5373;&#x4E3A;Source Stage&#x4E2D;&#x8C03;&#x5EA6;&#x7684;Split&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4E00;&#x4E2A;Split&#x5206;&#x7247;&#x6DB5;&#x76D6;&#x7684;&#x6570;&#x636E;&#x91CF;&#x8FC7;&#x5927;&#xFF0C;&#x6570;&#x636E;&#x4E0D;&#x5747;&#x5300;&#xFF0C;&#x5219;&#x4F1A;&#x62D6;&#x6162;&#x6574;&#x4E2A;SQL&#xFF1B;&#x82E5;&#x8FC7;&#x5C0F;&#xFF0C;&#x5219;&#x4F1A;&#x9020;&#x6210;&#x5927;&#x91CF;&#x7684;CPU&#x8D44;&#x6E90;&#x90FD;&#x8017;&#x8D39;&#x5728;&#x8C03;&#x5EA6;Split&#x7684;&#x64CD;&#x4F5C;&#x4E0A;&#x3002;</p>
+</li>
+<li><p>ConnectorHandleResolver</p>
+</li>
+<li><p>ConnectorRecordSetProvider &#x8BB0;&#x5F55;&#x96C6;&#x63D0;&#x4F9B;&#x5668;&#xFF0C;&#x7ED9;&#x5B9A;&#x4E00;&#x4E2A;&#x5206;&#x7247;&#x548C;&#x4E00;&#x4E2A;&#x5217;&#x8868;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x8BB0;&#x5F55;&#x96C6;&#x63D0;&#x4F9B;&#x5668;&#x5C06;&#x6570;&#x636E;&#x63D0;&#x4F9B;&#x7ED9;OpenLooKeng&#x6267;&#x884C;&#x5F15;&#x64CE;&#x3002;&#x8BB0;&#x5F55;&#x96C6;&#x63D0;&#x4F9B;&#x5668;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;RecordSet&#xFF0C;RecordSet&#x53C8;&#x76F8;&#x5E94;&#x7684;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;RecordCursor&#xFF0C;OpenLooKeng&#x4F7F;&#x7528;&#x8BE5;RecordCursor&#x6765;&#x8BFB;&#x53D6;&#x6BCF;&#x4E00;&#x884C;&#x7684;&#x503C;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;Split&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;RecordCursor&#x5B9E;&#x4F8B;&#x3002;</p>
+</li>
+</ul>
+<img src="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/&#x56FE;&#x7247; 1-7701094.png" alt="&#x56FE;&#x7247; 1" style="zoom:48%;">
+
+<p>&#x901A;&#x8FC7;<code>Connector</code>&#x8BFB;&#x6570;&#x636E;&#x6D41;&#x7A0B;&#xFF1A;</p>
+<ul>
+<li>&#x53D6;&#x5143;&#x6570;&#x636E;</li>
+<li>&#x83B7;&#x53D6;Split&#x4FE1;&#x606F;</li>
+<li>&#x4E3A;&#x6BCF;&#x4E00;&#x4E2A;Split&#x6784;&#x5EFA;RecordCursor</li>
+<li>&#x901A;&#x8FC7;RecordCursor&#x53D6;&#x6570;&#x636E;</li>
+</ul>
+<img src="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731111319951.png" alt="image-20210731111319951" style="zoom:50%;">
+
+<p>&#x901A;&#x8FC7;<code>Connector</code>&#x5199;&#x6570;&#x636E;&#xFF1A;</p>
+<ul>
+<li>&#x4FEE;&#x6539;&#x5143;&#x6570;&#x636E;&#x3001;&#x6570;&#x636E;&#x4FE1;&#x606F;</li>
+</ul>
+<p>&#x6574;&#x4F53;&#x6267;&#x884C;&#x903B;&#x8F91;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;</p>
+<img src="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/20201117192257192.png" alt="20201117192257192" style="zoom:67%;">
+
+<h3 id="&#x57FA;&#x4E8E;JDBC&#x5B9E;&#x73B0;"><a href="#&#x57FA;&#x4E8E;JDBC&#x5B9E;&#x73B0;" class="headerlink" title="&#x57FA;&#x4E8E;JDBC&#x5B9E;&#x73B0;"></a>&#x57FA;&#x4E8E;JDBC&#x5B9E;&#x73B0;</h3><p>openLooKeng connector&#x4E3B;&#x8981;&#x6709;&#x4E24;&#x79CD;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#xFF0C;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;server&#x5F15;&#x64CE;&#x6216;&#x8005;&#x57FA;&#x4E8E;JDBC&#x5B9E;&#x73B0;&#x3002;</p>
+<img src="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731112921420.png" alt="image-20210731112921420" style="zoom:45%;">
+
+<p>Hive&#x548C;HBase&#x662F;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E86;server&#x5F15;&#x64CE;&#xFF0C;&#x800C;&#x5BF9;&#x4E8E;&#x5927;&#x90E8;&#x5206;&#x652F;&#x6301;JDBC&#x89C4;&#x8303;&#x7684;&#x6570;&#x636E;&#x6E90;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;Base-JDBC&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#x3002;Base-JDBC&#x5DF2;&#x7ECF;&#x5B9E;&#x73B0;&#x4E86;MetaData&#xFF0C;Split&#xFF0C;RecordCursor&#x7B49;&#x5173;&#x952E;&#x63A5;&#x53E3;&#xFF0C;&#x5B9E;&#x73B0;ClickHouse&#x53EF;&#x4EE5;&#x7EE7;&#x627F;Base-JDBC&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x3002;</p>
+<p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x57FA;&#x4E8E;JDBC&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4E00;&#x5B9A;&#x4F1A;&#x5B58;&#x5728;&#x6027;&#x80FD;&#x635F;&#x8017;&#xFF0C;&#x56E0;&#x4E3A;&#x662F;&#x901A;&#x8FC7;JDBC&#x53BB;&#x8FDB;&#x884C;&#x67E5;&#x8BE2;&#xFF0C;&#x65E0;&#x6CD5;&#x50CF;Hive Connector&#x90A3;&#x6837;&#x8FDB;&#x884C;&#x67E5;&#x8BE2;&#x4F18;&#x5316;&#x3002;&#x4E0D;&#x540C;&#x7684;&#x6570;&#x636E;&#x6E90;&#x5BF9;&#x4E8E;JDBC&#x7684;&#x652F;&#x6301;&#x548C;&#x5B9E;&#x73B0;&#x7EC6;&#x8282;&#x6709;&#x6240;&#x5DEE;&#x522B;&#xFF0C;&#x9700;&#x8981;&#x6839;&#x636E;&#x6570;&#x636E;&#x6E90;&#x8FDB;&#x884C;&#x9002;&#x914D;&#x5F00;&#x53D1;&#x3002;</p>
+<p>&#x9002;&#x914D;&#x5F00;&#x53D1;&#x6700;&#x5173;&#x952E;&#x7684;&#x7C7B;&#x662F;JdbcClient&#x7C7B;&#xFF0C;&#x7528;&#x4E8E;&#x548C;&#x6570;&#x636E;&#x6E90;&#x8FDB;&#x884C;&#x4EA4;&#x4E92;&#xFF0C;Client&#x5305;&#x542B;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x7684;DDL&#x64CD;&#x4F5C;&#x65B9;&#x6CD5;&#x548C;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x3002;</p>
+<ul>
+<li><p>io.prestosql.plugin.jdbc.JdbcClient</p>
+<p>&#x63D0;&#x4F9B;&#x5143;&#x6570;&#x636E;&#x7684;&#x589E;&#x5220;&#x6539;&#x67E5;&#x7B49;</p>
+<p>&#x63D0;&#x4F9B;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x63A5;&#x53E3;</p>
+</li>
+<li><p>&#x5143;&#x6570;&#x636E;&#x7684;&#x589E;&#x5220;&#x6539;&#x67E5;</p>
+<p>getSchemaNames&#x3001;listSchemas&#x3001;getTableNames&#x3001;getTables&#x3001;getColumns&#x7B49;</p>
+</li>
+<li><p>&#x6570;&#x636E;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x63A5;&#x53E3;</p>
+<p>&#x5143;&#x6570;&#x636E;&#x53D6;&#x56DE;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x6E90;&#x7C7B;&#x578B;&#x8F6C;&#x5316;&#x4E3A;openLooKeng&#x6570;&#x636E;&#x7C7B;&#x578B;-&#x5DF2;&#x7ECF;&#x6709;&#x6807;&#x51C6;&#x5B9E;&#x73B0;&#xFF1A;toPrestoType</p>
+<p>&#x6570;&#x636E;&#x5199;&#x5165;&#xFF0C;&#x6570;&#x636E;&#x9700;&#x8981;&#x4ECE;openLookeng&#x5185;&#x6838;&#x7C7B;&#x578B;&#x8F6C;&#x4E3A;&#x6570;&#x636E;&#x6E90;&#x6570;&#x636E;&#x7C7B;&#x578B;openLooKeng&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF1A;toWriteMapping</p>
+</li>
+</ul>
+<p>&#x26A0;&#xFE0F;&#x6CE8;&#x610F;&#xFF0C;&#x7531;&#x4E8E;openLooKeng&#x5185;&#x6838;&#x7C7B;&#x578B;&#x548C;&#x6570;&#x636E;&#x6E90;&#x4E0D;&#x4E00;&#x5B9A;&#x4E00;&#x81F4;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x5728;Client&#x5BF9;&#x8FDB;&#x884C;&#x6620;&#x5C04;&#x548C;&#x5904;&#x7406;&#xFF0C;&#x8FD9;&#x91CC;&#x5BF9;&#x4E8E;&#x6570;&#x636E;&#x6E90;&#x7684;&#x652F;&#x6301;&#x662F;&#x53D6;openLooKeng&#x548C;&#x6570;&#x636E;&#x6E90;&#x90FD;&#x652F;&#x6301;&#x7C7B;&#x578B;&#x7684;&#x4EA4;&#x96C6;&#xFF0C;&#x6240;&#x4EE5;&#x4F1A;&#x5B58;&#x5728;&#x6CDB;&#x7528;&#x6027;&#x964D;&#x4F4E;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x53EA;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x57FA;&#x672C;&#x7684;&#x67E5;&#x8BE2;&#xFF0C;&#x90A3;&#x4E48;&#x91CD;&#x5199;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x7C7B;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">io.prestosql.plugin.jdbc.JdbcPlugin</span><br><span class="line">io.prestosql.plugin.jdbc.JdbcClient</span><br><span class="line">io.prestosql.plugin.jdbc.JdbcModule</span><br><span class="line">io.prestosql.plugin.jdbc.BaseJdbcConfig</span><br></pre></td></tr></table></figure>
+
+<h2 id="&#x7B97;&#x5B50;&#x4E0B;&#x63A8;"><a href="#&#x7B97;&#x5B50;&#x4E0B;&#x63A8;" class="headerlink" title="&#x7B97;&#x5B50;&#x4E0B;&#x63A8;"></a>&#x7B97;&#x5B50;&#x4E0B;&#x63A8;</h2><p>&#x5BF9;&#x4E8E;&#x4E0D;&#x5C11;&#x6570;&#x636E;&#x6E90;&#xFF0C;&#x6BD4;&#x5982;ClickHouse&#xFF0C;&#x672C;&#x8EAB;&#x5C31;&#x5177;&#x5907;&#x9AD8;&#x6027;&#x80FD;&#x7684;&#x67E5;&#x8BE2;&#x80FD;&#x529B;&#xFF0C;&#x5E76;&#x4E14;&#x6570;&#x636E;&#x6E90;&#x4E00;&#x822C;&#x4F1A;&#x5BF9;&#x81EA;&#x8EAB;&#x7684;&#x6570;&#x636E;&#x548C;&#x51FD;&#x6570;&#x8FDB;&#x884C;&#x4F18;&#x5316;&#xFF0C;openLooKeng&#x53EF;&#x4EE5;&#x501F;&#x52A9;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x6E90;&#x7684;&#x80FD;&#x529B;&#x51CF;&#x5C11;&#x81EA;&#x5DF1;&#x7684;&#x8BA1;&#x7B97;&#x90E8;&#x5206;&#x3002;&#x4E0B;&#x63A8;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5C06;&#x7B97;&#x5B50;&#x5C3D;&#x53EF;&#x80FD;&#x63A5;&#x8FD1;&#x6570;&#x636E;&#x6E90;&#xFF0C;&#x7B97;&#x5B50;&#x4E0B;&#x63A8;&#x540E;&#xFF0C;&#x8BA1;&#x7B97;&#x548C;&#x6570;&#x636E;&#x66F4;&#x8D34;&#x8FD1;&#xFF0C;&#x6574;&#x4F53;&#x6027;&#x80FD;&#x66F4;&#x9AD8;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4E0D;&#x8FDB;&#x884C;&#x4E0B;&#x63A8;&#xFF0C;openLooKeng&#x4F1A;&#x62C9;&#x53BB;&#x5168;&#x8868;&#x6570;&#x636E;&#xFF0C;&#x518D;&#x7531;openLooKeng kernal&#x6765;&#x8FDB;&#x884C;filter&#xFF0C;&#x8FD9;&#x6837;&#x4F1A;&#x4F20;&#x8F93;&#x7684;&#x5F88;&#x591A;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x989D;&#x5916;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;openLooKeng&#x6267;&#x884C;&#x4E00;&#x8DF3;SQL&#x7684;&#x6574;&#x4F53;&#x6D41;&#x7A0B;&#xFF1A;</p>
+<img src="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731115608287.png" alt="image-20210731115608287" style="zoom:67%;">
+
+<p>openLooKeng&#x4F1A;&#x5728;optimizer&#x7684;&#x65F6;&#x5019;&#x5224;&#x65AD;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x7B97;&#x5B50;&#x4E0B;&#x63A8;&#xFF0C;&#x5C06;openLooKeng&#x8BED;&#x6CD5;&#x7B49;&#x4EF7;&#x66FF;&#x6362;&#x4E3A;&#x6570;&#x636E;&#x6E90;&#x8BED;&#x6CD5;&#x4E0B;&#x63A8;&#x7ED9;&#x6570;&#x636E;&#x6E90;&#x6267;&#x884C;&#xFF0C;&#x63D0;&#x9AD8;&#x6570;&#x636E;&#x5904;&#x7406;&#x6548;&#x7387;&#x3002;</p>
+<img src="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731120118287.png" alt="image-20210731120118287" style="zoom:30%;">
+
+<p>&#x7B97;&#x5B50;&#x9700;&#x8981;&#x5B9E;&#x73B0;SqlQueryPushDown&#x76F8;&#x5173;&#x63A5;&#x53E3;&#xFF1A;</p>
+<img src="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731120407360.png" alt="image-20210731120407360" style="zoom:25%;">
+
+<h2 id="&#x5916;&#x90E8;&#x6570;&#x636E;&#x6E90;&#x7684;&#x51FD;&#x6570;&#x5E94;&#x7528;"><a href="#&#x5916;&#x90E8;&#x6570;&#x636E;&#x6E90;&#x7684;&#x51FD;&#x6570;&#x5E94;&#x7528;" class="headerlink" title="&#x5916;&#x90E8;&#x6570;&#x636E;&#x6E90;&#x7684;&#x51FD;&#x6570;&#x5E94;&#x7528;"></a>&#x5916;&#x90E8;&#x6570;&#x636E;&#x6E90;&#x7684;&#x51FD;&#x6570;&#x5E94;&#x7528;</h2><p>&#x7B97;&#x5B50;&#x4E0B;&#x63A8;&#x5927;&#x5927;&#x63D0;&#x9AD8;&#x4E86;&#x67E5;&#x8BE2;&#x6267;&#x884C;&#x7684;&#x6548;&#x7387;&#xFF0C;&#x4F46;&#x662F;&#x4ECD;&#x7136;&#x5B58;&#x5728;&#x4E00;&#x5B9A;&#x7684;&#x9650;&#x5236;&#x3002;&#x5355;&#x7EAF;&#x7684;&#x7B97;&#x5B50;&#x4E0B;&#x63A8;&#x53EA;&#x80FD;&#x5C06;openLooKeng&#x652F;&#x6301;&#x7684;&#x51FD;&#x6570;&#x6620;&#x5C04;&#x4E3A;&#x6570;&#x636E;&#x6E90;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x540C;&#x6570;&#x636E;&#x6E90;&#x7684;&#x51FD;&#x6570;&#x5B9E;&#x5728;&#x592A;&#x591A;&#x4E86;&#xFF0C;&#x5E76;&#x4E14;&#x5404;&#x4E2A;&#x6570;&#x636E;&#x5E93;function&#x7684;&#x5F00;&#x53D1;&#x6846;&#x67B6;&#xFF0C;&#x5F00;&#x53D1;&#x8BED;&#x8A00;&#x4E0D;&#x540C;&#xFF0C;&#x5F88;&#x96BE;&#x5728;&#x4E0D;&#x540C;&#x6570;&#x636E;&#x5E93;&#x95F4; &#x5171;&#x4EAB;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x603B;&#x6709;&#x4E00;&#x4E9B;&#x573A;&#x666F;&#x53EF;&#x80FD;&#x4F1A;&#x7528;&#x5230;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x6E90;&#x72EC;&#x6709;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x800C;openLooKeng&#x672C;&#x8EAB;&#x662F;&#x65E0;&#x6CD5;&#x8BC6;&#x522B;&#x7684;&#xFF0C;&#x4F1A;&#x5728;&#x5206;&#x6790;&#x5668;&#x62A5;&#x8BED;&#x6CD5;&#x9519;&#x8BEF;&#x3002;</p>
+<p>openLooKeng&#x5728;1.3&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C;&#x4E8E;&#x767D;&#x540D;&#x5355;&#x7684;&#x673A;&#x5236;&#xFF0C;&#x5BF9;&#x6570;&#x636E;&#x6E90;&#x7684;&#x5916;&#x90E8;&#x51FD;&#x6570;&#x8FDB;&#x884C;&#x6CE8;&#x518C;&#xFF0C;&#x7531;&#x4E8E;&#x4E0D;&#x540C;&#x6570;&#x636E;&#x6E90;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x91CD;&#x540D;&#x51FD;&#x6570;&#xFF0C;&#x9700;&#x8981;&#x5BF9;&#x51FD;&#x6570;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x8FDB;&#x884C;&#x7BA1;&#x7406;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x51FD;&#x6570;&#x7684;&#x7BA1;&#x7406;&#x548C;Table&#x4E00;&#x6837;&#x4E5F;&#x662F;&#x4E09;&#x7EA7;&#x7ED3;&#x6784;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;ckdb.function.toDateTime</p>
+<p> &#x7B2C;&#x4E8C;&#x7EA7;&#x76EE;&#x5F55;&#x7684;&#x53EF;&#x4EE5;&#x8BA9;openLooKeng&#x5BF9;&#x4E8E;&#x540C;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x6E90;&#x7684;&#x51FD;&#x6570;&#x4E5F;&#x8FDB;&#x884C;&#x533A;&#x5206;&#x7BA1;&#x7406;&#xFF0C;&#x867D;&#x7136;&#x6211;&#x76EE;&#x524D;&#x8FD8;&#x6CA1;&#x6709;&#x53D1;&#x73B0;&#x8FD9;&#x4E2A;&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF08;&#x51FD;&#x6570;&#x66F4;&#x957F;&#x4E86;orz&#xFF09;&#x3002;</p>
+<p>&#x5916;&#x90E8;&#x51FD;&#x6570;&#x7684;&#x6CE8;&#x518C;&#x4E0B;&#x63A8;&#x4E3B;&#x8981;&#x8BBE;&#x8BA1;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x7C7B;&#x548C;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">io.prestosql.sql.builder.functioncall.JdbcExternalFunctionHub</span><br><span class="line">io.prestosql.spi.function.ExternalFunctionInfo</span><br><span class="line">io.prestosql.spi.connector.Connector#getExternalFunctionHub</span><br><span class="line">io.prestosql.plugin.jdbc.JdbcClient#getExternalFunctionHub</span><br></pre></td></tr></table></figure>
+
+<p>&#x6CE8;&#x610F;&#xFF0C; &#x6570;&#x636E;&#x6E90;&#x7684;&#x51FD;&#x6570;&#x4E00;&#x822C;&#x91CD;&#x8F7D;&#x4E86;&#x4E0D;&#x540C;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x800C;openLookeng&#x8981;&#x6C42;&#x6CE8;&#x518C;&#x7684;&#x5916;&#x90E8;&#x51FD;&#x6570;&#x6709;&#x4E25;&#x683C;&#x7684;&#x5165;&#x53C2;&#x548C;&#x51FA;&#x53C2;&#x7C7B;&#x578B;&#xFF0C;&#x6240;&#x4EE5;&#x5355;&#x4E2A;&#x5916;&#x90E8;&#x51FD;&#x6570;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x6CE8;&#x518C;&#x591A;&#x4E2A;&#x51FD;&#x6570;&#x3002;</p>
+<p>&#x6700;&#x540E;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x5BF9;&#x6570;&#x636E;&#x6E90;&#x7684;&#x57FA;&#x672C;&#x67E5;&#x8BE2;&#xFF0C;&#x7B97;&#x5B50;&#x4E0B;&#x63A8;&#xFF0C;&#x5916;&#x90E8;&#x51FD;&#x6570;&#x6CE8;&#x518C;&#xFF0C;ClickHouse connector&#x7684;&#x4EE3;&#x7801;&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF1A;</p>
+<img src="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/image-20210731115241068.png" alt="image-20210731115241068" style="zoom:42;">
+
+<h2 id="ClickHouse-connector&#x6CE8;&#x610F;&#x4E8B;&#x9879;"><a href="#ClickHouse-connector&#x6CE8;&#x610F;&#x4E8B;&#x9879;" class="headerlink" title="ClickHouse connector&#x6CE8;&#x610F;&#x4E8B;&#x9879;"></a>ClickHouse connector&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h2><h3 id="&#x68C0;&#x67E5;&#x7B97;&#x5B50;&#x662F;&#x5426;&#x4E0B;&#x63A8;&#x6210;&#x529F;"><a href="#&#x68C0;&#x67E5;&#x7B97;&#x5B50;&#x662F;&#x5426;&#x4E0B;&#x63A8;&#x6210;&#x529F;" class="headerlink" title="&#x68C0;&#x67E5;&#x7B97;&#x5B50;&#x662F;&#x5426;&#x4E0B;&#x63A8;&#x6210;&#x529F;"></a>&#x68C0;&#x67E5;&#x7B97;&#x5B50;&#x662F;&#x5426;&#x4E0B;&#x63A8;&#x6210;&#x529F;</h3><ol>
+<li>explain</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Output</span><br><span class="line">&#x2514;&#x2500;Project[T1.C1, T2.C2]</span><br><span class="line"> &#x2514;&#x2500;Join[T1.C4 = T2.C6]</span><br><span class="line">   &#x251C;&#x2500;Filter[T1.C3=&apos;shenzhen&apos;]</span><br><span class="line">   &#x2502; &#x2514;&#x2500;TableScan[T1.C1,T1.C4,T1.C3]</span><br><span class="line">   &#x2514;&#x2500;Filter[T2.C5=10010]</span><br><span class="line">     &#x2514;&#x2500;TableScan[T2.C2,T2.C5]</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>&#x67E5;&#x8BE2;query log</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	event_time,</span><br><span class="line">	query_duration_ms,</span><br><span class="line">	read_rows,</span><br><span class="line">	query</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	system.query_log</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">	event_date <span class="operator">=</span> <span class="string">&apos;2021-02-02&apos;</span></span><br><span class="line">	<span class="keyword">and</span> type <span class="operator">=</span> <span class="string">&apos;QueryFinish&apos;</span></span><br><span class="line">	<span class="keyword">and</span> query <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&apos;select timezone%&apos;</span></span><br><span class="line">	<span class="keyword">and</span> query <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&apos;select version%&apos;</span></span><br><span class="line">	<span class="keyword">and</span> query <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&apos;SELECT</span></span><br><span class="line"><span class="string">	event_time,</span></span><br><span class="line"><span class="string">	query_duration_ms,</span></span><br><span class="line"><span class="string">	read_rows,</span></span><br><span class="line"><span class="string">	query%&apos;</span></span><br><span class="line">	<span class="keyword">and</span> query <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&apos;select database%&apos;</span></span><br><span class="line">	<span class="keyword">and</span> query <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&apos;SELECT database%&apos;</span></span><br><span class="line">	<span class="keyword">and</span> query <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&apos;select name as TABLE_SCHEM%&apos;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x8BED;&#x6CD5;&#x4E0D;&#x540C;"><a href="#&#x8BED;&#x6CD5;&#x4E0D;&#x540C;" class="headerlink" title="&#x8BED;&#x6CD5;&#x4E0D;&#x540C;"></a>&#x8BED;&#x6CD5;&#x4E0D;&#x540C;</h3><p>ClickHouse&#x5141;&#x8BB8;&#x5728;where&#x4E2D;&#x4F7F;&#x7528;select&#x7684;&#x522B;&#x540D;&#xFF0C;&#x8FD9;&#x548C;&#x6807;&#x51C6;SQL&#x7684;&#x67E5;&#x8BE2;&#x6D41;&#x7A0B;&#x4E0D;&#x540C;&#xFF0C;&#x800C;openLooKeng&#x662F;&#x6807;&#x51C6;&#x7684;ANSI SQL03&#x8BED;&#x6CD5;&#xFF0C;&#x5982;&#x679C;&#x5E0C;&#x671B;&#x901A;&#x8FC7;openLooKeng&#x67E5;&#x8BE2;ClickHouse&#x6570;&#x636E;&#x6E90;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x8BED;&#x6CD5;&#x95EE;&#x9898;&#x3002;</p>
+<h3 id="catalog&#x95EE;&#x9898;"><a href="#catalog&#x95EE;&#x9898;" class="headerlink" title="catalog&#x95EE;&#x9898;"></a>catalog&#x95EE;&#x9898;</h3><blockquote>
+<p>&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x771F;&#x7684;&#x641E;&#x4E86;&#x6211;&#x597D;&#x4E45;&#xFF5E;</p>
+</blockquote>
+<p>openLooKeng&#x5BF9;&#x4E8E;&#x8868;&#x7684;&#x5B9A;&#x4E49;&#x662F; <code>Catalog.Schema.Table</code> &#x4E09;&#x5C42;&#x7ED3;&#x6784;&#xFF0C;&#x4F46;&#x662F;&#x5BF9;&#x4E8E;ClickHouse&#x800C;&#x8A00;&#xFF0C;Catalog&#x548C;Schema&#x662F;&#x7B49;&#x540C;&#x6982;&#x5FF5;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x5C06;Catalog&#x7F6E;&#x4E3A;null&#x3002;</p>
+<h3 id="ClickHouse-connector&#x76EE;&#x524D;&#x7684;&#x9650;&#x5236;"><a href="#ClickHouse-connector&#x76EE;&#x524D;&#x7684;&#x9650;&#x5236;" class="headerlink" title="ClickHouse connector&#x76EE;&#x524D;&#x7684;&#x9650;&#x5236;"></a>ClickHouse connector&#x76EE;&#x524D;&#x7684;&#x9650;&#x5236;</h3><ul>
+<li>&#x7C7B;&#x578B;&#x652F;&#x6301;&#x6682;&#x4E0D;&#x5168;&#x9762;<ul>
+<li>&#x652F;&#x6301;&#x5E38;&#x89C1;&#x7C7B;&#x578B;</li>
+<li>&#x4E0D;&#x652F;&#x6301;Int128,Int256,UInt256,IPV4&#x2026;</li>
+</ul>
+</li>
+<li>&#x5173;&#x4E8E;array&#x7684;&#x5E38;&#x7528;&#x51FD;&#x6570;&#x6682;&#x65F6;&#x4E0D;&#x652F;&#x6301;&#xFF0C;&#x56E0;&#x4E3A;array&#x5C31;&#x4E0D;&#x652F;&#x6301;</li>
+<li>&#x4E0D;&#x652F;&#x6301;create&#xFF0C;delete&#x548C;alter&#x64CD;&#x4F5C;</li>
+<li>&#x5355;&#x8868;&#x67E5;&#x8BE2;&#x6027;&#x80FD;&#x5177;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x635F;&#x8017;</li>
+</ul>
+<blockquote>
+<p>&#x672C;&#x6587;&#x53C2;&#x8003;&#x548C;&#x5F15;&#x7528;&#x4E86;&#x4E0B;&#x9762;&#x7684;&#x8D44;&#x6599;&#xFF1A;</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1it4y1e7cc">&#x5728;openLookeng&#x4E2D;&#x6784;&#x5EFA;&#x4E00;&#x4E2A;Connector-&#x9ECE;&#x4E00;&#x6CFD;</a> &#x8C22;&#x8C22;&#x5927;&#x4F6C;&#x5728;&#x6211;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x7ED9;&#x4E88;&#x4E86;&#x5F88;&#x591A;&#x5E2E;&#x52A9;&#xFF5E;</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sjtuyunlei/article/details/108036945">&#x6DF1;&#x5165;&#x7406;&#x89E3;Presto,Presto&#x7684;&#x5185;&#x90E8;&#x67B6;&#x6784;-&#x9A6C;&#x4E91;&#x96F7;</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ufolr/article/details/109749564">OpenLooKeng / Presto Connector&#x539F;&#x7406;-ufolr</a> &#x5F88;&#x597D;&#x7684;&#x4E00;&#x7BC7;&#x6587;&#xFF0C;&#x8C22;&#x8C22;&#x793E;&#x533A;&#x7684;&#x9177;&#x884C;&#x8005;&#x5927;&#x4F6C;&#xFF5E;</p>
+<p>&#x300A;Presto&#x5B9E;&#x6218;&#x300B;[&#x7F8E;] &#x9A6C;&#x7279;&#xB7;&#x5BCC;&#x52D2;&#xFF08;Matt Fuller&#xFF09;[&#x7F8E;] &#x66FC;&#x5F17;&#x96F7;&#x5FB7;&#xB7;&#x83AB;&#x6CFD;&#xFF08;Manfred Moser&#xFF09;[&#x7F8E;] &#x9A6C;&#x4E01;&#xB7;&#x7279;&#x62C9;&#x97E6;&#x5C14;&#x7D22;&#xFF08;Martin Traverso&#xFF09;</p>
+<p><a target="_blank" rel="noopener" href="https://openlookeng.io/zh-cn/docs/docs/overview.html">openLooKeng&#x5F00;&#x53D1;&#x8005;&#x6587;&#x6863;</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Database/" rel="tag"># Database</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/16/%E4%BB%8E%E9%A2%91%E7%B9%81%E9%A1%B9%E6%8C%96%E6%8E%98%E5%88%B0%E5%B9%B6%E8%A1%8C%E5%BA%8F%E5%88%97%E6%8C%96%E6%8E%98/" rel="next" title="从频繁项挖掘到并行序列挖掘">
+                <i class="fa fa-chevron-left"></i> 从频繁项挖掘到并行序列挖掘
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/me2.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heatao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:heatao59@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/public/public/live2dw/public/public/live2dw/public/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"public/public/live2dw/","pluginJsPath":"public/public/live2dw/public/lib/","pluginModelPath":"node_modules/live2d-widget-model-shizuku/assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/public/public/live2dw/node_modules/live2d-widget-model-shizuku/assets/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":315,"hOffset":198,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
