@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Database," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x6D45;&amp;#x8C08;OLAP&amp;#x7684;&amp;#x8D77;&amp;#x6E90;&amp;#xFF0C;&amp;#x573A;&amp;#x666F;&amp;#xFF0C;&amp;#x5173;&amp;#x952E;&amp;#x6280;&amp;#x672F;&amp;#xFF0C;&amp;#x4EE5;&amp;#x53CA;&amp;#x76EE;&amp;#x524D;&amp;#x6D41;&amp;#x884C;&amp;#x7684;OLAP&amp;#x7CFB;&amp;#x7EDF;&amp;#x3002">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈OLAP">
+<meta property="og:url" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="&amp;#x6D45;&amp;#x8C08;OLAP&amp;#x7684;&amp;#x8D77;&amp;#x6E90;&amp;#xFF0C;&amp;#x573A;&amp;#x666F;&amp;#xFF0C;&amp;#x5173;&amp;#x952E;&amp;#x6280;&amp;#x672F;&amp;#xFF0C;&amp;#x4EE5;&amp;#x53CA;&amp;#x76EE;&amp;#x524D;&amp;#x6D41;&amp;#x884C;&amp;#x7684;OLAP&amp;#x7CFB;&amp;#x7EDF;&amp;#x3002">
+<meta property="og:locale">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/hive&#x5206;&#x6876;.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/&#x56FE;&#x7247;%202.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/OLAP&#x5212;&#x5206;.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820165213010.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/oltp&#x5BF9;&#x6BD4;.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/&#x884C;&#x5217;&#x5BF9;&#x6BD4;.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820165720519.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820165725960.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820165856219.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820170357345.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820170517057.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820170813321.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171025754.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171512318.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171600506.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171627891.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171707251.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171734238.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171801810.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171924399.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171953742.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820172024716.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820172307790.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820172347394.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820172434218.png">
+<meta property="og:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820172540063.png">
+<meta property="article:published_time" content="2021-08-20T09:35:26.000Z">
+<meta property="article:modified_time" content="2021-08-20T09:39:59.162Z">
+<meta property="article:author" content="HEATAO">
+<meta property="article:tag" content="Database">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/hive&#x5206;&#x6876;.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/08/20/浅谈OLAP/"/>
+
+
+
+
+
+  <title>浅谈OLAP | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/20/%E6%B5%85%E8%B0%88OLAP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me2.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">浅谈OLAP</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-20T17:35:26+08:00">
+                2021-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x6D45;&#x8C08;OLAP&#x7684;&#x8D77;&#x6E90;&#xFF0C;&#x573A;&#x666F;&#xFF0C;&#x5173;&#x952E;&#x6280;&#x672F;&#xFF0C;&#x4EE5;&#x53CA;&#x76EE;&#x524D;&#x6D41;&#x884C;&#x7684;OLAP&#x7CFB;&#x7EDF;&#x3002;</p>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x53C2;&#x8003;&#xFF1A;</p>
+<p><a href="nhttps://zhuanlan.zhihu.com/p/266402829">&#x5E38;&#x89C1;&#x5F00;&#x6E90;OLAP&#x6280;&#x672F;&#x67B6;&#x6784;&#x5BF9;&#x6BD4; - &#x9AD8;&#x82F1;&#x4E3E;&#x7684;&#x6587;&#x7AE0; - &#x77E5;&#x4E4E;</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1654825">&#x5173;&#x4E8E;OLAP&#x6570;&#x4ED3;&#xFF0C;&#x8FD9;&#x5927;&#x6982;&#x662F;&#x53F2;&#x4E0A;&#x6700;&#x5168;&#x9762;&#x7684;&#x603B;&#x7ED3;&#xFF01;- &#x6E29;&#x6B63;&#x6E56; &#x5927;&#x6570;&#x636E;&#x6280;&#x672F;&#x67B6;&#x6784;</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xwc35047/article/details/86369465">&#x6982;&#x89C8;</a><a target="_blank" rel="noopener" href="https://blog.csdn.net/xwc35047/article/details/86369465">OLAP&#x2014;&#x2014;</a><a target="_blank" rel="noopener" href="https://blog.csdn.net/xwc35047/article/details/86369465">&#x8D77;&#x6E90;&#xFF0C;&#x6982;&#x5FF5;&#x53CA;&#x73B0;&#x72B6;</a></p>
+<p>OLAP AND BUSINESS INTELLIGENCE HISTORY &#x2013; olap.com</p>
+<p>&#x672C;&#x6587;&#x8FD8;&#x8981;&#x53C2;&#x8003;&#x4E86;&#xFF1A;</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/163236128">&#x6D45;&#x8C08;OLAP&#x7CFB;&#x7EDF;&#x6838;&#x5FC3;&#x6280;&#x672F;&#x70B9; - neoReMinD&#x7684;&#x6587;&#x7AE0; - &#x77E5;&#x4E4E;</a></p>
+<p><a href="nhttps://blog.csdn.net/tao_sun/article/details/19050583">&#x6570;&#x636E;&#x4ED3;&#x5E93;&#x548C;OLAP&#x6280;&#x672F;&#x56DE;&#x987E;&#x7EFC;&#x8FF0;</a></p>
+<p>BigData&#xFF0D;&#x2018;&#x57FA;&#x4E8E;&#x4EE3;&#x4EF7;&#x4F18;&#x5316;&#x2019;&#x7A76;&#x7ADF;&#x662F;&#x600E;&#x4E48;&#x4E00;&#x56DE;&#x4E8B;&#xFF1F; - <a target="_blank" rel="noopener" href="http://hbasefly.com/author/libisthanksgmail-com/">&#x8303;&#x6B23;&#x6B23;</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35511864">TiDB &#x6E90;&#x7801;&#x9605;&#x8BFB;&#x7CFB;&#x5217;&#x6587;&#x7AE0;&#xFF08;&#x4E03;&#xFF09;&#x57FA;&#x4E8E;&#x89C4;&#x5219;&#x7684;&#x4F18;&#x5316; - TiDB Robot&#x7684;&#x6587;&#x7AE0; - &#x77E5;&#x4E4E;</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a078fed07acc">&#x5927;&#x6570;&#x636E;OLAP&#x7CFB;&#x7EDF;&#xFF08;1&#xFF09;&#x2014;&#x2014;&#x6982;&#x5FF5;&#x7BC7; - &#x6B4C;&#x6E7E;&#x6C50;&#x4E91;</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.srcmini.com/12378.html">OLAP&#x7684;&#x7C7B;&#x578B;</a></p>
+<p>&#x5EF6;&#x4F38;&#x9605;&#x8BFB;&#xFF1A;</p>
+<p>Nanda A, Gupta S, Vijrania M. A Comprehensive Survey of OLAP: Recent Trends[C]//2019 3rd International conference on Electronics, Communication and Aerospace Technology (ICECA). IEEE, 2019: 425-430.</p>
+<p>Dhanasree K, Shobabindu C. A survey on OLAP[C]//2016 IEEE International Conference on Computational Intelligence and Computing Research (ICCIC). IEEE, 2016: 1-9.</p>
+</blockquote>
+<h3 id="&#x4E3B;&#x8981;&#x5185;&#x5BB9;"><a href="#&#x4E3B;&#x8981;&#x5185;&#x5BB9;" class="headerlink" title="&#x4E3B;&#x8981;&#x5185;&#x5BB9;"></a>&#x4E3B;&#x8981;&#x5185;&#x5BB9;</h3><p><strong>OLAP&#x6982;&#x5FF5;&#x548C;&#x8D77;&#x6E90;</strong></p>
+<ul>
+<li><p>OLAP&#x6982;&#x5FF5;&#x548C;&#x573A;&#x666F;</p>
+</li>
+<li><p>OLAP&#x8D77;&#x6E90;</p>
+</li>
+<li><p>OLAP&#x7C7B;&#x578B;&#x7EC6;&#x5206;</p>
+</li>
+<li><p>OLTP vs OLAP</p>
+</li>
+</ul>
+<p><strong>&#x6D45;&#x8C08;OLAP&#x5173;&#x952E;&#x6280;&#x672F;</strong></p>
+<ul>
+<li><p>&#x5B58;&#x50A8;</p>
+</li>
+<li><p>&#x8BA1;&#x7B97;</p>
+</li>
+<li><p>&#x4F18;&#x5316;</p>
+</li>
+</ul>
+<p><strong>&#x4E3B;&#x6D41;OLAP&#x7CFB;&#x7EDF;&#x7B80;&#x4ECB;</strong></p>
+<ul>
+<li>Hive&#x3001;Spark SQL&#x3001;Flink SQL&#x3001;ClickHouse&#x3001;Elasticsearch&#x3001;Impala&#x3001;Doris&#x3001;Druid&#x3001;Kylin</li>
+</ul>
+<h2 id="OLAP&#x6982;&#x5FF5;&#x548C;&#x8D77;&#x6E90;"><a href="#OLAP&#x6982;&#x5FF5;&#x548C;&#x8D77;&#x6E90;" class="headerlink" title="OLAP&#x6982;&#x5FF5;&#x548C;&#x8D77;&#x6E90;"></a>OLAP&#x6982;&#x5FF5;&#x548C;&#x8D77;&#x6E90;</h2><h3 id="&#x4EC0;&#x4E48;&#x662F;OLAP&#xFF1F;"><a href="#&#x4EC0;&#x4E48;&#x662F;OLAP&#xFF1F;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;OLAP&#xFF1F;"></a>&#x4EC0;&#x4E48;&#x662F;OLAP&#xFF1F;</h3><p>OLAP(OnLine Analytical Processing)&#xFF0C;&#x5373;&#x8054;&#x673A;&#x5206;&#x6790;&#x5904;&#x7406;&#x3002;OLAP&#x5BF9;&#x4E1A;&#x52A1;&#x6570;&#x636E;&#x6267;&#x884C;&#x591A;&#x7EF4;&#x5206;&#x6790;&#xFF0C;&#x5E76;&#x63D0;&#x4F9B;&#x590D;&#x6742;<strong>&#x8BA1;&#x7B97;</strong>&#xFF0C;&#x8D8B;&#x52BF;<strong>&#x5206;&#x6790;</strong>&#x548C;&#x590D;&#x6742;&#x6570;&#x636E;<strong>&#x5EFA;&#x6A21;</strong>&#x7684;&#x80FD;&#x529B;&#x3002;&#x5B83;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x652F;&#x6301;&#x4F01;&#x4E1A;<strong>&#x51B3;&#x7B56;&#x7BA1;&#x7406;&#x5206;&#x6790;</strong>&#xFF0C;&#x662F;&#x8BB8;&#x591A;&#x5546;&#x52A1;&#x667A;&#x80FD;&#xFF08;BI&#xFF09;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x80CC;&#x540E;&#x7684;&#x6280;&#x672F;&#x3002; OLAP&#x4F7F;&#x6700;&#x7EC8;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x5BF9;&#x591A;&#x4E2A;&#x7EF4;&#x5EA6;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x5373;&#x5E2D;&#x5206;&#x6790;&#xFF0C;&#x4ECE;&#x800C;&#x83B7;&#x53D6;&#x4ED6;&#x4EEC;&#x6240;&#x9700;&#x77E5;&#x8BC6;&#xFF0C;&#x4EE5;&#x4FBF;&#x66F4;&#x597D;&#x5730;&#x5236;&#x5B9A;&#x51B3;&#x7B56;&#x3002;OLAP&#x6280;&#x672F;&#x88AB;&#x5B9A;&#x4E49;&#x4E3A;&#x5B9E;&#x73B0;&#x201C;&#x5FEB;&#x901F;&#x8BBF;&#x95EE;&#x5171;&#x4EAB;&#x7684;&#x591A;&#x7EF4;&#x4FE1;&#x606F;&#x201D;&#x7684;&#x80FD;&#x529B;&#x3002;</p>
+<h3 id="OLAP&#x53D1;&#x5C55;&#x5386;&#x53F2;"><a href="#OLAP&#x53D1;&#x5C55;&#x5386;&#x53F2;" class="headerlink" title="OLAP&#x53D1;&#x5C55;&#x5386;&#x53F2;"></a>OLAP&#x53D1;&#x5C55;&#x5386;&#x53F2;</h3><p>&#x6570;&#x636E;&#x5E93;&#x6982;&#x5FF5;&#x6700;&#x521D;&#x6E90;&#x4E8E;1962&#x5E74;Kenneth Iverson&#x53D1;&#x8868;&#x7684;&#x540D;&#x4E3A;&#x201C;A Programming Language&#x201D; (APL)&#x7684;&#x8457;&#x4F5C;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x63D0;&#x51FA;&#x4E86;&#x5904;&#x7406;&#x64CD;&#x4F5C;&#x548C;&#x591A;&#x7EF4;&#x53D8;&#x91CF;&#x7684;&#x7684;&#x6570;&#x5B66;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x540E;&#x6765;APL&#x8BED;&#x8A00;&#x7531;IBM&#x5B9E;&#x73B0;&#x3002;</p>
+<p>&#x968F;&#x540E;&#x6570;&#x636E;&#x5E93;&#x4E4B;&#x7236;Edgar F. Codd&#x63D0;&#x51FA;&#x4E86;&#x8457;&#x540D;&#x7684;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x6A21;&#x578B;&#x7406;&#x8BBA;&#x300A;A Relational Model of Data for Large Shared Data Banks &#x300B;&#xFF0C;&#x4E3A;&#x540E;&#x9762;&#x6570;&#x636E;&#x5E93;&#x53D1;&#x5C55;&#x5960;&#x5B9A;&#x57FA;&#x7840;&#x3002;</p>
+<p>&#x7B2C;&#x4E00;&#x6B3E;OLAP&#x4EA7;&#x54C1;Express&#x4E8E;1975&#x5E74;&#x95EE;&#x4E16;&#xFF0C;&#x968F;&#x7740;&#x88AB;Oracle&#x6536;&#x8D2D;&#x540E;&#x7E41;&#x8363;&#x53D1;&#x5C55;&#x4E86;30&#x4F59;&#x5E74;&#xFF0C;&#x6700;&#x540E;&#x7531;&#x7EE7;&#x4EFB;&#x8005;Oracle 9i&#x66FF;&#x4EE3;&#x3002;</p>
+<p>1989&#x5E74;&#xFF0C;SQL&#x8BED;&#x8A00;&#x6807;&#x51C6;&#x8BDE;&#x751F;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x4ECE;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x63D0;&#x53D6;&#x548C;&#x5904;&#x7406;&#x4E1A;&#x52A1;&#x6570;&#x636E;&#x3002;&#x8FD9;&#x53EF;&#x80FD;&#x662F;&#x4E2A;&#x8F6C;&#x6298;&#x70B9;&#x3002;&#x5728;80&#x5E74;&#x4EE3;&#xFF0C;&#x7535;&#x5B50;&#x8868;&#x683C;&#x5728;OLAP&#x5E94;&#x7528;&#x4E2D;&#x5360;&#x7EDD;&#x5BF9;&#x4E3B;&#x5BFC;&#x5730;&#x4F4D;&#xFF1B;&#x800C;90&#x5E74;&#x4EE3;&#x4EE5;&#x540E;&#xFF0C;&#x8D8A;&#x6765;&#x8D8A;&#x591A;&#x7684;&#x57FA;&#x4E8E;&#x6570;&#x636E;&#x5E93;&#x7684;OLAP&#x5E94;&#x7528;&#x5F00;&#x59CB;&#x51FA;&#x73B0;&#x3002;</p>
+<p>OLAP&#x8FD9;&#x4E2A;&#x540D;&#x8BCD;&#x662F;&#x6570;&#x636E;&#x5E93;&#x4E4B;&#x7236;Edgar F. Codd&#x4E8E;1993&#x5E74;&#x5728;&#x6587;&#x7AE0;&#x300A;Providing OLAP (On-Line Analytical Processing) to User-Analysts: An IT Mandate&#x300B;&#x63D0;&#x51FA;&#xFF0C;&#x4ED6;&#x603B;&#x7ED3;&#x4E86;OLAP&#x4EA7;&#x54C1;&#x7684;12&#x4E2A;&#x539F;&#x5219;&#xFF1A;</p>
+<ul>
+<li><p>&#x51C6;&#x5219;1 OLAP&#x6A21;&#x578B;&#x5FC5;&#x987B;&#x63D0;&#x4F9B;&#x591A;&#x7EF4;&#x6982;&#x5FF5;&#x89C6;&#x56FE; Multidimensional conceptual view OLAP</p>
+<ul>
+<li>&#x5206;&#x6790;&#x7528;&#x6237;&#x80FD;&#x81EA;&#x7136;&#x7684;&#x89C6;&#x4F01;&#x4E1A;&#x4E3A;&#x4E00;&#x4E2A;&#x591A;&#x7EF4;&#x6A21;&#x578B;&#xFF0C;&#x4F8B;&#x5982;&#xFF0C;&#x5229;&#x6DA6;&#x53EF;&#x4EE5;&#x6309;&#x533A;&#x57DF;&#xFF0C;&#x4EA7;&#x54C1;&#xFF0C;&#x65F6;&#x95F4;&#xFF0C;&#x6216;&#x65B9;&#x6848;&#xFF08;&#x5982;&#x5B9E;&#x9645;&#xFF0C;&#x9884;&#x7B97;&#x6216;&#x9884;&#x6D4B;&#xFF09;&#x67E5;&#x770B;&#x3002;&#x591A;&#x7EF4;&#x6570;&#x636E;&#x6A21;&#x578B;&#x80FD;&#x8BA9;&#x7528;&#x6237;&#x66F4;&#x76F4;&#x63A5;&#x548C;&#x65B9;&#x4FBF;&#x7684;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#xFF0C;&#x5305;&#x62EC;&#x201C;&#x5207;&#x7247;&#x548C;&#x5207;&#x5757;&#x201D;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;2 &#x900F;&#x660E;&#x6027;&#x51C6;&#x5219; Transparency</p>
+<ul>
+<li>OLAP&#x5E94;&#x8BE5;&#x662F;&#x5F00;&#x653E;&#x7CFB;&#x7EDF;&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x8BE5;&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x53EF;&#x4EE5;&#x5D4C;&#x5165;&#x5230;&#x7528;&#x6237;&#x671F;&#x671B;&#x7684;&#x4EFB;&#x4F55;&#x4F4D;&#x7F6E;&#xFF0C;&#x800C;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5BBF;&#x4E3B;&#x5DE5;&#x5177;&#x7684;&#x529F;&#x80FD;&#x3002;&#x4E0D;&#x5E94;&#x628A;OLAP&#x5DE5;&#x5177;&#x7684;&#x6570;&#x636E;&#x6E90;&#x66B4;&#x9732;&#x7ED9;&#x7528;&#x6237;&#xFF0C;&#x6570;&#x636E;&#x6E90;&#x53EF;&#x80FD;&#x662F;&#x540C;&#x6784;&#x7684;&#x6216;&#x5F02;&#x6784;&#x7684;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;3 &#x5B58;&#x53D6;&#x80FD;&#x529B;&#x51C6;&#x5219; Accessibility</p>
+<ul>
+<li>OLAP&#x5DE5;&#x5177;&#x5E94;&#x8BE5;&#x80FD;&#x591F;&#x5E94;&#x7528;&#x81EA;&#x5DF1;&#x7684;&#x903B;&#x8F91;&#x7ED3;&#x6784;&#x6765;&#x8BBF;&#x95EE;&#x5F02;&#x6784;&#x6570;&#x636E;&#x6E90;&#xFF0C;&#x5E76;&#x6267;&#x884C;&#x5411;&#x7528;&#x6237;&#x5448;&#x73B0;&#x8FDE;&#x8D2F;&#x89C6;&#x56FE;&#x6240;&#x9700;&#x7684;&#x4EFB;&#x4F55;&#x8F6C;&#x6362;&#x3002;&#x5DE5;&#x5177;&#xFF08;&#x800C;&#x4E0D;&#x662F;&#x7528;&#x6237;&#xFF09;&#x5E94;&#x5173;&#x6CE8;&#x7269;&#x7406;&#x6570;&#x636E;&#x7684;&#x6765;&#x6E90;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;4 &#x7A33;&#x5B9A;&#x7684;&#x62A5;&#x8868;&#x80FD;&#x529B; Consistent reporting performance</p>
+<ul>
+<li>&#x968F;&#x7740;&#x7EF4;&#x5EA6;&#x6570;&#x91CF;&#x7684;&#x589E;&#x52A0;&#xFF0C;OLAP&#x5DE5;&#x5177;&#x7684;&#x6027;&#x80FD;&#x4E0D;&#x4F1A;&#x53D7;&#x5230;&#x663E;&#x8457;&#x5F71;&#x54CD;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;5 &#x5BA2;&#x6237;/&#x670D;&#x52A1;&#x5668;&#x4F53;&#x7CFB;&#x7ED3;&#x6784; Client/server architecture </p>
+<ul>
+<li>OLAP&#x5DE5;&#x5177;&#x7684;&#x670D;&#x52A1;&#x5668;&#x7EC4;&#x4EF6;&#x5E94;&#x8BE5;&#x8DB3;&#x591F;&#x667A;&#x80FD;&#xFF0C;&#x5404;&#x79CD;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x8F7B;&#x677E;&#x5730;&#x8FDE;&#x63A5;&#x5B83;&#x3002;&#x670D;&#x52A1;&#x5668;&#x5E94;&#x8BE5;&#x80FD;&#x591F;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x6570;&#x636E;&#x5E93;&#x4E4B;&#x95F4;&#x6620;&#x5C04;&#x548C;&#x5408;&#x5E76;&#x6570;&#x636E;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;6 &#x7EF4;&#x7684;&#x7B49;&#x540C;&#x6027;&#x51C6;&#x5219; Generic Dimensionality</p>
+<ul>
+<li>&#x6BCF;&#x4E2A;&#x6570;&#x636E;&#x7EF4;&#x5EA6;&#x7684;&#x7ED3;&#x6784;&#x548C;&#x64CD;&#x4F5C;&#x80FD;&#x529B;&#x90FD;&#x5E94;&#x76F8;&#x540C;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;7 &#x52A8;&#x6001;&#x7684;&#x7A00;&#x758F;&#x77E9;&#x9635;&#x5904;&#x7406;&#x51C6;&#x5219; Dynamic Sparse Matrix Handling</p>
+<ul>
+<li>OLAP&#x670D;&#x52A1;&#x5668;&#x7684;&#x7269;&#x7406;&#x7ED3;&#x6784;&#x5E94;&#x5177;&#x6709;&#x6700;&#x4F73;&#x7684;&#x7A00;&#x758F;&#x77E9;&#x9635;&#x5904;&#x7406;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;8 &#x591A;&#x7528;&#x6237;&#x652F;&#x6301;&#x80FD;&#x529B;&#x51C6;&#x5219; Multi-User Support</p>
+<ul>
+<li>OLAP&#x5DE5;&#x5177;&#x5FC5;&#x987B;&#x63D0;&#x4F9B;&#x5E76;&#x53D1;&#x68C0;&#x7D22;&#x548C;&#x66F4;&#x65B0;&#x8BBF;&#x95EE;&#xFF0C;&#x5B8C;&#x6574;&#x6027;&#x548C;&#x5B89;&#x5168;&#x6027;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;9 &#x975E;&#x53D7;&#x9650;&#x7684;&#x8DE8;&#x7EF4;&#x64CD;&#x4F5C; Unrestricted Cross-dimensional Operations</p>
+<ul>
+<li>&#x8BA1;&#x7B97;&#x8BBE;&#x65BD;&#x5FC5;&#x987B;&#x5141;&#x8BB8;&#x8DE8;&#x4EFB;&#x610F;&#x6570;&#x91CF;&#x7684;&#x6570;&#x636E;&#x7EF4;&#x5EA6;&#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#x548C;&#x6570;&#x636E;&#x5904;&#x7406;&#xFF0C;&#x5E76;&#x4E14;&#x4E0D;&#x5F97;&#x9650;&#x5236;&#x6570;&#x636E;&#x5355;&#x5143;&#x4E4B;&#x95F4;&#x7684;&#x4EFB;&#x4F55;&#x5173;&#x7CFB;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;10 &#x76F4;&#x89C2;&#x7684;&#x6570;&#x636E;&#x64CD;&#x7EB5; Intuitive Data Manipulation</p>
+<ul>
+<li>&#x5408;&#x5E76;&#x8DEF;&#x5F84;&#x4E2D;&#x56FA;&#x6709;&#x7684;&#x6570;&#x636E;&#x64CD;&#x4F5C;&#xFF0C;&#x4F8B;&#x5982;&#x5411;&#x4E0B;&#x94BB;&#x53D6;&#x6216;&#x7F29;&#x5C0F;&#xFF0C;&#x5E94;&#x901A;&#x8FC7;&#x5BF9;&#x5206;&#x6790;&#x6A21;&#x578B;&#x5355;&#x5143;&#x7684;&#x76F4;&#x63A5;&#x64CD;&#x4F5C;&#x6765;&#x5B8C;&#x6210;&#xFF0C;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x83DC;&#x5355;&#x6216;&#x8DE8;&#x7528;&#x6237;&#x754C;&#x9762;&#x591A;&#x6B21;&#x884C;&#x7A0B;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;11 &#x7075;&#x6D3B;&#x7684;&#x62A5;&#x8868;&#x751F;&#x6210; Flexible Reporting</p>
+<ul>
+<li>&#x62A5;&#x544A;&#x5DE5;&#x5177;&#x5E94;&#x4EE5;&#x7528;&#x6237;&#x60F3;&#x8981;&#x67E5;&#x770B;&#x7684;&#x4EFB;&#x4F55;&#x65B9;&#x5F0F;&#x663E;&#x793A;&#x4FE1;&#x606F;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x51C6;&#x5219;12 &#x4E0D;&#x53D7;&#x9650;&#x7684;&#x7EF4;&#x4E0E;&#x805A;&#x96C6;&#x5C42;&#x6B21; Unlimited Dimensions and Aggregation Levels</p>
+</li>
+</ul>
+<h3 id="OLAP&#x573A;&#x666F;&#x7684;&#x5173;&#x952E;&#x7279;&#x6027;"><a href="#OLAP&#x573A;&#x666F;&#x7684;&#x5173;&#x952E;&#x7279;&#x6027;" class="headerlink" title="OLAP&#x573A;&#x666F;&#x7684;&#x5173;&#x952E;&#x7279;&#x6027;"></a>OLAP&#x573A;&#x666F;&#x7684;&#x5173;&#x952E;&#x7279;&#x6027;</h3><blockquote>
+<p>&#x8FD9;&#x4E2A;&#x5173;&#x952E;&#x7279;&#x6027;&#x662F;&#x4ECE;ClickHouse&#x5B98;&#x65B9;&#x6458;&#x7684;&#xFF0C;&#x6BD4;&#x8F83;&#x9002;&#x5408;ClickHouse&#x7684;&#x573A;&#x666F;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x4E00;&#x5B9A;&#x9002;&#x5408;&#x5176;&#x5B83;&#x7684;OLAP&#x7CFB;&#x7EDF;&#xFF0C;&#x4F46;&#x662F;&#x5F88;&#x591A;&#x7279;&#x6027;&#x662F;&#x76F8;&#x901A;&#x7684;&#x3002;</p>
+</blockquote>
+<ul>
+<li><p>&#x7EDD;&#x5927;&#x591A;&#x6570;&#x662F;&#x8BFB;&#x8BF7;&#x6C42;</p>
+</li>
+<li><p>&#x6570;&#x636E;&#x4EE5;&#x76F8;&#x5F53;&#x5927;&#x7684;&#x6279;&#x6B21;(&gt; 1000&#x884C;)&#x66F4;&#x65B0;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5355;&#x884C;&#x66F4;&#x65B0;;&#x6216;&#x8005;&#x6839;&#x672C;&#x6CA1;&#x6709;&#x66F4;&#x65B0;&#x3002;</p>
+</li>
+<li><p>&#x5DF2;&#x6DFB;&#x52A0;&#x5230;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x80FD;&#x4FEE;&#x6539;&#x3002;</p>
+</li>
+<li><p>&#x5BF9;&#x4E8E;&#x8BFB;&#x53D6;&#xFF0C;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x63D0;&#x53D6;&#x76F8;&#x5F53;&#x591A;&#x7684;&#x884C;&#xFF0C;&#x4F46;&#x53EA;&#x63D0;&#x53D6;&#x5217;&#x7684;&#x4E00;&#x5C0F;&#x90E8;&#x5206;&#x3002;</p>
+</li>
+<li><p>&#x5BBD;&#x8868;&#xFF0C;&#x5373;&#x6BCF;&#x4E2A;&#x8868;&#x5305;&#x542B;&#x7740;&#x5927;&#x91CF;&#x7684;&#x5217;</p>
+</li>
+<li><p>&#x67E5;&#x8BE2;&#x76F8;&#x5BF9;&#x8F83;&#x5C11;(&#x901A;&#x5E38;&#x6BCF;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x6BCF;&#x79D2;&#x67E5;&#x8BE2;&#x6570;&#x767E;&#x6B21;&#x6216;&#x66F4;&#x5C11;)</p>
+</li>
+<li><p>&#x5BF9;&#x4E8E;&#x7B80;&#x5355;&#x67E5;&#x8BE2;&#xFF0C;&#x5141;&#x8BB8;&#x5EF6;&#x8FDF;&#x5927;&#x7EA6;50&#x6BEB;&#x79D2;</p>
+</li>
+<li><p>&#x5217;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x76F8;&#x5BF9;&#x8F83;&#x5C0F;&#xFF1A;&#x6570;&#x5B57;&#x548C;&#x77ED;&#x5B57;&#x7B26;&#x4E32;(&#x4F8B;&#x5982;&#xFF0C;&#x6BCF;&#x4E2A;URL 60&#x4E2A;&#x5B57;&#x8282;)</p>
+</li>
+<li><p>&#x5904;&#x7406;&#x5355;&#x4E2A;&#x67E5;&#x8BE2;&#x65F6;&#x9700;&#x8981;&#x9AD8;&#x541E;&#x5410;&#x91CF;(&#x6BCF;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x6BCF;&#x79D2;&#x53EF;&#x8FBE;&#x6570;&#x5341;&#x4EBF;&#x884C;)</p>
+</li>
+<li><p>&#x4E8B;&#x52A1;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;</p>
+</li>
+<li><p>&#x5BF9;&#x6570;&#x636E;&#x4E00;&#x81F4;&#x6027;&#x8981;&#x6C42;&#x4F4E;</p>
+</li>
+<li><p>&#x6BCF;&#x4E2A;&#x67E5;&#x8BE2;&#x6709;&#x4E00;&#x4E2A;&#x5927;&#x8868;&#x3002;&#x9664;&#x4E86;&#x4ED6;&#x4EE5;&#x5916;&#xFF0C;&#x5176;&#x4ED6;&#x7684;&#x90FD;&#x5F88;&#x5C0F;&#x3002;</p>
+</li>
+<li><p>&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x660E;&#x663E;&#x5C0F;&#x4E8E;&#x6E90;&#x6570;&#x636E;&#x3002;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;&#x6570;&#x636E;&#x7ECF;&#x8FC7;&#x8FC7;&#x6EE4;&#x6216;&#x805A;&#x5408;&#xFF0C;&#x56E0;&#x6B64;&#x7ED3;&#x679C;&#x9002;&#x5408;&#x4E8E;&#x5355;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x7684;RAM&#x4E2D;</p>
+</li>
+</ul>
+<h3 id="OLAP&#x6838;&#x5FC3;&#x6982;&#x5FF5;"><a href="#OLAP&#x6838;&#x5FC3;&#x6982;&#x5FF5;" class="headerlink" title="OLAP&#x6838;&#x5FC3;&#x6982;&#x5FF5;"></a>OLAP&#x6838;&#x5FC3;&#x6982;&#x5FF5;</h3><p>**&#x7EF4;&#x5EA6;(Dimension)**&#xFF1A;&#x7EF4;&#x5EA6;&#x662F;&#x63CF;&#x8FF0;&#x4E0E;&#x4E1A;&#x52A1;&#x4E3B;&#x9898;&#x76F8;&#x5173;&#x7684;&#x4E00;&#x7EC4;&#x5C5E;&#x6027;&#xFF0C;&#x5355;&#x4E2A;&#x5C5E;&#x6027;&#x6216;&#x5C5E;&#x6027;&#x96C6;&#x5408;&#x53EF;&#x4EE5;&#x6784;&#x6210;&#x4E00;&#x4E2A;&#x7EF4;&#x3002;&#x5982;&#x65F6;&#x95F4;&#x3001;&#x5730;&#x7406;&#x4F4D;&#x7F6E;&#x3001;&#x5E74;&#x9F84;&#x548C;&#x6027;&#x522B;&#x7B49;&#x90FD;&#x662F;&#x7EF4;&#x5EA6;&#x3002;</p>
+<p><strong>&#x7EF4;&#x7684;&#x5C42;&#x6B21;&#xFF08;Level of Dimension&#xFF09;</strong>&#xFF1A;&#x4E00;&#x4E2A;&#x7EF4;&#x5F80;&#x5F80;&#x53EF;&#x4EE5;&#x5177;&#x6709;&#x591A;&#x4E2A;&#x5C42;&#x6B21;&#xFF0C;&#x4F8B;&#x5982;&#x65F6;&#x95F4;&#x7EF4;&#x5EA6;&#x5206;&#x4E3A;&#x5E74;&#x3001;&#x5B63;&#x5EA6;&#x3001;&#x6708;&#x548C;&#x65E5;&#x7B49;&#x5C42;&#x6B21;&#xFF0C;&#x5730;&#x533A;&#x7EF4;&#x53EF;&#x4EE5;&#x662F;&#x56FD;&#x5BB6;&#x3001;&#x5730;&#x533A;&#x3001;&#x7701;&#x3001;&#x5E02;&#x7B49;&#x5C42;&#x6B21;&#x3002;&#x8FD9;&#x91CC;&#x7684;&#x5C42;&#x6B21;&#x8868;&#x793A;&#x6570;&#x636E;&#x7EC6;&#x5316;&#x7A0B;&#x5EA6;&#xFF0C;&#x5BF9;&#x5E94;&#x6982;&#x5FF5;&#x5206;&#x5C42;&#x3002;&#x540E;&#x9762;&#x4ECB;&#x7ECD;&#x7684;&#x4E0A;&#x5377;&#x64CD;&#x4F5C;&#x5C31;&#x662F;&#x7531;&#x4F4E;&#x5C42;&#x6982;&#x5FF5;&#x6620;&#x5C04;&#x5230;&#x9AD8;&#x5C42;&#x6982;&#x5FF5;&#x3002;&#x6982;&#x5FF5;&#x5206;&#x5C42;&#x9664;&#x4E86;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x6982;&#x5FF5;&#x7684;&#x5168;&#x5E8F;&#x548C;&#x504F;&#x5E8F;&#x5173;&#x7CFB;&#x786E;&#x5B9A;&#x5916;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5BF9;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x79BB;&#x6563;&#x5316;&#x548C;&#x5206;&#x7EC4;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>**&#x7EF4;&#x7684;&#x6210;&#x5458;(Member of Dimension)**&#xFF1A;&#x82E5;&#x7EF4;&#x662F;&#x591A;&#x5C42;&#x6B21;&#x7684;&#xFF0C;&#x5219;&#x4E0D;&#x540C;&#x7684;&#x5C42;&#x6B21;&#x7684;&#x53D6;&#x503C;&#x6784;&#x6210;&#x4E00;&#x4E2A;&#x7EF4;&#x6210;&#x5458;&#x3002;&#x90E8;&#x5206;&#x7EF4;&#x5C42;&#x6B21;&#x540C;&#x6837;&#x53EF;&#x4EE5;&#x6784;&#x6210;&#x7EF4;&#x6210;&#x5458;&#xFF0C;&#x4F8B;&#x5982;&#x201C;&#x67D0;&#x5E74;&#x67D0;&#x5B63;&#x5EA6;&#x201D;&#x3001;&#x201C;&#x67D0;&#x5B63;&#x67D0;&#x6708;&#x201D;&#x7B49;&#x90FD;&#x53EF;&#x4EE5;&#x662F;&#x65F6;&#x95F4;&#x7EF4;&#x7684;&#x6210;&#x5458;&#x3002;</p>
+<p>**&#x5EA6;&#x91CF;(Measure)**&#xFF1A;&#x8868;&#x793A;&#x4E8B;&#x5B9E;&#x5728;&#x67D0;&#x4E00;&#x4E2A;&#x7EF4;&#x6210;&#x5458;&#x4E0A;&#x7684;&#x53D6;&#x503C;&#x3002;&#x4F8B;&#x5982;&#x5F00;&#x53D1;&#x90E8;&#x95E8;&#x6C49;&#x65CF;&#x7537;&#x6027;&#x6709;39&#x4EBA;&#xFF0C;&#x5C31;&#x8868;&#x793A;&#x5728;&#x90E8;&#x95E8;&#x3001;&#x6C11;&#x65CF;&#x3001;&#x6027;&#x522B;&#x4E09;&#x4E2A;&#x7EF4;&#x5EA6;&#x4E0A;&#xFF0C;&#x4F01;&#x4E1A;&#x4EBA;&#x6570;&#x7684;&#x4E8B;&#x5B9E;&#x5EA6;&#x91CF;&#x3002;</p>
+<p>&#x4E3E;&#x5B9E;&#x9645;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;&#x7EF4;&#x5EA6;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4E00;&#x5217;&#xFF0C;&#x8FD9;&#x5217;&#x5728;&#x5B58;&#x50A8;&#x7684;&#x65F6;&#x5019;&#x53EF;&#x4EE5;&#x6839;&#x636E;partition&#x8FDB;&#x884C;&#x5206;&#x533A;&#xFF0C;&#x6BD4;&#x5982;CK&#x4E2D;&#xFF0C;&#x5EFA;&#x8868;&#x7684;&#x65F6;&#x5019;&#x6307;&#x5B9A;&#x7684;&#x5206;&#x533A;&#x952E;&#xFF0C;&#x6216;&#x8005;hive&#x7684;&#x5206;&#x6876;&#x8868;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/hive&#x5206;&#x6876;.png" alt="hive&#x5206;&#x6876;" style="zoom:48%;">
+
+<h3 id="&#x57FA;&#x672C;&#x64CD;&#x4F5C;"><a href="#&#x57FA;&#x672C;&#x64CD;&#x4F5C;" class="headerlink" title="&#x57FA;&#x672C;&#x64CD;&#x4F5C;"></a>&#x57FA;&#x672C;&#x64CD;&#x4F5C;</h3><p>**&#x4E0B;&#x63A2;(Drill down)**&#xFF1A;&#x7EF4;&#x5EA6;&#x662F;&#x6709;&#x5C42;&#x6B21;&#x7684;&#xFF0C;&#x4E0B;&#x63A2;&#x8868;&#x793A;&#x8FDB;&#x5165;&#x7EF4;&#x5EA6;&#x7684;&#x4E0B;&#x4E00;&#x5C42;&#xFF0C;&#x5C06;&#x6C47;&#x603B;&#x6570;&#x636E;&#x62C6;&#x5206;&#x5230;&#x4E0B;&#x4E00;&#x5C42;&#x6240;&#x5728;&#x7EC6;&#x8282;&#x6570;&#x636E;&#x4FE1;&#x606F;&#xFF0C;&#x5982;&#x4E0B;&#x56FE;&#x4ECE;&#x7B2C;&#x4E8C;&#x5B63;&#x5EA6;&#x4E0B;&#x63A2;&#x5230;&#x770B;4&#x3001;5&#x3001;6&#x6708;&#x7684;&#x660E;&#x7EC6;&#x6570;&#x636E;&#x3002;</p>
+<p>**&#x4E0A;&#x94BB;(Drill up)**&#xFF1A; &#x4E0B;&#x63A2;&#x7684;&#x53CD;&#x5411;&#x64CD;&#x4F5C;&#xFF0C;&#x56DE;&#x5230;&#x66F4;&#x9AD8;&#x6C47;&#x805A;&#x5C42;&#x7684;&#x6C47;&#x603B;&#x6570;&#x636E;&#x3002;</p>
+<p>**&#x5207;&#x7247;(Slice)**&#xFF1A;&#x5207;&#x7247;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x6210;&#x628A;&#x7ACB;&#x4F53;&#x6309;&#x67D0;&#x4E00;&#x4E2A;&#x7EF4;&#x5EA6;&#x8FDB;&#x884C;&#x5207;&#x5206;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x4E24;&#x7EF4;&#x6570;&#x636E;&#xFF0C;&#x5982;&#x56FE;&#x4E2D;&#x6309;&#x7535;&#x5B50;&#x4EA7;&#x54C1;&#x5207;&#x5206;&#xFF0C;&#x770B;&#x5230;&#x7684;&#x662F;&#x65F6;&#x95F4;&#x548C;&#x5730;&#x7406;&#x4F4D;&#x7F6E;&#x5173;&#x7CFB;&#x7684;&#x4E8C;&#x7EF4;&#x6570;&#x636E;&#x3002;</p>
+<p>**&#x5207;&#x5757;(Dice)**&#xFF1A;&#x76F8;&#x5BF9;&#x4E8E;&#x5207;&#x7247;&#x662F;&#x6309;&#x4E00;&#x4E2A;&#x70B9;&#x5207;&#x5206;&#xFF0C;&#x5207;&#x5757;&#x5C31;&#x662F;&#x6309;&#x4E00;&#x4E2A;&#x8303;&#x56F4;(&#x533A;&#x95F4;)&#x6765;&#x505A;&#x5207;&#x5206;&#x3002;</p>
+<p>**&#x65CB;&#x8F6C;(Pivot)**&#xFF1A;&#x7EF4;&#x7684;&#x884C;&#x5217;&#x4F4D;&#x7F6E;&#x4EA4;&#x6362;&#xFF0C;&#x6362;&#x4E00;&#x4E2A;&#x89C6;&#x89D2;&#x5206;&#x6790;&#x6570;&#x636E;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/&#x56FE;&#x7247; 2.png" alt="&#x56FE;&#x7247; 2" style="zoom:48%;">
+
+<h3 id="OLAP&#x7C7B;&#x578B;&#x7EC6;&#x5206;"><a href="#OLAP&#x7C7B;&#x578B;&#x7EC6;&#x5206;" class="headerlink" title="OLAP&#x7C7B;&#x578B;&#x7EC6;&#x5206;"></a>OLAP&#x7C7B;&#x578B;&#x7EC6;&#x5206;</h3><img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/OLAP&#x5212;&#x5206;.png" alt="OLAP&#x5212;&#x5206;" style="zoom:67%;">
+
+<h4 id="&#x591A;&#x7EF4;-OLAP-Multi-dimensional-OLAP"><a href="#&#x591A;&#x7EF4;-OLAP-Multi-dimensional-OLAP" class="headerlink" title="&#x591A;&#x7EF4; OLAP ( Multi-dimensional OLAP )"></a>&#x591A;&#x7EF4; OLAP ( Multi-dimensional OLAP )</h4><p>MOLAP&#x7684;&#x5178;&#x578B;&#x4EE3;&#x8868;&#x662F;&#xFF1A;Druid&#xFF0C;Kylin&#xFF0C;MOLAP&#x4E00;&#x822C;&#x4F1A;&#x6839;&#x636E;&#x7528;&#x6237;&#x5B9A;&#x4E49;&#x7684;&#x6570;&#x636E;&#x7EF4;&#x5EA6;&#x3001;&#x5EA6;&#x91CF;&#xFF08;&#x4E5F;&#x53EF;&#x4EE5;&#x53EB;&#x6307;&#x6807;&#xFF09;&#x5728;&#x6570;&#x636E;&#x5199;&#x5165;&#x65F6;&#x751F;&#x6210;&#x9884;&#x805A;&#x5408;&#x6570;&#x636E;&#xFF1B;Query&#x67E5;&#x8BE2;&#x5230;&#x6765;&#x65F6;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x67E5;&#x8BE2;&#x7684;&#x662F;&#x9884;&#x805A;&#x5408;&#x7684;&#x6570;&#x636E;&#x800C;&#x4E0D;&#x662F;&#x539F;&#x59CB;&#x660E;&#x7EC6;&#x6570;&#x636E;&#xFF0C;&#x5728;&#x67E5;&#x8BE2;&#x6A21;&#x5F0F;&#x76F8;&#x5BF9;&#x56FA;&#x5B9A;&#x7684;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x8FD9;&#x79CD;&#x4F18;&#x5316;&#x63D0;&#x901F;&#x5F88;&#x660E;&#x663E;&#x3002;</p>
+<p>MOLAP &#x9002;&#x7528;&#x4E8E;&#x67E5;&#x8BE2;&#x573A;&#x666F;&#x76F8;&#x5BF9;&#x56FA;&#x5B9A;&#x5E76;&#x4E14;&#x5BF9;&#x67E5;&#x8BE2;&#x6027;&#x80FD;&#x8981;&#x6C42;&#x975E;&#x5E38;&#x9AD8;&#x7684;&#x573A;&#x666F;&#x3002;&#x5982;&#x5E7F;&#x544A;&#x4E3B;&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x7684;&#x5E7F;&#x544A;&#x6295;&#x653E;&#x62A5;&#x8868;&#x5206;&#x6790;&#x3002;</p>
+<p><strong>&#x4F18;&#x70B9;</strong></p>
+<p>&#x51FA;&#x8272;&#x7684;&#x6027;&#x80FD;&#xFF1A;MOLAP&#x591A;&#x7EF4;&#x6570;&#x636E;&#x96C6;&#x53EF;&#x7528;&#x4E8E;&#x5FEB;&#x901F;&#x4FE1;&#x606F;&#x68C0;&#x7D22;, &#x662F;&#x5207;&#x7247;&#x548C;&#x5207;&#x5757;&#x64CD;&#x4F5C;&#x7684;&#x6700;&#x4F73;&#x9009;&#x62E9;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x590D;&#x6742;&#x7684;&#x8BA1;&#x7B97;&#xFF1A;&#x521B;&#x5EFA;&#x591A;&#x7EF4;&#x6570;&#x636E;&#x96C6;&#x65F6;&#x5DF2;&#x9884;&#x5148;&#x751F;&#x6210;&#x6240;&#x6709;&#x8BC4;&#x4F30;&#x3002;&#x56E0;&#x6B64;, &#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x590D;&#x6742;&#x7684;&#x8BA1;&#x7B97;, &#x800C;&#x4E14;&#x53EF;&#x4EE5;&#x5FEB;&#x901F;&#x8FD4;&#x56DE;&#x3002;</p>
+<p><strong>&#x7F3A;&#x70B9;</strong></p>
+<p>&#x5B83;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x7684;&#x4FE1;&#x606F;&#x91CF;&#x6709;&#x9650;&#xFF1A;&#x7531;&#x4E8E;&#x6240;&#x6709;&#x8BA1;&#x7B97;&#x90FD;&#x662F;&#x5728;&#x6784;&#x5EFA;&#x591A;&#x7EF4;&#x6570;&#x636E;&#x96C6;&#x65F6;&#x6267;&#x884C;&#x7684;, &#x56E0;&#x6B64;&#x4E0D;&#x53EF;&#x80FD;&#x5728;&#x591A;&#x7EF4;&#x6570;&#x636E;&#x96C6;&#x672C;&#x8EAB;&#x4E2D;&#x5305;&#x542B;&#x5927;&#x91CF;&#x6570;&#x636E;&#x3002;</p>
+<h4 id="&#x5173;&#x7CFB;&#x578B;-OLAP-Relational-OLAP"><a href="#&#x5173;&#x7CFB;&#x578B;-OLAP-Relational-OLAP" class="headerlink" title="&#x5173;&#x7CFB;&#x578B; OLAP ( Relational OLAP )"></a>&#x5173;&#x7CFB;&#x578B; OLAP ( Relational OLAP )</h4><p>ROLAP&#x7684;&#x5178;&#x578B;&#x4EE3;&#x8868;&#x662F;&#xFF1A;Presto&#xFF0C;Impala&#xFF0C;GreenPlum&#xFF0C;ClickHouse&#xFF0C;Elasticsearch&#xFF0C;Hive&#xFF0C;Spark SQL&#xFF0C;Flink SQL</p>
+<p>&#x6570;&#x636E;&#x5199;&#x5165;&#x65F6;&#xFF0C;ROLAP&#x5E76;&#x672A;&#x4F7F;&#x7528;&#x50CF;MOLAP&#x90A3;&#x6837;&#x7684;&#x9884;&#x805A;&#x5408;&#x6280;&#x672F;&#xFF1B;ROLAP&#x6536;&#x5230;Query&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x4F1A;&#x5148;&#x89E3;&#x6790;Query&#xFF0C;&#x751F;&#x6210;&#x6267;&#x884C;&#x8BA1;&#x5212;&#xFF0C;&#x626B;&#x63CF;&#x6570;&#x636E;&#xFF0C;&#x6267;&#x884C;&#x5173;&#x7CFB;&#x578B;&#x7B97;&#x5B50;&#xFF0C;&#x5728;&#x539F;&#x59CB;&#x6570;&#x636E;&#x4E0A;&#x505A;&#x8FC7;&#x6EE4;(Where)&#x3001;&#x805A;&#x5408;(Sum, Avg, Count)&#x3001;&#x5173;&#x8054;(Join)&#xFF0C;&#x5206;&#x7EC4;&#xFF08;Group By)&#x3001;&#x6392;&#x5E8F;&#xFF08;Order By&#xFF09;&#x7B49;&#xFF0C;&#x6700;&#x540E;&#x5C06;&#x7ED3;&#x7B97;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x7ED9;&#x7528;&#x6237;&#xFF0C;&#x6574;&#x4E2A;&#x8FC7;&#x7A0B;&#x90FD;&#x662F;&#x5373;&#x65F6;&#x8BA1;&#x7B97;&#xFF0C;&#x9700;&#x8981;&#x66F4;&#x9AD8;&#x7684;&#x8D44;&#x6E90;&#x548C;&#x7B97;&#x529B;&#x3002;</p>
+<p>ROLAP &#x9002;&#x7528;&#x4E8E;&#x5BF9;&#x67E5;&#x8BE2;&#x6A21;&#x5F0F;&#x4E0D;&#x56FA;&#x5B9A;&#x3001;&#x67E5;&#x8BE2;&#x7075;&#x6D3B;&#x6027;&#x8981;&#x6C42;&#x9AD8;&#x7684;&#x573A;&#x666F;&#x3002;&#x5982;&#x6570;&#x636E;&#x5206;&#x6790;&#x5E08;&#x5E38;&#x7528;&#x7684;&#x6570;&#x636E;&#x5206;&#x6790;&#x7C7B;&#x4EA7;&#x54C1;&#xFF0C;&#x4ED6;&#x4EEC;&#x5F80;&#x5F80;&#x4F1A;&#x5BF9;&#x6570;&#x636E;&#x505A;&#x5404;&#x79CD;&#x9884;&#x5148;&#x4E0D;&#x80FD;&#x786E;&#x5B9A;&#x7684;&#x5206;&#x6790;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x66F4;&#x9AD8;&#x7684;&#x67E5;&#x8BE2;&#x7075;&#x6D3B;&#x6027;&#x3002;</p>
+<p><strong>&#x4F18;&#x70B9;</strong></p>
+<p>ROLAP &#x4E0D;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x9884;&#x5904;&#x7406; ( pre-processing )&#xFF0C;&#x56E0;&#x6B64;&#x67E5;&#x8BE2;&#x7075;&#x6D3B;&#xFF0C;&#x53EF;&#x6269;&#x5C55;&#x6027;&#x597D;&#x3002;&#x8FD9;&#x7C7B;&#x5F15;&#x64CE;&#x4F7F;&#x7528; MPP &#x67B6;&#x6784; ( &#x4E0E;Hadoop&#x76F8;&#x4F3C;&#x7684;&#x5927;&#x578B;&#x5E76;&#x884C;&#x5904;&#x7406;&#x67B6;&#x6784;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6269;&#x5927;&#x5E76;&#x53D1;&#x6765;&#x589E;&#x52A0;&#x8BA1;&#x7B97;&#x8D44;&#x6E90; )&#xFF0C;&#x53EF;&#x4EE5;&#x9AD8;&#x6548;&#x5904;&#x7406;&#x5927;&#x91CF;&#x6570;&#x636E;&#x3002;</p>
+<p><strong>&#x7F3A;&#x70B9;</strong></p>
+<p>&#x5F53;&#x6570;&#x636E;&#x91CF;&#x8F83;&#x5927;&#x6216; query &#x8F83;&#x4E3A;&#x590D;&#x6742;&#x65F6;&#xFF0C;&#x67E5;&#x8BE2;&#x6027;&#x80FD;&#x4E5F;&#x65E0;&#x6CD5;&#x50CF; MOLAP &#x90A3;&#x6837;&#x7A33;&#x5B9A;&#x3002;&#x6240;&#x6709;&#x8BA1;&#x7B97;&#x90FD;&#x662F;&#x5373;&#x65F6;&#x89E6;&#x53D1; ( &#x6CA1;&#x6709;&#x9884;&#x5904;&#x7406; )&#xFF0C;&#x56E0;&#x6B64;&#x4F1A;&#x8017;&#x8D39;&#x66F4;&#x591A;&#x7684;&#x8BA1;&#x7B97;&#x8D44;&#x6E90;&#xFF0C;&#x5E26;&#x6765;&#x6F5C;&#x5728;&#x7684;&#x91CD;&#x590D;&#x8BA1;&#x7B97;&#x3002;</p>
+<h4 id="&#x6DF7;&#x5408;-OLAP-Hybrid-OLAP"><a href="#&#x6DF7;&#x5408;-OLAP-Hybrid-OLAP" class="headerlink" title="&#x6DF7;&#x5408; OLAP ( Hybrid OLAP )"></a>&#x6DF7;&#x5408; OLAP ( Hybrid OLAP )</h4><p>HOLAP&#x5C06;MOLAP&#x548C;ROLAP&#x7684;&#x6700;&#x4F73;&#x529F;&#x80FD;&#x96C6;&#x6210;&#x5230;&#x4E00;&#x4E2A;&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x4E2D;&#x3002;&#x5F53;&#x805A;&#x5408;&#x5B58;&#x50A8;&#x5728;&#x9884;&#x5148;&#x8BA1;&#x7B97;&#x7684;&#x591A;&#x7EF4;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x65F6;, HOLAP&#x7CFB;&#x7EDF;&#x4F1A;&#x5C06;&#x5927;&#x91CF;&#x7684;&#x8BE6;&#x7EC6;&#x6570;&#x636E;&#x4FDD;&#x5B58;&#x5728;&#x5173;&#x7CFB;&#x8868;&#x4E2D;&#x3002; HOLAP&#x8FD8;&#x53EF;&#x4EE5;&#x4ECE;&#x591A;&#x7EF4;&#x6570;&#x636E;&#x96C6;&#x5411;&#x4E0B;&#x94BB;&#x53D6;&#x5230;&#x5173;&#x7CFB;&#x8868;, &#x4EE5;&#x83B7;&#x53D6;&#x63CF;&#x7ED8;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820165213010.png" alt="image-20210820165213010" style="zoom:80%;">
+
+<p><strong>&#x4F18;&#x70B9;</strong></p>
+<p>&#x540C;&#x65F6;&#x5177;&#x5907;MOLAP&#x548C;ROLAP&#x7684;&#x4F18;&#x70B9;&#x3002;</p>
+<p>HOLAP&#x5E73;&#x8861;&#x4E86;&#x78C1;&#x76D8;&#x7A7A;&#x95F4;&#x9700;&#x6C42;, &#x56E0;&#x4E3A;&#x5B83;&#x4EC5;&#x5C06;&#x805A;&#x5408;&#x4FE1;&#x606F;&#x5B58;&#x50A8;&#x5728;OLAP&#x670D;&#x52A1;&#x5668;&#x4E0A;, &#x800C;&#x8BE6;&#x7EC6;&#x8BB0;&#x5F55;&#x4FDD;&#x7559;&#x5728;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x3002;&#x56E0;&#x6B64;, &#x4E0D;&#x4F1A;&#x4FDD;&#x7559;&#x8BE6;&#x7EC6;&#x8BB0;&#x5F55;&#x7684;&#x91CD;&#x590D;&#x526F;&#x672C;&#x3002;</p>
+<p><strong>&#x7F3A;&#x70B9;</strong></p>
+<p>HOLAP&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x590D;&#x6742;, &#x56E0;&#x4E3A;&#x5B83;&#x540C;&#x65F6;&#x652F;&#x6301;MOLAP&#x548C;ROLAP&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<h3 id="OLTP-vs-OLAP"><a href="#OLTP-vs-OLAP" class="headerlink" title="OLTP vs OLAP"></a>OLTP vs OLAP</h3><blockquote>
+<p>&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x8BBE;&#x8BA1;&#x76EE;&#x6807;&#x7684;&#x4E0D;&#x540C;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x9488;&#x5BF9;&#x573A;&#x666F;&#x7684;&#x4E0D;&#x540C;&#x3002;</p>
+</blockquote>
+<p>OLTP&#xFF08;On-Line Transaction Processing&#xFF09;&#xFF0C;&#x8054;&#x673A;&#x4E8B;&#x52A1;&#x5904;&#x7406;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x4E1A;&#x52A1;&#x7CFB;&#x7EDF;&#x3002;OLTP&#x5BF9;&#x4E8B;&#x52A1;&#x6027;&#x5904;&#x7406;&#x7684;&#x8981;&#x6C42;&#x975E;&#x5E38;&#x9AD8;&#xFF0C;&#x4E00;&#x822C;&#x90FD;&#x662F;&#x9AD8;&#x53EF;&#x7528;&#x7684;&#x5728;&#x7EBF;&#x7CFB;&#x7EDF;&#xFF0C;&#x4E3B;&#x8981;&#x57FA;&#x4E8E;&#x4F20;&#x7EDF;&#x7684;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;&#x3002;&#x5176;&#x4E0A;&#x7684;&#x5E94;&#x7528;&#xFF0C;&#x4E00;&#x822C;&#x4EE5;&#x5C0F;&#x7684;&#x4E8B;&#x52A1;&#x4EE5;&#x53CA;&#x5C0F;&#x7684;&#x67E5;&#x8BE2;&#x4E3A;&#x4E3B;&#x3002;&#x8BC4;&#x4F30;&#x5176;&#x7CFB;&#x7EDF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E00;&#x822C;&#x770B;&#x5176;&#x6BCF;&#x79D2;&#x6267;&#x884C;&#x7684;Transaction&#x4EE5;&#x53CA;SQL&#x7684;&#x6570;&#x91CF;&#x3002;&#x5728;&#x8FD9;&#x6837;&#x7684;&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x5355;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x6BCF;&#x79D2;&#x5904;&#x7406;&#x7684;Transaction&#xFF08;&#x589E;&#x3001;&#x5220;&#x3001;&#x6539;&#xFF09;&#x5F80;&#x5F80;&#x8FBE;&#x5230;&#x51E0;&#x767E;&#x4E0A;&#x5343;&#x4E2A;&#xFF0C;select&#x67E5;&#x8BE2;&#x8BED;&#x53E5;&#x7684;&#x6267;&#x884C;&#x91CF;&#x6BCF;&#x79D2;&#x51E0;&#x5343;&#x751A;&#x81F3;&#x51E0;&#x4E07;&#x4E2A;&#x3002;&#x5178;&#x578B;&#x7684;OLTP&#x7CFB;&#x7EDF;&#x6709;&#x7535;&#x5B50;&#x5546;&#x52A1;&#x7CFB;&#x7EDF;&#x3001;&#x94F6;&#x884C;&#x4EA4;&#x6613;&#x7CFB;&#x7EDF;&#x3001;&#x8BC1;&#x5238;&#x4EA4;&#x6613;&#x7CFB;&#x7EDF;&#x7B49;&#x3002;</p>
+<p>OLAP&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x5206;&#x6790;&#x7CFB;&#x7EDF;&#x3002;&#x4E00;&#x822C;&#x4EE5;&#x5927;&#x6570;&#x636E;&#x91CF;&#x7684;&#x67E5;&#x8BE2;&#x4E3A;&#x4E3B;&#xFF0C;&#x4FEE;&#x6539;&#x548C;&#x5220;&#x9664;&#x7684;&#x64CD;&#x4F5C;&#x8F83;&#x5C11;&#x3002;&#x5728;&#x8FD9;&#x6837;&#x7684;&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;SQL&#x8BED;&#x53E5;&#x7684;&#x6267;&#x884C;&#x91CF;&#x4E0D;&#x662F;&#x8003;&#x6838;&#x6307;&#x6807;&#xFF0C;&#x56E0;&#x4E3A;&#x4E00;&#x6761;&#x8BED;&#x53E5;&#x7684;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x53EF;&#x80FD;&#x4F1A;&#x5F88;&#x957F;&#xFF0C;&#x8BFB;&#x53D6;&#x7684;&#x6570;&#x636E;&#x4E5F;&#x975E;&#x5E38;&#x591A;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x8BC4;&#x4F30;&#x5176;&#x7CFB;&#x7EDF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5F80;&#x5F80;&#x662F;&#x770B;&#x7CFB;&#x7EDF;&#x7684;&#x541E;&#x5410;&#x91CF;&#x3001;&#x590D;&#x6742;&#x67E5;&#x8BE2;&#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x3001;&#x6570;&#x636E;&#x88C5;&#x8F7D;&#x6027;&#x80FD;&#x7B49;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/oltp&#x5BF9;&#x6BD4;.png" alt="oltp&#x5BF9;&#x6BD4;" style="zoom:80%;">
+
+<p><strong>&#x5C0F;&#x7ED3;</strong></p>
+<ul>
+<li><p>OLTP &#x7684;&#x4E3B;&#x8981;&#x64CD;&#x4F5C;&#x662F;&#x63D2;&#x5165;&#x3001;&#x66F4;&#x65B0;&#x548C;&#x5220;&#x9664;&#xFF0C;&#x800C; OLAP &#x7684;&#x4E3B;&#x8981;&#x64CD;&#x4F5C;&#x662F;&#x63D0;&#x53D6;&#x591A;&#x7EF4;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x5206;&#x6790;&#x3002; </p>
+</li>
+<li><p>OLTP &#x5177;&#x6709;&#x8F83;&#x77ED;&#x4F46;&#x9891;&#x7E41;&#x7684;&#x67E5;&#x8BE2;&#xFF0C;&#x800C; OLAP &#x5177;&#x6709;&#x8017;&#x65F6;&#x8F83;&#x957F;&#x4E14;&#x4E0D;&#x592A;&#x9891;&#x7E41;&#x7684;&#x67E5;&#x8BE2;&#x3002; &#x4E0E; OLTP &#x76F8;&#x6BD4;&#xFF0C;OLAP &#x4E8B;&#x52A1;&#x7684;&#x5904;&#x7406;&#x65F6;&#x95F4;&#x66F4;&#x957F;&#xFF0C;&#x67E5;&#x8BE2;&#x4E5F;&#x8F83;&#x4E3A;&#x590D;&#x6742;&#x3002; </p>
+</li>
+<li><p>OLTP &#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x8868;&#x5FC5;&#x987B;&#x89C4;&#x8303;&#x5316;&#xFF08;3NF&#xFF09;&#xFF0C;&#x800C; OLAP &#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x8868;&#x53EF;&#x80FD;&#x672A;&#x89C4;&#x8303;&#x5316;&#x3002; </p>
+</li>
+<li><p>OLTP &#x7ECF;&#x5E38;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#xFF0C;&#x5982;&#x679C;&#x4EFB;&#x4F55;&#x4E8B;&#x52A1;&#x5728;&#x4E2D;&#x95F4;&#x5931;&#x8D25;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x635F;&#x5BB3;&#x6570;&#x636E;&#x7684;&#x5B8C;&#x6574;&#x6027;&#xFF0C; &#x56E0;&#x6B64;&#x5FC5;&#x987B;&#x6CE8;&#x610F;&#x6570;&#x636E;&#x5B8C;&#x6574;&#x6027;&#x3002; &#x800C;&#x5728; OLAP &#x4E2D;&#xFF0C;&#x4E8B;&#x52A1;&#x4E0D;&#x592A;&#x9891;&#x7E41;&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x592A;&#x5728;&#x610F;&#x6570;&#x636E;&#x5B8C;&#x6574;&#x6027;&#x3002;</p>
+</li>
+</ul>
+<h2 id="&#x6D45;&#x8C08;OLAP&#x5173;&#x952E;&#x6280;&#x672F;"><a href="#&#x6D45;&#x8C08;OLAP&#x5173;&#x952E;&#x6280;&#x672F;" class="headerlink" title="&#x6D45;&#x8C08;OLAP&#x5173;&#x952E;&#x6280;&#x672F;"></a>&#x6D45;&#x8C08;OLAP&#x5173;&#x952E;&#x6280;&#x672F;</h2><h3 id="&#x5B58;&#x50A8;"><a href="#&#x5B58;&#x50A8;" class="headerlink" title="&#x5B58;&#x50A8;"></a>&#x5B58;&#x50A8;</h3><h4 id="&#x884C;&#x5F0F;&#x5B58;&#x50A8;-vs-&#x5217;&#x5F0F;&#x5B58;&#x50A8;"><a href="#&#x884C;&#x5F0F;&#x5B58;&#x50A8;-vs-&#x5217;&#x5F0F;&#x5B58;&#x50A8;" class="headerlink" title="&#x884C;&#x5F0F;&#x5B58;&#x50A8; vs &#x5217;&#x5F0F;&#x5B58;&#x50A8;"></a>&#x884C;&#x5F0F;&#x5B58;&#x50A8; vs &#x5217;&#x5F0F;&#x5B58;&#x50A8;</h4><img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/&#x884C;&#x5217;&#x5BF9;&#x6BD4;.png" alt="&#x884C;&#x5217;&#x5BF9;&#x6BD4;" style="zoom:80%;">
+
+<p>&#x4E0B;&#x9762;&#x662F;ClickHouse&#x5B98;&#x7F51;&#x7684;&#x5BF9;&#x6BD4;&#xFF0C;&#x67E5;&#x8BE2;&#x884C;&#x7684;&#x65F6;&#x5019;&#x4F1A;&#x6D89;&#x53CA;&#x6574;&#x884C;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x5217;&#x53EA;&#x9700;&#x8981;&#x7279;&#x5B9A;&#x5B57;&#x6BB5;&#x5373;&#x53EF;&#x3002;&#x5BF9;&#x4E8E;OLAP&#x6765;&#x8BF4;&#xFF0C;&#x67E5;&#x8BE2;&#x7684;&#x6570;&#x636E;&#x91CF;&#x7279;&#x522B;&#x5927;&#xFF0C;&#x7528;&#x5217;&#x5B58;&#x80FD;&#x51CF;&#x5C11;IO&#x3002;</p>
+<p><img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820165720519.png" alt="image-20210820165720519"></p>
+<p><img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820165725960.png" alt="image-20210820165725960"></p>
+<h4 id="&#x538B;&#x7F29;"><a href="#&#x538B;&#x7F29;" class="headerlink" title="&#x538B;&#x7F29;"></a>&#x538B;&#x7F29;</h4><p>&#x4F18;&#x70B9;&#xFF1A;&#x51CF;&#x5C11;&#x5B58;&#x50A8;&#xFF1B;&#x51CF;&#x5C11;IO</p>
+<p>&#x5BF9;&#x4E8E;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#xFF0C;&#x4F8B;&#x5982;&#x6570;&#x503C;&#x3001;String&#x7B49;&#xFF0C;&#x5217;&#x5B58;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5408;&#x9002;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x51CF;&#x5C11;&#x6570;&#x636E;&#x4F53;&#x79EF;&#xFF0C;&#x5728;C-Store&#x8BBA;&#x6587;&#x4E2D;&#x5BF9;&#x4E8E;&#x662F;&#x5426;&#x6392;&#x5E8F;&#x3001;NDV&#xFF08;Number of Distince Values&#xFF09;&#x533A;&#x5206;&#x5EA6;&#xFF0C;&#x8FD9;4&#x79CD;&#x6392;&#x5217;&#x7EC4;&#x5408;&#xFF0C;&#x7ED9;&#x51FA;&#x4E86;&#x4E00;&#x4E9B;&#x65B9;&#x6848;&#xFF0C;&#x4F8B;&#x5982;&#x6570;&#x503C;&#x7C7B;&#x578B;&#xFF0C;&#x65E0;&#x5E8F;&#x4E14;NDV&#x5C0F;&#x7684;&#xFF0C;&#x8F6C;&#x6210;bitmap&#xFF0C;&#x7136;&#x540E;bit-packing&#x7F16;&#x7801;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x590D;&#x6742;&#x7C7B;&#x578B;&#xFF0C;&#x5D4C;&#x5957;&#x7C7B;&#x578B;&#x7684;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Google Dremel&#x8BBA;&#x6587;&#x63D0;&#x51FA;Striping/Assembly&#x7B97;&#x6CD5;&#xFF08;&#x5F00;&#x6E90;Parquet&#xFF09;&#xFF0C;&#x4F7F;&#x7528;Definition Level+Repetition Level&#x505A;&#x7F16;&#x89E3;&#x7801;&#x3002;&#x4E00;&#x4E9B;&#x6570;&#x503C;&#x7C7B;&#x578B;&#x6709;&#x65F6;&#x4E5F;&#x53EF;&#x4EE5;&#x5C1D;&#x8BD5;&#x5927;&#x4E00;&#x7EDF;&#x7684;&#x7528;bit shuffle&#x505A;&#x8F6C;&#x6362;&#xFF0C;&#x914D;&#x5408;&#x538B;&#x7F29;&#x6548;&#x679C;&#x4E5F;&#x4E0D;&#x9519;&#xFF0C;&#x4F8B;&#x5982;KUDU&#x548C;Doris&#x4E2D;&#x6709;&#x5E94;&#x7528;&#x3002;&#x5728;&#x7F16;&#x7801;&#x57FA;&#x7840;&#x4E0A;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x4F20;&#x7EDF;&#x7684;&#x538B;&#x7F29;&#xFF0C;&#x4F8B;&#x5982;lz4&#x3001;snappy&#x3001;zstd&#x3001;zlib&#x7B49;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820165856219.png" alt="image-20210820165856219" style="zoom:80%;">
+
+<p>&#x9009;&#x62E9;&#x538B;&#x7F29;&#x7B97;&#x6CD5;&#x7684;&#x65F6;&#x5019;&#x9700;&#x8981;&#x5BF9;&#x4E8E;&#x538B;&#x7F29;&#x901F;&#x7387;&#x548C;&#x538B;&#x7F29;&#x7387;&#x8FDB;&#x884C;&#x4E00;&#x4E2A;&#x6289;&#x62E9;&#xFF0C;&#x5BF9;&#x4E8E;&#x538B;&#x7F29;&#x901F;&#x5EA6;&#x8F83;&#x5FEB;&#x7684;&#x7B97;&#x6CD5;&#xFF0C;&#x5176;&#x538B;&#x7F29;&#x7387;&#x5F80;&#x5F80;&#x4E0D;&#x9AD8;&#xFF0C;&#x538B;&#x7F29;&#x7387;&#x9AD8;&#x7684;&#x7B97;&#x6CD5;&#x5F80;&#x5F80;&#x538B;&#x7F29;&#x901F;&#x7387;&#x4E0D;&#x9AD8;&#xFF0C;&#x9700;&#x8981;&#x6839;&#x636E;&#x573A;&#x666F;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x538B;&#x7F29;&#x7B97;&#x6CD5;&#xFF0C;CK&#x9ED8;&#x8BA4;&#x662F;LZ4&#x538B;&#x7F29;&#x3002;</p>
+<h4 id="&#x5206;&#x533A;"><a href="#&#x5206;&#x533A;" class="headerlink" title="&#x5206;&#x533A;"></a>&#x5206;&#x533A;</h4><p>&#x6570;&#x636E;&#x5206;&#x7247;&#x662F;&#x5C06;&#x6570;&#x636E;&#x5206;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x8282;&#x70B9;&#x5B58;&#x50A8;&#xFF0C;&#x6570;&#x636E;&#x5206;&#x7247;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#xFF0C;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x66F4;&#x7EC6;&#x7C92;&#x5EA6;&#x7684;&#x5206;&#x533A;&#xFF08;partition&#xFF09;&#xFF0C;&#x4FBF;&#x4E8E;&#x505A;&#x5206;&#x533A;&#x526A;&#x679D;&#xFF08;partition prune&#xFF09;&#xFF0C;&#x76F4;&#x63A5;&#x8DF3;&#x8FC7;&#x4E0D;&#x9700;&#x8981;&#x626B;&#x63CF;&#x7684;&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x5206;&#x7247;&#xFF08;sharding&#xFF09;&#x7B56;&#x7565;&#x6309;&#x7167;range&#xFF0C;&#x53EF;&#x4EE5;&#x4F18;&#x5316;OLAP&#x7684;&#x8303;&#x56F4;&#x67E5;&#x8BE2;&#x548C;&#x5FEB;&#x901F;&#x70B9;&#x67E5;&#xFF1B;&#x6309;&#x7167;hash&#x5206;&#x533A;&#xFF0C;&#x53EF;&#x4EE5;&#x5145;&#x5206;&#x6253;&#x6563;&#xFF0C;&#x6709;&#x6548;&#x89E3;&#x51B3;hot spot&#x70ED;&#x70B9;&#x3002;&#x5C06;&#x4E8C;&#x8005;&#x7ED3;&#x5408;&#xFF0C;&#x505A;&#x4E8C;&#x7EA7;&#x5206;&#x533A;&#xFF08;two-level&#xFF09;&#xFF0C;&#x4F8B;&#x5982;&#x963F;&#x91CC;&#x4E91;ADB&#x3001;ClickHouse&#x3001;KUDU&#xFF0C;&#x652F;&#x6301;DISTRIBUTED BY HASH&#x518D;PARTITION BY RANGE&#xFF0C;&#x800C;Doris&#x4E00;&#x822C;&#x5148;&#x6309;&#x65F6;&#x95F4;&#x4E00;&#x7EA7;&#x5206;&#x533A;&#xFF0C;&#x66F4;&#x597D;&#x505A;&#x51B7;&#x70ED;&#x6570;&#x636E;&#x533A;&#x5206;&#xFF0C;&#x4E8C;&#x7EA7;&#x5206;&#x533A;&#x5206;&#x6876;&#x91C7;&#x7528;hash&#x3002;</p>
+<p>&#x5C31;&#x6211;&#x7684;&#x7406;&#x89E3;&#xFF0C;&#x5206;&#x533A;&#x6709;&#x4E24;&#x79CD;&#xFF0C;&#x7B2C;&#x4E00;&#x79CD;&#x662F;&#x5206;&#x533A;&#x88C1;&#x526A;&#xFF0C;&#x5176;&#x7528;&#x9014;&#x662F;&#x51CF;&#x5C11;&#x6570;&#x636E;&#x7684;&#x626B;&#x63CF;&#xFF0C;&#x548C;&#x5217;&#x5F0F;&#x5B58;&#x50A8;&#x76EE;&#x7684;&#x7C7B;&#x4F3C;&#x3002;&#x7B2C;&#x4E8C;&#x79CD;&#x662F;&#x54C8;&#x5E0C;&#x5206;&#x533A;&#xFF0C;&#x5176;&#x76EE;&#x7684;&#x662F;&#x51CF;&#x5C11;&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x603B;&#x53BB;&#x7279;&#x5B9A;&#x8282;&#x70B9;&#x7279;&#x5B9A;&#x78C1;&#x76D8;&#x67E5;&#x8BE2;&#xFF0C;&#x548C;&#x6570;&#x636E;&#x5206;&#x7247;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x670D;&#x52A1;&#x5668;&#x7C7B;&#x4F3C;&#x3002;</p>
+<h3 id="&#x8BA1;&#x7B97;"><a href="#&#x8BA1;&#x7B97;" class="headerlink" title="&#x8BA1;&#x7B97;"></a>&#x8BA1;&#x7B97;</h3><h4 id="&#x67E5;&#x8BE2;&#x6A21;&#x578B;"><a href="#&#x67E5;&#x8BE2;&#x6A21;&#x578B;" class="headerlink" title="&#x67E5;&#x8BE2;&#x6A21;&#x578B;"></a>&#x67E5;&#x8BE2;&#x6A21;&#x578B;</h4><p>SQL&#x8BED;&#x8A00;&#x662F;OLAP&#x7684;&#x6807;&#x914D;&#xFF0C;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;SQL&#x67E5;&#x8BE2;&#x6B65;&#x9AA4;&#x5305;&#x62EC;1&#xFF09;SQL&#x8BCD;&#x6CD5;&#x89E3;&#x6790;&#xFF0C;&#x8BED;&#x6CD5;&#x89E3;&#x6790;&#xFF0C;2&#xFF09;&#x5F62;&#x6210;&#x62BD;&#x8C61;&#x8BED;&#x6CD5;&#x6811;&#xFF08;AST&#xFF09;&#xFF0C;3&#xFF09;&#x6821;&#x9A8C;&#x68C0;&#x67E5;&#xFF0C;4&#xFF09;AST&#x8F6C;&#x6210;&#x5173;&#x7CFB;&#x4EE3;&#x6570;&#x8868;&#x8FBE;&#x5F0F;&#xFF08;relational algebra&#xFF09;&#xFF0C;5&#xFF09;&#x6839;&#x636E;&#x5173;&#x7CFB;&#x4EE3;&#x6570;&#x8868;&#x8FBE;&#x5F0F;&#x751F;&#x6210;&#x6267;&#x884C;&#x8BA1;&#x5212;&#xFF0C;&#x5148;&#x751F;&#x6210;&#x903B;&#x8F91;&#x6267;&#x884C;&#x8BA1;&#x5212;&#xFF08;logical plan&#xFF09;&#xFF0C;6&#xFF09;&#x7ECF;&#x8FC7;&#x4F18;&#x5316;&#x5668;&#x751F;&#x6210;&#x6700;&#x4F18;&#x7684;&#x6267;&#x884C;&#x8BA1;&#x5212;&#xFF0C;7&#xFF09;&#x6839;&#x636E;&#x6267;&#x884C;&#x8BA1;&#x5212;&#x751F;&#x6210;&#x7269;&#x7406;&#x6267;&#x884C;&#x8BA1;&#x5212;&#xFF08;physical plan&#xFF09;&#xFF0C;8&#xFF09;&#x6700;&#x7EC8;&#x4EA4;&#x7531;&#x6267;&#x884C;&#x5668;&#x6267;&#x884C;&#x5E76;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x3002;</p>
+<p>&#x7531;SQL&#x5230;AST&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x7C7B;&#x5E93;&#x548C;&#x5DE5;&#x5177;&#x8F83;&#x591A;&#xFF0C;C++&#x53EF;&#x7528;Lex/Yacc&#xFF0C;Java&#x53EF;&#x7528;JavaCC/ANTLR&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x624B;&#x5199;&#x5B9E;&#x73B0;&#x3002;&#x7531;AST&#x5230;&#x5173;&#x7CFB;&#x4EE3;&#x6570;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;visitor&#x6A21;&#x5F0F;&#x904D;&#x5386;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;Mysql&#x7684;&#x6267;&#x884C;&#x6D41;&#x7A0B;&#xFF0C;&#x548C;&#x5F88;&#x591A;OLAP&#x5F15;&#x64CE;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820170357345.png" alt="image-20210820170357345" style="zoom:100%;">
+
+<h4 id="&#x6267;&#x884C;&#x6A21;&#x578B;"><a href="#&#x6267;&#x884C;&#x6A21;&#x578B;" class="headerlink" title="&#x6267;&#x884C;&#x6A21;&#x578B;"></a>&#x6267;&#x884C;&#x6A21;&#x578B;</h4><p>Scatter-Gather&#x6267;&#x884C;&#x6A21;&#x578B;&#xFF1A;&#x76F8;&#x5F53;&#x4E8E;MapReduce&#x4E2D;&#x7684;&#x4E00;&#x8D9F;Map&#x548C;Reduce&#xFF0C;&#x6CA1;&#x6709;&#x591A;&#x8F6E;&#x7684;&#x8FED;&#x4EE3;&#xFF0C;&#x800C;&#x4E14;&#x4E2D;&#x95F4;&#x8BA1;&#x7B97;&#x7ED3;&#x679C;&#x5F80;&#x5F80;&#x5B58;&#x50A8;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x901A;&#x8FC7;&#x7F51;&#x7EDC;&#x76F4;&#x63A5;&#x4EA4;&#x6362;&#x3002;Elasticsearch&#x3001;Druid&#x3001;Kylin&#x90FD;&#x662F;&#x6B64;&#x6A21;&#x578B;&#x3002;</p>
+<p>MapReduce&#xFF1A;Hive&#x662F;&#x6B64;&#x6A21;&#x578B;&#xFF0C;&#x9700;&#x8981;&#x843D;&#x76D8;&#x3002;</p>
+<p>MPP&#xFF1A;MPP&#x5B66;&#x540D;&#x662F;&#x5927;&#x89C4;&#x6A21;&#x5E76;&#x884C;&#x8BA1;&#x7B97;&#xFF0C;&#x5176;&#x5B9E;&#x5F88;&#x96BE;&#x7ED9;&#x5B83;&#x4E00;&#x4E2A;&#x51C6;&#x786E;&#x7684;&#x5B9A;&#x4E49;&#x3002;&#x5BBD;&#x6CDB;&#x4E00;&#x70B9;&#xFF0C;Presto&#x3001;Impala&#x3001;Doris&#x3001;Spark SQL&#x3001;Flink SQL&#x8FD9;&#x4E9B;&#x90FD;&#x7B97;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820170517057.png" alt="image-20210820170517057" style="zoom:80%;">
+
+<p>&#x5927;&#x90E8;&#x5206;OLAP&#x7CFB;&#x7EDF;&#x91C7;&#x7528;&#x7684;&#x662F;MPP&#x67B6;&#x6784;&#xFF0C;&#x56E0;&#x4E3A;&#x5176;&#x6570;&#x636E;&#x5206;&#x5230;&#x4E0D;&#x540C;&#x8282;&#x70B9;&#x4E0D;&#x540C;&#x673A;&#x5668;&#x53BB;&#x5B58;&#x653E;&#xFF0C;&#x8FD9;&#x6837;&#x5982;&#x679C;&#x8981;&#x5BF9;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x4E00;&#x4E2A;shuffle&#x7684;&#x8BDD;&#xFF0C;&#x591A;&#x534A;&#x5C31;&#x662F;MPP&#x67B6;&#x6784;&#x4E86;&#xFF0C;&#x4E0B;&#x9762;&#x662F;Impala&#x7684;&#x6267;&#x884C;&#x6D41;&#x7A0B;&#xFF1A;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820170813321.png" alt="image-20210820170813321" style="zoom:80%;">
+
+<ul>
+<li><p>&#x7528;&#x6237;&#x901A;&#x8FC7;Impala&#x63D0;&#x4F9B;&#x7684;impala-shell&#x6216;beeline&#x7B49;&#x5BA2;&#x6237;&#x7AEF;/UI&#x5DE5;&#x5177;&#x5411;Impala&#x8282;&#x70B9;&#x4E0B;&#x53D1;&#x67E5;&#x8BE2;SQL&#xFF1B;&#x63A5;&#x6536;&#x8BE5;SQL&#x7684;Impala&#x8282;&#x70B9;&#x5373;&#x4E3A;Coordinator&#x8282;&#x70B9;&#xFF0C;&#x8BE5;&#x8282;&#x70B9;&#x8D1F;&#x8D23;&#x8FDB;&#x884C;SQL&#x89E3;&#x6790;&#xFF1B;</p>
+</li>
+<li><p>&#x9996;&#x5148;&#x4EA7;&#x751F;&#x57FA;&#x4E8E;&#x5355;&#x8282;&#x70B9;&#x7684;&#x6267;&#x884C;&#x8BA1;&#x5212;&#xFF1B;&#x518D;&#x5BF9;&#x6267;&#x884C;&#x8BA1;&#x5212;&#x8FDB;&#x884C;&#x5206;&#x5E03;&#x5F0F;&#x5904;&#x7406;&#xFF0C;&#x6BD4;&#x5982;&#x5C06;Join&#x3001;&#x805A;&#x5408;&#xFF08;aggregation&#xFF09;&#x7B49;&#x5E76;&#x884C;&#x5316;&#x5230;&#x5404;Impala Executor&#x8282;&#x70B9;&#x4E0A;&#x3002;&#x6267;&#x884C;&#x8BA1;&#x5212;&#x88AB;&#x5207;&#x5206;&#x4E3A;&#x591A;&#x4E2A;Plan Fragment&#xFF08;PF&#xFF09;&#xFF0C;&#x6BCF;&#x4E2A;PF&#x53C8;&#x7531;&#x4E00;&#x5230;&#x591A;&#x4E2A;Operator&#x7EC4;&#x6210;&#xFF1B;</p>
+</li>
+<li><p>&#x63A5;&#x7740;&#xFF0C;&#x4E0B;&#x53D1;&#x7ECF;&#x8FC7;&#x4F18;&#x5316;&#x540E;&#x7684;&#x6267;&#x884C;&#x8BA1;&#x5212;&#x7684;PF&#x5230;&#x5BF9;&#x5E94;&#x7684;Executor&#x8282;&#x70B9;&#xFF0C;&#x591A;&#x4E2A;&#x6267;&#x884C;&#x8282;&#x70B9;&#x5E76;&#x884C;&#x5904;&#x7406;&#x4EFB;&#x52A1;&#xFF0C;&#x7F29;&#x77ED;&#x6574;&#x4E2A;&#x4EFB;&#x52A1;&#x6240;&#x9700;&#x65F6;&#x95F4;&#xFF1B;</p>
+</li>
+<li><p>&#x6267;&#x884C;&#x8282;&#x70B9;&#x626B;&#x63CF;HDFS/Hbase&#x7B49;&#x5B58;&#x50A8;&#x4E0A;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x9010;&#x5C42;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF0C;&#x6BD4;&#x5982;&#x8FDB;&#x884C;&#x8DE8;&#x8282;&#x70B9;&#x7684;&#x6570;&#x636E;shuffe&#xFF0C;Join&#x7B49;&#x64CD;&#x4F5C;&#xFF1B;</p>
+</li>
+<li><p>&#x6267;&#x884C;&#x8282;&#x70B9;&#x5B8C;&#x6210;&#x4EFB;&#x52A1;&#x5E76;&#x5C06;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x7EDF;&#x4E00;&#x53D1;&#x9001;&#x5230;Coordinator&#x8282;&#x70B9;&#xFF1B;</p>
+</li>
+<li><p>Coordinator&#x8282;&#x70B9;&#x6C47;&#x603B;&#x5404;&#x4E2A;&#x6267;&#x884C;&#x8282;&#x70B9;&#x6570;&#x636E;&#xFF0C;&#x505A;&#x6700;&#x540E;&#x5904;&#x7406;&#xFF0C;&#x6700;&#x7EC8;&#x8FD4;&#x56DE;&#x7ED9;&#x7528;&#x6237;&#x60F3;&#x8981;&#x7684;&#x7ED3;&#x679C;&#x96C6;&#x3002;</p>
+</li>
+</ul>
+<p><strong>MPP&#x6BD4;MR&#x597D;&#x7684;&#x539F;&#x56E0;&#xFF1A;</strong></p>
+<ul>
+<li><p>PF&#x4E4B;&#x95F4;&#x7684;&#x6570;&#x636E;&#x4EA4;&#x4E92;&#xFF08;&#x5373;&#x4E2D;&#x95F4;&#x5904;&#x7406;&#x7ED3;&#x679C;&#xFF09;&#x9A7B;&#x7559;&#x5728;&#x5185;&#x5B58;Buffer&#x4E2D;&#x4E0D;&#x843D;&#x76D8;&#xFF08;&#x5047;&#x8BBE;&#x5185;&#x5B58;&#x591F;&#x5927;&#xFF09;&#xFF1B;</p>
+</li>
+<li><p>Operator&#x548C;PF&#x95F4;&#x57FA;&#x4E8E;&#x6D41;&#x6C34;&#x7EBF;&#x5904;&#x7406;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x7B49;&#x4E0A;&#x4E00;&#x4E2A;Operator/PF&#x90FD;&#x5B8C;&#x6210;&#x540E;&#x624D;&#x8FDB;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x5904;&#x7406;&#x3002;&#x4E0A;&#x4E0B;&#x6E38;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#x548C;&#x6570;&#x636E;&#x4EA4;&#x4E92;&#x5F0F;&#x9884;&#x5148;&#x660E;&#x786E;&#x7684;&#x3002;</p>
+</li>
+</ul>
+<p><strong>MPP&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x7684;&#x95EE;&#x9898;</strong></p>
+<ul>
+<li><p>&#x4E2D;&#x95F4;&#x7ED3;&#x679C;&#x4E0D;&#x843D;&#x76D8;&#xFF0C;&#x5728;&#x6B63;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#x662F;&#x5229;&#x597D;&#xFF0C;&#x4F46;&#x5728;&#x5F02;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#x5C31;&#x662F;&#x5229;&#x7A7A;&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x51FA;&#x73B0;&#x8282;&#x70B9;&#x5B95;&#x673A;&#x7B49;&#x573A;&#x666F;&#x4E0B;&#xFF0C;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x8BA1;&#x7B97;&#x4EA7;&#x751F;&#x4E2D;&#x95F4;&#x7ED3;&#x679C;&#xFF0C;&#x62D6;&#x6162;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;&#x65F6;&#x95F4;&#xFF1B;</p>
+</li>
+<li><p>&#x6269;&#x5C55;&#x6027;&#x6CA1;&#x6709;MR&#x7B49;&#x67B6;&#x6784;&#x597D;&#xFF0C;&#x6216;&#x8005;&#x8BF4;&#x968F;&#x7740;MPP&#x7CFB;&#x7EDF;&#x8282;&#x70B9;&#x589E;&#x591A;&#x5230;&#x4E00;&#x5B9A;&#x89C4;&#x6A21;&#xFF0C;&#x6027;&#x80FD;&#x65E0;&#x6CD5;&#x7EBF;&#x6027;&#x63D0;&#x5347;&#x3002;&#x6709;&#x4E2A;&#x539F;&#x56E0;&#x662F;&#x201C;&#x6728;&#x6876;&#x6548;&#x5E94;&#x201D;&#xFF0C;&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x74F6;&#x9888;&#x53D6;&#x51B3;&#x4E8E;&#x6027;&#x80FD;&#x6700;&#x5DEE;&#x7684;&#x90A3;&#x4E2A;&#x8282;&#x70B9;&#x3002;&#x53E6;&#x4E00;&#x4E2A;&#x539F;&#x56E0;&#x662F;&#x89C4;&#x6A21;&#x8D8A;&#x5927;&#xFF0C;&#x51FA;&#x73B0;&#x8282;&#x70B9;&#x5B95;&#x673A;&#x3001;&#x574F;&#x76D8;&#x7B49;&#x5F02;&#x5E38;&#x60C5;&#x51B5;&#x5C31;&#x4F1A;&#x8D8A;&#x9891;&#x7E41;&#xFF0C;&#x6545;&#x969C;&#x7387;&#x63D0;&#x9AD8;&#x4F1A;&#x5BFC;&#x81F4;SQL&#x91CD;&#x8BD5;&#x6982;&#x7387;&#x63D0;&#x5347;&#xFF1B;</p>
+</li>
+</ul>
+<h3 id="&#x4F18;&#x5316;"><a href="#&#x4F18;&#x5316;" class="headerlink" title="&#x4F18;&#x5316;"></a>&#x4F18;&#x5316;</h3><h4 id="&#x57FA;&#x4E8E;&#x89C4;&#x5219;&#x7684;&#x4F18;&#x5316;-RBO"><a href="#&#x57FA;&#x4E8E;&#x89C4;&#x5219;&#x7684;&#x4F18;&#x5316;-RBO" class="headerlink" title="&#x57FA;&#x4E8E;&#x89C4;&#x5219;&#x7684;&#x4F18;&#x5316; RBO"></a>&#x57FA;&#x4E8E;&#x89C4;&#x5219;&#x7684;&#x4F18;&#x5316; RBO</h4><p>&#x4F1A;&#x5C06;&#x539F;&#x6709;&#x8868;&#x8FBE;&#x5F0F;&#x88C1;&#x526A;&#x6389;&#xFF0C;&#x904D;&#x5386;&#x4E00;&#x7CFB;&#x5217;&#x89C4;&#x5219;&#xFF08;Rule&#xFF09;&#xFF0C;&#x53EA;&#x8981;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x5C31;&#x8F6C;&#x6362;&#xFF0C;&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;&#x6267;&#x884C;&#x8BA1;&#x5212;&#x3002;&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x7684;&#x89C4;&#x5219;&#x5305;&#x62EC;&#x5206;&#x533A;&#x88C1;&#x526A;&#xFF08;Partition Prune&#xFF09;&#x3001;&#x5217;&#x88C1;&#x526A;&#x3001;&#x8C13;&#x8BCD;&#x4E0B;&#x63A8;&#xFF08;Predicate Pushdown&#xFF09;&#x3001;&#x6295;&#x5F71;&#x4E0B;&#x63A8;&#xFF08;Projection Pushdown&#xFF09;&#x3001;&#x805A;&#x5408;&#x4E0B;&#x63A8;&#x3001;limit&#x4E0B;&#x63A8;&#x3001;sort&#x4E0B;&#x63A8;&#x3001;&#x5E38;&#x91CF;&#x6298;&#x53E0;&#xFF08;Constant Folding&#xFF09;&#x3001;&#x5B50;&#x67E5;&#x8BE2;&#x5185;&#x8054;&#x8F6C;join&#x7B49;&#x3002;</p>
+<p><strong>&#x8C13;&#x8BCD;&#x4E0B;&#x63A8;</strong>&#xFF1A;&#x901A;&#x8FC7;&#x5C06;&#x6570;&#x636E;&#x5904;&#x7406;&#x7684;&#x4E00;&#x4E9B;&#x7B97;&#x5B50;&#x4E0B;&#x63A8;&#x6570;&#x636E;&#x6E90;&#x7AEF;(&#x79BB;&#x6570;&#x636E;&#x6700;&#x8FD1;&#x5904;)&#x8FDB;&#x884C;&#xFF0C;&#x6765;&#x63D0;&#x9AD8;&#x6574;&#x4F53;&#x6570;&#x636E;&#x5904;&#x7406;&#x6548;&#x7387;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;openLooKeng&#x4E0B;&#x63A8;&#x7684;&#x793A;&#x610F;&#x56FE;&#xFF0C;olk&#x5E0C;&#x671B;&#x5229;&#x7528;&#x6570;&#x636E;&#x6E90;&#x672C;&#x8EAB;&#x7684;&#x8BA1;&#x7B97;&#x80FD;&#x529B;&#xFF0C;&#x5728;&#x9760;&#x8FD1;&#x6570;&#x636E;&#x6E90;&#x4FA7;&#x8FDB;&#x884C;filter&#x51CF;&#x5C11;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171025754.png" alt="image-20210820171025754" style="zoom:80%;">
+
+<p><strong>&#x5217;&#x88C1;&#x526A;</strong>&#xFF1A;&#x5BF9;&#x4E8E;&#x7528;&#x4E0D;&#x4E0A;&#x7684;&#x5217;&#xFF0C;&#x6CA1;&#x6709;&#x5FC5;&#x8981;&#x8BFB;&#x53D6;&#x5B83;&#x4EEC;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x65E0;&#x8C13;&#x7684;&#x6D6A;&#x8D39; IO &#x8D44;&#x6E90;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#x8BF4;&#x8868; t &#x91CC;&#x9762;&#x6709; a b c d &#x56DB;&#x5217;&#x3002;</p>
+<p>&#x6267;&#x884C;&#xFF1A;<em>select a from t where b &gt; 5</em> </p>
+<p>&#x8FD9;&#x4E2A;&#x67E5;&#x8BE2;&#x91CC;&#x9762;&#x660E;&#x663E;&#x53EA;&#x6709; a b &#x4E24;&#x5217;&#x88AB;&#x7528;&#x5230;&#x4E86;&#xFF0C;&#x6240;&#x4EE5; c d &#x7684;&#x6570;&#x636E;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x8BFB;&#x53D6;&#x7684;&#x3002;&#x5728;&#x67E5;&#x8BE2;&#x8BA1;&#x5212;&#x91CC;&#x9762;&#xFF0C;Selection &#x7B97;&#x5B50;&#x7528;&#x5230; b &#x5217;&#xFF0C;&#x4E0B;&#x9762;&#x63A5;&#x4E00;&#x4E2A; DataSource &#x7528;&#x5230;&#x4E86; a b &#x4E24;&#x5217;&#xFF0C;&#x5269;&#x4E0B; c &#x548C; d &#x90FD;&#x53EF;&#x4EE5;&#x88C1;&#x526A;&#x6389;&#xFF0C;DataSource &#x8BFB;&#x6570;&#x636E;&#x65F6;&#x4E0D;&#x9700;&#x8981;&#x5C06;&#x5B83;&#x4EEC;&#x8BFB;&#x8FDB;&#x6765;&#x3002;</p>
+<p>&#x5217;&#x88C1;&#x526A;&#x7684;&#x7B97;&#x6CD5;&#x5B9E;&#x73B0;&#x662F;&#x81EA;&#x9876;&#x5411;&#x4E0B;&#x5730;&#x628A;&#x7B97;&#x5B50;&#x8FC7;&#x4E00;&#x904D;&#x3002;&#x67D0;&#x4E2A;&#x7ED3;&#x70B9;&#x9700;&#x8981;&#x7528;&#x5230;&#x7684;&#x5217;&#xFF0C;&#x7B49;&#x4E8E;&#x5B83;&#x81EA;&#x5DF1;&#x9700;&#x8981;&#x7528;&#x5230;&#x7684;&#x5217;&#xFF0C;&#x52A0;&#x4E0A;&#x5B83;&#x7684;&#x7236;&#x4EB2;&#x7ED3;&#x70B9;&#x9700;&#x8981;&#x7528;&#x5230;&#x7684;&#x5217;&#x3002;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;&#x7531;&#x4E0A;&#x5F80;&#x4E0B;&#x7684;&#x7ED3;&#x70B9;&#xFF0C;&#x9700;&#x8981;&#x7528;&#x5230;&#x7684;&#x5217;&#x5C06;&#x8D8A;&#x6765;&#x8D8A;&#x591A;&#x3002;</p>
+<p>&#x5217;&#x88C1;&#x526A;&#x4E3B;&#x8981;&#x5F71;&#x54CD;&#x7684;&#x7B97;&#x5B50;&#x662F; Projection&#xFF0C;DataSource&#xFF0C;Aggregation&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x8DDF;&#x5217;&#x76F4;&#x63A5;&#x76F8;&#x5173;&#x3002;Projection &#x91CC;&#x9762;&#x4F1A;&#x88C1;&#x6389;&#x7528;&#x4E0D;&#x4E0A;&#x7684;&#x5217;&#xFF0C;DataSource &#x91CC;&#x9762;&#x4E5F;&#x4F1A;&#x88C1;&#x526A;&#x6389;&#x4E0D;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x5217;&#x3002;</p>
+<p><strong>&#x6700;&#x5927;&#x6700;&#x5C0F;&#x6D88;&#x9664;</strong>&#xFF1A;&#x5BF9; Min/Max &#x8BED;&#x53E5;&#x8FDB;&#x884C;&#x6539;&#x5199;&#x3002;</p>
+<p>&#x5B9E;&#x4F8B;SQL&#xFF1A; <em>select min(id) from t</em></p>
+<p>&#x6362;&#x4E00;&#x79CD;&#x5199;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x505A;&#x5230;&#x7C7B;&#x4F3C;&#x7684;&#x6548;&#x679C;&#xFF1A;select id from t order by id desc limit 1</p>
+<p>&#x524D;&#x4E00;&#x4E2A;&#x8BED;&#x53E5;&#xFF0C;&#x751F;&#x6210;&#x7684;&#x6267;&#x884C;&#x8BA1;&#x5212;&#xFF0C;&#x662F;&#x4E00;&#x4E2A; TableScan &#x4E0A;&#x9762;&#x63A5;&#x4E00;&#x4E2A; Aggregation&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5168;&#x8868;&#x626B;&#x63CF;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x540E;&#x4E00;&#x4E2A;&#x8BED;&#x53E5;&#xFF0C;&#x751F;&#x6210;&#x6267;&#x884C;&#x8BA1;&#x5212;&#x662F; TableScan + Sort + Limit&#x3002;</p>
+<p>&#x5728;&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#xFF0C;&#x6BD4;&#x5982; id &#x662F;&#x4E3B;&#x952E;&#x6216;&#x8005;&#x662F;&#x5B58;&#x5728;&#x7D22;&#x5F15;&#xFF0C;&#x6570;&#x636E;&#x672C;&#x8EAB;&#x6709;&#x5E8F;&#xFF0C; Sort &#x5C31;&#x53EF;&#x4EE5;&#x6D88;&#x9664;&#xFF0C;&#x6700;&#x7EC8;&#x53D8;&#x6210; TableScan &#x6216;&#x8005; IndexLookUp &#x63A5;&#x4E00;&#x4E2A; Limit&#xFF0C;&#x8FD9;&#x6837;&#x5B50;&#x5C31;&#x4E0D;&#x9700;&#x8981;&#x5168;&#x8868;&#x626B;&#x4E86;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x8BFB;&#x5230;&#x7B2C;&#x4E00;&#x6761;&#x6570;&#x636E;&#x5C31;&#x5F97;&#x5230;&#x7ED3;&#x679C;&#x3002;&#x5168;&#x8868;&#x626B;&#x64CD;&#x4F5C;&#x8DDF;&#x53EA;&#x67E5;&#x4E00;&#x6761;&#x6570;&#x636E;&#xFF0C;&#x6027;&#x80FD;&#x4E0A;&#x662F;&#x5929;&#x58E4;&#x4E4B;&#x522B;&#x3002;</p>
+<p>&#x57FA;&#x4E8E;&#x89C4;&#x5219;&#x7684;&#x4F18;&#x5316;&#x8FD8;&#x6709;&#x5F88;&#x591A;&#xFF0C;&#x8FD9;&#x91CC;&#x53EA;&#x662F;&#x4E3E;&#x4F8B;&#x4E86;&#x4E09;&#x79CD;&#x3002;</p>
+<h4 id="&#x57FA;&#x4E8E;&#x4EE3;&#x4EF7;&#x7684;&#x4F18;&#x5316;-CBO"><a href="#&#x57FA;&#x4E8E;&#x4EE3;&#x4EF7;&#x7684;&#x4F18;&#x5316;-CBO" class="headerlink" title="&#x57FA;&#x4E8E;&#x4EE3;&#x4EF7;&#x7684;&#x4F18;&#x5316; CBO"></a>&#x57FA;&#x4E8E;&#x4EE3;&#x4EF7;&#x7684;&#x4F18;&#x5316; CBO</h4><p>&#x57FA;&#x4E8E;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F; + &#x4EE3;&#x4EF7;&#x6A21;&#x578B;&#xFF0C;&#x5C1D;&#x8BD5;&#x63A2;&#x7D22;&#x751F;&#x6210;&#x7B49;&#x4EF7;&#x5173;&#x7CFB;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x6700;&#x7EC8;&#x9009;&#x53D6;&#x4EE3;&#x4EF7;&#x6700;&#x5C0F;&#x7684;&#x6267;&#x884C;&#x8BA1;&#x5212;&#x3002;</p>
+<p>&#x4F18;&#x5316;&#x5668;&#x9700;&#x8981;&#x5C3D;&#x91CF;&#x7684;&#x9AD8;&#x6548;&#xFF0C;&#x9AD8;&#x6548;&#x7684;&#x751F;&#x6210;&#x641C;&#x7D22;&#x7A7A;&#x95F4;&#x3001;&#x52A8;&#x6001;&#x89C4;&#x5212;&#x904D;&#x5386;&#x641C;&#x7D22;&#x7A7A;&#x95F4;&#xFF08;top down&#x3001;bottom up&#x3001;depth-first&#x7B49;&#xFF09;&#xFF0C;&#x9AD8;&#x6548;&#x7684;&#x526A;&#x679D;&#x7B56;&#x7565;&#x7B49;&#x90FD;&#x53EF;&#x4EE5;&#x52A0;&#x901F;&#x4F18;&#x5316;&#x8FC7;&#x7A0B;&#x3002;</p>
+<p>&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;&#x5305;&#x62EC;&#x8868;&#x6570;&#x636E;&#x5927;&#x5C0F;&#xFF0C;row count&#x3002;&#x67E5;&#x8BE2;&#x5217;&#x7684;trait metadata&#xFF08;min&#x3001;max&#x3001;cardinality&#x7B49;&#xFF09;&#xFF0C;sortness&#x3001;&#x53EF;&#x5229;&#x7528;&#x7684;&#x7D22;&#x5F15;&#xFF0C;&#x76F4;&#x65B9;&#x56FE;&#xFF08;Histogram&#xFF09;&#x5206;&#x5E03;&#x7EDF;&#x8BA1;&#x7B49;&#x3002;</p>
+<p>CBO&#x7684;&#x57FA;&#x672C;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ul>
+<li><p>&#x7B2C;&#x4E00;&#x6B65;&#xFF1A;&#x91C7;&#x96C6;&#x53C2;&#x539F;&#x59CB;&#x8868;&#x57FA;&#x672C;&#x4FE1;&#x606F;</p>
+</li>
+<li><p>&#x7B2C;&#x4E8C;&#x6B65;&#xFF1A;&#x5B9A;&#x4E49;&#x6838;&#x5FC3;&#x7B97;&#x5B50;&#x7684;&#x57FA;&#x6570;&#x63A8;&#x5BFC;&#x89C4;&#x5219;</p>
+</li>
+<li><p>&#x7B2C;&#x4E09;&#x6B65;&#xFF1A;&#x6838;&#x5FC3;&#x7B97;&#x5B50;&#x5B9E;&#x9645;&#x4EE3;&#x4EF7;&#x8BA1;&#x7B97;</p>
+</li>
+<li><p>&#x7B2C;&#x56DB;&#x6B65;&#xFF1A;&#x9009;&#x62E9;&#x6700;&#x4F18;&#x6267;&#x884C;&#x8DEF;&#x5F84;&#xFF08;&#x4EE3;&#x4EF7;&#x6700;&#x5C0F;&#x6267;&#x884C;&#x8DEF;&#x5F84;</p>
+</li>
+</ul>
+<p>&#x4E0B;&#x9762;&#x662F;Impala&#x5173;&#x4E8E;&#x662F;&#x5426;&#x91C7;&#x7528;&#x57FA;&#x4E8E;CBO&#x7684;&#x6027;&#x80FD;&#x5BF9;&#x6BD4;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x57FA;&#x4E8E;&#x4EE3;&#x4EF7;&#x7684;&#x4F18;&#x5316;&#x4E0D;&#x4E00;&#x5B9A;&#x662F;&#x6700;&#x4F18;&#x7684;&#xFF0C;&#x4F46;&#x5BF9;&#x4E8E;&#x5927;&#x90E8;&#x5206;&#x67E5;&#x8BE2;&#x662F;&#x66F4;&#x4F18;&#x7684;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171512318.png" alt="image-20210820171512318" style="zoom:80%;">
+
+<h2 id="&#x4E3B;&#x6D41;OLAP&#x7CFB;&#x7EDF;&#x5BF9;&#x6BD4;"><a href="#&#x4E3B;&#x6D41;OLAP&#x7CFB;&#x7EDF;&#x5BF9;&#x6BD4;" class="headerlink" title="&#x4E3B;&#x6D41;OLAP&#x7CFB;&#x7EDF;&#x5BF9;&#x6BD4;"></a>&#x4E3B;&#x6D41;OLAP&#x7CFB;&#x7EDF;&#x5BF9;&#x6BD4;</h2><h3 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h3><p>Hive&#x662F;&#x4E00;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;SQL on Hadoop&#x65B9;&#x6848;&#xFF0C;&#x5E95;&#x5C42;&#x4F9D;&#x8D56;MapReduce&#x8BA1;&#x7B97;&#x6A21;&#x578B;&#x6267;&#x884C;&#x5206;&#x5E03;&#x5F0F;&#x8BA1;&#x7B97;&#x3002;Hive&#x64C5;&#x957F;&#x6267;&#x884C;&#x957F;&#x65F6;&#x95F4;&#x8FD0;&#x884C;&#x7684;&#x79BB;&#x7EBF;&#x6279;&#x5904;&#x7406;&#xFF0C;&#x6570;&#x636E;&#x91CF;&#x8D8A;&#x5927;&#xFF0C;&#x4F18;&#x52BF;&#x8D8A;&#x660E;&#x663E;&#x3002;</p>
+<p>&#x8FD1;2&#x5E74;&#xFF0C;&#x968F;&#x7740;ClickHouse&#x7684;&#x9010;&#x6E10;&#x6D41;&#x884C;&#xFF0C;&#x5BF9;&#x4E8E;&#x4E00;&#x4E9B;&#x603B;&#x6570;&#x636E;&#x91CF;&#x4E0D;&#x8D85;&#x8FC7;&#x767E;PB&#x7EA7;&#x522B;&#x7684;&#x4E92;&#x8054;&#x7F51;&#x6570;&#x636E;&#x4ED3;&#x5E93;&#x9700;&#x6C42;&#xFF0C;&#x5DF2;&#x7ECF;&#x6709;&#x591A;&#x5BB6;&#x516C;&#x53F8;&#x6539;&#x4E3A;&#x4E86;ClickHouse&#x7684;&#x65B9;&#x6848;&#x3002; ClickHouse&#x7684;&#x4F18;&#x52BF;&#x662F;&#x5355;&#x4E2A;&#x67E5;&#x8BE2;&#x6267;&#x884C;&#x901F;&#x5EA6;&#x66F4;&#x5FEB;&#xFF0C;&#x4E0D;&#x4F9D;&#x8D56;hadoop&#xFF0C;&#x67B6;&#x6784;&#x548C;&#x8FD0;&#x7EF4;&#x66F4;&#x7B80;&#x5355;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171600506.png" alt="image-20210820171600506" style="zoom:80%;">
+
+<h3 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h3><p>Apache Spark&#x662F;&#x7528;&#x4E8E;&#x5927;&#x89C4;&#x6A21;&#x6570;&#x636E;&#x5904;&#x7406;&#x7684;&#x7EDF;&#x4E00;&#x5206;&#x6790;&#x5F15;&#x64CE;&#x3002;&#x5B83;&#x63D0;&#x4F9B;Java&#xFF0C;Scala&#xFF0C;Python&#x548C;R&#x4E2D;&#x7684;&#x9AD8;&#x7EA7;API&#xFF0C;&#x4EE5;&#x53CA;&#x652F;&#x6301;&#x5E38;&#x89C4;&#x6267;&#x884C;&#x56FE;&#x7684;&#x4F18;&#x5316;&#x5F15;&#x64CE;&#x3002;&#x5B83;&#x8FD8;&#x652F;&#x6301;&#x4E00;&#x7EC4;&#x4E30;&#x5BCC;&#x7684;&#x66F4;&#x9AD8;&#x7EA7;&#x522B;&#x7684;&#x5DE5;&#x5177;&#xFF0C;&#x5305;&#x62EC;Spark SQL&#x7528;&#x4E8E;SQL&#x548C;&#x7ED3;&#x6784;&#x5316;&#x6570;&#x636E;&#x7684;&#x5904;&#x7406;&#xFF0C;MLlib&#x673A;&#x5668;&#x5B66;&#x4E60;&#xFF0C;GraphX&#x7528;&#x4E8E;&#x56FE;&#x5F62;&#x5904;&#x7406;&#xFF0C;&#x4EE5;&#x53CA;&#x7ED3;&#x6784;&#x5316;&#x6D41;&#x7684;&#x589E;&#x91CF;&#x8BA1;&#x7B97;&#x548C;&#x6D41;&#x5904;&#x7406;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171627891.png" alt="image-20210820171627891" style="zoom:80%;">
+
+<p>&#x4ECE;&#x6D41;&#x5904;&#x7406;&#x7684;&#x89D2;&#x5EA6;&#x6765;&#x8BB2;&#xFF0C;Spark&#x57FA;&#x4E8E;&#x5FAE;&#x6279;&#x91CF;&#x5904;&#x7406;&#xFF0C;&#x628A;&#x6D41;&#x6570;&#x636E;&#x770B;&#x6210;&#x662F;&#x4E00;&#x4E2A;&#x4E2A;&#x5C0F;&#x7684;&#x6279;&#x5904;&#x7406;&#x6570;&#x636E;&#x5757;&#x5206;&#x522B;&#x5904;&#x7406;&#xFF0C;&#x6240;&#x4EE5;&#x5EF6;&#x8FDF;&#x6027;&#x53EA;&#x80FD;&#x505A;&#x5230;&#x79D2;&#x7EA7;&#x3002;&#x800C;Flink&#x57FA;&#x4E8E;&#x6BCF;&#x4E2A;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#xFF0C;&#x6BCF;&#x5F53;&#x6709;&#x65B0;&#x7684;&#x6570;&#x636E;&#x8F93;&#x5165;&#x90FD;&#x4F1A;&#x7ACB;&#x523B;&#x5904;&#x7406;&#xFF0C;&#x662F;&#x771F;&#x6B63;&#x7684;&#x6D41;&#x5F0F;&#x8BA1;&#x7B97;&#xFF0C;&#x652F;&#x6301;&#x6BEB;&#x79D2;&#x7EA7;&#x8BA1;&#x7B97;&#x3002;&#x7531;&#x4E8E;&#x76F8;&#x540C;&#x7684;&#x539F;&#x56E0;&#xFF0C;Spark&#x53EA;&#x652F;&#x6301;&#x57FA;&#x4E8E;&#x65F6;&#x95F4;&#x7684;&#x7A97;&#x53E3;&#x64CD;&#x4F5C;&#xFF08;&#x5904;&#x7406;&#x65F6;&#x95F4;&#x6216;&#x8005;&#x4E8B;&#x4EF6;&#x65F6;&#x95F4;&#xFF09;&#xFF0C;&#x800C;Flink&#x652F;&#x6301;&#x7684;&#x7A97;&#x53E3;&#x64CD;&#x4F5C;&#x5219;&#x975E;&#x5E38;&#x7075;&#x6D3B;&#xFF0C;&#x4E0D;&#x4EC5;&#x652F;&#x6301;&#x65F6;&#x95F4;&#x7A97;&#x53E3;&#xFF0C;&#x8FD8;&#x652F;&#x6301;&#x57FA;&#x4E8E;&#x6570;&#x636E;&#x672C;&#x8EAB;&#x7684;&#x7A97;&#x53E3;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x81EA;&#x7531;&#x5B9A;&#x4E49;&#x60F3;&#x8981;&#x7684;&#x7A97;&#x53E3;&#x64CD;&#x4F5C;&#x3002;</p>
+<h3 id="Flink"><a href="#Flink" class="headerlink" title="Flink"></a>Flink</h3><p>Apache Flink &#x662F;&#x4E00;&#x4E2A;&#x6846;&#x67B6;&#x548C;&#x5206;&#x5E03;&#x5F0F;&#x5904;&#x7406;&#x5F15;&#x64CE;&#xFF0C;&#x7528;&#x4E8E;&#x5728;<em>&#x65E0;&#x8FB9;&#x754C;&#x548C;&#x6709;&#x8FB9;&#x754C;</em>&#x6570;&#x636E;&#x6D41;&#x4E0A;&#x8FDB;&#x884C;&#x6709;&#x72B6;&#x6001;&#x7684;&#x8BA1;&#x7B97;&#x3002;Flink &#x80FD;&#x5728;&#x6240;&#x6709;&#x5E38;&#x89C1;&#x96C6;&#x7FA4;&#x73AF;&#x5883;&#x4E2D;&#x8FD0;&#x884C;&#xFF0C;&#x5E76;&#x80FD;&#x4EE5;&#x5185;&#x5B58;&#x901F;&#x5EA6;&#x548C;&#x4EFB;&#x610F;&#x89C4;&#x6A21;&#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#x3002;</p>
+<p>&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x88AB;&#x4F5C;&#x4E3A; <em>&#x65E0;&#x754C;</em> &#x6216;&#x8005; <em>&#x6709;&#x754C;</em> &#x6D41;&#x6765;&#x5904;&#x7406;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171707251.png" alt="image-20210820171707251" style="zoom:80%;">
+
+<p>Flink &#x4E3A;&#x6D41;&#x5F0F;/&#x6279;&#x5F0F;&#x5904;&#x7406;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x5F00;&#x53D1;&#x63D0;&#x4F9B;&#x4E86;&#x4E0D;&#x540C;&#x7EA7;&#x522B;&#x7684;&#x62BD;&#x8C61;&#x3002;</p>
+<p>Flink API &#x6700;&#x5E95;&#x5C42;&#x7684;&#x62BD;&#x8C61;&#x4E3A;&#x6709;&#x72B6;&#x6001;&#x5B9E;&#x65F6;&#x6D41;&#x5904;&#x7406;&#x3002;</p>
+<p>Flink API &#x7B2C;&#x4E8C;&#x5C42;&#x62BD;&#x8C61;&#x662F; Core APIs&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x8BB8;&#x591A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E0D;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x5230;&#x4E0A;&#x8FF0;&#x6700;&#x5E95;&#x5C42;&#x62BD;&#x8C61;&#x7684; API&#xFF0C;&#x800C;&#x662F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; Core APIs &#x8FDB;&#x884C;&#x7F16;&#x7A0B;&#xFF1A;&#x5176;&#x4E2D;&#x5305;&#x542B; DataStream API&#xFF08;&#x5E94;&#x7528;&#x4E8E;&#x6709;&#x754C;/&#x65E0;&#x754C;&#x6570;&#x636E;&#x6D41;&#x573A;&#x666F;&#xFF09;&#x548C; DataSet API&#xFF08;&#x5E94;&#x7528;&#x4E8E;&#x6709;&#x754C;&#x6570;&#x636E;&#x96C6;&#x573A;&#x666F;&#xFF09;&#x4E24;&#x90E8;&#x5206;&#x3002;Core APIs &#x63D0;&#x4F9B;&#x7684;&#x6D41;&#x5F0F; API&#xFF08;Fluent API&#xFF09;&#x4E3A;&#x6570;&#x636E;&#x5904;&#x7406;&#x63D0;&#x4F9B;&#x4E86;&#x901A;&#x7528;&#x7684;&#x6A21;&#x5757;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F8B;&#x5982;&#x5404;&#x79CD;&#x5F62;&#x5F0F;&#x7684;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;&#x8F6C;&#x6362;&#xFF08;transformations&#xFF09;&#x3001;&#x8054;&#x63A5;&#xFF08;joins&#xFF09;&#x3001;&#x805A;&#x5408;&#xFF08;aggregations&#xFF09;&#x3001;&#x7A97;&#x53E3;&#xFF08;windows&#xFF09;&#x548C;&#x72B6;&#x6001;&#xFF08;state&#xFF09;&#x64CD;&#x4F5C;&#x7B49;&#x3002;</p>
+<p>Table API &#x662F;&#x4EE5;&#x8868;&#xFF08;Table&#xFF09;&#x4E3A;&#x4E2D;&#x5FC3;&#x7684;&#x58F0;&#x660E;&#x5F0F;&#x7F16;&#x7A0B;&#xFF08;DSL&#xFF09;API&#xFF0C;&#x4F8B;&#x5982;&#x5728;&#x6D41;&#x5F0F;&#x6570;&#x636E;&#x573A;&#x666F;&#x4E0B;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x8868;&#x793A;&#x4E00;&#x5F20;&#x6B63;&#x5728;&#x52A8;&#x6001;&#x6539;&#x53D8;&#x7684;&#x8868;&#x3002;</p>
+<p>SQL &#x67E5;&#x8BE2;&#x8BED;&#x53E5;&#x53EF;&#x4EE5;&#x5728; <em>Table API</em> &#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x8868;&#x4E0A;&#x6267;&#x884C;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171734238.png" alt="image-20210820171734238" style="zoom:80%;">
+
+<h3 id="ClickHouse"><a href="#ClickHouse" class="headerlink" title="ClickHouse"></a>ClickHouse</h3><p>ClickHouse&#x90E8;&#x7F72;&#x67B6;&#x6784;&#x7B80;&#x5355;&#xFF0C;&#x6613;&#x7528;&#xFF0C;&#x4E0D;&#x4F9D;&#x8D56;Hadoop&#x4F53;&#x7CFB;&#xFF08;HDFS+YARN&#xFF09;&#x3002;</p>
+<p>&#x5B83;&#x6BD4;&#x8F83;&#x64C5;&#x957F;&#x7684;&#x5730;&#x65B9;&#x662F;&#x5BF9;&#x4E00;&#x4E2A;&#x5927;&#x6570;&#x636E;&#x91CF;&#x7684;&#x5355;&#x8868;&#x8FDB;&#x884C;&#x805A;&#x5408;&#x67E5;&#x8BE2;&#x3002;Clickhouse&#x7528;C++&#x5B9E;&#x73B0;&#xFF0C;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;&#x5177;&#x5907;&#x5411;&#x91CF;&#x5316;&#x6267;&#x884C;&#xFF08;Vectorized Execution&#xFF09;&#x3001;&#x51CF;&#x679D;&#x7B49;&#x4F18;&#x5316;&#x80FD;&#x529B;&#xFF0C;&#x5177;&#x5907;&#x5F3A;&#x52B2;&#x7684;&#x67E5;&#x8BE2;&#x6027;&#x80FD;&#x3002;&#x76EE;&#x524D;&#x5728;&#x4E92;&#x8054;&#x7F51;&#x4F01;&#x4E1A;&#x5747;&#x6709;&#x5E7F;&#x6CDB;&#x4F7F;&#x7528;&#xFF0C;&#x6BD4;&#x8F83;&#x9002;&#x5408;&#x5185;&#x90E8;BI&#x62A5;&#x8868;&#x578B;&#x5E94;&#x7528;&#xFF0C;&#x53EF;&#x4EE5;&#x63D0;&#x4F9B;&#x4F4E;&#x5EF6;&#x8FDF;&#xFF08;ms&#x7EA7;&#x522B;&#xFF09;&#x7684;&#x54CD;&#x5E94;&#x901F;&#x5EA6;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5355;&#x4E2A;&#x67E5;&#x8BE2;&#x975E;&#x5E38;&#x5FEB;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171801810.png" alt="image-20210820171801810" style="zoom:80%;">
+
+<p>ClickHouse&#x4E5F;&#x6709;&#x5B83;&#x7684;&#x5C40;&#x9650;&#x6027;&#xFF0C;&#x5728;OLAP&#x6280;&#x672F;&#x9009;&#x578B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5E94;&#x8BE5;&#x907F;&#x514D;&#x628A;&#x5B83;&#x4F5C;&#x4E3A;&#x591A;&#x8868;&#x5173;&#x8054;&#x67E5;&#x8BE2;(JOIN)&#x7684;&#x5F15;&#x64CE;&#xFF0C;&#x4E5F;&#x5E94;&#x8BE5;&#x907F;&#x514D;&#x628A;&#x5B83;&#x7528;&#x5728;&#x671F;&#x671B;&#x652F;&#x6491;&#x9AD8;&#x5E76;&#x53D1;&#x6570;&#x636E;&#x67E5;&#x8BE2;&#x7684;&#x573A;&#x666F;&#xFF0C;OLAP&#x5206;&#x6790;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x4E00;&#x822C;&#x8BA4;&#x4E3A;QPS&#x8FBE;&#x5230;1000+&#x5C31;&#x7B97;&#x9AD8;&#x5E76;&#x53D1;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x50CF;&#x7535;&#x5546;&#x3001;&#x62A2;&#x7EA2;&#x5305;&#x7B49;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x4E2D;&#xFF0C;10W&#x4EE5;&#x4E0A;&#x624D;&#x7B97;&#x9AD8;&#x5E76;&#x53D1;&#xFF0C;&#x6BD5;&#x7ADF;&#x6570;&#x636E;&#x5206;&#x6790;&#x573A;&#x666F;&#xFF0C;&#x6570;&#x636E;&#x6D77;&#x91CF;&#xFF0C;&#x8BA1;&#x7B97;&#x590D;&#x6742;&#xFF0C;QPS&#x80FD;&#x591F;&#x8FBE;&#x5230;1000&#x5DF2;&#x7ECF;&#x975E;&#x5E38;&#x4E0D;&#x5BB9;&#x6613;&#x3002;</p>
+<p>&#x4F8B;&#x5982;Clickhouse&#xFF0C;&#x5982;&#x679C;&#x5982;&#x6570;&#x636E;&#x91CF;&#x662F;TB&#x7EA7;&#x522B;&#xFF0C;&#x805A;&#x5408;&#x8BA1;&#x7B97;&#x7A0D;&#x590D;&#x6742;&#x4E00;&#x70B9;&#xFF0C;&#x5355;&#x96C6;&#x7FA4;QPS&#x4E00;&#x822C;&#x8FBE;&#x5230;100&#x5DF2;&#x7ECF;&#x5F88;&#x56F0;&#x96BE;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x66F4;&#x9002;&#x5408;&#x4F01;&#x4E1A;&#x5185;&#x90E8;BI&#x62A5;&#x8868;&#x5E94;&#x7528;&#xFF0C;&#x800C;&#x4E0D;&#x9002;&#x5408;&#x5982;&#x6570;&#x5341;&#x4E07;&#x7684;&#x5E7F;&#x544A;&#x4E3B;&#x62A5;&#x8868;&#x6216;&#x8005;&#x6570;&#x767E;&#x4E07;&#x7684;&#x6DD8;&#x5B9D;&#x5E97;&#x4E3B;&#x76F8;&#x5173;&#x62A5;&#x8868;&#x5E94;&#x7528;&#x3002;ClickHouse&#x7684;&#x6267;&#x884C;&#x6A21;&#x578B;&#x51B3;&#x5B9A;&#x4E86;&#x5B83;&#x4F1A;&#x5C3D;&#x5168;&#x529B;&#x6765;&#x6267;&#x884C;&#x4E00;&#x4E2A;Query&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x540C;&#x65F6;&#x6267;&#x884C;&#x5F88;&#x591A;Query&#x3002;</p>
+<h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><p>Elasticsearch &#x662F;&#x4E00;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x53EF;&#x6269;&#x5C55;&#x7684;&#x5B9E;&#x65F6;&#x641C;&#x7D22;&#x548C;&#x5206;&#x6790;&#x5F15;&#x64CE;,&#x4E00;&#x4E2A;&#x5EFA;&#x7ACB;&#x5728;&#x5168;&#x6587;&#x641C;&#x7D22;&#x5F15;&#x64CE;Apache Lucene &#x57FA;&#x7840;&#x4E0A;&#x7684;&#x641C;&#x7D22;&#x5F15;&#x64CE;&#xFF0C;&#x5B83;&#x4E0D;&#x4EC5;&#x5305;&#x62EC;&#x4E86;&#x5168;&#x6587;&#x641C;&#x7D22;&#x529F;&#x80FD;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x4EE5;&#x4E0B;&#x5DE5;&#x4F5C;:</p>
+<ul>
+<li><p>&#x5206;&#x5E03;&#x5F0F;&#x5B9E;&#x65F6;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#xFF0C;&#x5E76;&#x5C06;&#x6BCF;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#x90FD;&#x7F16;&#x5165;&#x7D22;&#x5F15;&#xFF0C;&#x4F7F;&#x5176;&#x53EF;&#x4EE5;&#x88AB;&#x641C;&#x7D22;</p>
+</li>
+<li><p>&#x5B9E;&#x65F6;&#x5206;&#x6790;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x641C;&#x7D22;&#x5F15;&#x64CE;</p>
+</li>
+<li><p>&#x53EF;&#x4EE5;&#x6269;&#x5C55;&#x5230;&#x4E0A;&#x767E;&#x53F0;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5904;&#x7406;PB&#x7EA7;&#x522B;&#x7684;&#x7ED3;&#x6784;&#x5316;&#x6216;&#x975E;&#x7ED3;&#x6784;&#x5316;&#x6570;&#x636E;&#x3002;</p>
+</li>
+</ul>
+<p>&#x7528;Elasticsearch&#x4F5C;&#x4E3A;OLAP&#x5F15;&#x64CE;&#xFF0C;&#x6709;&#x51E0;&#x9879;&#x4F18;&#x52BF;&#xFF1A;&#xFF08;1&#xFF09;&#x64C5;&#x957F;&#x9AD8;QPS&#xFF08;QPS &gt; 1K&#xFF09;&#x3001;&#x4F4E;&#x5EF6;&#x8FDF;&#x3001;&#x8FC7;&#x6EE4;&#x6761;&#x4EF6;&#x591A;&#x3001;&#x67E5;&#x8BE2;&#x6A21;&#x5F0F;&#x7B80;&#x5355;&#xFF08;&#x5982;&#x70B9;&#x67E5;&#x3001;&#x7B80;&#x5355;&#x805A;&#x5408;&#xFF09;&#x7684;&#x67E5;&#x8BE2;&#x573A;&#x666F;&#x3002;&#xFF08;2&#xFF09;&#x96C6;&#x7FA4;&#x81EA;&#x52A8;&#x5316;&#x7BA1;&#x7406;&#x80FD;&#x529B;&#xFF08;shard allocation&#xFF0C;recovery&#xFF09;&#x80FD;&#x529B;&#x975E;&#x5E38;&#x5F3A;&#x3002;&#x96C6;&#x7FA4;&#x3001;&#x7D22;&#x5F15;&#x7BA1;&#x7406;&#x548C;&#x67E5;&#x770B;&#x7684;API&#x975E;&#x5E38;&#x4E30;&#x5BCC;&#x3002;</p>
+<p>&#x7528;Elasticsearch&#x4F5C;&#x4E3A;OLAP&#x5F15;&#x64CE;&#xFF0C;&#x6709;&#x51E0;&#x9879;&#x52A3;&#x52BF;&#xFF1A;&#x591A;&#x7EF4;&#x5EA6;&#x5206;&#x7EC4;&#x6392;&#x5E8F;&#x3001;&#x5206;&#x9875;&#x3002;&#x4E0D;&#x652F;&#x6301;Join&#x3002;&#x5728;&#x505A;aggregation&#x540E;&#xFF0C;&#x7531;&#x4E8E;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#x5D4C;&#x5957;&#x5C42;&#x6B21;&#x592A;&#x591A;&#xFF0C;&#x6570;&#x636E;&#x91CF;&#x4F1A;&#x8FC7;&#x4E8E;&#x81A8;&#x80C0;&#x3002;</p>
+<p>&#x4E0B;&#x56FE;&#x662F;&#x5012;&#x6392;&#x7D22;&#x5F15;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171924399.png" alt="image-20210820171924399" style="zoom:80%;">
+
+<h3 id="Presto"><a href="#Presto" class="headerlink" title="Presto"></a>Presto</h3><p>Presto&#x3001;Impala&#x3001;GreenPlum&#x5747;&#x57FA;&#x4E8E;MPP&#x67B6;&#x6784;&#xFF0C;&#x76F8;&#x6BD4;Elasticsearch&#x3001;Druid&#x3001;Kylin&#x8FD9;&#x6837;&#x7684;&#x7B80;&#x5355;Scatter-Gather&#x6A21;&#x578B;&#xFF0C;&#x5728;&#x652F;&#x6301;&#x7684;SQL&#x8BA1;&#x7B97;&#x4E0A;&#x66F4;&#x52A0;&#x901A;&#x7528;&#xFF0C;&#x66F4;&#x9002;&#x5408;ad-hoc&#x67E5;&#x8BE2;&#x573A;&#x666F;&#xFF0C;&#x7136;&#x800C;&#x8FD9;&#x4E9B;&#x901A;&#x7528;&#x7CFB;&#x7EDF;&#x5F80;&#x5F80;&#x6BD4;&#x4E13;&#x7528;&#x7CFB;&#x7EDF;&#x66F4;&#x96BE;&#x505A;&#x6027;&#x80FD;&#x4F18;&#x5316;&#xFF0C;&#x6240;&#x4EE5;&#x4E0D;&#x592A;&#x9002;&#x5408;&#x505A;&#x5BF9;&#x67E5;&#x8BE2;QPS(&#x53C2;&#x8003;&#x503C;QPS &gt; 1000)&#x3001;&#x5EF6;&#x8FDF;&#x8981;&#x6C42;&#x6BD4;&#x8F83;&#x9AD8;(&#x53C2;&#x8003;&#x503C;search latency &lt; 500ms)&#x7684;&#x5728;&#x7EBF;&#x670D;&#x52A1;&#xFF0C;&#x66F4;&#x9002;&#x5408;&#x505A;&#x516C;&#x53F8;&#x5185;&#x90E8;&#x7684;&#x67E5;&#x8BE2;&#x670D;&#x52A1;&#x548C;&#x52A0;&#x901F;Hive&#x67E5;&#x8BE2;&#x7684;&#x670D;&#x52A1;&#x3002;Presto&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x4F18;&#x79C0;&#x7684;&#x7279;&#x6027;&#x662F;&#x4F7F;&#x7528;&#x4E86;ANSI&#x6807;&#x51C6;SQL&#xFF0C;&#x5E76;&#x4E14;&#x652F;&#x6301;&#x8D85;&#x8FC7;30+&#x7684;&#x6570;&#x636E;&#x6E90;Connector&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820171953742.png" alt="image-20210820171953742" style="zoom:80%;">
+
+<h3 id="Impala"><a href="#Impala" class="headerlink" title="Impala"></a>Impala</h3><p>Impala &#x662F; Cloudera &#x5728;&#x53D7;&#x5230; Google &#x7684; Dremel &#x542F;&#x53D1;&#x4E0B;&#x5F00;&#x53D1;&#x7684;&#x5B9E;&#x65F6;&#x4EA4;&#x4E92;SQL&#x5927;&#x6570;&#x636E;&#x67E5;&#x8BE2;&#x5DE5;&#x5177;&#xFF0C;&#x662F;CDH &#x5E73;&#x53F0;&#x9996;&#x9009;&#x7684; PB &#x7EA7;&#x5927;&#x6570;&#x636E;&#x5B9E;&#x65F6;&#x67E5;&#x8BE2;&#x5206;&#x6790;&#x5F15;&#x64CE;&#x3002;&#x5B83;&#x62E5;&#x6709;&#x548C;Hadoop&#x4E00;&#x6837;&#x7684;&#x53EF;&#x6269;&#x5C55;&#x6027;&#x3001;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x7C7B;SQL&#xFF08;&#x7C7B;Hsql&#xFF09;&#x8BED;&#x6CD5;&#xFF0C;&#x5728;&#x591A;&#x7528;&#x6237;&#x573A;&#x666F;&#x4E0B;&#x4E5F;&#x80FD;&#x62E5;&#x6709;&#x8F83;&#x9AD8;&#x7684;&#x54CD;&#x5E94;&#x901F;&#x5EA6;&#x548C;&#x541E;&#x5410;&#x91CF;&#x3002;&#x5B83;&#x662F;&#x7531;Java&#x548C;C++&#x5B9E;&#x73B0;&#x7684;&#xFF0C;Java&#x63D0;&#x4F9B;&#x7684;&#x67E5;&#x8BE2;&#x4EA4;&#x4E92;&#x7684;&#x63A5;&#x53E3;&#x548C;&#x5B9E;&#x73B0;&#xFF0C;C++&#x5B9E;&#x73B0;&#x4E86;&#x67E5;&#x8BE2;&#x5F15;&#x64CE;&#x90E8;&#x5206;&#xFF0C;&#x9664;&#x6B64;&#x4E4B;&#x5916;&#xFF0C;Impala&#x8FD8;&#x80FD;&#x591F;&#x5171;&#x4EAB;Hive Metastore&#xFF0C;&#x751A;&#x81F3;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;Hive&#x7684;JDBC jar&#x548C;beeline&#x7B49;&#x76F4;&#x63A5;&#x5BF9;Impala&#x8FDB;&#x884C;&#x67E5;&#x8BE2;&#x3001;&#x652F;&#x6301;&#x4E30;&#x5BCC;&#x7684;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x683C;&#x5F0F;&#x3002;</p>
+<p>Impala &#x6CA1;&#x6709;&#x4F7F;&#x7528; Hive+MapReduce &#x6279;&#x5904;&#x7406;&#xFF0C;&#x800C;&#x662F;&#x901A;&#x8FC7;&#x4F7F;&#x7528;&#x5206;&#x5E03;&#x5F0F;&#x67E5;&#x8BE2;&#x5F15;&#x64CE;&#xFF08;&#x7531; Query Planner&#x3001;Query Coordinator &#x548C; Query Exec Engine &#x4E09;&#x90E8;&#x5206;&#x7EC4;&#x6210;&#xFF09;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4ECE; HDFS &#x6216; HBase &#x4E2D;&#x7528; SELECT&#x3001;JOIN &#x548C;&#x7EDF;&#x8BA1;&#x51FD;&#x6570;&#x67E5;&#x8BE2;&#x6570;&#x636E;&#xFF0C;&#x4ECE;&#x800C;&#x5927;&#x5927;&#x964D;&#x4F4E;&#x4E86;&#x5EF6;&#x8FDF;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820172024716.png" alt="image-20210820172024716" style="zoom:80%;">
+
+<h3 id="Doris"><a href="#Doris" class="headerlink" title="Doris"></a>Doris</h3><p>Apache Doris&#x662F;&#x4E00;&#x4E2A;&#x73B0;&#x4EE3;&#x5316;&#x7684;MPP&#x5206;&#x6790;&#x578B;&#x6570;&#x636E;&#x5E93;&#x4EA7;&#x54C1;&#x3002;&#x4EC5;&#x9700;&#x4E9A;&#x79D2;&#x7EA7;&#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x5373;&#x53EF;&#x83B7;&#x5F97;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#xFF0C;&#x6709;&#x6548;&#x5730;&#x652F;&#x6301;&#x5B9E;&#x65F6;&#x6570;&#x636E;&#x5206;&#x6790;&#x3002;Apache Doris&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x67B6;&#x6784;&#x975E;&#x5E38;&#x7B80;&#x6D01;&#xFF0C;&#x6613;&#x4E8E;&#x8FD0;&#x7EF4;&#xFF0C;&#x5E76;&#x4E14;&#x53EF;&#x4EE5;&#x652F;&#x6301;10PB&#x4EE5;&#x4E0A;&#x7684;&#x8D85;&#x5927;&#x6570;&#x636E;&#x96C6;&#x3002;</p>
+<p>Apache Doris&#x53EF;&#x4EE5;&#x6EE1;&#x8DB3;&#x591A;&#x79CD;&#x6570;&#x636E;&#x5206;&#x6790;&#x9700;&#x6C42;&#xFF0C;&#x4F8B;&#x5982;<strong>&#x56FA;&#x5B9A;&#x5386;&#x53F2;&#x62A5;&#x8868;</strong>&#xFF0C;&#x5B9E;&#x65F6;&#x6570;&#x636E;&#x5206;&#x6790;&#xFF0C;&#x4EA4;&#x4E92;&#x5F0F;&#x6570;&#x636E;&#x5206;&#x6790;&#x548C;&#x63A2;&#x7D22;&#x5F0F;&#x6570;&#x636E;&#x5206;&#x6790;&#x7B49;&#x3002;</p>
+<p>Doris&#x662F;&#x767E;&#x5EA6;&#x4E3B;&#x5BFC;&#x7684;&#xFF0C;&#x6839;&#x636E;Google Mesa&#x8BBA;&#x6587;&#x548C;Impala&#x9879;&#x76EE;&#x6539;&#x5199;&#x7684;&#x4E00;&#x4E2A;&#x5927;&#x6570;&#x636E;&#x5206;&#x6790;&#x5F15;&#x64CE;&#xFF0C;&#x5728;&#x767E;&#x5EA6;&#x3001;&#x7F8E;&#x56E2;&#x3001;&#x4EAC;&#x4E1C;&#x7684;&#x5E7F;&#x544A;&#x5206;&#x6790;&#x7B49;&#x4E1A;&#x52A1;&#x6709;&#x5E7F;&#x6CDB;&#x7684;&#x5E94;&#x7528;&#x3002;</p>
+<p>Doris&#x7684;&#x5F00;&#x53D1;&#x8005;&#x540E;&#x9762;&#x8FD8;&#x81EA;&#x5DF1;&#x51FA;&#x6765;&#x505A;&#x4E86;DorisDB&#xFF0C;&#x636E;&#x5176;&#x5B98;&#x7F51;&#x7684;&#x6D4B;&#x8BD5;&#xFF0C;&#x5728;&#x5355;&#x8868;&#x4E0A;&#x5DF2;&#x7ECF;&#x51FB;&#x8D25;&#x4E86;ClickHouse&#xFF0C;&#x5E76;&#x4E14;&#x8FD8;&#x63D0;&#x4F9B;&#x4E86;&#x4E0D;&#x9519;&#x7684;&#x591A;&#x8868;Join&#x80FD;&#x529B;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820172307790.png" alt="image-20210820172307790" style="zoom:80%;">
+
+<h3 id="Druid"><a href="#Druid" class="headerlink" title="Druid"></a>Druid</h3><p>Druid &#x662F;&#x4E00;&#x79CD;&#x80FD;&#x5BF9;&#x5386;&#x53F2;&#x548C;&#x5B9E;&#x65F6;&#x6570;&#x636E;&#x63D0;&#x4F9B;&#x4E9A;&#x79D2;&#x7EA7;&#x522B;&#x7684;&#x67E5;&#x8BE2;&#x7684;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x3002;Druid &#x652F;&#x6301;&#x4F4E;&#x5EF6;&#x65F6;&#x7684;&#x6570;&#x636E;&#x6444;&#x53D6;&#xFF0C;&#x7075;&#x6D3B;&#x7684;&#x6570;&#x636E;&#x63A2;&#x7D22;&#x5206;&#x6790;&#xFF0C;&#x9AD8;&#x6027;&#x80FD;&#x7684;&#x6570;&#x636E;&#x805A;&#x5408;&#xFF0C;&#x7B80;&#x4FBF;&#x7684;&#x6C34;&#x5E73;&#x6269;&#x5C55;&#x3002;Druid&#x652F;&#x6301;&#x66F4;&#x5927;&#x7684;&#x6570;&#x636E;&#x89C4;&#x6A21;&#xFF0C;&#x5177;&#x5907;&#x4E00;&#x5B9A;&#x7684;&#x9884;&#x805A;&#x5408;&#x80FD;&#x529B;&#xFF0C;&#x901A;&#x8FC7;&#x5012;&#x6392;&#x7D22;&#x5F15;&#x548C;&#x4F4D;&#x56FE;&#x7D22;&#x5F15;&#x8FDB;&#x4E00;&#x6B65;&#x4F18;&#x5316;&#x67E5;&#x8BE2;&#x6027;&#x80FD;&#xFF0C;&#x5728;&#x5E7F;&#x544A;&#x5206;&#x6790;&#x573A;&#x666F;&#x3001;&#x76D1;&#x63A7;&#x62A5;&#x8B66;&#x7B49;&#x65F6;&#x5E8F;&#x7C7B;&#x5E94;&#x7528;&#x5747;&#x6709;&#x5E7F;&#x6CDB;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x4E0E;&#x5176;&#x4ED6;&#x7684;&#x65F6;&#x5E8F;&#x6570;&#x636E;&#x5E93;&#x7C7B;&#x4F3C;&#xFF0C;Druid&#x5728;&#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#x547D;&#x4E2D;&#x5927;&#x91CF;&#x6570;&#x636E;&#x60C5;&#x51B5;&#x4E0B;&#x53EF;&#x80FD;&#x4F1A;&#x6709;&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF0C;&#x800C;&#x4E14;&#x6392;&#x5E8F;&#x3001;&#x805A;&#x5408;&#x7B49;&#x80FD;&#x529B;&#x666E;&#x904D;&#x4E0D;&#x592A;&#x597D;&#xFF0C;&#x7075;&#x6D3B;&#x6027;&#x548C;&#x6269;&#x5C55;&#x6027;&#x4E0D;&#x591F;&#xFF0C;&#x6BD4;&#x5982;&#x7F3A;&#x4E4F;Join&#x3001;&#x5B50;&#x67E5;&#x8BE2;&#x7B49;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820172347394.png" alt="image-20210820172347394" style="zoom:80%;">
+
+<h3 id="Kylin"><a href="#Kylin" class="headerlink" title="Kylin"></a>Kylin</h3><p>Kylin&#x81EA;&#x8EAB;&#x5C31;&#x662F;&#x4E00;&#x4E2A;MOLAP&#x7CFB;&#x7EDF;&#xFF0C;&#x591A;&#x7EF4;&#x7ACB;&#x65B9;&#x4F53;&#xFF08;MOLAP Cube&#xFF09;&#x7684;&#x8BBE;&#x8BA1;&#x4F7F;&#x5F97;&#x7528;&#x6237;&#x80FD;&#x591F;&#x5728;Kylin&#x91CC;&#x4E3A;&#x767E;&#x4EBF;&#x4EE5;&#x4E0A;&#x6570;&#x636E;&#x96C6;&#x5B9A;&#x4E49;&#x6570;&#x636E;&#x6A21;&#x578B;&#x5E76;&#x6784;&#x5EFA;&#x7ACB;&#x65B9;&#x4F53;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x7684;&#x9884;&#x805A;&#x5408;&#x3002;</p>
+<p>&#x9002;&#x5408;Kylin&#x7684;&#x573A;&#x666F;&#x5305;&#x62EC;&#xFF1A;</p>
+<ul>
+<li><p>&#x7528;&#x6237;&#x6570;&#x636E;&#x5B58;&#x5728;&#x4E8E;Hadoop HDFS&#x4E2D;&#xFF0C;&#x5229;&#x7528;Hive&#x5C06;HDFS&#x6587;&#x4EF6;&#x6570;&#x636E;&#x4EE5;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x65B9;&#x5F0F;&#x5B58;&#x53D6;&#xFF0C;&#x6570;&#x636E;&#x91CF;&#x5DE8;&#x5927;&#xFF0C;&#x5728;500G&#x4EE5;&#x4E0A;</p>
+</li>
+<li><p>&#x6BCF;&#x5929;&#x6709;&#x6570;G&#x751A;&#x81F3;&#x6570;&#x5341;G&#x7684;&#x6570;&#x636E;&#x589E;&#x91CF;&#x5BFC;&#x5165;</p>
+</li>
+<li><p>&#x6709;10&#x4E2A;&#x4EE5;&#x5185;&#x8F83;&#x4E3A;&#x56FA;&#x5B9A;&#x7684;&#x5206;&#x6790;&#x7EF4;&#x5EA6;</p>
+</li>
+</ul>
+<p>&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;Kylin&#x4E2D;&#x6570;&#x636E;&#x7ACB;&#x65B9;&#x7684;&#x601D;&#x60F3;&#x5C31;&#x662F;&#x4EE5;&#x7A7A;&#x95F4;&#x6362;&#x65F6;&#x95F4;&#xFF0C;&#x901A;&#x8FC7;&#x5B9A;&#x4E49;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x7EAC;&#x5EA6;&#xFF0C;&#x5BF9;&#x6BCF;&#x4E2A;&#x7EAC;&#x5EA6;&#x7684;&#x7EC4;&#x5408;&#x8FDB;&#x884C;&#x9884;&#x5148;&#x8BA1;&#x7B97;&#x5E76;&#x5B58;&#x50A8;&#x3002;&#x6709;N&#x4E2A;&#x7EAC;&#x5EA6;&#xFF0C;&#x5C31;&#x4F1A;&#x6709;2&#x7684;N&#x6B21;&#x79CD;&#x7EC4;&#x5408;&#x3002;&#x6240;&#x4EE5;&#x6700;&#x597D;&#x63A7;&#x5236;&#x597D;&#x7EAC;&#x5EA6;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x56E0;&#x4E3A;&#x5B58;&#x50A8;&#x91CF;&#x4F1A;&#x968F;&#x7740;&#x7EAC;&#x5EA6;&#x7684;&#x589E;&#x52A0;&#x7206;&#x70B8;&#x5F0F;&#x7684;&#x589E;&#x957F;&#xFF0C;&#x4EA7;&#x751F;&#x707E;&#x96BE;&#x6027;&#x540E;&#x679C;&#x3002;</p>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820172434218.png" alt="image-20210820172434218" style="zoom:80%;">
+
+<h3 id="&#x5982;&#x4F55;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;OLAP&#x7CFB;&#x7EDF;&#xFF1F;"><a href="#&#x5982;&#x4F55;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;OLAP&#x7CFB;&#x7EDF;&#xFF1F;" class="headerlink" title="&#x5982;&#x4F55;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;OLAP&#x7CFB;&#x7EDF;&#xFF1F;"></a>&#x5982;&#x4F55;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;OLAP&#x7CFB;&#x7EDF;&#xFF1F;</h3><ul>
+<li><p>OLTP or OLAP</p>
+</li>
+<li><p>&#x79BB;&#x7EBF; or &#x5B9E;&#x65F6;</p>
+</li>
+<li><p>&#x67E5;&#x8BE2;&#x6A21;&#x5F0F;&#x662F;&#x5426;&#x56FA;&#x5B9A;</p>
+</li>
+<li><p>&#x662F;&#x5426;&#x9700;&#x8981;&#x9AD8;&#x5E76;&#x53D1;&#x67E5;&#x8BE2;</p>
+</li>
+<li><p>&#x662F;&#x5426;&#x9700;&#x8981;Join</p>
+</li>
+<li><p>&#x662F;&#x5426;&#x5DF2;&#x6709;Hadoop&#x751F;&#x6001;</p>
+</li>
+<li><p>&#x662F;&#x5426;&#x613F;&#x610F;&#x82B1;&#x94B1;</p>
+</li>
+<li><p>&#x6570;&#x636E;&#x91CF;&#x5927;&#x5C0F;</p>
+</li>
+</ul>
+<img src="/2021/08/20/%E6%B5%85%E8%B0%88OLAP/image-20210820172540063.png" alt="image-20210820172540063" style="zoom:80%;">
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Database/" rel="tag"># Database</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/31/openLooKeng-connector%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" rel="next" title="openLooKeng connector原理与实现">
+                <i class="fa fa-chevron-left"></i> openLooKeng connector原理与实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/me2.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heatao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:heatao59@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/public/public/live2dw/public/public/live2dw/public/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"public/public/live2dw/","pluginJsPath":"public/public/live2dw/public/lib/","pluginModelPath":"node_modules/live2d-widget-model-shizuku/assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/public/public/live2dw/node_modules/live2d-widget-model-shizuku/assets/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":315,"hOffset":198,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
