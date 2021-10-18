@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x4E3A;&amp;#x4EC0;&amp;#x4E48;&amp;#x8981;&amp;#x5199;&amp;#x8FD9;&amp;#x4E2A;&amp;#x5462;&amp;#xFF1F;&amp;#x56E0;&amp;#x4E3A;&amp;#x5BA4;&amp;#x53CB;&amp;#x5728;&amp;#x79CB;&amp;#x62DB;&amp;#x7B80;&amp;#x5386;&amp;#x4E0A;&amp;#x5199;&amp;#x4E86;&amp;#x4E2A;&amp;#x5173;&amp;#x4E8E;HTTP&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在写后端业务之前，先明白Web开发的发展">
+<meta property="og:url" content="http://yoursite.com/2021/10/18/%E5%9C%A8%E5%86%99%E5%90%8E%E7%AB%AF%E4%B8%9A%E5%8A%A1%E4%B9%8B%E5%89%8D%EF%BC%8C%E5%85%88%E6%98%8E%E7%99%BDWeb%E5%BC%80%E5%8F%91%E7%9A%84%E5%8F%91%E5%B1%95/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="&amp;#x4E3A;&amp;#x4EC0;&amp;#x4E48;&amp;#x8981;&amp;#x5199;&amp;#x8FD9;&amp;#x4E2A;&amp;#x5462;&amp;#xFF1F;&amp;#x56E0;&amp;#x4E3A;&amp;#x5BA4;&amp;#x53CB;&amp;#x5728;&amp;#x79CB;&amp;#x62DB;&amp;#x7B80;&amp;#x5386;&amp;#x4E0A;&amp;#x5199;&amp;#x4E86;&amp;#x4E2A;&amp;#x5173;&amp;#x4E8E;HTTP&amp;#x">
+<meta property="og:locale">
+<meta property="og:image" content="http://yoursite.com/2021/10/18/%E5%9C%A8%E5%86%99%E5%90%8E%E7%AB%AF%E4%B8%9A%E5%8A%A1%E4%B9%8B%E5%89%8D%EF%BC%8C%E5%85%88%E6%98%8E%E7%99%BDWeb%E5%BC%80%E5%8F%91%E7%9A%84%E5%8F%91%E5%B1%95/v2-1bb4075e46abe6b634ca6710d6456622_720w.jpg">
+<meta property="article:published_time" content="2021-10-18T08:30:32.000Z">
+<meta property="article:modified_time" content="2021-10-18T08:32:49.585Z">
+<meta property="article:author" content="HEATAO">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/10/18/%E5%9C%A8%E5%86%99%E5%90%8E%E7%AB%AF%E4%B8%9A%E5%8A%A1%E4%B9%8B%E5%89%8D%EF%BC%8C%E5%85%88%E6%98%8E%E7%99%BDWeb%E5%BC%80%E5%8F%91%E7%9A%84%E5%8F%91%E5%B1%95/v2-1bb4075e46abe6b634ca6710d6456622_720w.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/10/18/在写后端业务之前，先明白Web开发的发展/"/>
+
+
+
+
+
+  <title>在写后端业务之前，先明白Web开发的发展 | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/18/%E5%9C%A8%E5%86%99%E5%90%8E%E7%AB%AF%E4%B8%9A%E5%8A%A1%E4%B9%8B%E5%89%8D%EF%BC%8C%E5%85%88%E6%98%8E%E7%99%BDWeb%E5%BC%80%E5%8F%91%E7%9A%84%E5%8F%91%E5%B1%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me2.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">在写后端业务之前，先明白Web开发的发展</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-18T16:30:32+08:00">
+                2021-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5199;&#x8FD9;&#x4E2A;&#x5462;&#xFF1F;&#x56E0;&#x4E3A;&#x5BA4;&#x53CB;&#x5728;&#x79CB;&#x62DB;&#x7B80;&#x5386;&#x4E0A;&#x5199;&#x4E86;&#x4E2A;&#x5173;&#x4E8E;HTTP&#x670D;&#x52A1;&#x5668;&#x7684;&#x9879;&#x76EE;&#xFF0C;&#x5728;&#x5F88;&#x591A;&#x6B21;&#x9762;&#x8BD5;&#x4E2D;&#x90FD;&#x88AB;&#x95EE;&#x5230;&#x4E86;&#xFF0C;&#x6211;&#x5BF9;&#x6B64;&#x751A;&#x662F;&#x597D;&#x5947;&#xFF0C;&#x52A0;&#x4E0A;&#x6709;&#x65F6;&#x9762;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x4E5F;&#x4F1A;&#x88AB;&#x95EE;&#x5230;Spring&#x8FD9;&#x4E2A;&#x5E38;&#x88AB;&#x7528;&#x6765;&#x4F5C;&#x4E3A;Web&#x5F00;&#x53D1;&#x7684;&#x6846;&#x67B6;&#xFF0C;&#x89C9;&#x5F97;&#x5BF9;&#x4E8E;Web&#x5F00;&#x53D1;&#x8FD9;&#x4E9B;&#x8FD8;&#x662F;&#x6709;&#x5FC5;&#x987B;&#x8981;&#x597D;&#x597D;&#x68B3;&#x7406;&#x4E00;&#x6B21;&#x3002;</p>
+<p>&#x4E3B;&#x8981;&#x53C2;&#x8003;&#xFF1A;</p>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1255945497738400">&#x5ED6;&#x96EA;&#x5CF0;&#x8001;&#x5E08;&#x7684;Java&#x6559;&#x7A0B;</a> &#x672C;&#x7BC7;&#x7684;&#x5185;&#x5BB9;&#x5F88;&#x591A;&#x90FD;&#x662F;&#x6765;&#x81EA;&#x5ED6;&#x8001;&#x5E08;&#xFF0C;&#x989D;&#x5916;&#x52A0;&#x4E0A;&#x4E86;&#x4E2A;&#x4EBA;&#x7406;&#x89E3;&#xFF0C;&#x4EC5;&#x4F5C;&#x4E2A;&#x4EBA;&#x8BB0;&#x5F55;&#x3002;</p>
+</blockquote>
+<h2 id="&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;Web&#x670D;&#x52A1;&#x5668;"><a href="#&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;Web&#x670D;&#x52A1;&#x5668;" class="headerlink" title="&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;Web&#x670D;&#x52A1;&#x5668;"></a>&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;Web&#x670D;&#x52A1;&#x5668;</h2><p>&#x5F53;&#x6211;&#x4EEC;&#x8BBF;&#x95EE;&#x4E00;&#x4E2A;&#x7F51;&#x9875;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x6211;&#x4EEC;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x4E0E;&#x8FDC;&#x7A0B;&#x7684;Web&#x670D;&#x52A1;&#x5668;&#x5EFA;&#x7ACB;&#x4E86;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#xFF0C;&#x73B0;&#x5728;&#x4E00;&#x822C;&#x662F;HTTPS&#x8FDE;&#x63A5;&#xFF0C;&#x5173;&#x4E8E;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x5177;&#x4F53;&#x7684;&#x6D41;&#x7A0B;&#x662F;&#x6211;&#x4E4B;&#x524D;&#x5199;&#x7684;<a target="_blank" rel="noopener" href="https://heatao.cn/2020/04/01/%E5%BD%93%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BE%97%E5%88%B0%E8%BF%94%E5%9B%9E%E7%9A%84%E4%BF%A1%E6%81%AF%E2%80%94%E2%80%94%E4%B8%AA%E4%BA%BA%E8%AE%B0%E5%BD%95/#more">&#x53E6;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;</a>&#xFF0C;&#x73B0;&#x5728;&#x7684;&#x7F51;&#x9875;&#x4E00;&#x822C;&#x662F;HTML&#x7684;&#x683C;&#x5F0F;&#xFF0C;HTML&#x5373;&#x8D85;&#x6587;&#x672C;&#x6807;&#x8BB0;&#x8BED;&#x8A00;&#xFF0C;&#x662F;&#x4E00;&#x79CD;&#x7528;&#x4E8E;&#x521B;&#x5EFA;&#x7F51;&#x9875;&#x7684;&#x6807;&#x51C6;&#x6807;&#x8BB0;&#x8BED;&#x8A00;&#xFF0C;&#x5B83;&#x4E00;&#x822C;&#x548C;CSS&#x3001;JavaScript&#x4E00;&#x8D77;&#x6765;&#x663E;&#x793A;&#x5B8C;&#x6574;&#x7684;&#x7F51;&#x9875;&#xFF0C;&#x6211;&#x4EEC;&#x672C;&#x5730;&#x53D1;&#x9001;&#x4E86;GET&#x8BF7;&#x6C42;&#x62FF;&#x5230;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x8D44;&#x6E90;&#x5F80;&#x5F80;&#x5C31;&#x662F;&#x5BF9;&#x5E94;&#x7F51;&#x9875;&#x7684;HTML&#x3002;</p>
+<p>&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;&#x5BF9;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x800C;&#x8A00;&#xFF0C;&#x5C55;&#x793A;&#x9875;&#x9762;&#x7684;&#x6D41;&#x7A0B;&#x5927;&#x81F4;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>&#x4E0E;Web&#x670D;&#x52A1;&#x5668;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;</li>
+<li>&#x53D1;&#x9001;HTTP GET&#x8BF7;&#x6C42;</li>
+<li>&#x5C06;&#x8BF7;&#x6C42;&#x7ED3;&#x679C;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x6E32;&#x67D3;&#x51FA;&#x6765;</li>
+</ol>
+<p>&#x4E0A;&#x9762;&#x662F;&#x4ECE;&#x4E00;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x89D2;&#x5EA6;&#x6765;&#x63CF;&#x8FF0;Web&#x8BF7;&#x6C42;&#x7684;&#x6574;&#x4E2A;&#x8FC7;&#x7A0B;&#x3002;&#x4ECA;&#x5929;&#x4E3B;&#x8981;&#x60F3;&#x8BF4;&#x7684;&#x662F;&#x5728;&#x4F5C;&#x4E3A;Web&#x670D;&#x52A1;&#x5668;&#xFF0C;Web&#x670D;&#x52A1;&#x5668;&#x9700;&#x8981;&#x53BB;&#x5904;&#x7406;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x600E;&#x4E48;&#x53BB;&#x505A;&#x5462;&#xFF1F;</p>
+<h3 id="&#x591A;&#x7EBF;&#x7A0B;&#x5B9E;&#x73B0;Web&#x670D;&#x52A1;&#x5668;"><a href="#&#x591A;&#x7EBF;&#x7A0B;&#x5B9E;&#x73B0;Web&#x670D;&#x52A1;&#x5668;" class="headerlink" title="&#x591A;&#x7EBF;&#x7A0B;&#x5B9E;&#x73B0;Web&#x670D;&#x52A1;&#x5668;"></a>&#x591A;&#x7EBF;&#x7A0B;&#x5B9E;&#x73B0;Web&#x670D;&#x52A1;&#x5668;</h3><blockquote>
+<p>&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x6765;&#x81EA; <a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1255945497738400">&#x5ED6;&#x96EA;&#x5CF0;&#x8001;&#x5E08;&#x7684;Java&#x6559;&#x7A0B;</a></p>
+</blockquote>
+<p>&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x76D1;&#x542C;&#x7279;&#x5B9A;&#x7AEF;&#x53E3;&#xFF0C;&#x6765;&#x4E86;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x4E4B;&#x540E;&#xFF0C;&#x65B0;&#x542F;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x53BB;&#x5904;&#x7406;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Server</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>{</span><br><span class="line">        ServerSocket ss = <span class="keyword">new</span> ServerSocket(<span class="number">8080</span>); <span class="comment">// &#x76D1;&#x542C;&#x6307;&#x5B9A;&#x7AEF;&#x53E3;</span></span><br><span class="line">        System.out.println(<span class="string">&quot;server is running...&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (;;) {</span><br><span class="line">            Socket sock = ss.accept();</span><br><span class="line">            System.out.println(<span class="string">&quot;connected from &quot;</span> + sock.getRemoteSocketAddress());</span><br><span class="line">            Thread t = <span class="keyword">new</span> Handler(sock);</span><br><span class="line">            t.start();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Handler</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>{</span><br><span class="line">    Socket sock;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(Socket sock)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.sock = sock;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">try</span> (InputStream input = <span class="keyword">this</span>.sock.getInputStream()) {</span><br><span class="line">            <span class="keyword">try</span> (OutputStream output = <span class="keyword">this</span>.sock.getOutputStream()) {</span><br><span class="line">                handle(input, output);</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                <span class="keyword">this</span>.sock.close();</span><br><span class="line">            } <span class="keyword">catch</span> (IOException ioe) {</span><br><span class="line">            }</span><br><span class="line">            System.out.println(<span class="string">&quot;client disconnected.&quot;</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(InputStream input, OutputStream output)</span> <span class="keyword">throws</span> IOException </span>{</span><br><span class="line">        <span class="keyword">var</span> reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(input, StandardCharsets.UTF_8));</span><br><span class="line">        <span class="keyword">var</span> writer = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(output, StandardCharsets.UTF_8));</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> &#x5904;&#x7406;HTTP&#x8BF7;&#x6C42;</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x53EA;&#x9700;&#x8981;&#x5728;<code>handle()</code>&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x7528;Reader&#x8BFB;&#x53D6;HTTP&#x8BF7;&#x6C42;&#xFF0C;&#x7528;Writer&#x53D1;&#x9001;HTTP&#x54CD;&#x5E94;&#xFF0C;&#x5373;&#x53EF;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684;HTTP&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(InputStream input, OutputStream output)</span> <span class="keyword">throws</span> IOException </span>{</span><br><span class="line">    System.out.println(<span class="string">&quot;Process new http request...&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(input, StandardCharsets.UTF_8));</span><br><span class="line">    <span class="keyword">var</span> writer = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(output, StandardCharsets.UTF_8));</span><br><span class="line">    <span class="comment">// &#x8BFB;&#x53D6;HTTP&#x8BF7;&#x6C42;:</span></span><br><span class="line">    <span class="keyword">boolean</span> requestOk = <span class="keyword">false</span>;</span><br><span class="line">    String first = reader.readLine();</span><br><span class="line">    <span class="keyword">if</span> (first.startsWith(<span class="string">&quot;GET / HTTP/1.&quot;</span>)) {</span><br><span class="line">        requestOk = <span class="keyword">true</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (;;) {</span><br><span class="line">        String header = reader.readLine();</span><br><span class="line">        <span class="keyword">if</span> (header.isEmpty()) { <span class="comment">// &#x8BFB;&#x53D6;&#x5230;&#x7A7A;&#x884C;&#x65F6;, HTTP Header&#x8BFB;&#x53D6;&#x5B8C;&#x6BD5;</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        System.out.println(header);</span><br><span class="line">    }</span><br><span class="line">    System.out.println(requestOk ? <span class="string">&quot;Response OK&quot;</span> : <span class="string">&quot;Response Error&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!requestOk) {</span><br><span class="line">        <span class="comment">// &#x53D1;&#x9001;&#x9519;&#x8BEF;&#x54CD;&#x5E94;:</span></span><br><span class="line">        writer.write(<span class="string">&quot;HTTP/1.0 404 Not Found\r\n&quot;</span>);</span><br><span class="line">        writer.write(<span class="string">&quot;Content-Length: 0\r\n&quot;</span>);</span><br><span class="line">        writer.write(<span class="string">&quot;\r\n&quot;</span>);</span><br><span class="line">        writer.flush();</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">// &#x53D1;&#x9001;&#x6210;&#x529F;&#x54CD;&#x5E94;:</span></span><br><span class="line">        String data = <span class="string">&quot;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello, world!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> length = data.getBytes(StandardCharsets.UTF_8).length;</span><br><span class="line">        writer.write(<span class="string">&quot;HTTP/1.0 200 OK\r\n&quot;</span>);</span><br><span class="line">        writer.write(<span class="string">&quot;Connection: close\r\n&quot;</span>);</span><br><span class="line">        writer.write(<span class="string">&quot;Content-Type: text/html\r\n&quot;</span>);</span><br><span class="line">        writer.write(<span class="string">&quot;Content-Length: &quot;</span> + length + <span class="string">&quot;\r\n&quot;</span>);</span><br><span class="line">        writer.write(<span class="string">&quot;\r\n&quot;</span>); <span class="comment">// &#x7A7A;&#x884C;&#x6807;&#x8BC6;Header&#x548C;Body&#x7684;&#x5206;&#x9694;</span></span><br><span class="line">        writer.write(data);</span><br><span class="line">        writer.flush();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h3 id="Servlet&#x5F00;&#x53D1;"><a href="#Servlet&#x5F00;&#x53D1;" class="headerlink" title="Servlet&#x5F00;&#x53D1;"></a>Servlet&#x5F00;&#x53D1;</h3><p>&#x4ECE;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x9664;&#x5F00;&#x7279;&#x5B9A;&#x7684;&#x4E1A;&#x52A1;&#x548C;&#x5C55;&#x793A;&#x9875;&#x9762;&#x5916;&#xFF0C;&#x7F16;&#x5199;&#x4E00;&#x4E2A;HTTP&#x670D;&#x52A1;&#x8981;&#x505A;&#x7684;&#x4E8B;&#x5176;&#x5B9E;&#x603B;&#x4F53;&#x6765;&#x8BB2;&#x662F;&#x76F8;&#x5BF9;&#x56FA;&#x5B9A;&#x7684;&#xFF0C;&#x90FD;&#x9700;&#x8981;&#xFF1A;</p>
+<ul>
+<li>&#x5EFA;&#x7ACB;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;</li>
+<li>&#x76D1;&#x542C;&#x7279;&#x5B9A;&#x7AEF;&#x53E3;</li>
+<li>&#x8BC6;&#x522B;HTTP&#x8BF7;&#x6C42;&#x548C;HTTP&#x5934;</li>
+<li>&#x590D;&#x7528;TCP&#x8FDE;&#x63A5;</li>
+<li>&#x5F02;&#x5E38;&#x5904;&#x7406;</li>
+<li>&#x2026;</li>
+</ul>
+<p>&#x65E0;&#x8BBA;&#x662F;&#x4E00;&#x4E2A;&#x5EFA;&#x7ACB;&#x7684; HTML &#x8FD8;&#x662F;&#x4E00;&#x4E2A;&#x590D;&#x6742;&#x7684;&#x5C55;&#x793A;&#x9875;&#x9762;&#x90FD;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x8FD9;&#x4E9B;&#x6B65;&#x9AA4;&#xFF0C;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x628A;&#x8FD9;&#x4E9B;&#x56FA;&#x5B9A;&#x7684;&#x6B65;&#x9AA4;&#x90FD;&#x5C01;&#x88C5;&#x8D77;&#x6765;&#xFF0C;&#x53EA;&#x7559;&#x4E0B;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x90E8;&#x95E8;&#x7684;&#x63A5;&#x53E3;&#x5C31;&#x597D;&#x4E86;&#xFF0C;&#x5728; Java &#x4E2D;&#xFF0C;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x5C31;&#x662F; <code>Servlet</code>&#x3002;&#x81F3;&#x4E8E;&#x5176;&#x5B83;&#x90E8;&#x5206;&#xFF0C;&#x5904;&#x7406; TCP &#x8FDE;&#x63A5;&#x554A;&#xFF0C;&#x89E3;&#x6790;HTTP&#x534F;&#x8BAE;&#x554A;&#x90FD;&#x53EF;&#x4EE5;&#x4EA4;&#x7ED9;&#x73B0;&#x6210;&#x7684;Web&#x670D;&#x52A1;&#x5668;&#x53BB;&#x505A;&#x3002;</p>
+<blockquote>
+<p>&#x5982;&#x679C;&#x8FD8;&#x4E0D;&#x7406;&#x89E3; Servlet &#x662F;&#x600E;&#x6837;&#x7684;&#x4E00;&#x4E2A;&#x6982;&#x5FF5;&#xFF0C;&#x63A8;&#x8350;&#x9605;&#x8BFB;&#x8FD9;&#x4E2A;&#xFF1A;</p>
+<p>servlet&#x7684;&#x672C;&#x8D28;&#x662F;&#x4EC0;&#x4E48;&#xFF0C;&#x5B83;&#x662F;&#x5982;&#x4F55;&#x5DE5;&#x4F5C;&#x7684;&#xFF1F; - bravo1988&#x7684;&#x56DE;&#x7B54; - &#x77E5;&#x4E4E; <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/21416727/answer/690289895">https://www.zhihu.com/question/21416727/answer/690289895</a></p>
+</blockquote>
+<p>&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; Servlet &#x4F8B;&#x5B50;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// WebServlet&#x6CE8;&#x89E3;&#x8868;&#x793A;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;Servlet&#xFF0C;&#x5E76;&#x6620;&#x5C04;&#x5230;&#x5730;&#x5740;/:</span></span><br><span class="line"><span class="meta">@WebServlet(urlPatterns = &quot;/&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> ServletException, IOException </span>{</span><br><span class="line">        <span class="comment">// &#x8BBE;&#x7F6E;&#x54CD;&#x5E94;&#x7C7B;&#x578B;:</span></span><br><span class="line">        resp.setContentType(<span class="string">&quot;text/html&quot;</span>);</span><br><span class="line">        <span class="comment">// &#x83B7;&#x53D6;&#x8F93;&#x51FA;&#x6D41;:</span></span><br><span class="line">        PrintWriter pw = resp.getWriter();</span><br><span class="line">        <span class="comment">// &#x5199;&#x5165;&#x54CD;&#x5E94;:</span></span><br><span class="line">        pw.write(<span class="string">&quot;&lt;h1&gt;Hello, world!&lt;/h1&gt;&quot;</span>);</span><br><span class="line">        <span class="comment">// &#x6700;&#x540E;&#x4E0D;&#x8981;&#x5FD8;&#x8BB0;flush&#x5F3A;&#x5236;&#x8F93;&#x51FA;:</span></span><br><span class="line">        pw.flush();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4E00;&#x4E2A;Servlet&#x603B;&#x662F;&#x7EE7;&#x627F;&#x81EA;<code>HttpServlet</code>&#xFF0C;&#x7136;&#x540E;&#x8986;&#x5199;<code>doGet()</code>&#x6216;<code>doPost()</code>&#x65B9;&#x6CD5;&#x3002;&#x6CE8;&#x610F;&#x5230;<code>doGet()</code>&#x65B9;&#x6CD5;&#x4F20;&#x5165;&#x4E86;<code>HttpServletRequest</code>&#x548C;<code>HttpServletResponse</code>&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5206;&#x522B;&#x4EE3;&#x8868;HTTP&#x8BF7;&#x6C42;&#x548C;&#x54CD;&#x5E94;&#x3002;&#x6211;&#x4EEC;&#x4F7F;&#x7528;Servlet API&#x65F6;&#xFF0C;&#x5E76;&#x4E0D;&#x76F4;&#x63A5;&#x4E0E;&#x5E95;&#x5C42;TCP&#x4EA4;&#x4E92;&#xFF0C;&#x4E5F;&#x4E0D;&#x9700;&#x8981;&#x89E3;&#x6790;HTTP&#x534F;&#x8BAE;&#xFF0C;&#x56E0;&#x4E3A;<code>HttpServletRequest</code>&#x548C;<code>HttpServletResponse</code>&#x5C31;&#x5DF2;&#x7ECF;&#x5C01;&#x88C5;&#x597D;&#x4E86;&#x8BF7;&#x6C42;&#x548C;&#x54CD;&#x5E94;&#x3002;&#x4EE5;&#x53D1;&#x9001;&#x54CD;&#x5E94;&#x4E3A;&#x4F8B;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x6B63;&#x786E;&#x7684;&#x54CD;&#x5E94;&#x7C7B;&#x578B;&#xFF0C;&#x7136;&#x540E;&#x83B7;&#x53D6;<code>PrintWriter</code>&#xFF0C;&#x5199;&#x5165;&#x54CD;&#x5E94;&#x5373;&#x53EF;&#x3002;</p>
+<p>Servlet &#x7684; API &#x6765;&#x81EA; javax &#x5305;&#xFF0C;&#x5B83;&#x4E5F;&#x662F; Java &#x6807;&#x51C6;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x5C5E;&#x4E8E;&#x6838;&#x5FC3;&#x5E93;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x76F4;&#x63A5;&#x653E;&#x5728; jdk &#x4E2D;&#xFF0C;&#x8FD9;&#x662F;&#x4E3A;&#x4E86;&#x907F;&#x514D; jdk &#x592A;&#x5927;&#x3002;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itranswarp.learnjava<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>web-servlet-hello<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>11<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>11<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>11<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD9;&#x4E2A;<code>pom.xml</code>&#x4E0E;&#x666E;&#x901A; Java &#x7A0B;&#x5E8F;&#x6709;&#x4E2A;&#x533A;&#x522B;&#xFF0C;&#x6253;&#x5305;&#x7C7B;&#x578B;&#x4E0D;&#x662F;<code>jar</code>&#xFF0C;&#x800C;&#x662F;<code>war</code>&#xFF0C;&#x8868;&#x793A; Java Web Application Archive&#x3002;</p>
+<p>&#x4F9D;&#x8D56;&#x4E2D;<code>&lt;scope&gt;</code>&#x6307;&#x5B9A;&#x4E3A;<code>provided</code>&#xFF0C;&#x8868;&#x793A;&#x7F16;&#x8BD1;&#x65F6;&#x4F7F;&#x7528;&#xFF0C;&#x4F46;&#x4E0D;&#x4F1A;&#x6253;&#x5305;&#x5230;<code>.war</code>&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD0;&#x884C;&#x671F;Web&#x670D;&#x52A1;&#x5668;&#x672C;&#x8EAB;&#x5DF2;&#x7ECF;&#x63D0;&#x4F9B;&#x4E86;Servlet API&#x76F8;&#x5173;&#x7684;jar&#x5305;&#x3002;</p>
+<p>&#x8FD8;&#x9700;&#x8981;&#x5728;&#x5DE5;&#x7A0B;&#x76EE;&#x5F55;&#x4E0B;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;<code>web.xml</code>&#x63CF;&#x8FF0;&#x6587;&#x4EF6;&#xFF0C;&#x653E;&#x5230;<code>src/main/webapp/WEB-INF</code>&#x76EE;&#x5F55;&#x4E0B;&#xFF08;&#x56FA;&#x5B9A;&#x76EE;&#x5F55;&#x7ED3;&#x6784;&#xFF0C;&#x4E0D;&#x8981;&#x4FEE;&#x6539;&#x8DEF;&#x5F84;&#xFF0C;&#x6CE8;&#x610F;&#x5927;&#x5C0F;&#x5199;&#xFF09;&#x3002;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x53EF;&#x4EE5;&#x56FA;&#x5B9A;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE web-app PUBLIC</span><br><span class="line"> &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span><br><span class="line"> &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;&gt;</span><br><span class="line">&lt;web-app&gt;</span><br><span class="line">  &lt;display-name&gt;Archetype Created Web Application&lt;/display-name&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+
+<p>&#x6574;&#x4E2A;&#x5DE5;&#x7A0B;&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">web-servlet-hello</span><br><span class="line">&#x251C;&#x2500;&#x2500; pom.xml</span><br><span class="line">&#x2514;&#x2500;&#x2500; src</span><br><span class="line">    &#x2514;&#x2500;&#x2500; main</span><br><span class="line">        &#x251C;&#x2500;&#x2500; java</span><br><span class="line">        &#x2502;   &#x2514;&#x2500;&#x2500; com</span><br><span class="line">        &#x2502;       &#x2514;&#x2500;&#x2500; itranswarp</span><br><span class="line">        &#x2502;           &#x2514;&#x2500;&#x2500; learnjava</span><br><span class="line">        &#x2502;               &#x2514;&#x2500;&#x2500; servlet</span><br><span class="line">        &#x2502;                   &#x2514;&#x2500;&#x2500; HelloServlet.java</span><br><span class="line">        &#x251C;&#x2500;&#x2500; resources</span><br><span class="line">        &#x2514;&#x2500;&#x2500; webapp</span><br><span class="line">            &#x2514;&#x2500;&#x2500; WEB-INF</span><br><span class="line">                &#x2514;&#x2500;&#x2500; web.xml</span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD0;&#x884C;Maven&#x547D;&#x4EE4;<code>mvn clean package</code>&#xFF0C;&#x5728;<code>target</code>&#x76EE;&#x5F55;&#x4E0B;&#x5F97;&#x5230;&#x4E00;&#x4E2A;<code>hello.war</code>&#x6587;&#x4EF6;&#xFF0C;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x7F16;&#x8BD1;&#x6253;&#x5305;&#x540E;&#x7684; Web&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5982;&#x4F55;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A;<code>war</code>&#x6587;&#x4EF6;&#xFF1F;</p>
+<p>&#x666E;&#x901A;&#x7684;Java&#x7A0B;&#x5E8F;&#x662F;&#x901A;&#x8FC7;&#x542F;&#x52A8;JVM&#xFF0C;&#x7136;&#x540E;&#x6267;&#x884C;<code>main()</code>&#x65B9;&#x6CD5;&#x5F00;&#x59CB;&#x8FD0;&#x884C;&#x3002;&#x4F46;&#x662F;Web&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6709;&#x6240;&#x4E0D;&#x540C;&#xFF0C;&#x6211;&#x4EEC;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x8FD0;&#x884C;<code>war</code>&#x6587;&#x4EF6;&#xFF0C;&#x5FC5;&#x987B;&#x5148;&#x542F;&#x52A8;Web&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x518D;&#x7531;Web&#x670D;&#x52A1;&#x5668;&#x52A0;&#x8F7D;&#x6211;&#x4EEC;&#x7F16;&#x5199;&#x7684;<code>HelloServlet</code>&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x8BA9;<code>HelloServlet</code>&#x5904;&#x7406;&#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x9001;&#x7684;&#x8BF7;&#x6C42;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x8981;&#x627E;&#x4E00;&#x4E2A;&#x652F;&#x6301;Servlet API&#x7684;Web&#x670D;&#x52A1;&#x5668;&#x3002;&#x76EE;&#x524D;&#x6700;&#x5E38;&#x7528;&#x7684;&#x5F00;&#x6E90;&#x514D;&#x8D39;&#x7684; Web&#x670D;&#x52A1;&#x5668;&#x662F; Tomcat&#xFF0C;&#x5B83;&#x662F;&#x7531;Apache&#x5F00;&#x53D1;&#x7684;&#x5F00;&#x6E90;&#x514D;&#x8D39;&#x670D;&#x52A1;&#x5668;&#x3002;&#x8FD8;&#x6709; Jetty&#xFF0C;GlassFish&#xFF0C;&#x6536;&#x8D39;&#x7684; WebLogic &#x7B49;&#x7B49;&#x90FD;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A; Web&#x670D;&#x52A1;&#x5668;&#x3002;&#x65E0;&#x8BBA;&#x54EA;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x53EA;&#x8981;&#x5B83;&#x652F;&#x6301;Servlet API 4.0&#xFF08;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5F15;&#x5165;&#x7684;Servlet&#x7248;&#x672C;&#x662F;4.0&#xFF09;&#xFF0C;&#x6211;&#x4EEC;&#x7684;war&#x5305;&#x90FD;&#x53EF;&#x4EE5;&#x5728;&#x4E0A;&#x9762;&#x8FD0;&#x884C;&#x3002;</p>
+<p>&#x5C06;&#x6211;&#x4EEC;&#x5199;&#x7684;&#x7A0B;&#x5E8F;&#x653E;&#x5230; Tomcat &#x7684;webapps &#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x518D;&#x542F;&#x52A8; Tomcat&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E0A;&#x770B;&#x5230;&#x6211;&#x4EEC;&#x7684;&#x5C55;&#x793A;&#x9875;&#x9762;&#x5566;&#xFF5E;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x6D4F;&#x89C8;&#x5668;&#x952E;&#x5165; localhost:8080/hello</span><br><span class="line"></span><br><span class="line">&#x8FD9;&#x91CC;&#x8DEF;&#x5F84;&#x662F; /hello &#x800C;&#x4E0D;&#x662F; / &#x7684;&#x539F;&#x56E0;&#x662F;&#x6211;&#x4EEC;&#x7684;Web App&#x53EB; hello</span><br><span class="line">&#x5982;&#x679C;&#x6539;&#x6210; ROOT.war &#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x4F1A;&#x88AB;&#x6620;&#x5C04;&#x5230; / </span><br></pre></td></tr></table></figure>
+
+<p>&#x5927;&#x529F;&#x544A;&#x6210;&#xFF01;&#x9875;&#x9762;&#x5C55;&#x793A;&#x4E5F;&#x6709;&#x5566;&#xFF5E;</p>
+<p>&#x7B49;&#x7B49;&#xFF01;&#x6211;&#x7684; main &#x65B9;&#x6CD5;&#x5462;&#xFF1F;Tomcat &#x5230;&#x5E95;&#x662F;&#x600E;&#x4E48;&#x8C03;&#x7528;&#x6211;&#x7684; Servlet &#x7684;&#xFF1F;Tomcat &#x91CC;&#x9762;&#x771F;&#x7684;&#x548C;&#x6211;&#x5199;&#x7684;&#x591A;&#x7EBF;&#x7A0B;&#x662F;&#x4E00;&#x6837;&#x7684;&#x5417;&#xFF1F;</p>
+<p>&#x5982;&#x679C;&#x7406;&#x89E3;&#x4E86; Servlet &#x7684;&#x8BDD;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x770B;&#x51FA;&#xFF0C;Servlet &#x53EA;&#x662F;&#x5B8C;&#x6574; Web &#x7A0B;&#x5E8F;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x62FC;&#x56FE;&#xFF0C;Tomcat &#x8FD9;&#x7C7B; Web &#x670D;&#x52A1;&#x5668;&#x5C06;&#x6211;&#x4EEC;&#x5199;&#x7684;&#x4EE3;&#x7801;&#x62FC;&#x4E0A;&#x53BB;&#x5C31;&#x5B8C;&#x4E8B;&#x513F;&#xFF0C;main&#x65B9;&#x6CD5;&#x5F53;&#x7136;&#x4E5F;&#x662F; Tomcat &#x7684;main&#x65B9;&#x6CD5;&#xFF0C;&#x4E00;&#x4E2A;&#x62FC;&#x56FE;&#x8981;&#x4EC0;&#x4E48; main &#x65B9;&#x6CD5;&#x3002;&#x81F3;&#x4E8E;&#x600E;&#x4E48;&#x62FC;&#xFF1F;<strong>&#x53CD;&#x5C04;&#xFF01;</strong>&#x5176;&#x5B9E;&#x5927;&#x90E8;&#x5206;&#x6846;&#x67B6;&#x90FD;&#x662F;&#x5982;&#x6B64;&#xFF0C;&#x6846;&#x67B6;&#x5B8C;&#x6574;&#x4E86;&#x5927;&#x90E8;&#x5206;&#x7684;&#x5DE5;&#x4F5C;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x5176;&#x4E2D;&#x7684;&#x4E00;&#x5C0F;&#x90E8;&#x5206;&#x5C31;&#x597D;&#x4E86;&#xFF0C;&#x6846;&#x67B6;&#x63D0;&#x9AD8;&#x4E86;&#x904D;&#x5386;&#xFF0C;&#x4E5F;&#x906E;&#x853D;&#x4E86;&#x539F;&#x7406;&#xFF0C;&#x751A;&#x81F3;&#x6539;&#x53D8;&#x4E86;&#x6211;&#x4EEC;&#x7F16;&#x7A0B;&#x7684;&#x6D41;&#x7A0B;&#x3002;</p>
+<p>&#x5199;&#x4E86;&#x4E00;&#x4E2A; Servlet &#x7A0B;&#x5E8F;&#xFF0C;&#x5F88;&#x7B80;&#x5355;&#x5F88;&#x65B9;&#x4FBF;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x6211;&#x53BB;&#x548C;&#x7F51;&#x7EDC;&#x6253;&#x4EA4;&#x9053;&#x4E86;&#xFF0C;&#x7B80;&#x5355;&#x7684;&#x5B9E;&#x73B0;&#x4E1A;&#x52A1;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x770B;&#x5230;&#x6F02;&#x4EAE;&#x7684;&#x9875;&#x9762;&#x4E86;&#xFF0C;&#x5F88;&#x68D2;&#xFF01;&#x4F46;&#x662F;&#xFF0C;&#x603B;&#x6709;&#x79CD;&#x5947;&#x602A;&#x7684;&#x611F;&#x89C9;&#x3002;</p>
+<h4 id="&#x5728;IDE&#x4E2D;&#x542F;&#x52A8;Tomcat"><a href="#&#x5728;IDE&#x4E2D;&#x542F;&#x52A8;Tomcat" class="headerlink" title="&#x5728;IDE&#x4E2D;&#x542F;&#x52A8;Tomcat"></a>&#x5728;IDE&#x4E2D;&#x542F;&#x52A8;Tomcat</h4><p>Tomcat &#x8FD8;&#x63D0;&#x4F9B;&#x4E86;&#x96C6;&#x6210;&#x5728;IDEA&#x542F;&#x52A8;&#x7684; tomcat-embed &#x5305;&#xFF1A;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.embed<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat-embed-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>${tomcat.version}<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.embed<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat-embed-jasper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>${tomcat.version}<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x5F15;&#x5165; Tomcat&#x4F9D;&#x8D56; &#x4E4B;&#x540E;&#x4E0D;&#x5FC5;&#x518D;&#x5F15;&#x5165; Servlet API &#x7684;&#x4F9D;&#x8D56;&#x3002;&#x5728; IDE &#x4E2D;&#x542F;&#x52A8; Tomcat &#x53EF;&#x4EE5;&#x5F88;&#x65B9;&#x9762;&#x7684;&#x8FDB;&#x884C;&#x8C03;&#x8BD5;&#xFF0C;&#x5E76;&#x4E14;&#x4F7F;&#x7528; Maven &#x6253;&#x5305;&#x4E4B;&#x540E;&#xFF0C; war &#x4E5F;&#x53EF;&#x4EE5;&#x653E;&#x5230;&#x72EC;&#x7ACB;&#x7684; Tomcat &#x670D;&#x52A1;&#x5668;&#x4E2D;&#x3002;</p>
+<h4 id="JSP&#x662F;&#x4EC0;&#x4E48;"><a href="#JSP&#x662F;&#x4EC0;&#x4E48;" class="headerlink" title="JSP&#x662F;&#x4EC0;&#x4E48;"></a>JSP&#x662F;&#x4EC0;&#x4E48;</h4><p>&#x65E0;&#x8BBA;&#x662F;&#x5728;&#x591A;&#x7EBF;&#x7A0B;&#x5B9E;&#x73B0; Web&#x670D;&#x52A1;&#x5668; &#x8FD8;&#x662F;&#x5728; Servlet &#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x90FD;&#x5199;&#x4E86;&#x5F88;&#x591A;&#x8FD9;&#x6837;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter pw = resp.getWriter();</span><br><span class="line">pw.write(<span class="string">&quot;&lt;html&gt;&quot;</span>);</span><br><span class="line">pw.write(<span class="string">&quot;&lt;body&gt;&quot;</span>);</span><br><span class="line">pw.write(<span class="string">&quot;&lt;h1&gt;Welcome, &quot;</span> + name + <span class="string">&quot;!&lt;/h1&gt;&quot;</span>);</span><br><span class="line">pw.write(<span class="string">&quot;&lt;/body&gt;&quot;</span>);</span><br><span class="line">pw.write(<span class="string">&quot;&lt;/html&gt;&quot;</span>);</span><br><span class="line">pw.flush();</span><br></pre></td></tr></table></figure>
+
+<p>&#x975E;&#x5E38;&#x96BE;&#x53D7;&#xFF0C;&#x56E0;&#x4E3A;&#x4E0D;&#x4F46;&#x8981;&#x6B63;&#x786E;&#x7F16;&#x5199;HTML&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x63D2;&#x5165;&#x5404;&#x79CD;&#x53D8;&#x91CF;&#x3002;&#x5982;&#x679C;&#x60F3;&#x7528;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5199;&#x4E00;&#x4E2A;&#x590D;&#x6742;&#x7684;HTML&#x7F51;&#x9875;&#xFF0C;&#x90A3;&#x4E48;&#x662F;&#x975E;&#x5E38;&#x56F0;&#x96BE;&#x7684;&#x3002;&#x8981;&#x89E3;&#x51B3;&#x8FD9;&#x4E00;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528; JSP&#x3002;</p>
+<p>JSP&#xFF08;&#x5168;&#x79F0;JavaServer Pages&#xFF09;&#x662F;&#x7531; Sun &#x516C;&#x53F8;&#x4E3B;&#x5BFC;&#x521B;&#x5EFA;&#x7684;&#x4E00;&#x79CD;<strong>&#x52A8;&#x6001;&#x7F51;&#x9875;&#x6280;&#x672F;&#x6807;&#x51C6;</strong>&#x3002;&#x5B83;&#x4E5F;&#x662F; Java EE &#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x8BF7;&#x6C42;&#x52A8;&#x6001;&#x7684;&#x751F;&#x6210; HTML&#x5176;&#x4ED6;&#x683C;&#x5F0F;&#x6587;&#x6863;&#x7684; Web &#x7F51;&#x9875;&#x3002;</p>
+<p>&#x6587;&#x4EF6;&#x5FC5;&#x987B;&#x653E;&#x5230;<code>/src/main/webapp</code>&#x4E0B;&#xFF0C;&#x5185;&#x5BB9;&#x548C; HTML &#x5F88;&#x50CF;&#xFF0C;&#x9700;&#x8981;&#x63D2;&#x5165;&#x53D8;&#x91CF;&#x7684;&#x5730;&#x65B9;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7279;&#x6B8A;&#x6307;&#x4EE4;<code>&lt;% ... %&gt;</code>&#x3002;</p>
+<p>&#x5199;&#x4E00;&#x4E2A;<code>hello.jsp</code>&#x4F8B;&#x5B50;&#xFF0C;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Hello World - JSP&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;%-- JSP Comment --%&gt;</span><br><span class="line">    &lt;h1&gt;Hello World!&lt;/h1&gt;</span><br><span class="line">    &lt;p&gt;</span><br><span class="line">    &lt;%</span><br><span class="line">         out.println(&quot;Your IP address is &quot;);</span><br><span class="line">    %&gt;</span><br><span class="line">    &lt;span style=&quot;color:red&quot;&gt;</span><br><span class="line">        &lt;%= request.getRemoteAddr() %&gt;</span><br><span class="line">    &lt;/span&gt;</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>&#x6574;&#x4E2A;JSP&#x7684;&#x5185;&#x5BB9;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;HTML&#xFF0C;&#x4F46;&#x662F;&#x7A0D;&#x6709;&#x4E0D;&#x540C;&#xFF1A;</p>
+<ul>
+<li>&#x5305;&#x542B;&#x5728;<code>&lt;%--</code>&#x548C;<code>--%&gt;</code>&#x4E4B;&#x95F4;&#x7684;&#x662F;JSP&#x7684;&#x6CE8;&#x91CA;&#xFF0C;&#x5B83;&#x4EEC;&#x4F1A;&#x88AB;&#x5B8C;&#x5168;&#x5FFD;&#x7565;&#xFF1B;</li>
+<li>&#x5305;&#x542B;&#x5728;<code>&lt;%</code>&#x548C;<code>%&gt;</code>&#x4E4B;&#x95F4;&#x7684;&#x662F;Java&#x4EE3;&#x7801;&#xFF0C;&#x53EF;&#x4EE5;&#x7F16;&#x5199;&#x4EFB;&#x610F;Java&#x4EE3;&#x7801;&#xFF1B;</li>
+<li>&#x5982;&#x679C;&#x4F7F;&#x7528;<code>&lt;%= xxx %&gt;</code>&#x5219;&#x53EF;&#x4EE5;&#x5FEB;&#x6377;&#x8F93;&#x51FA;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x3002;</li>
+</ul>
+<p>&#x8BBF;&#x95EE; JSP &#x9875;&#x9762;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;&#x6307;&#x5B9A;&#x5B8C;&#x6574;&#x8DEF;&#x5F84;&#x3002;&#x4F8B;&#x5982;&#xFF0C;<code>http://localhost:8080/hello.jsp</code>&#x3002;</p>
+<p>JSP &#x548C; Servlet &#x672C;&#x8D28;&#x4E0A;&#x6CA1;&#x6709;&#x533A;&#x522B;&#xFF0C;&#x56E0;&#x4E3A;JSP&#x5728;&#x6267;&#x884C;&#x524D;&#x9996;&#x5148;&#x88AB;&#x7F16;&#x8BD1;&#x6210;&#x4E00;&#x4E2A;Servlet&#x3002;&#x5728;Tomcat&#x7684;&#x4E34;&#x65F6;&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x53EF;&#x4EE5;&#x627E;&#x5230;&#x4E00;&#x4E2A;<code>hello_jsp.java</code>&#x7684;&#x6E90;&#x6587;&#x4EF6;&#xFF0C;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x5C31;&#x662F;Tomcat&#x628A;JSP&#x81EA;&#x52A8;&#x8F6C;&#x6362;&#x6210;&#x7684;Servlet&#x6E90;&#x7801;&#x3002;</p>
+<p>JSP&#x73B0;&#x5728;&#x7528;&#x5F97;&#x5F88;&#x5C11;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x73B0;&#x5728;&#x7684;Web&#x5F00;&#x53D1;&#x4E00;&#x822C;&#x662F;&#x524D;&#x540E;&#x7AEF;&#x5206;&#x79BB;&#x7684;&#xFF0C;JSP&#x662F;&#x4E0D;&#x5206;&#x79BB;&#x7684;&#xFF0C;&#x524D;&#x540E;&#x7AEF;&#x5206;&#x79BB;&#x53EF;&#x4EE5;&#x89E3;&#x8026;&#x5408;&#xFF0C;&#x4E5F;&#x8BA9;&#x4E13;&#x4EBA;&#x505A;&#x4E13;&#x4E8B;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x524D;&#x7AEF;&#x800C;&#x8A00;&#xFF0C;&#x8FFD;&#x6C42;&#x7684;&#x662F;&#x9875;&#x9762;&#xFF0C;&#x517C;&#x5BB9;&#xFF0C;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x7B49;&#x3002;&#x5BF9;&#x4E8E;&#x540E;&#x7AEF;&#x800C;&#x8A00;&#xFF0C;&#x8FFD;&#x6C42;&#x7684;&#x662F;&#x9AD8;&#x5E76;&#x53D1;&#xFF0C;&#x9AD8;&#x53EF;&#x7528;&#xFF0C;&#x9AD8;&#x6027;&#x80FD;&#xFF0C;&#x5B58;&#x50A8;&#xFF0C;&#x5B89;&#x5168;&#x7B49;&#x3002;</p>
+<h4 id="MVC&#x5F00;&#x53D1;"><a href="#MVC&#x5F00;&#x53D1;" class="headerlink" title="MVC&#x5F00;&#x53D1;"></a>MVC&#x5F00;&#x53D1;</h4><p>JSP &#x4F7F;&#x7F16;&#x5199; HTML &#x53D8;&#x5F97;&#x5BB9;&#x6613;&#x4E86;&#x8D77;&#x6765;&#xFF0C;&#x5E76;&#x4E14;&#x4E5F;&#x652F;&#x6301;&#x5728;&#x5176;&#x4E2D;&#x5199;Java&#x4EE3;&#x7801;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;&#x5728; JSP &#x4E2D;&#x5199;&#x4E00;&#x5927;&#x5806;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#xFF0C;&#x5305;&#x62EC; SQL &#x554A;&#x4E4B;&#x7C7B;&#x7684;&#xFF0C;&#x611F;&#x89C9;&#x4E5F;&#x4E0D;&#x662F;&#x5F88;&#x597D;&#xFF0C;&#x800C; MVC &#x7684;&#x6A21;&#x5F0F;&#x5C31;&#x80FD;&#x5F88;&#x597D;&#x7684;&#x7ED3;&#x5408;&#x4E8C;&#x8005;&#x3002;</p>
+<p>MVC&#x662F;Web&#x5F00;&#x53D1;&#x4E2D;&#x6BD4;&#x8F83;&#x5E38;&#x7528;&#x7684;&#x4E00;&#x79CD;&#x6A21;&#x5F0F;&#xFF0C;MVC&#x5168;&#x79F0;&#x662F;Model-View-Controller&#xFF0C;&#x5176;&#x4E2D; V &#x662F;JSP&#xFF0C;C &#x662F; Servlet&#xFF0C;&#x800C; M &#x662F;&#x4F20;&#x9012;&#x5728; Controller &#x548C; View &#x4F20;&#x9012;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x6837;&#x505A;&#x7684;&#x597D;&#x5904;&#x662F;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x7528; Servlet &#x6765;&#x5904;&#x7406;&#x590D;&#x6742;&#x7684;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#xFF0C;&#x7528; JSP &#x6765;&#x7F16;&#x5199; HTML&#x3002;</p>
+<p>&#x6574;&#x4E2A;MVC&#x67B6;&#x6784;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">                   &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">             &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&gt;&#x2502;Controller: UserServlet&#x2502;</span><br><span class="line">             &#x2502;     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">             &#x2502;                 &#x2502;</span><br><span class="line">&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;    &#x2502;           &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">&#x2502;Browser&#x2502;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;           &#x2502;Model: User&#x2502;</span><br><span class="line">&#x2502;       &#x2502;&lt;&#x2500;&#x2500;&#x2500;&#x2510;           &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;    &#x2502;                 &#x2502;</span><br><span class="line">             &#x2502;                 &#x25BC;</span><br><span class="line">             &#x2502;     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">             &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2502;    View: user.jsp     &#x2502;</span><br><span class="line">                   &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br></pre></td></tr></table></figure>
+
+<p>&#x4F7F;&#x7528;MVC&#x6A21;&#x5F0F;&#x7684;&#x597D;&#x5904;&#x662F;&#xFF0C;Controller&#x4E13;&#x6CE8;&#x4E8E;&#x4E1A;&#x52A1;&#x5904;&#x7406;&#xFF0C;&#x5B83;&#x7684;&#x5904;&#x7406;&#x7ED3;&#x679C;&#x5C31;&#x662F;Model&#x3002;Model&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;JavaBean&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x591A;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;Map&#xFF0C;Controller&#x53EA;&#x8D1F;&#x8D23;&#x628A;Model&#x4F20;&#x9012;&#x7ED9;View&#xFF0C;View&#x53EA;&#x8D1F;&#x8D23;&#x628A;Model&#x7ED9;&#x201C;&#x6E32;&#x67D3;&#x201D;&#x51FA;&#x6765;&#xFF0C;&#x8FD9;&#x6837;&#xFF0C;&#x4E09;&#x8005;&#x804C;&#x8D23;&#x660E;&#x786E;&#xFF0C;&#x4E14;&#x5F00;&#x53D1;&#x66F4;&#x7B80;&#x5355;&#xFF0C;&#x56E0;&#x4E3A;&#x5F00;&#x53D1;Controller&#x65F6;&#x65E0;&#x9700;&#x5173;&#x6CE8;&#x9875;&#x9762;&#xFF0C;&#x5F00;&#x53D1;View&#x65F6;&#x65E0;&#x9700;&#x5173;&#x5FC3;&#x5982;&#x4F55;&#x521B;&#x5EFA;Model&#x3002;</p>
+<p>&#x4E0A;&#x9762;&#x4F8B;&#x5B50;&#x4E2D;&#x7684; Controller&#x662F;&#x7EE7;&#x627F;&#x81EA; Servlet&#xFF0C;Controller &#x8FD8;&#x53EF;&#x4EE5;&#x4E0D;&#x7EE7;&#x627F;&#x81EA; Servlet&#xFF0C;&#x7528;&#x4E00;&#x4E2A;&#x63A5;&#x6536;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#x7684; Servlet &#x6620;&#x5C04;&#x5230; / &#xFF0C;&#x7136;&#x540E;&#x4F20;&#x9012;&#x7ED9;&#x4E0D;&#x540C;&#x7684; Controller &#x5904;&#x7406;&#xFF0C;Controller&#x518D;&#x8FDB;&#x4E00;&#x6B65;&#x4F20;&#x9012;&#x7ED9; View&#x3002;&#x8FD9;&#x6837;&#x7684;MVC&#x7684;&#x67B6;&#x6784;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">   HTTP Request    &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&gt;&#x2502;DispatcherServlet&#x2502;</span><br><span class="line">                   &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">                            &#x2502;</span><br><span class="line">               &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x253C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">               &#x25BC;            &#x25BC;            &#x25BC;</span><br><span class="line">         &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">         &#x2502;Controller1&#x2502;&#x2502;Controller2&#x2502;&#x2502;Controller3&#x2502;</span><br><span class="line">         &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">               &#x2502;            &#x2502;            &#x2502;</span><br><span class="line">               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x253C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">                            &#x25BC;</span><br><span class="line">   HTTP Response &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">&lt;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2502;render(ModelAndView)&#x2502;</span><br><span class="line">                 &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&#x5177;&#x4F53;&#x7684;&#x5B9E;&#x73B0;&#x53C2;&#x8003;<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1337408645759009">&#x5ED6;&#x96EA;&#x5CF0;&#x7684;&#x5B98;&#x7F51;&#x7F51;&#x7AD9;</a>&#x3002;&#x8BC4;&#x8BBA;&#x533A;&#x7684;&#x96EA;&#x8389;&#x80E1;&#x8FDC;&#x8D85;1982&#x540C;&#x5B66;&#x603B;&#x7ED3;&#x5F97;&#x4E0D;&#x9519;&#xFF1A;</p>
+<ul>
+<li>&#x6838;&#x5FC3;&#x601D;&#x60F3;&#x662F;&#x6839;&#x636E;&#x63D0;&#x51FA;&#x7684;&#x7B80;&#x5316;&#x539F;&#x6765;&#x7528;servlet&#x3001;jsp&#x7684;&#x5199;&#x6CD5;&#xFF0C;&#x6784;&#x9020;&#x6EE1;&#x8DB3;&#x9700;&#x6C42;&#xFF08;&#x6BD4;&#x5982;&#x7B80;&#x5355;&#x4F7F;&#x7528;&#x6CE8;&#x89E3;&#x8868;&#x793A;&#x8DEF;&#x5F84;&#xFF09;&#x7684;&#x7B80;&#x6613;MVC&#x6846;&#x67B6;&#xFF1B;</li>
+<li>&#x6784;&#x9020;&#x4EE5;url&#x4E3A;key&#xFF0C;dispatch&#x4E3A;value&#x7684;map&#xFF0C;&#x5176;&#x4E2D;dispatch&#x662F;&#x5C01;&#x88C5;&#x4E86;&#x5BF9;req&#x3001;response&#x64CD;&#x4F5C;&#x7684;method&#xFF1B;</li>
+<li>&#x521D;&#x59CB;&#x5316;init&#x51FD;&#x6570;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x626B;&#x63CF;controller&#x5305;&#x4E2D;&#x7684;controller&#x5BF9;&#x8C61;&#x5E76;&#x9010;&#x4E00;&#x904D;&#x5386;&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x5E26;&#x6709;GetMapping&#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x6784;&#x9020;&#x4E0A;&#x8FF0;&#x7684;map&#xFF1B;</li>
+<li>&#x5F53;&#x8BF7;&#x6C42;&#x6765;&#x65F6;&#xFF0C;&#x5BF9;&#x4E00;&#x4E2A;url&#x901A;&#x8FC7;map&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;method&#xFF0C;&#x4ECE;&#x800C;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x8C03;&#x7528;&#x6B64;&#x65B9;&#x6CD5;&#xFF0C;&#x5B8C;&#x6210;&#x5BF9;&#x8BF7;&#x6C42;&#x7684;&#x5904;&#x7406;&#xFF1B;</li>
+</ul>
+</blockquote>
+<p>JavaEE &#x7684; Servlet &#x89C4;&#x8303;&#x8FD8;&#x63D0;&#x4F9B;&#x4E86; Filter &#x7EC4;&#x4EF6;&#x548C; Listener &#x7EC4;&#x4EF6;&#x3002;Filter &#x53EF;&#x4EE5;&#x5C01;&#x88C5; Servlet &#x7684;&#x4E00;&#x4E9B;&#x5171;&#x6709;&#x903B;&#x8F91;&#xFF0C;&#x6BD4;&#x5982;&#x767B;&#x9646;&#x68C0;&#x67E5;&#xFF0C;&#x7F16;&#x7801;&#x8F6C;&#x6362;&#x7B49;&#x7B49;&#xFF0C;&#x591A;&#x4E2A;Filter&#x4F1A;&#x7EC4;&#x6210;&#x4E00;&#x4E2A;&#x94FE;&#xFF0C;&#x4F46;&#x6CA1;&#x6709;&#x56FA;&#x5B9A;&#x7684;&#x987A;&#x5E8F;&#x3002;&#x901A;&#x8FC7; Listener &#x53EF;&#x4EE5;&#x76D1;&#x542C; Web&#x5E94;&#x7528;&#x7A0B;&#x5E8F; &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x83B7;&#x53D6;<code>HttpSession</code>&#x7B49;&#x521B;&#x5EFA;&#x548C;&#x9500;&#x6BC1;&#x7684;&#x4E8B;&#x4EF6;&#x3002;</p>
+<h3 id="Spring-MVC"><a href="#Spring-MVC" class="headerlink" title="Spring MVC"></a>Spring MVC</h3><p>Spring&#x662F;&#x76EE;&#x524D;&#x6700;&#x4E3A;&#x6D41;&#x884C;&#x7684; Java EE &#x6846;&#x67B6;&#xFF0C;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x57FA;&#x7840;&#x8BBE;&#x65BD;&#xFF0C;&#x5E76;&#x4E14;&#x5F88;&#x5BB9;&#x6613;&#x548C;&#x5176;&#x5B83;&#x5F00;&#x6E90;&#x6846;&#x67B6;&#x96C6;&#x6210;&#x3002;Spring&#x6700;&#x6838;&#x5FC3;&#x7684;&#x6982;&#x5FF5;&#x662F;IoC&#x548C;AOP&#x3002;</p>
+<p>IoC &#x662F;&#x63A7;&#x5236;&#x53CD;&#x8F6C;&#xFF0C;&#x7C7B;&#x4F3C;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x3002;</p>
+<p>AOP &#x662F;&#x9762;&#x5411;&#x5207;&#x9762;&#x7F16;&#x7A0B;&#xFF0C;&#x6307;&#x62D3;&#x5C55;&#x529F;&#x80FD;&#x800C;&#x4E0D;&#x4FEE;&#x6539;&#x6E90;&#x4EE3;&#x7801;&#xFF0C;&#x7C7B;&#x4F3C;&#x88C5;&#x9970;&#x5668;&#x6A21;&#x5F0F;&#x3002;</p>
+<p>&#x5728;&#x6211;&#x4EEC;&#x5B9E;&#x73B0; MVC &#x6846;&#x67B6;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6700;&#x4E3A;&#x6838;&#x5FC3;&#x7684;&#x662F; <code>DispatcherServlet</code>&#xFF0C;DispatcherServlet &#x63A5;&#x6536;&#x5230;&#x6765;&#x81EA;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x8BF7;&#x6C42;&#x540E;&#xFF0C;&#x518D;&#x5C06;&#x5176;&#x8FDB;&#x4E00;&#x6B65;&#x8F6C;&#x53D1;&#x5230;&#x4E0D;&#x540C;&#x7684; Controller&#xFF0C;Spring MVC &#x5DF2;&#x7ECF;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE3;&#x7801;&#x548C; web.xml &#x4E2D;&#x6CE8;&#x518C;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyWebApplicationInitializer</span> <span class="keyword">implements</span> <span class="title">WebApplicationInitializer</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStartup</span><span class="params">(ServletContext servletCxt)</span> </span>{</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x52A0;&#x8F7D; Spring Web Application &#x7684;&#x914D;&#x7F6E;</span></span><br><span class="line">        AnnotationConfigWebApplicationContext ac = <span class="keyword">new</span> AnnotationConfigWebApplicationContext();</span><br><span class="line">        ac.register(AppConfig.class);</span><br><span class="line">        ac.refresh();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x521B;&#x5EFA;&#x5E76;&#x6CE8;&#x518C; DispatcherServlet</span></span><br><span class="line">        DispatcherServlet servlet = <span class="keyword">new</span> DispatcherServlet(ac);</span><br><span class="line">        ServletRegistration.Dynamic registration = servletCxt.addServlet(<span class="string">&quot;app&quot;</span>, servlet);</span><br><span class="line">        registration.setLoadOnStartup(<span class="number">1</span>);</span><br><span class="line">        registration.addMapping(<span class="string">&quot;/app/*&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x5728; web.xml &#x4E2D;&#x6CE8;&#x518C;&#x548C;&#x521D;&#x59CB;&#x5316; DispatcherServlet &#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">web-app</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"> <span class="meta-string">&quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span></span></span><br><span class="line"><span class="meta"> <span class="meta-string">&quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;</span> &gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextClass<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>org.springframework.web.context.support.AnnotationConfigWebApplicationContext<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>com.itranswarp.learnjava.AppConfig<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>0<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &quot;/*&quot; &#x8868;&#x793A;&#x5C06;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#x4EA4;&#x7531; DispatcherServlet &#x5904;&#x7406; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x521D;&#x59CB;&#x5316;&#x53C2;&#x6570;<code>contextClass</code>&#x6307;&#x5B9A;&#x4F7F;&#x7528;&#x6CE8;&#x89E3;&#x914D;&#x7F6E;&#x7684;<code>AnnotationConfigWebApplicationContext</code>&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x4F4D;&#x7F6E;&#x53C2;&#x6570;<code>contextConfigLocation</code>&#x6307;&#x5411;<code>AppConfig</code>&#x7684;&#x5B8C;&#x6574;&#x7C7B;&#x540D;&#xFF0C;&#x6700;&#x540E;&#xFF0C;&#x628A;&#x8FD9;&#x4E2A;Servlet&#x6620;&#x5C04;&#x5230;<code>/*</code>&#xFF0C;&#x5373;&#x5904;&#x7406;&#x6240;&#x6709;URL&#x3002;</p>
+<p>&#x4E0A;&#x8FF0;&#x914D;&#x7F6E;&#x53EF;&#x4EE5;&#x770B;&#x4F5C;&#x4E00;&#x4E2A;&#x6837;&#x677F;&#x914D;&#x7F6E;&#xFF0C;&#x6709;&#x4E86;&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#xFF0C;Servlet&#x5BB9;&#x5668;&#x4F1A;&#x9996;&#x5148;&#x521D;&#x59CB;&#x5316;Spring MVC&#x7684;<code>DispatcherServlet</code>&#xFF0C;&#x5728;<code>DispatcherServlet</code>&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x5B83;&#x6839;&#x636E;&#x914D;&#x7F6E;<code>AppConfig</code>&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x7C7B;&#x578B;&#x662F;WebApplicationContext&#x7684;IoC&#x5BB9;&#x5668;&#xFF0C;&#x5B8C;&#x6210;&#x6240;&#x6709;Bean&#x7684;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5E76;&#x5C06;&#x5BB9;&#x5668;&#x7ED1;&#x5230;ServletContext&#x4E0A;&#x3002;</p>
+<p>&#x56E0;&#x4E3A;<code>DispatcherServlet</code>&#x6301;&#x6709;IoC&#x5BB9;&#x5668;&#xFF0C;&#x80FD;&#x4ECE;IoC&#x5BB9;&#x5668;&#x4E2D;&#x83B7;&#x53D6;&#x6240;&#x6709;<code>@Controller</code>&#x7684;Bean&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;<code>DispatcherServlet</code>&#x63A5;&#x6536;&#x5230;&#x6240;&#x6709;HTTP&#x8BF7;&#x6C42;&#x540E;&#xFF0C;&#x6839;&#x636E;Controller&#x65B9;&#x6CD5;&#x914D;&#x7F6E;&#x7684;&#x8DEF;&#x5F84;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x6B63;&#x786E;&#x5730;&#x628A;&#x8BF7;&#x6C42;&#x8F6C;&#x53D1;&#x5230;&#x6307;&#x5B9A;&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x6839;&#x636E;&#x8FD4;&#x56DE;&#x7684;<code>ModelAndView</code>&#x51B3;&#x5B9A;&#x5982;&#x4F55;&#x6E32;&#x67D3;&#x9875;&#x9762;&#x3002;</p>
+<p>&#x914D;&#x7F6E;&#x5B8C; DispatcherServlet &#x4E4B;&#x540E;&#xFF0C;&#x7F16;&#x5199; Controller &#x5C31;&#x5F88;&#x5BB9;&#x6613;&#x4E86;&#xFF0C;Spring &#x53EF;&#x4EE5;&#x7528; <code>@Controller</code> &#x6765;&#x8FDB;&#x884C;&#x6CE8;&#x91CA;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>{</span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">hello</span><span class="params">()</span></span>{</span><br><span class="line">        ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line">        modelAndView.setViewName(<span class="string">&quot;/WEB-INF/view/hello.jsp&quot;</span>);</span><br><span class="line">        modelAndView.addObject(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;helloworld&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> modelAndView;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4F7F;&#x7528;Spring MVC&#x65F6;&#xFF0C;&#x6574;&#x4E2A;Web&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6309;&#x5982;&#x4E0B;&#x987A;&#x5E8F;&#x542F;&#x52A8;&#xFF1A;</p>
+<ol>
+<li>&#x542F;&#x52A8;Tomcat&#x670D;&#x52A1;&#x5668;&#xFF1B;</li>
+<li>Tomcat&#x8BFB;&#x53D6;web.xml&#x5E76;&#x521D;&#x59CB;&#x5316;DispatcherServlet&#xFF1B;</li>
+<li>DispatcherServlet&#x521B;&#x5EFA;IoC&#x5BB9;&#x5668;&#x5E76;&#x81EA;&#x52A8;&#x6CE8;&#x518C;&#x5230;ServletContext&#x4E2D;&#x3002;</li>
+</ol>
+<p>&#x542F;&#x52A8;&#x540E;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x53D1;&#x51FA;&#x7684;HTTP&#x8BF7;&#x6C42;&#x5168;&#x90E8;&#x7531;DispatcherServlet&#x63A5;&#x6536;&#xFF0C;&#x5E76;&#x6839;&#x636E;&#x914D;&#x7F6E;&#x8F6C;&#x53D1;&#x5230;&#x6307;&#x5B9A;Controller&#x7684;&#x6307;&#x5B9A;&#x65B9;&#x6CD5;&#x5904;&#x7406;&#x3002;</p>
+<h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><p>Spring Boot &#x8FDB;&#x4E00;&#x6B65;&#x7B80;&#x5316;&#x4E86; Web &#x5F00;&#x53D1;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x5728;&#x5199; Spring MVC &#x7684;&#x65F6;&#x5019;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x7684;&#x5404;&#x79CD;&#x914D;&#x7F6E; Spring Boot &#x90FD;&#x5DF2;&#x7ECF;&#x505A;&#x4E86;&#xFF0C;&#x4F7F;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x4F7F;&#x7528;&#x7BA1;&#x4E1A;&#x52A1;&#x5373;&#x53EF;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x7279;&#x6B8A;&#x9700;&#x6C42;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6216;&#x7F16;&#x5199;&#x5C11;&#x91CF;&#x4EE3;&#x7801;&#x5C31;&#x80FD;&#x5B8C;&#x6210;&#x3002;</p>
+<p>&#x4E8C;&#x8005;&#x5BF9;&#x6BD4;&#xFF0C;&#x77E5;&#x4E4E;&#x4E0A;&#x8FD9;&#x5F20;&#x56FE;&#x5F88;&#x5F62;&#x8C61;&#xFF1A;</p>
+<img src="/2021/10/18/%E5%9C%A8%E5%86%99%E5%90%8E%E7%AB%AF%E4%B8%9A%E5%8A%A1%E4%B9%8B%E5%89%8D%EF%BC%8C%E5%85%88%E6%98%8E%E7%99%BDWeb%E5%BC%80%E5%8F%91%E7%9A%84%E5%8F%91%E5%B1%95/v2-1bb4075e46abe6b634ca6710d6456622_720w.jpg" alt="img" style="zoom:67%;">
+
+<p>Spring Boot&#x53EA;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x4F9D;&#x8D56;&#x9879;&#x6765;&#x542F;&#x52A8;&#x548C;&#x8FD0;&#x884C;Web&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF1A;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x5F53;&#x6211;&#x4EEC;&#x5F15;&#x5165;<code>spring-boot-starter-web</code>&#x65F6;&#xFF0C;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x4E86;&#xFF1A;</p>
+<ul>
+<li><code>ServletWebServerFactoryAutoConfiguration</code>&#xFF1A;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5D4C;&#x5165;&#x5F0F;Web&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;Tomcat&#xFF1B;</li>
+<li><code>DispatcherServletAutoConfiguration</code>&#xFF1A;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;<code>DispatcherServlet</code>&#xFF1B;</li>
+<li><code>HttpEncodingAutoConfiguration</code>&#xFF1A;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;<code>CharacterEncodingFilter</code>&#xFF1B;</li>
+<li><code>WebMvcAutoConfiguration</code>&#xFF1A;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x82E5;&#x5E72;&#x4E0E;MVC&#x76F8;&#x5173;&#x7684;Bean&#x3002;</li>
+<li>&#x2026;</li>
+</ul>
+<p>JSP &#x7684; View &#x90E8;&#x5206;&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5728;<code>application</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x914D;&#x7F6E;&#x51E0;&#x4E2A;&#x5C5E;&#x6027;&#x6765;&#x5B8C;&#x6210;&#x3002;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring.mvc.view.prefix=/WEB-INF/jsp/</span><br><span class="line">spring.mvc.view.suffix=.jsp</span><br></pre></td></tr></table></figure>
+
+<p>&#x66F4;&#x591A; Spring &#x548C; Spring Boot &#x7684;&#x5BF9;&#x6BD4;&#xFF0C;&#x53EF;&#x4EE5;&#x53C2;&#x8003; Spring &#x5B98;&#x7F51;&#x548C;&#x8FD9;&#x4E2A;<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ffe5ebe17c3a">&#x535A;&#x5BA2;</a>&#x3002;</p>
+<blockquote>
+<p>Spring Boot&#x7ED9;&#x4F60;&#x4F7F;&#x7528;20%&#x7684;&#x65F6;&#x95F4;&#x53BB;&#x89E3;&#x51B3;80%&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5269;&#x4E0B;20%&#x7684;&#x95EE;&#x9898;&#x9700;&#x8981;&#x4F60;&#x7528;200%&#x7684;&#x65F6;&#x95F4;&#x53BB;&#x5F04;&#x61C2;&#x3002;&#x2014;&#x2014;by&#xFF1A;&#x6C83;&#xB7;&#x5179;&#x57FA;&#x7855;&#x5FB7;</p>
+</blockquote>
+<h2 id="&#x503C;&#x5F97;&#x601D;&#x8003;&#x7684;&#x5730;&#x65B9;&#xFF08;&#x62D6;&#x7A3F;&#xFF09;"><a href="#&#x503C;&#x5F97;&#x601D;&#x8003;&#x7684;&#x5730;&#x65B9;&#xFF08;&#x62D6;&#x7A3F;&#xFF09;" class="headerlink" title="&#x503C;&#x5F97;&#x601D;&#x8003;&#x7684;&#x5730;&#x65B9;&#xFF08;&#x62D6;&#x7A3F;&#xFF09;"></a>&#x503C;&#x5F97;&#x601D;&#x8003;&#x7684;&#x5730;&#x65B9;&#xFF08;&#x62D6;&#x7A3F;&#xFF09;</h2><p>&#x4E0A;&#x9762;&#x5185;&#x5BB9;&#x662F;&#x6211;&#x4EEC;&#x5982;&#x4F55;&#x53BB;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A; Web&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4F46;&#x8FD9;&#x5176;&#x4E2D;&#x8FD8;&#x6709;&#x5F88;&#x591A;&#x88AB;&#x5FFD;&#x89C6;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x6BD4;&#x5982;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x6E32;&#x67D3;&#xFF0C;HTTP&#x534F;&#x8BAE;&#xFF0C;Cookie&#x7B49;&#x90E8;&#x5206;&#x3002;&#x5728;&#x771F;&#x6B63;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7EBF;&#x4E0A;&#x4E1A;&#x52A1;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8FD9;&#x4E9B;&#x90FD;&#x662F;&#x9700;&#x8981;&#x8003;&#x8651;&#x7684;&#x3002;</p>
+<h3 id="HTTP&#x534F;&#x8BAE;&#x7684;&#x53D1;&#x5C55;"><a href="#HTTP&#x534F;&#x8BAE;&#x7684;&#x53D1;&#x5C55;" class="headerlink" title="HTTP&#x534F;&#x8BAE;&#x7684;&#x53D1;&#x5C55;"></a>HTTP&#x534F;&#x8BAE;&#x7684;&#x53D1;&#x5C55;</h3><p>&#x56DE;&#x5230;&#x4E00;&#x5F00;&#x59CB;&#x7528;&#x591A;&#x7EBF;&#x7A0B;&#x5B9E;&#x73B0; Web&#x670D;&#x52A1;&#x5668;&#x7684;&#x5730;&#x65B9;&#xFF5E;</p>
+<h3 id="IO&#x6A21;&#x578B;"><a href="#IO&#x6A21;&#x578B;" class="headerlink" title="IO&#x6A21;&#x578B;"></a>IO&#x6A21;&#x578B;</h3><p>Tomcat&#x662F;&#x4EC0;&#x4E48;IO&#x6A21;&#x578B;&#x5462;&#xFF1F;</p>
+<hr>
+<p>&#x6700;&#x540E;&#xFF0C;&#x611F;&#x8C22;&#x5ED6;&#x5927;&#xFF0C;&#x5B66;&#x5230;&#x5F88;&#x591A;&#xFF5E;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/09/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%8F%E5%85%B8%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB/" rel="next" title="计算机经典书籍阅读">
+                <i class="fa fa-chevron-left"></i> 计算机经典书籍阅读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/me2.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heatao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:heatao59@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/public/public/live2dw/public/public/live2dw/public/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"public/public/live2dw/","pluginJsPath":"public/public/live2dw/public/lib/","pluginModelPath":"node_modules/live2d-widget-model-shizuku/assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/public/public/live2dw/node_modules/live2d-widget-model-shizuku/assets/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":315,"hOffset":198,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
