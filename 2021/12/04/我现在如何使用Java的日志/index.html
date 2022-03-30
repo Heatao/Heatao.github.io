@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x6700;&amp;#x8FD1;&amp;#x770B;&amp;#x5230;&amp;#x4E00;&amp;#x4E9B;&amp;#x65E5;&amp;#x5FD7;&amp;#x76F8;&amp;#x5173;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x8FD9;&amp;#x91CC;&amp;#x7B80;&amp;#x5355;&amp;#x8BB0;&amp;#x5F55;&amp;#x4E00;&amp;#x4E0B;&amp;#x3002;  Java &amp;#x65E5;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我现在如何使用Java的日志">
+<meta property="og:url" content="http://yoursite.com/2021/12/04/%E6%88%91%E7%8E%B0%E5%9C%A8%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Java%E7%9A%84%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:site_name" content="HEATAO&#39;s Blog">
+<meta property="og:description" content="&amp;#x6700;&amp;#x8FD1;&amp;#x770B;&amp;#x5230;&amp;#x4E00;&amp;#x4E9B;&amp;#x65E5;&amp;#x5FD7;&amp;#x76F8;&amp;#x5173;&amp;#x7684;&amp;#x6587;&amp;#x7AE0;&amp;#xFF0C;&amp;#x8FD9;&amp;#x91CC;&amp;#x7B80;&amp;#x5355;&amp;#x8BB0;&amp;#x5F55;&amp;#x4E00;&amp;#x4E0B;&amp;#x3002;  Java &amp;#x65E5;">
+<meta property="og:locale">
+<meta property="og:image" content="http://yoursite.com/2021/12/04/%E6%88%91%E7%8E%B0%E5%9C%A8%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Java%E7%9A%84%E6%97%A5%E5%BF%97/concrete-bindings-8621721.png">
+<meta property="og:image" content="http://yoursite.com/2021/12/04/%E6%88%91%E7%8E%B0%E5%9C%A8%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Java%E7%9A%84%E6%97%A5%E5%BF%97/image-20211204203144146.png">
+<meta property="article:published_time" content="2021-12-04T13:08:48.000Z">
+<meta property="article:modified_time" content="2021-12-04T13:09:49.432Z">
+<meta property="article:author" content="HEATAO">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/12/04/%E6%88%91%E7%8E%B0%E5%9C%A8%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Java%E7%9A%84%E6%97%A5%E5%BF%97/concrete-bindings-8621721.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/12/04/我现在如何使用Java的日志/"/>
+
+
+
+
+
+  <title>我现在如何使用Java的日志 | HEATAO's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HEATAO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/04/%E6%88%91%E7%8E%B0%E5%9C%A8%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Java%E7%9A%84%E6%97%A5%E5%BF%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me2.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HEATAO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">我现在如何使用Java的日志</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-04T21:08:48+08:00">
+                2021-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>&#x6700;&#x8FD1;&#x770B;&#x5230;&#x4E00;&#x4E9B;&#x65E5;&#x5FD7;&#x76F8;&#x5173;&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x8FD9;&#x91CC;&#x7B80;&#x5355;&#x8BB0;&#x5F55;&#x4E00;&#x4E0B;&#x3002;</p>
+</blockquote>
+<h1 id="Java-&#x65E5;&#x5FD7;&#x7684;&#x4F7F;&#x7528;"><a href="#Java-&#x65E5;&#x5FD7;&#x7684;&#x4F7F;&#x7528;" class="headerlink" title="Java &#x65E5;&#x5FD7;&#x7684;&#x4F7F;&#x7528;"></a>Java &#x65E5;&#x5FD7;&#x7684;&#x4F7F;&#x7528;</h1><h2 id="SLF4J"><a href="#SLF4J" class="headerlink" title="SLF4J"></a>SLF4J</h2><h3 id="Commons-Logging-&#x548C;-SLF4J"><a href="#Commons-Logging-&#x548C;-SLF4J" class="headerlink" title="Commons Logging &#x548C; SLF4J"></a>Commons Logging &#x548C; SLF4J</h3><p>&#x8FD9;&#x4FE9;&#x90FD;&#x662F;&#x65E5;&#x5FD7;&#x63A5;&#x53E3;&#xFF0C;&#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x5C42;&#xFF0C;&#x65E5;&#x5FD7;&#x63A5;&#x53E3;&#x9700;&#x8981;&#x6302;&#x63A5;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x624D;&#x884C;&#x3002;&#x4E4B;&#x6240;&#x4EE5;&#x8981;&#x8FD9;&#x6837;&#x8BBE;&#x8BA1;&#x662F;&#x4E3A;&#x4E86;&#x7EDF;&#x4E00;&#x4E0D;&#x540C;&#x7C7B;&#x5E93;&#x7684;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#xFF0C;&#x907F;&#x514D;&#x5F53;&#x9879;&#x76EE;&#x5F15;&#x5165;&#x4E00;&#x4E2A;&#x7C7B;&#x5E93;&#x7684;&#x65F6;&#x5019;&#x8FD8;&#x9700;&#x8981;&#x52A0;&#x8F7D;&#x548C;&#x7EF4;&#x62A4;&#x7C7B;&#x5E93;&#x7684;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x3002;</p>
+<h3 id="SLF4J-Logback"><a href="#SLF4J-Logback" class="headerlink" title="SLF4J  + Logback"></a>SLF4J  + Logback</h3><ul>
+<li><p>SLF4J&#x7684;API&#x597D;&#x4E8E;Commons Logging</p>
+</li>
+<li><p>Logback&#x7684;&#x6027;&#x80FD;&#x597D;&#x4E8E;Log4j</p>
+</li>
+</ul>
+<p>Logback &#x662F; SLF4J &#x7684;&#x597D;&#x642D;&#x6863;&#xFF0C;&#x5728;SLF4J&#x5B98;&#x7F51;&#x4E2D;&#x88AB;&#x6807;&#x8BB0;&#x4E3A;&#x4E86; <strong>NATIVE IMPLEMENTATION</strong>&#x3002;&#x5F53;&#x7136; SLF4J &#x8FD8;&#x652F;&#x6301;&#x5176;&#x4ED6;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#xFF0C;&#x89C1;&#x4E0B;&#x56FE;&#xFF1A;</p>
+<img src="/2021/12/04/%E6%88%91%E7%8E%B0%E5%9C%A8%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Java%E7%9A%84%E6%97%A5%E5%BF%97/concrete-bindings-8621721.png" alt="concrete-bindings" style="zoom:67%;">
+
+<h3 id="SLF4J-Log4j2"><a href="#SLF4J-Log4j2" class="headerlink" title="SLF4J + Log4j2"></a>SLF4J + Log4j2</h3><p>[pending]</p>
+<p>&#x53C2;&#x89C1;&#xFF1A;<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1510640">https://cloud.tencent.com/developer/article/1510640</a></p>
+<h3 id="SLF4J-&#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;"><a href="#SLF4J-&#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;" class="headerlink" title="SLF4J &#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;"></a>SLF4J &#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;</h3><p>&#x56E0;&#x4E3A;&#x6709;&#x7684;&#x65F6;&#x5019;&#x4E00;&#x4E9B;&#x6846;&#x67B6;&#x4F1A;&#x628A;&#x4E00;&#x4E9B;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x653E;&#x5230;[INFO]&#x7EA7;&#x522B;&#x4E2D;&#xFF0C;&#x800C;&#x7528;[WARN]&#x7EA7;&#x522B;&#x603B;&#x611F;&#x89C9;&#x50CF;&#x662F;&#x5728;&#x63D0;&#x793A;BUG&#xFF0C;&#x6240;&#x4EE5;&#x5F88;&#x5E0C;&#x671B;&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x5728; INFO &#x548C; WARN &#x4E4B;&#x95F4;&#x7684; LOG &#x7EA7;&#x522B;&#x3002;</p>
+<p>&#x9057;&#x61BE;&#x7684;&#x662F; SLF4J &#x4E0D;&#x652F;&#x6301;&#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;&#xFF0C;&#x4E0D;&#x8FC7;&#x5B83;&#x6709;&#x4E00;&#x4E2A; <code>Mark</code>&#xFF0C;&#x6BCF;&#x4E2A;&#x65E5;&#x5FD7;&#x6761;&#x76EE;&#x90FD;&#x53EF;&#x4EE5;&#x4E3A;&#x5176;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x201C;&#x6807;&#x8BB0;&#x201D;&#xFF0C;&#x7528;&#x8FD9;&#x4E2A;&#x6807;&#x8BB0;&#x53EF;&#x4EE5;&#x505A;&#x5230;&#x7C7B;&#x4F3C;&#x7684;&#x6548;&#x679C;&#xFF0C;&#x5C06;&#x91CD;&#x8981;&#x4FE1;&#x606F;&#x7B5B;&#x9009;&#x51FA;&#x6765;&#x3002;</p>
+<h3 id="MDC"><a href="#MDC" class="headerlink" title="MDC"></a>MDC</h3><p>[pending]</p>
+<h3 id="SLF4J-&#x7684;&#x574F;&#x5904;"><a href="#SLF4J-&#x7684;&#x574F;&#x5904;" class="headerlink" title="SLF4J &#x7684;&#x574F;&#x5904;"></a>SLF4J &#x7684;&#x574F;&#x5904;</h3><p>&#x4F7F;&#x7528;&#x50CF; SLF4J &#x8FD9;&#x6837;&#x7684;&#x65E5;&#x5FD7;&#x63A5;&#x53E3;&#x867D;&#x7136;&#x5E26;&#x6765;&#x4E86;&#x5F88;&#x5927;&#x7684;&#x7075;&#x6D3B;&#x6027;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x72EC;&#x7ACB;&#x4E8E;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x7279;&#x5B9A;&#x7684;&#x65E5;&#x5FD7;API&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x5176;&#x5B9E;&#x662F;&#x5728;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x7684;&#x201C;&#x5171;&#x6027;&#x201D; &#xFF0C;&#x4E5F;&#x5C31;&#x610F;&#x5473;&#x7740;&#x6211;&#x4EEC;&#x7684;&#x7A0B;&#x5E8F;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x5E95;&#x5C42;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x4E00;&#x4E9B;&#x4E30;&#x5BCC;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x8FD9;&#x4E00;&#x70B9;&#xFF0C;Log4j2 &#x63D0;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x8BA9;&#x7A0B;&#x5E8F;&#x517C;&#x5BB9;&#x4E0D;&#x540C;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x7684;&#x540C;&#x65F6;&#x80FD;&#x591F;&#x4F7F;&#x7528; Log4j2 &#x7684;&#x7279;&#x6027;&#x3002;</p>
+<h2 id="Log4J2"><a href="#Log4J2" class="headerlink" title="Log4J2"></a>Log4J2</h2><p>Log4j&#x662F;&#x5F88;&#x591A;&#x9879;&#x76EE;&#x90FD;&#x5728;&#x4F7F;&#x7528;&#x7684;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#xFF0C;&#x4F46;&#x662F;&#x51E0;&#x5E74;&#x524D;&#x5DF2;&#x7ECF;&#x505C;&#x6B62;&#x7EF4;&#x62A4;&#x4E86;&#xFF0C;&#x73B0;&#x5728;&#x5E94;&#x8BE5;&#x7528; Apache Log4j2&#x6765;&#x4EE3;&#x66FF;Log4j&#xFF0C;Log4j2&#x63A8;&#x51FA;&#x4E86;&#x5F88;&#x591A;&#x6539;&#x8FDB;&#xFF0C;&#x5E94;&#x8BE5;&#x662F;&#x76EE;&#x524D;&#x6027;&#x80FD;&#x6700;&#x597D;&#x7684;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x3002;</p>
+<h3 id="log4j-to-slf4j"><a href="#log4j-to-slf4j" class="headerlink" title="log4j-to-slf4j"></a>log4j-to-slf4j</h3><p>Log4j2 &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A; <code>log4j-to-slf4j</code> &#x7684;&#x6865;&#x63A5;&#x6A21;&#x5757;&#x3002;&#x4EFB;&#x4F55;&#x7A0B;&#x5E8F;&#x4E0D;&#x652F;&#x6301; Log4j2 &#x7684; API &#x7684;&#x8BDD;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x517C;&#x5BB9; slf4j&#x3002;</p>
+<img src="/2021/12/04/%E6%88%91%E7%8E%B0%E5%9C%A8%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Java%E7%9A%84%E6%97%A5%E5%BF%97/image-20211204203144146.png" alt="image-20211204203144146" style="zoom:33%;">
+
+<p>&#x57FA;&#x4E8E;&#x6B64;&#xFF0C;&#x5176;&#x5B9E;&#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x7528; Log4j2&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x7528; SLF4J &#x5566;&#xFF5E;</p>
+<h3 id="Log4j2-&#x7684;&#x7279;&#x6027;"><a href="#Log4j2-&#x7684;&#x7279;&#x6027;" class="headerlink" title="Log4j2 &#x7684;&#x7279;&#x6027;"></a>Log4j2 &#x7684;&#x7279;&#x6027;</h3><p>[pending]</p>
+<h3 id="Log4j2-&#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;"><a href="#Log4j2-&#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;" class="headerlink" title="Log4j2 &#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;"></a>Log4j2 &#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;</h3><p>Log4J 2 &#x652F;&#x6301;&#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;&#x3002;&#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;&#x53EF;&#x4EE5;&#x5728;&#x4EE3;&#x7801;&#x6216;&#x914D;&#x7F6E;&#x4E2D;&#x5B9A;&#x4E49;&#x3002;&#x8981;&#x5728;&#x4EE3;&#x7801;&#x4E2D;&#x5B9A;&#x4E49;&#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;&#xFF0C;&#x8BF7;&#x4F7F;&#x7528; Level.forName()&#x65B9;&#x6CD5;&#x3002;&#x6B64;&#x65B9;&#x6CD5;&#x4E3A;&#x6307;&#x5B9A;&#x540D;&#x79F0;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7EA7;&#x522B;&#x3002;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8C03;&#x7528; Logger.log()&#x65B9;&#x6CD5;&#x5E76;&#x4F20;&#x9012;&#x81EA;&#x5B9A;&#x4E49;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;&#x6765;&#x5728;&#x6B64;&#x7EA7;&#x522B;&#x8BB0;&#x5F55;&#x6D88;&#x606F;&#x3002;</p>
+<p>&#x76F4;&#x63A5;&#x89C1;&#x6587;&#x6863;&#xFF1A;<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/log4j2/2.x/all/manual-customloglevels.html">https://www.docs4dev.com/docs/zh/log4j2/2.x/all/manual-customloglevels.html</a></p>
+<h2 id="&#x5947;&#x6280;&#x6DEB;&#x5DE7;"><a href="#&#x5947;&#x6280;&#x6DEB;&#x5DE7;" class="headerlink" title="&#x5947;&#x6280;&#x6DEB;&#x5DE7;"></a>&#x5947;&#x6280;&#x6DEB;&#x5DE7;</h2><h3 id="&#x5C01;&#x88C5;SLF4J-Log4j&#xFF0C;&#x4E0D;&#x518D;&#x5904;&#x5904;&#x5B9A;&#x4E49;logger&#x53D8;&#x91CF;"><a href="#&#x5C01;&#x88C5;SLF4J-Log4j&#xFF0C;&#x4E0D;&#x518D;&#x5904;&#x5904;&#x5B9A;&#x4E49;logger&#x53D8;&#x91CF;" class="headerlink" title="&#x5C01;&#x88C5;SLF4J/Log4j&#xFF0C;&#x4E0D;&#x518D;&#x5904;&#x5904;&#x5B9A;&#x4E49;logger&#x53D8;&#x91CF;"></a>&#x5C01;&#x88C5;SLF4J/Log4j&#xFF0C;&#x4E0D;&#x518D;&#x5904;&#x5904;&#x5B9A;&#x4E49;logger&#x53D8;&#x91CF;</h3><p>&#x81EA;&#x4ECE;&#x5F00;&#x59CB;&#x4F7F;&#x7528;&#x65E5;&#x5FD7;&#x7EC4;&#x4EF6;&#x540E;&#xFF0C; &#x6BCF;&#x4E2A;&#x7C7B;&#x90FD;&#x662F;&#x8FD9;&#x6837;&#x5B50;&#x7684;&#x7ED3;&#x6784;:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class A {</span><br><span class="line">    public static final Logger logger = LoggerFactory.getLogger(A.class);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x6BCF;&#x4E00;&#x4E2A;&#x7C7B;&#x5199;&#x65E5;&#x5FD7;&#x90FD;&#x5F97;&#x5199;&#x4E0A;&#x9762;&#x8FD9;&#x4E00;&#x884C;&#xFF0C;&#x6709;&#x70B9;&#x9EBB;&#x70E6;&#xFF0C;&#x6240;&#x4EE5;&#x6709;&#x4E9B;xd&#x5C31;&#x7528;&#x4E86;&#x4E00;&#x4E9B;&#x5947;&#x6280;&#x6DEB;&#x5DE7;&#x6765;&#x5C01;&#x88C5;&#x3002;</p>
+<ul>
+<li>&#x5B9E;&#x73B0;1&#xFF1A;<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007214708">https://segmentfault.com/a/1190000007214708</a></li>
+<li>&#x5B9E;&#x73B0;2&#xFF1A;<a target="_blank" rel="noopener" href="https://blog.csdn.net/lkmgydx/article/details/89524832">https://blog.csdn.net/lkmgydx/article/details/89524832</a></li>
+</ul>
+<h3 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h3><p>&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4E89;&#x8BAE;&#x6027;&#x8F83;&#x5927;&#xFF0C;&#x6211;&#x4E5F;&#x4E0D;&#x63A8;&#x8350;&#x4F7F;&#x7528;</p>
+<h2 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h2><p>Can I add custom levels to SLF4J? - <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12201112/can-i-add-custom-levels-to-slf4j">https://stackoverflow.com/questions/12201112/can-i-add-custom-levels-to-slf4j</a></p>
+<p>Is it worth to use slf4j with log4j2 - <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/41498021/is-it-worth-to-use-slf4j-with-log4j2">https://stackoverflow.com/questions/41498021/is-it-worth-to-use-slf4j-with-log4j2</a></p>
+<p>&#x4F7F;&#x7528;SLF4J&#x548C;Logback - <a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1264739155914176">https://www.liaoxuefeng.com/wiki/1252599548343744/1264739155914176</a></p>
+<p>SLF4J user manual - <a target="_blank" rel="noopener" href="http://www.slf4j.org/manual.html">http://www.slf4j.org/manual.html</a></p>
+<p>Log4j2&#x4E2D;&#x6587;&#x6587;&#x6863; - <a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/log4j2/2.x/all/manual-customloglevels.html">https://www.docs4dev.com/docs/zh/log4j2/2.x/all/manual-customloglevels.html</a></p>
+<p>&#x5C01;&#x88C5;SLF4J/Log4j&#xFF0C;&#x4E0D;&#x518D;&#x5904;&#x5904;&#x5B9A;&#x4E49;logger&#x53D8;&#x91CF; - <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007214708">https://segmentfault.com/a/1190000007214708</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/20/%E6%9E%84%E5%BB%BA%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9F%A5%E8%AF%86%E7%BD%91%E7%BB%9C/" rel="next" title="构建大数据知识网络">
+                <i class="fa fa-chevron-left"></i> 构建大数据知识网络
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/30/%E7%A2%8E%E7%A2%8E%E5%BF%B5%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8C%81%E4%B8%93%E6%B3%A8/" rel="prev" title="碎碎念：如何保持专注">
+                碎碎念：如何保持专注 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/me2.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heatao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:heatao59@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HEATAO</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/public/public/live2dw/public/public/live2dw/public/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"public/public/live2dw/","pluginJsPath":"public/public/live2dw/public/lib/","pluginModelPath":"node_modules/live2d-widget-model-shizuku/assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/public/public/live2dw/node_modules/live2d-widget-model-shizuku/assets/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":315,"hOffset":198,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
